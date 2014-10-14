@@ -1,5 +1,25 @@
 <html>
+<head>
+<style type="text/css">
+  #container {
+    max-width: 400px;
+    height: 400px;
+    margin: auto;
+  }
+</style>
+</head>
 <body>
-Hello github!!
+<p>Hello World</p>
+<div id="container"></div>
+<script src="sigma.min.js"></script>
+<script src="plugins/sigma.parsers.gexf.min.js"></script>
+<script>
+  sigma.parsers.gexf('les-miserables.gexf', {
+    container: 'container',
+    settings: {
+      defaultNodeColor: '#ec5148'
+    }
+  });
+</script>
 </body>
 </html>
