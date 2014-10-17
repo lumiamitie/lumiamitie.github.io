@@ -39,7 +39,12 @@
       s.graph.edges().forEach(function(e) {
         e.originalColor = e.color;
       });
-
+      
+      
+      s.settings({
+        defaultLabelSize : 30
+        
+      })
       // When a node is clicked, we check for each node
       // if it is a neighbor of the clicked one. If not,
       // we set its color as grey, and else, it takes its
