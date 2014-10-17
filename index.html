@@ -15,6 +15,7 @@
 <script src="sigma.min.js"></script>
 <script src="plugins/sigma.parsers.gexf.min.js"></script>
 <script src="plugins/sigma.layout.forceAtlas2.min.js"></script>
+<script src="plugins/sigma.plugins.dragNodes.min.js"></script>
 <script>
  sigma.classes.graph.addMethod('neighbors', function(nodeId) {
     var k,
@@ -95,6 +96,21 @@
       });
     }
     );
+    
+var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+
+dragListener.bind('startdrag', function(event) {
+  console.log(event);
+});
+dragListener.bind('drag', function(event) {
+  console.log(event);
+});
+dragListener.bind('drop', function(event) {
+  console.log(event);
+});
+dragListener.bind('dragend', function(event) {
+  console.log(event);
+});
 </script>
 </body>
 </html>
