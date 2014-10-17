@@ -28,7 +28,10 @@
   sigma.parsers.gexf('1017 bok 4 sample4.gexf', {
     container: 'container',
     settings: {
-      defaultNodeColor: '#ec5148'
+      defaultNodeColor: '#ec5148',
+        labelSize : "proportional",
+        labelSizeRatio : 4,
+        labelThreshold :1
     }
   },function(s) {
       // We first need to save the original colors of our
@@ -40,13 +43,7 @@
         e.originalColor = e.color;
       });
       
-      
-      s.settings({
-        labelSize : "proportional",
-        labelSizeRatio : 4,
-        labelThreshold :1
-        
-      })
+
       // When a node is clicked, we check for each node
       // if it is a neighbor of the clicked one. If not,
       // we set its color as grey, and else, it takes its
