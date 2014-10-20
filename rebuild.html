@@ -1,0 +1,45 @@
+
+<html>
+<head>
+<style type="text/css">
+  #container {
+    max-width: 1200px;
+    height: 800px;
+    margin: auto;
+  }
+</style>
+</head>
+<body>
+<h2>배경을 클릭하면 레이아웃조정이 멈춥니다</h2>
+<div id="container"></div>
+<script src="sigma.min.js"></script>
+<script src="plugins/sigma.parsers.gexf.min.js"></script>
+<script src="plugins/sigma.layout.forceAtlas2.min.js"></script>
+<script src="plugins/sigma.plugins.dragNodes.min.js"></script>
+<script>
+ sigma.classes.graph.addMethod('neighbors', function(nodeId) {
+    var k,
+        neighbors = {},
+        index = this.allNeighborsIndex[nodeId] || {};
+
+    for (k in index)
+      neighbors[k] = this.nodesIndex[k];
+
+    return neighbors;
+  });
+  
+  var s = sigma.parsers.gexf('1017 bok 4 sample4.gexf', {
+    container: 'container',
+    settings: {
+      defaultNodeColor: '#ec5148',
+        labelSize : "proportional",
+        labelSizeRatio : 5,
+        labelThreshold :1
+    }
+  });
+  s.refresh();
+    
+
+</script>
+</body>
+</html>
