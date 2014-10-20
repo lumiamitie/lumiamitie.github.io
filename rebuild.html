@@ -36,10 +36,8 @@
         labelSizeRatio : 5,
         labelThreshold :1
     }
-  });
-    s.refresh();
-  
-  var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+  },function(s){
+     var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
 
     dragListener.bind('startdrag', function(event) {
       console.log(event);
@@ -53,6 +51,10 @@
     dragListener.bind('dragend', function(event) {
       console.log(event);
     });
+  });
+    s.refresh();
+  
+ 
     
 
 
