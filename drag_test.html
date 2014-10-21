@@ -27,19 +27,7 @@
     return neighbors;
   });
   
-    var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
-  dragListener.bind('startdrag', function(event) {
-    console.log(event);
-  });
-  dragListener.bind('drag', function(event) {
-    console.log(event);
-  });
-  dragListener.bind('drop', function(event) {
-    console.log(event);
-  });
-  dragListener.bind('dragend', function(event) {
-    console.log(event);
-  });
+
   
   sigma.parsers.gexf('1017 bok 4 sample4.gexf', {
     container: 'container',
@@ -58,9 +46,24 @@
       s.graph.edges().forEach(function(e) {
         e.originalColor = e.color;
       });
-    
       
       s.startForceAtlas2({worker: true});
+      
+     var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+  dragListener.bind('startdrag', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('drag', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('drop', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('dragend', function(event) {
+    console.log(event);
+  });   
+      
+      
       
       // When a node is clicked, we check for each node
       // if it is a neighbor of the clicked one. If not,
