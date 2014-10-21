@@ -44,7 +44,7 @@
       s.graph.edges().forEach(function(e) {
         e.originalColor = e.color;
       });
-      
+      s.refresh();
       var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
       dragListener.bind('startdrag', function(event) {
         console.log(event);
@@ -60,7 +60,7 @@
       });
       
       s.startForceAtlas2({worker: true});
-      s.refresh();
+      
       // When a node is clicked, we check for each node
       // if it is a neighbor of the clicked one. If not,
       // we set its color as grey, and else, it takes its
