@@ -44,7 +44,7 @@
       s.graph.edges().forEach(function(e) {
         e.originalColor = e.color;
       });
-      s.refresh();
+      
       var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
       dragListener.bind('startdrag', function(event) {
         console.log(event);
