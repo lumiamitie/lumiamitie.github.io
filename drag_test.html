@@ -27,6 +27,20 @@
     return neighbors;
   });
   
+    var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
+  dragListener.bind('startdrag', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('drag', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('drop', function(event) {
+    console.log(event);
+  });
+  dragListener.bind('dragend', function(event) {
+    console.log(event);
+  });
+  
   sigma.parsers.gexf('1017 bok 4 sample4.gexf', {
     container: 'container',
     settings: {
@@ -44,20 +58,7 @@
       s.graph.edges().forEach(function(e) {
         e.originalColor = e.color;
       });
-      
-      var dragListener = sigma.plugins.dragNodes(s, s.renderers[0]);
-      dragListener.bind('startdrag', function(event) {
-        console.log(event);
-      });
-      dragListener.bind('drag', function(event) {
-        console.log(event);
-      });
-      dragListener.bind('drop', function(event) {
-        console.log(event);
-      });
-      dragListener.bind('dragend', function(event) {
-        console.log(event);
-      });
+    
       
       s.startForceAtlas2({worker: true});
       
