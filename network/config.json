@@ -39,7 +39,7 @@
       "defaultEdgeType": "curve",
       "defaultLabelColor": "#000",
       "defaultLabelHoverColor": "#fff",
-      "labelSizeRatio" : 5,
+      "defaultLabelSize" : 20,
       "activeFontStyle": "bold",
       "fontStyle": "bold",
       "defaultHoverLabelBGColor": "#002147",
