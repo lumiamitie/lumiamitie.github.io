@@ -29,17 +29,17 @@
   "sigma": {
     "graphProperties": {
       "minEdgeSize": 0.2,
-      "maxNodeSize": 7,
+      "maxNodeSize": 20,
       "maxEdgeSize": 0.5,
-      "minNodeSize": 1
+      "minNodeSize": 7
     },
     "drawingProperties": {
-      "labelThreshold": 10,
+      "labelThreshold": 1,
       "hoverFontStyle": "bold",
       "defaultEdgeType": "curve",
       "defaultLabelColor": "#000",
       "defaultLabelHoverColor": "#fff",
-      "defaultLabelSize": 14,
+      "defaultLabelSize": 30,
       "activeFontStyle": "bold",
       "fontStyle": "bold",
       "defaultHoverLabelBGColor": "#002147",
