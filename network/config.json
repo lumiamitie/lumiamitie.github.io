@@ -31,9 +31,7 @@
       "minEdgeSize": 0.2,
       "maxNodeSize": 20,
       "maxEdgeSize": 0.5,
-      "minNodeSize": 7,
-      "labelSize" : "proportional",
-      "labelSizeRatio" : 5
+      "minNodeSize": 7
     },
     "drawingProperties": {
       "labelThreshold": 1,
@@ -45,7 +43,9 @@
       "activeFontStyle": "bold",
       "fontStyle": "bold",
       "defaultHoverLabelBGColor": "#002147",
-      "defaultLabelBGColor": "#ddd"
+      "defaultLabelBGColor": "#ddd",
+      "labelSize" : "proportional",
+      "labelSizeRatio" : 5
     },
     "mouseProperties": {
       "minRatio": 0.75,
