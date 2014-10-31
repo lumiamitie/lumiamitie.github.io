@@ -43,9 +43,7 @@
       "activeFontStyle": "bold",
       "fontStyle": "bold",
       "defaultHoverLabelBGColor": "#002147",
-      "defaultLabelBGColor": "#ddd",
-      "labelSize" : "proportional",
-      "labelSizeRatio" : 5
+      "defaultLabelBGColor": "#ddd"
     },
     "mouseProperties": {
       "minRatio": 0.75,
