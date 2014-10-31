@@ -31,7 +31,9 @@
       "minEdgeSize": 0.2,
       "maxNodeSize": 20,
       "maxEdgeSize": 0.5,
-      "minNodeSize": 7
+      "minNodeSize": 7,
+      "labelSize" : "proportional",
+      "labelSizeRatio" : 5
     },
     "drawingProperties": {
       "labelThreshold": 1,
