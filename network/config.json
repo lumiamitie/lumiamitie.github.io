@@ -40,7 +40,6 @@
       "defaultLabelColor": "#000",
       "defaultLabelHoverColor": "#fff",
       "labelSize" : "proportional",
-      "defaultLabelSize": 30,
       "labelSizeRatio" : 5,
       "activeFontStyle": "bold",
       "fontStyle": "bold",
