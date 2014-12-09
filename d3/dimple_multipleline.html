@@ -1,0 +1,18 @@
+<div id="chartContainer">
+  <script src="js/d3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.0.min.js"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    d3.csv("data/mainkeywd_Sample_tidy.csv", function (data) {
+      data = dimple.filterData(data, "keyword", ["변전소", "송전탑","한국전력"])
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 505, 305);
+      var x = myChart.addCategoryAxis("x", "Month");
+      x.addOrderRule("Date");
+      myChart.addMeasureAxis("y", "Unit Sales");
+      myChart.addSeries("Channel", dimple.plot.line);
+      myChart.addLegend(60, 10, 500, 20, "right");
+      myChart.draw();
+    });
+  </script>
+</div>
