@@ -52,7 +52,7 @@ var yAxis = d3.svg.axis()
     .orient("left");
 
 var line = d3.svg.line()
-    //.interpolate("basis")
+    //.interpolate("basis") // 이 부분이 활성화되면 선이 곡선으로 변경됨
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.count); });
 
