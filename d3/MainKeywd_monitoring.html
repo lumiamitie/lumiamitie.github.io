@@ -53,7 +53,7 @@ var yAxis = d3.svg.axis()
 var line = d3.svg.line()
     .interpolate("basis")
     .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.temperature); });
+    .y(function(d) { return y(d.count); });
 
 var svg = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
