@@ -4,7 +4,7 @@
   <script type="text/javascript">
     var svg = dimple.newSvg("#chartContainer", 590, 400);
     d3.csv("data/mainkeywd_Sample_tidy.csv", function (data) {
-      data = dimple.filterData(data, "keyword", ["변전소", "송전탑","한국전력"])
+      //data = dimple.filterData(data, "keyword", ["변전소", "송전탑","한국전력"])
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(60, 30, 505, 305);
       var x = myChart.addCategoryAxis("x", "Date");
