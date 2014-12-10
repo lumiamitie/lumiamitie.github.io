@@ -57,8 +57,8 @@ var svg = d3.select("body").append("svg")
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
-  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
+d3.json("data/mainkeywd_Sample.json", function(error, data) {
+  color.domain(d3.keys(data));
   data.forEach(function(d) {
     d.date = parseDate(d.date);
   });
