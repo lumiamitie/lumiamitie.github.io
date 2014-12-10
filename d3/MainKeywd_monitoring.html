@@ -136,7 +136,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
   for(i=0; i < keywordToClick.length;i++){
   d3.select(".keyword_" + keywordToClick[i])
   .select("text")
-  .on("click",function(d){console.log("a");});
+  .on("click",function(d){console.log(keywordToClick[i]);});
   }
 });
 
