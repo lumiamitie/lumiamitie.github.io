@@ -114,8 +114,9 @@ console.log(keywords[0].name);
   var keyword = svg.selectAll(".keyword")
       .data(keywords)
     .enter().append("g")
-      .attr("class", "keyword");
-
+    //  .attr("class", "keyword");
+      .attr("class", function(d, i){ return "keyword_" + d[i].name});
+      
   keyword.append("path")
       .attr("class", "line")
       .attr("d", function(d) { return line(d.values); })
