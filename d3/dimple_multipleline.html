@@ -7,9 +7,9 @@
       //data = dimple.filterData(data, "keyword", ["변전소", "송전탑","한국전력"])
       var myChart = new dimple.chart(svg, data);
       myChart.setBounds(60, 30, 505, 305);
-      var x = myChart.addCategoryAxis("x", "Date");
+      var x = myChart.addCategoryAxis("x", "date");
       x.addOrderRule("date");
-      myChart.addMeasureAxis("y", "Count");
+      myChart.addMeasureAxis("y", "count");
       myChart.addSeries("keyword", dimple.plot.line);
       myChart.addLegend(60, 10, 500, 20, "right");
       myChart.draw();
