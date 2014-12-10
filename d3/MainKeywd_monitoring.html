@@ -91,7 +91,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       })
     };
   });
-  //console.log(keywords[0].name);
+  console.log(keywords);
   x.domain(d3.extent(data, function(d) { return d.date; }));
 
   y.domain([
@@ -141,6 +141,34 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
         
       })
       ;
+      
+  var legend = svg.append("g")
+	  .attr("class", "legend")
+	  .attr("x", width/3)
+	  .attr("y", 25)
+	  .attr("height", 100)
+	  .attr("width", 100);    
+	
+	legend.selectAll('g').data(keywords)
+      .enter()
+      .append('g')
+      .each(function(d, i) {
+    var g = d3.select(this);
+        g.append("rect")
+          .attr("x", w/3 + i*50 -12)
+          .attr("y", h-18)
+          .attr("width", 10)
+          .attr("height", 10)
+          .style("fill", "steelblue");
+        
+        g.append("text")
+          .attr("x", w/3 + i*50)
+          .attr("y", h-10)
+          .attr("height",30)
+          .attr("width",100)
+          .style("fill", "black")
+          .text(function(){return d.name});
+    });
   
 });
 
