@@ -139,10 +139,10 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
   .select("text")
   .on("click",function(d){
     console.log(keywordToClick[i]);
-    if (d3.select(".line_"+keywordToClick[i]).style('display') === "inline" ){
-      d3.select(".line_"+keywordToClick[i]).style('display','none');
+    if (d3.select("#line_"+keywordToClick[i]).style('display') === "inline" ){
+      d3.select("#line_"+keywordToClick[i]).style('display','none');
     } else{
-      d3.select(".line_"+keywordToClick[i]).style('display','inline');
+      d3.select("#line_"+keywordToClick[i]).style('display','inline');
     }
     
   });
