@@ -137,7 +137,15 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
   for(i=0; i < keywordToClick.length;i++){
   d3.select(".keyword_" + keywordToClick[i])
   .select("text")
-  .on("click",function(d){console.log(keywordToClick[i]);});
+  .on("click",function(d){
+    console.log(keywordToClick[i]);
+    if (d3.select(".line_"+keywordToClick[i]).style('display') === "inline" ){
+      d3.select(".line_"+keywordToClick[i]).style('display','none');
+    } else{
+      d3.select(".line_"+keywordToClick[i]).style('display','inline');
+    }
+    
+  });
   }
 });
 
