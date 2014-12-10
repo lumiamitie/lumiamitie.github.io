@@ -60,7 +60,7 @@ var svg = d3.select("body").append("svg")
 d3.json("data/mainkeywd_Sample.json", function(error, data) {
   color.domain(d3.keys(data));
   data.forEach(function(d) {
-    d.date = parseDate(d.date);
+    d.date = parseDate(d.date); //d.date가 없어서 불가
   });
   var keywords = color.domain().map(function(name) {
     return {
