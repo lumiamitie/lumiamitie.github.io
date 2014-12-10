@@ -129,6 +129,14 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .attr("x", 3)
       .attr("dy", ".35em")
       .text(function(d) { return d.name; })
+      .on("click", function(d){
+        if (d3.select("#line_" + d.name).style("display") == "inline"){
+          d3.select("#line_" + d.name).style('display','none');
+        } else {
+           d3.select("#line_" + d.name).style('display','inline');
+        }
+        
+      })
       ;
   
   //특정 항목 show/hide
