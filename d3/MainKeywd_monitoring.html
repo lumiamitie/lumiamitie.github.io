@@ -129,9 +129,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .attr("x", 3)
       .attr("dy", ".35em")
       .text(function(d) { return d.name; })
-      .on("click", function(){
-        var show = line
-      });
+      ;
   
   //특정 항목 show/hide
   //d3.select(".keyword_변전소").select(".line").style("display","none")
@@ -142,7 +140,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
   .select("text")
   .on("click",function(d){
     console.log(keywordToClick[i]);
-    if (d3.select("#line_"+keywordToClick[i]).style('display') === "inline" ){
+    if (d3.select("#line_"+keywordToClick[i]).style('display') == "inline" ){
       d3.select("#line_"+keywordToClick[i]).style('display','none');
     } else{
       d3.select("#line_"+keywordToClick[i]).style('display','inline');
