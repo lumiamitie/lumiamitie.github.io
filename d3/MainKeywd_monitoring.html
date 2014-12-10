@@ -135,8 +135,10 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .on("click", function(d){
         if (d3.select("#line_" + d.name).style("display") == "inline"){
           d3.select("#line_" + d.name).style('display','none');
+          this.style("opacity",0.3);
         } else {
            d3.select("#line_" + d.name).style('display','inline');
+           this.style("opacity",1);
         }
         
       })
