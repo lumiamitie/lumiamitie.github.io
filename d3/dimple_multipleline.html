@@ -16,9 +16,9 @@
       myChart.setBounds(60, 30, 505, 305);
       var x = myChart.addCategoryAxis("x", "date");
       x.addOrderRule("date");
-      myChart.addMeasureAxis("y", "count");
+      var y = myChart.addMeasureAxis("y", "count");
       myChart.addSeries(["keyword"], dimple.plot.line);
-      myChart.addLegend(60, 10, 500, 20, "right");
+      myChart.addLegend(60, 10, 500, 20, "left");
       myChart.draw();
     });
   </script>
