@@ -115,7 +115,7 @@ console.log(keywords[0].name);
       .data(keywords)
     .enter().append("g")
     //  .attr("class", "keyword");
-      .attr("class", function(d, i){ console.log(d); return "keyword_" + d[i].name});
+      .attr("class", function(d, i){ console.log(d); return "keyword_" + d.name});
       
   keyword.append("path")
       .attr("class", "line")
