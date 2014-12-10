@@ -17,12 +17,8 @@
       var x = myChart.addCategoryAxis("x", "date");
       x.addOrderRule("date");
       var y = myChart.addMeasureAxis("y", "count");
-      //var y2 = myChart.addMeasureAxis(y, "변전소");
-      //var y3 = myChart.addMeasureAxis(y, "한국전력");
-      myChart.addSeries(["keyword" === "송전탑"],dimple.plot.line,[x, y]);
-      myChart.addSeries(["keyword" === "변전소"],dimple.plot.line,[x, y]);
-      myChart.addSeries("한국전력",dimple.plot.line,[x, y]);
-      //myChart.addSeries(["keyword"], dimple.plot.line);
+
+      myChart.addSeries(["keyword"], dimple.plot.line, [x, y]);
       myChart.addLegend(60, 10, 500, 20, "left");
       myChart.draw();
     });
