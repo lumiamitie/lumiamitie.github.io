@@ -118,8 +118,8 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .attr("class", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "keyword_" + d.name});
   console.log(keywordToClick)    
   keyword.append("path")
-      //.attr("class", "line")
-      .attr("class", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "line_" + d.name})
+      .attr("class", "line")
+      .attr("id", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "line_" + d.name})
       .attr("d", function(d) { return line(d.values); })
       .style("stroke", function(d) { return color(d.name); });
 
