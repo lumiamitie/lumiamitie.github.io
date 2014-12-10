@@ -1,0 +1,25 @@
+<style>
+  #chartContainer svg {
+  font-family: 'Malgun Gothic';
+  font-size: 8pt;
+}
+</style>
+
+<div id="chartContainer">
+  <script src="js/d3.min.js"></script>
+  <script src="http://dimplejs.org/dist/dimple.v2.1.0.min.js"></script>
+  <script type="text/javascript">
+    var svg = dimple.newSvg("#chartContainer", 590, 400);
+    d3.csv("data/tidy2.csv", function (data) {
+      //data = dimple.filterData(data, "keyword", ["변전소","송전탑"])
+      var myChart = new dimple.chart(svg, data);
+      myChart.setBounds(60, 30, 505, 305);
+      var x = myChart.addCategoryAxis("x", "date");
+      x.addOrderRule("date");
+      var y = myChart.addMeasureAxis("y", "count");
+      myChart.addSeries(["keyword"], dimple.plot.line);
+      myChart.addLegend(60, 10, 500, 20, "left");
+      myChart.draw();
+    });
+  </script>
+</div>
