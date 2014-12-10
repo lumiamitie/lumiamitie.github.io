@@ -88,7 +88,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       })
     };
   });
-console.log(keywords());
+console.log(keywords()[0].name);
   x.domain(d3.extent(data, function(d) { return d.date; }));
 
   y.domain([
