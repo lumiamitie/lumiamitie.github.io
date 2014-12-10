@@ -133,9 +133,11 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
   //d3.select(".keyword_변전소").select(".line").style("display","none")
   //d3.select(".keyword_변전소").select(".line").style("display","inline")
   
-  d3.select(function(d, i){ console.log(d); return ".keyword_" + d.name})
+  for(i=0; i < keywordToClick.length;i++){
+  d3.select(".keyword_" + keywordToClick[i]})
   .select("text")
   .on("click",function(d){console.log("a");})  
+  }
 });
 
 </script>
