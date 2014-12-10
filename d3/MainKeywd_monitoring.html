@@ -159,7 +159,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
           .attr("y", height-18)
           .attr("width", 10)
           .attr("height", 10)
-          .style("fill", "steelblue");
+          .style("fill", function(){return color(d.name)});
         
         g.append("text")
           .attr("x", width/3 + i*50)
