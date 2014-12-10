@@ -10,7 +10,7 @@
       var x = myChart.addCategoryAxis("x", "Date");
       x.addOrderRule("date");
       myChart.addMeasureAxis("y", "Count");
-      myChart.addSeries("count", dimple.plot.line);
+      myChart.addSeries(["변전소", "송전탑","한국전력"], dimple.plot.line);
       myChart.addLegend(60, 10, 500, 20, "right");
       myChart.draw();
     });
