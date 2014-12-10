@@ -96,7 +96,7 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
 
   y.domain([
     d3.min(keywords, function(c) { return d3.min(c.values, function(v) { return v.count; }); }),
-    d3.max(keywords, function(c) { return d3.max(c.values, function(v) { return v.count; }); })
+    d3.max(keywords, function(c) { return d3.max(c.values, function(v) { return v.count + 10; }); })
   ]);
 
   svg.append("g")
@@ -118,11 +118,11 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .data(keywords)
     .enter().append("g")
     //  .attr("class", "keyword");
-      .attr("class", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "keyword_" + d.name});
-  console.log(keywordToClick.length)    
+      .attr("class", function(d, i){ return "keyword_" + d.name});
+   
   keyword.append("path")
       .attr("class", "line")
-      .attr("id", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "line_" + d.name})
+      .attr("id", function(d, i){ return "line_" + d.name})
       .attr("d", function(d) { return line(d.values); })
       .style("stroke", function(d) { return color(d.name); });
 
