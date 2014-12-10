@@ -110,13 +110,13 @@ d3.csv("data/mainkeywd_Sample.csv", function(error, data) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("Count");
-
+  var keywordToClick = []
   var keyword = svg.selectAll(".keyword")
       .data(keywords)
     .enter().append("g")
     //  .attr("class", "keyword");
-      .attr("class", function(d, i){ console.log(d); return "keyword_" + d.name});
-      
+      .attr("class", function(d, i){ console.log(d); keywordToClick.push(d.name) ; return "keyword_" + d.name});
+  console.log(keywordToClick)    
   keyword.append("path")
       .attr("class", "line")
       .attr("d", function(d) { return line(d.values); })
