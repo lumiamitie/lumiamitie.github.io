@@ -8,7 +8,7 @@
 
 svg {
   width: 960px;
-  height: 1550px;
+  height: 550px;
   font-family: 'Malgun Gothic';
   font-size: 10px;
   shape-rendering: crispEdges;
@@ -111,7 +111,7 @@ d3.json("data/mainkeywd_channel.json", function(keyword) {
 		var g = d3.select(this);
 			g.append("rect")
 			  .attr("x", w/4 + i*80 -12)
-			  .attr("y", 52)
+			  .attr("y", 62)
 			  .attr("width", 10)
 			  .attr("height", 10)
 			  .style("fill", function(i){return z(i)})
@@ -127,7 +127,7 @@ d3.json("data/mainkeywd_channel.json", function(keyword) {
         
         g.append("text")
           .attr("x", w/4 + i*80)
-          .attr("y", 60)
+          .attr("y", 70)
           .attr("height",30)
           .attr("width",100)
           .style("fill", "black")
