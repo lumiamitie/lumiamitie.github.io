@@ -14,9 +14,7 @@ svg {
   shape-rendering: crispEdges;
   background-color: LavenderBlush;
 }
-legend g rect {
-	border: solid 1px
-}
+
 
     </style>
   </head>
@@ -50,7 +48,6 @@ d3.json("data/mainkeywd_channel.json", function(keyword) {
   // Compute the x-domain (by date) and y-domain (by top).
   x.domain(channels[0].map(function(d) { return d.x; }));
   y.domain([0, d3.max(channels[channels.length - 1], function(d) { return d.y0 + d.y; })]);
-	console.log(channels);
   // Add a group for each channel.
   var channel = svg.selectAll("g.channel")
       .data(channels)
@@ -72,7 +69,7 @@ d3.json("data/mainkeywd_channel.json", function(keyword) {
   var label = svg.selectAll("text")
       .data(x.domain())
     .enter().append("svg:text")
-      .attr("x", function(d) { console.log(x.rangeBand());return x(d) + x.rangeBand() / 2; })
+      .attr("x", function(d) { ;return x(d) + x.rangeBand() / 2; })
       .attr("y", 22)
       .attr("text-anchor", "middle")
       .attr("dy", ".71em")
