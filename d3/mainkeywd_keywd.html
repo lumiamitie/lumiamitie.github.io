@@ -81,7 +81,8 @@ d3.json("data/mainkeywd_channel.json", function(keyword) {
       .data(y.ticks(5))
     .enter().append("svg:g")
       .attr("class", "rule")
-      .attr("transform", function(d) { return "translate(0," + -y(d) + ")"; });
+      .attr("transform", function(d) { return "translate(0," + -y(d) + ")"; })
+	  .style("opacity",0.8);
 
   rule.append("svg:line")
       .attr("x2", w - p[1] - p[3])
