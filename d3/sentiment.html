@@ -29,7 +29,7 @@ var w = 960,
     z = d3.scale.ordinal().range(["#E85349", "#A4C0FF"]),
     parse = d3.time.format("%m/%Y").parse,
     format = d3.time.format("%b");
-	channel_list = ["negative", "positive"]
+	sentiment_list = ["negative", "positive"]
 
 var svg = d3.select("body").append("svg:svg")
     .attr("width", w)
@@ -43,39 +43,36 @@ var keyword = []
 		keyword = data
 	});
 	
-var channels_test = []
-var keyword_test = []
-d3.json("data/sentiment.json", function(keyword) {
+
+d3.json("data/sentiment.json", function(senti) {
 
   // Transpose the data into layers by channel.
-  var channels = d3.layout.stack()(channel_list.map(function(channel) {
-    return keyword.map(function(d) {
-      return {x: d.date, y: +d[channel]};
+  var sentiments = d3.layout.stack()(sentiment_list.map(function(sentiment) {
+    return senti.map(function(d) {
+      return {x: d.date, y: +d[sentiment]};
     });
   }));
-  keyword_test = keyword;
-  channels_test = channels;
-  console.log(channels);
+
   // Compute the x-domain (by date) and y-domain (by top).
   
   //x.domain(channels[0].map(function(d) { return d.x; }));
-  x.domain(keyword.map(function(d) {return d.date}));
+  x.domain(senti.map(function(d) {return d.date}));
   
  // y.domain([0, d3.max(channels[channels.length - 1], function(d) { return d.y0 + d.y; })]);
-  y.domain([-d3.max(keyword_test.map(function(d) {return d.negative})), 
-					d3.max(keyword_test.map(function(d) {return d.positive}))]);
+  y.domain([-d3.max(senti.map(function(d) {return d.negative})), 
+					d3.max(senti.map(function(d) {return d.positive}))]);
   
   
   // Add a group for each channel.
-  var channel = svg.selectAll("g.channel")
-      .data(channels)
+  var sentiment = svg.selectAll("g.sentiment")
+      .data(sentiments)
     .enter().append("svg:g")
-      .attr("class", function(d,i){return "channel_"+channel_list[i];})
+      .attr("class", function(d,i){return "sentiment_"+sentiment_list[i];})
      .style("fill", function(d, i) { return z(i); })
       .style("stroke", function(d, i) { return d3.rgb(z(i)).darker(); });
 
   // Add a rect for each date.
-  var rect_positive = channel.selectAll("rect")
+  var rect_positive = sentiment.selectAll("rect")
       .data(Object)
     .enter().append("svg:rect")
       .attr("x", function(d) { return x(d.x); })
@@ -83,7 +80,7 @@ d3.json("data/sentiment.json", function(keyword) {
       .attr("height", function(d) { if(d.y0 != 0){return y(d.y)-y(0)}})
       .attr("width", x.rangeBand());
 	  
-  var rect_negative = channel.selectAll("rect.neg")
+  var rect_negative = sentiment.selectAll("rect.neg")
       .data(Object)
     .enter().append("svg:rect")
       .attr("x", function(d) { return x(d.x); })
@@ -129,7 +126,7 @@ d3.json("data/sentiment.json", function(keyword) {
 	  .attr("height", 100)
 	  .attr("width", 100);    
 	
-	legend.selectAll('g').data(channel_list)
+	legend.selectAll('g').data(sentiment_list)
       .enter()
       .append('g')
       .each(function(d, i) {
@@ -141,11 +138,11 @@ d3.json("data/sentiment.json", function(keyword) {
 			  .attr("height", 10)
 			  .style("fill", function(i){return z(i)})
 			  .on("click", function(d,i){
-				if (d3.select(".channel_" + d).selectAll("rect").style("display") == "inline"){
-				  d3.select(".channel_" + d).selectAll("rect").style('display','none');
+				if (d3.select(".sentiment_" + d).selectAll("rect").style("display") == "inline"){
+				  d3.select(".sentiment_" + d).selectAll("rect").style('display','none');
 				  g.select("rect").style("opacity",0.3);
 				} else {
-				   d3.select(".channel_" + d).selectAll("rect").style('display','inline');
+				   d3.select(".sentiment_" + d).selectAll("rect").style('display','inline');
 				   g.select("rect").style("opacity",1);
 				}
 			  });
