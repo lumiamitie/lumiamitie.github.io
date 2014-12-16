@@ -14,18 +14,17 @@
     fill: none;
 }
 
+.tick text {
+	font-family: 'Malgun Gothic';
+	font-size: 8pt;
+}
 
 text.label {
-	font-family: 'Malhun Gothic';
-	font-size: 12pt;
-}
-
-g text.label {
-	font-family: 'Malhun Gothic';
-	font-size: 12pt;
+	font-family: 'Malgun Gothic';
+	font-size: 10pt;
 }
 </style>
-        <script type="text/javascript" src="http://mbostock.github.com/d3/d3.v2.js"></script>
+        <script type="text/javascript" src="js/d3.min.js"></script>
       </head>
       <body>
         <div class='content'>
@@ -41,57 +40,61 @@ g text.label {
 
  
     var chart = d3.select('body')
-	.append('svg:svg')
-	.attr('width', width + margin.right + margin.left)
-	.attr('height', height + margin.top + margin.bottom)
-	.attr('class', 'chart')
+						.append('svg:svg')
+						.attr('width', width + margin.right + margin.left)
+						.attr('height', height + margin.top + margin.bottom)
+						.attr('class', 'chart')
     var main = chart.append('g')
-	.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-	.attr('width', width)
-	.attr('height', height)
-	.attr('class', 'main')   
+							.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+							.attr('width', width)
+							.attr('height', height)
+							.attr('class', 'main')   
         
 	var color = d3.scale.category20();
 
 
 	d3.json("data/distance.json", function(data){
 		var x = d3.scale.linear()
-		  .domain([0.8 * d3.min(data, function(d) { return d.x; }), 
-					1.1 * d3.max(data, function(d) { return d.x; })])
-		  .range([ 0, width ]);
+							  .domain([0.8 * d3.min(data, function(d) { return d.x; }), 
+										1.1 * d3.max(data, function(d) { return d.x; })])
+							  .range([ 0, width ]);
 
 		var y = d3.scale.linear()
-				  .domain([0.8 * d3.min(data, function(d) { return d.y; }), 
-							1.1 *d3.max(data, function(d) { return d.y; })])
-				  .range([ height, 0 ]);
+							  .domain([0.8 * d3.min(data, function(d) { return d.y; }), 
+										1.1 *d3.max(data, function(d) { return d.y; })])
+							  .range([ height, 0 ]);
 				  
 		var z = d3.scale.linear()
-				.domain([d3.min(data, function(d) {return d.score; }), 
-						d3.max(data, function(d) {return d.score; })])
-				.range([20, 40])
+								.domain([d3.min(data, function(d) {return d.score; }), 
+										d3.max(data, function(d) {return d.score; })])
+								.range([20, 40])
 		
 		// draw the x axis					
 		var xAxis = d3.svg.axis()
-			.scale(x)
-			.orient('bottom')
-			.innerTickSize(-420)
-			.outerTickSize(0)
-			.tickPadding(10);
+							.scale(x)
+							.orient('bottom')
+							.innerTickSize(-420)
+							.outerTickSize(0)
+							.tickPadding(10);
 		main.append('g')
-			.attr('transform', 'translate(0,' + height + ')')
-			.attr('class', 'main axis date')
-			.call(xAxis);
+				.attr('transform', 'translate(0,' + height + ')')
+				.attr('class', 'main axis date')
+				.call(xAxis);
 			
 		// draw the y axis
 		var yAxis = d3.svg.axis()
-			.scale(y)
-			.orient('left')
-			.innerTickSize(-width);
+									.scale(y)
+									.orient('left')
+									.innerTickSize(-width);
 		main.append('g')
-			.attr('transform', 'translate(0,0)')
-			.attr('class', 'main axis date')
-			.call(yAxis);		
-	
+				.attr('transform', 'translate(0,0)')
+				.attr('class', 'main axis date')
+				.call(yAxis);		
+		
+		d3.selectAll(".tick")
+			.selectAll("line")
+			.style("opacity",0.1)
+		
 		var g = main.append("svg:g"); 
 		
 		g.selectAll("scatter-dots")
@@ -104,19 +107,16 @@ g text.label {
 		
 		//Label    
 		g.selectAll("text")
-		.data(data)
-		.enter()
-		.append("text")
-		.text(function(d) {return d.word;})
-		.attr("x", function(d,i) {return x(d.x);})
-		.attr("y", function(d,i) {return y(d.y);})
-		.attr("fill",'black')
-		.attr("class","label")
-		.attr("text-anchor","middle");
+			.data(data)
+			.enter()
+			.append("text")
+			.text(function(d) {return d.word;})
+			.attr("x", function(d,i) {return x(d.x);})
+			.attr("y", function(d,i) {return y(d.y);})
+			.attr("fill",'black')
+			.attr("class","label")
+			.attr("text-anchor","middle");
 		
-		//Label font size
-		//d3.selectAll("text.label")
-		//.style("font-size","16px");
 	});
         </script>
       </body>
