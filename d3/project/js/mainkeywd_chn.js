@@ -14,7 +14,7 @@ var svg = d3.select("div").append("svg:svg")
   .append("svg:g")
     .attr("transform", "translate(" + p[3] + "," + (h - p[2]) + ")");
 
-d3.json("data/mainkeywd_channel.json", function(keyword) {
+d3.json("data/mainkeywd_keywd.json", function(keyword) {
 
   // Transpose the data into layers by channel.
   var channels = d3.layout.stack()(channel_list.map(function(channel) {

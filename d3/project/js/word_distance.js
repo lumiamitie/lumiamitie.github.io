@@ -18,7 +18,7 @@ var main = chart.append('g')
 var color = d3.scale.category20();
 
 
-d3.json("data/distance.json", function(data){
+d3.json("data/word_distance.json", function(data){
 	var x = d3.scale.linear()
 						  .domain([0.8 * d3.min(data, function(d) { return d.x; }), 
 									1.1 * d3.max(data, function(d) { return d.x; })])

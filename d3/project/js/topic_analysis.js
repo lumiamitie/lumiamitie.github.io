@@ -12,7 +12,7 @@ var node_distance = d3.scale.linear()
 var link_opacity = d3.scale.linear()
 							.range([0.1, 1]);
 							
-d3.json("data/topicmodeling2.json",function(data){
+d3.json("data/topic_analysis.json",function(data){
 
 	var links = data.edge;
 	var nodes = data.node;

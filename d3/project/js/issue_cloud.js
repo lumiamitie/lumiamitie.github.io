@@ -1,7 +1,8 @@
 var node_color = d3.scale.category20();
 
-d3.json("data/topicmodeling2.json",function(data){
-	var nodes = data.node;
+d3.json("data/issue_cloud.json", function(data){
+	console.log(data);
+	var nodes = data;
 
 	var width = 1000,
 		height = 700;
