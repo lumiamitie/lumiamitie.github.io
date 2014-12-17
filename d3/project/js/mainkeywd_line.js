@@ -1,4 +1,4 @@
-var margin = {top: 20, right: 80, bottom: 60, left: 50},
+ï»¿var margin = {top: 20, right: 80, bottom: 60, left: 50},
 	width = 900 - margin.left - margin.right,
 	height = 500 - margin.top - margin.bottom;
 	
@@ -34,13 +34,13 @@ var yAxis = d3.svg.axis()
 					.tickPadding(10);
 	
 var line = d3.svg.line()
-					//.interpolate("basis") // ÀÌ ºÎºĞÀÌ È°¼ºÈ­µÇ¸é ¼±ÀÌ °î¼±À¸·Î º¯°æµÊ
+					//.interpolate("basis") // ì´ ë¶€ë¶„ì´ í™œì„±í™”ë˜ë©´ ì„ ì´ ê³¡ì„ ìœ¼ë¡œ ë³€ê²½ë¨
 					.x(function(d) { return x(d.date); })
 					.y(function(d) { return y(d.count); });
 
 	
-d3.json("data/mainkeywd_sample1.json", function(error, data) { 
-	//³¯Â¥´Â ¹®ÀÚ¿­ "20140101", °ªµéÀº ¹®ÀÚ/¼ıÀÚ °ü°è¾øÀ½
+d3.json("data/mainkeywd_line.json", function(error, data) { 
+	//ë‚ ì§œëŠ” ë¬¸ìì—´ "20140101", ê°’ë“¤ì€ ë¬¸ì/ìˆ«ì ê´€ê³„ì—†ìŒ
 	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 	  data.forEach(function(d) {
 			d.date = parseDate(d.date);
