@@ -10,7 +10,7 @@
 		.link {
 		  fill: none;
 		  stroke: #ccc;
-		  stroke-width: 1.5px;
+		  stroke-width: 4px;
 		}
 		.node circle {
 		  stroke: #fff;
@@ -35,14 +35,19 @@
 							
 		var node_color = d3.scale.category10();
 		
+		var node_distance = d3.scale.linear()
+										.range([10, 250]);
+		
+		var link_opacity = d3.scale.linear()
+									.range([0.1, 1]);
 		d3.json("data/topicmodeling2.json",function(data){
 
 			var links = data.edge;
 			var nodes = data.node;
 			test_node = nodes;
 			test_link = links;
-
-
+			
+			node_distance.domain(d3.extent(nodes, function(d){console.log(d);return d.prob}));
 			
 			var width = 1000,
 				height = 700;
@@ -51,19 +56,25 @@
 				.nodes(d3.values(nodes))
 				.links(links)
 				.size([width, height])
-				.linkDistance(60)
-				.charge(-300)
+				.linkDistance(110)
+				.friction(0.5)
+				.charge(-800)
+				.gravity(0.2)
 				.on("tick", tick)
 				.start();
 				
 			var svg = d3.select("body").append("svg")
 				.attr("width", width)
 				.attr("height", height);
-				
+			
+			link_opacity.domain(d3.extent(test_link, function(d){return d.lift}));
+			
 			var link = svg.selectAll(".link")
 				.data(force.links())
 			  .enter().append("line")
 				.attr("class", "link");
+				
+			link.style("opacity", function(d){return link_opacity(d.lift)});
 				
 			var node = svg.selectAll(".node")
 				.data(force.nodes())
