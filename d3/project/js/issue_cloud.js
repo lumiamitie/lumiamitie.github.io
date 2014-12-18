@@ -4,8 +4,8 @@ d3.json("data/issue_cloud.json", function(data){
 	console.log(data);
 	var nodes = data;
 
-	var width = 1000,
-		height = 700;
+	var width = 900,
+		height = 500;
 		
 	var force = d3.layout.force()
 		.nodes(d3.values(nodes))
