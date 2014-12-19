@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<head>
+	<link rel="stylesheet" href="js/radarchart/radar-chart.css">
+	<script src="js/d3.min.js"></script>
+	<script src="js/radarchart/radar-chart.js"></script>
+
+</head>
+<span></span>
+
+<script>
+var data = [
+  {
+    className: 'germany', // optional can be used for styling
+    axes: [
+      {axis: "strength", value: 13}, 
+      {axis: "intelligence", value: 6}, 
+      {axis: "charisma", value: 5},  
+      {axis: "dexterity", value: 9},  
+      {axis: "luck", value: 2}
+    ]
+  },
+  {
+    className: 'argentina',
+    axes: [
+      {axis: "strength", value: 6}, 
+      {axis: "intelligence", value: 7}, 
+      {axis: "charisma", value: 10},  
+      {axis: "dexterity", value: 13},  
+      {axis: "luck", value: 9}
+    ]
+  },
+  {
+     className: 'south_korea',
+    axes: [
+      {axis: "strength", value: 3}, 
+      {axis: "intelligence", value: 4}, 
+      {axis: "charisma", value: 4},  
+      {axis: "dexterity", value: 3},  
+      {axis: "luck", value: 4}
+    ]
+	}
+];
+
+</script>
+
+<script>
+var color = d3.scale.category10();
+var chart = RadarChart.chart();
+var cfg = chart.config(); // retrieve default config
+var svg = d3.select('body').append('svg')
+			  .attr('width', cfg.w + 50)
+			  .attr('height', cfg.h + 50);
+svg.append('g').classed('single', 1).datum(data).call(chart);
+
+
+for(i = 0; i < data.length; i++){
+	d3.selectAll("." + data[i].className)
+		.style("fill", color(i))
+		.style("stroke", "none")
+		.style("opacity", 0.8);
+		
+	d3.select("g." + data[i].className)
+		.selectAll("circle")
+		.style("fill", color(i))
+		.style("stroke", "none")
+		.style("opacity",1);
+}
+</script>
