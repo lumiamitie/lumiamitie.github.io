@@ -1,0 +1,17 @@
+[
+  {"axis": "strength", "name": "germany", "value": 13}, 
+  {"axis": "intelligence", "name": "germany", "value": 6}, 
+  {"axis": "charisma", "name": "germany", "value": 5},  
+  {"axis": "dexterity", "name": "germany", "value": 9},  
+  {"axis": "luck", "name": "germany", "value": 2},
+  {"axis": "strength", "name": "argentina", "value": 6}, 
+  {"axis": "intelligence", "name": "argentina", "value": 7}, 
+  {"axis": "charisma", "name": "argentina", "value": 10},  
+  {"axis": "dexterity", "name": "argentina","value": 13},  
+  {"axis": "luck", "name": "argentina", "value": 9},
+  {"axis": "strength", "name": "south_korea", "value": 3}, 
+  {"axis": "intelligence", "name": "south_korea","value": 4}, 
+  {"axis": "charisma", "name": "south_korea","value": 4},  
+  {"axis": "dexterity", "name": "south_korea","value": 3},  
+  {"axis": "luck", "name": "south_korea", "value": 4}
+]

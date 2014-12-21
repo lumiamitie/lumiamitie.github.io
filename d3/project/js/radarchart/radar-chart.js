@@ -1,3 +1,5 @@
+
+
 var RadarChart = {
   defaultConfig: {
     containerClass: 'radar-chart',
@@ -16,7 +18,7 @@ var RadarChart = {
     circles: true,
     radius: 5,
     axisJoin: function(d, i) {
-      return d.className || i;
+      return d.key || i;
     },
     transitionDuration: 300
   },
@@ -31,16 +33,16 @@ var RadarChart = {
         // allow simple notation
         data = data.map(function(datum) {
           if(datum instanceof Array) {
-            datum = {axes: datum};
+            datum = {values: datum};
           }
           return datum;
         });
 
         var maxValue = Math.max(cfg.maxValue, d3.max(data, function(d) { 
-          return d3.max(d.axes, function(o){ return o.value; });
+          return d3.max(d.values, function(o){ return o.value; });
         }));
 
-        var allAxis = data[0].axes.map(function(i, j){ return {name: i.axis, xOffset: (i.xOffset)?i.xOffset:0, yOffset: (i.yOffset)?i.yOffset:0}; });
+        var allAxis = data[0].values.map(function(i, j){ return {name: i.axis, xOffset: (i.xOffset)?i.xOffset:0, yOffset: (i.yOffset)?i.yOffset:0}; });
         var total = allAxis.length;
         var radius = cfg.factor * Math.min(cfg.w / 2, cfg.h / 2);
 
@@ -159,7 +161,7 @@ var RadarChart = {
                 var p = getVerticalPosition(i, 0.5);
                 return ((p < 0.1) ? '1em' : ((p > 0.9) ? '0' : '0.5em'));
               })
-              .text(function(d) { return d.name; })
+              .text(function(d) {return d.name; })
               .attr('x', function(d, i){ return d.xOffset+ getHorizontalPosition(i, cfg.w/2, cfg.factorLegend); })
               .attr('y', function(d, i){ return d.yOffset+ getVerticalPosition(i, cfg.h/2, cfg.factorLegend); });
           }
@@ -167,7 +169,7 @@ var RadarChart = {
 
         // content
         data.forEach(function(d){
-          d.axes.forEach(function(axis, i) {
+          d.values.forEach(function(axis, i) {
             axis.x = getHorizontalPosition(i, cfg.w/2, (parseFloat(Math.max(axis.value, 0))/maxValue)*cfg.factor);
             axis.y = getVerticalPosition(i, cfg.h/2, (parseFloat(Math.max(axis.value, 0))/maxValue)*cfg.factor);
           });
@@ -195,8 +197,8 @@ var RadarChart = {
           .each(function(d, i) {
             var classed = {'d3-exit': 0}; // if exiting element is being reused
             classed['radar-chart-serie' + i] = 1;
-            if(d.className) {
-              classed[d.className] = 1;
+            if(d.key) {
+              classed[d.key] = 1;
             }
             d3.select(this).classed(classed);
           })
@@ -206,7 +208,7 @@ var RadarChart = {
           .transition().duration(cfg.transitionDuration)
             // svg attrs with js
             .attr('points',function(d) {
-              return d.axes.map(function(p) {
+              return d.values.map(function(p) {
                 return [p.x, p.y].join(',');
               }).join(' ');
             })
@@ -228,8 +230,8 @@ var RadarChart = {
           circleGroups
             .each(function(d) {
               var classed = {'d3-exit': 0}; // if exiting element is being reused
-              if(d.className) {
-                classed[d.className] = 1;
+              if(d.key) {
+                classed[d.key] = 1;
               }
               d3.select(this).classed(classed);
             })
@@ -239,7 +241,7 @@ var RadarChart = {
               });
 
           var circle = circleGroups.selectAll('.circle').data(function(datum, i) {
-            return datum.axes.map(function(d) { return [d, i]; });
+            return datum.values.map(function(d) { return [d, i]; });
           });
 
           circle.enter().append('circle')
