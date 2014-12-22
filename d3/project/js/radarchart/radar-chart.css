@@ -58,3 +58,7 @@
 .radar-chart .d3-enter, .radar-chart .d3-exit {
   opacity: 0;
 }
+
+.legend text {
+  font-family: 'Malgun Gothic';
+}
