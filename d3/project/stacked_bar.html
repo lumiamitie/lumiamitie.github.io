@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script type="text/javascript" src="js/d3.min.js"></script>
+
+    <style type="text/css">
+		svg {
+		  font-family: 'Malgun Gothic';
+		  font-size: 14px;
+		  background-color: LavenderBlush;
+		}
+
+    </style>
+  </head>
+  <body>
+	<div class = "contents">
+		<script>
+			var width = 760,
+				height = 600;
+			
+			var x = d3.scale.linear().range([0, width/3]),
+				y = d3.scale.ordinal().rangeRoundBands([0,70]);
+			
+			//var xAxis_format = d3.format("%");
+			var yAxis = d3.svg.axis().scale(y).orient("left").tickSize(0);
+			var xAxis = d3.svg.axis()
+						.scale(x)
+						.orient("top")
+						.ticks(5)
+						.tickSize(0)
+						.tickFormat(d3.format("%"));
+			// x축은 %로 하고싶은데..
+			
+			var data = [{"keyword":"한전", "positive":5, "negative":3},
+						{"keyword":"송전탑", "positive":1,"negative":11}];
+						
+			x.domain([0, 1]);
+			y.domain(data.map(function(d){return d.keyword;}));
+			var data_sum = data.map(function(d){
+				return {"keyword": d.keyword,
+						"x0": d.positive,
+						"x1": d.negative,
+						"sum": d.positive + d.negative
+						}
+					});
+					
+			var svg = d3.select(".contents")
+						.append("svg")
+						.attr("width", width)
+						.attr("height", height);
+
+			var rect = svg.selectAll("rect")
+				.data(data_sum)
+				.enter()
+				.append("g")
+				.attr("transform", "translate(" + [width-300, 100]+ ")")
+				
+			rect.append("rect")
+				.attr("width", function(d){return x(d.x0/d.sum);})
+				.attr("height", function(d){return 30;})
+				.attr("x",0)
+				.attr("y", function(d){return y(d.keyword)})
+				.attr("class", "bar pos")
+				.style("fill","steelblue");	
+			
+			rect.append("rect")
+				.attr("width", function(d){return x(d.x1/d.sum);})
+				.attr("height", function(d){return 30;})
+				.attr("x",function(d){return x(d.x0/d.sum);})
+				.attr("y", function(d){return y(d.keyword)})
+				.attr("class", "bar neg")
+				.style("fill","IndianRed");
+
+			svg.append("g")
+				.attr("class","y axis")
+				.attr("transform", "translate(" + [width -300, 100]+ ")")
+				.call(yAxis);
+				
+			svg.append("g")
+				.attr("class","x axis")
+				.attr("transform", "translate(" + [width -300, 100]+ ")")
+				.call(xAxis);			
+			
+		</script>
+	</div>
+  </body>
+</html>
