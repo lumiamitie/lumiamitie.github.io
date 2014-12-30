@@ -112,7 +112,9 @@
 		inner_g.append("path")
 			.attr("d",inner_arc)
 			.style("fill", function(d, i){
-				return color(d.data.channel)
+				return d3.rgb(color(d.data.channel))
+							.brighter(1/3)
+							.toString();
 				});
 		
 		inner_g.append("text")
