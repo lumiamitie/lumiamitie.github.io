@@ -1,5 +1,5 @@
 var width = 760,
-	height = 1000,
+	height = 800,
 	radius = 200;
 
 var color = d3.scale.category10();
@@ -65,7 +65,7 @@ var svg = //d3.select(".contents").append("svg")
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
-			.attr("transform", "translate("+[width/2, height-radius-50]+")")
+			.attr("transform", "translate("+[width/2, height-radius-40]+")")
 			.attr("class","pie")
 			;
 var outer_g = svg.selectAll(".outer")

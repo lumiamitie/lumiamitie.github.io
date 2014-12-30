@@ -1,6 +1,6 @@
 ﻿var margin = {top: 20, right: 80, bottom: 60, left: 50},
 	width = 760 - margin.left - margin.right,
-	height = 1000 - margin.top - margin.bottom;
+	height = 800 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y%m%d").parse;
 
@@ -100,8 +100,8 @@ d3.json("data/mainkeywd_line_new.json", function(error, data) {
 		  .each(function(d, i) {
 				var g = d3.select(this);
 					g.append("rect")
-					  .attr("x", i*100)
-					  .attr("y", height/3 + 41)
+					  .attr("x", i*120)
+					  .attr("y", height/3 + 31)
 					  .attr("width", 10)
 					  .attr("height", 10)
 					  .style("fill", function(){
@@ -122,8 +122,8 @@ d3.json("data/mainkeywd_line_new.json", function(error, data) {
 				  });
 					
 					g.append("text")
-					  .attr("x", (i) * 100 + 15)
-					  .attr("y", height/3 + 50)
+					  .attr("x", (i) * 120 + 15)
+					  .attr("y", height/3 + 40)
 					  .attr("height", 30)
 					  .attr("width", 100)
 					  .style("fill", "black")
