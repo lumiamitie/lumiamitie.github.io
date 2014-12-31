@@ -45,7 +45,7 @@ d3.json("data/influencer_original.json",function(data){
 		.attr("width", width)
 		.attr("height", height);
 	
-	link_opacity.domain(d3.extent(test_link, function(d){return d.lift}));
+	link_opacity.domain(d3.extent(links, function(d){return d.lift}));
 	
 	var link = svg.selectAll(".link")
 		.data(force.links())
