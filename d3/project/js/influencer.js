@@ -10,7 +10,7 @@ var link_opacity = d3.scale.linear()
 							.range([0.1, 1]);
 
 							
-d3.json("data/influencer_original.json",function(data){
+d3.json("data/influencer.json",function(data){
 
 	var nodes = data.influencer;
 	node_channel = {"name":data.channel,
