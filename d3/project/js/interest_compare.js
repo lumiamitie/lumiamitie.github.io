@@ -1,8 +1,9 @@
-d3.json("data/interest_compare.json", function(raw_data){
+ï»¿d3.json("data/interest_compare.json", function(raw_data){
 	var daily_nest = d3.nest()
 						.key(function(d){return d.keyword})
 						.key(function(d){return d.axis})
 						.entries(raw_data.daily);
+						
 	var daily_keyword = daily_nest.map(function(d){
 							return d.values.map(function(e){
 								return {"name":e.values.map(function(f){
@@ -15,12 +16,13 @@ d3.json("data/interest_compare.json", function(raw_data){
 								}
 							})
 						});
+						
 	var fallwidth_scale = d3.scale.linear()
 						.range([0,10])
 						.domain([0,
 								d3.max(raw_data.daily
 									.filter(function(d){
-										return d.axis ==="º¯È­Æø";
+										return d.axis ==="ë³€í™”í­";
 										})
 									.map(function(d){
 										return d.value;
@@ -32,7 +34,7 @@ d3.json("data/interest_compare.json", function(raw_data){
 					.domain([0,
 							d3.max(raw_data.daily
 								.filter(function(d){
-									return d.axis ==="Æò±Õºóµµ";
+									return d.axis ==="í‰ê· ë¹ˆë„";
 									})
 								.map(function(d){
 									return d.value;
@@ -45,7 +47,7 @@ d3.json("data/interest_compare.json", function(raw_data){
 						.domain([0,1,
 							d3.max(raw_data.daily
 								.filter(function(d){
-									return d.axis ==="º¯È­À²";
+									return d.axis ==="ë³€í™”ìœ¨";
 									})
 								.map(function(d){
 									return d.value;
@@ -60,11 +62,11 @@ d3.json("data/interest_compare.json", function(raw_data){
 										})[0],
 									"axis":e.key,
 									"value":d3.mean(e.values.map(function(f){
-										if (e.key === "º¯È­Æø"){
+										if (e.key === "ë³€í™”í­"){
 											return fallwidth_scale(f.value);
-										} else if(e.key === "Æò±Õºóµµ"){
+										} else if(e.key === "í‰ê· ë¹ˆë„"){
 											return count_scale(f.value);
-										} else if(e.key === "º¯È­À²"){
+										} else if(e.key === "ë³€í™”ìœ¨"){
 											return ratio_scale(f.value);
 										} else {
 											return f.value;
