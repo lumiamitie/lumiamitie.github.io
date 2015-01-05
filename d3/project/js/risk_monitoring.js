@@ -46,20 +46,12 @@ var test_k=[];
 var test_data = [];
 d3.json("data/mainkeywd_line_new.json", function(error, data) { 
 console.log(data);
-	//날짜는 문자열 "20140101", 값들은 문자/숫자 관계없음
 	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 	  
 	  data.forEach(function(d) {
 			d.date = parseDate(d.date);
 	  });
-/* 	  var keywords = color.domain().map(function(name) {
-		return {
-		  name: name,
-		  values: data.map(function(d) {
-			return {date: d.date, count: +d[name]};
-		  })
-		};
-	  }); */
+
 test_k = data;
 	  
 	  keywords = d3.nest().key(function(d){return d.key}).entries(data)
@@ -77,12 +69,6 @@ test_data = keywords;
 	  svg.append("g")
 			  .attr("class", "y axis")
 			  .call(yAxis)
-/* 			.append("text")
-			  .attr("transform", "rotate(-90)")
-			  .attr("y", 6)
-			  .attr("dy", ".71em")
-			  .style("text-anchor", "end")
-			  .text("Count"); */
 
 	  var keyword = svg.selectAll(".keyword")
 								.data(keywords)
@@ -96,18 +82,6 @@ test_data = keywords;
 					  .attr("d", function(d) { return line(d.values); })
 					  .style("fill", "none")
 					  .style("stroke", function(d) { return color(d.key); });
-	var tip = svg.append("g").attr("class","tips");
-
-	tip.selectAll(".tips")
-		.data(data)
-		.enter()
-		.append("circle")
-		.attr("cx",function(d){return x(d.date)})
-		.attr("cy", function(d){return y(d.count)})
-		.attr("r",2)
-		.style("fill","white")
-		.attr("stroke","#ccc")
-		.attr("class", function(d){return "tip_"+d.key;});	 
 		  
 	  var legend = svg.append("g")
 		  .attr("class", "legend")
@@ -157,5 +131,38 @@ test_data = keywords;
 								return d.key;
 						});
 			});
+			
+	var tooltip = d3.select("div").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
+	var tip = svg.append("g")
+					.attr("class","tips")
+					;
+
+	tip.selectAll(".tips")
+		.data(data)
+		.enter()
+		.append("circle")
+		.attr("cx",function(d){return x(d.date)})
+		.attr("cy", function(d){return y(d.count)})
+		.attr("r",2)
+		.style("fill","white")
+		.attr("stroke","#ccc")
+		.attr("class", function(d){return "tip_"+d.key;})
+			.on("mouseover", function(d){
+				tooltip.transition()
+						.duration(200)
+						.style("opacity", 0.9);
+				tooltip.html(d.key+"<br/>"+returnDate(d.date)+ "<br/>"+d.count)
+						.style("left", (d3.event.pageX) + "px")
+						.style("top", (d3.event.pageY - 28) + "px");			
+			})
+			.on("mouseout", function(d){
+				tooltip.transition()
+						.duration(500)
+						.style("opacity", 0);
+			});
+
 	  
 });
