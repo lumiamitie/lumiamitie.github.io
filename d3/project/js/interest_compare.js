@@ -16,7 +16,7 @@
 								}
 							})
 						});
-						
+test_data = raw_data;
 	var fallwidth_scale = d3.scale.linear()
 						.range([0,10])
 						.domain([0,
@@ -83,7 +83,6 @@
 	var width = cfg.w +380,
 		height = cfg.h +50;	
 	
-	var rangeband = 26 * raw_data.sentiment.length;
 	var svg = d3.select('body').append('svg')
 				  .attr('width', width)
 				  .attr('height', height);
@@ -124,7 +123,19 @@
 			.attr("width", 10)
 			.attr("height", 10)
 			.attr("fill", function(d, i){return cfg.color(i)});
-			
+	var data_sentiment_tidy = d3.nest()
+							.key(function(d){return d.keyword;})
+							.entries(raw_data.sentiment)
+							
+	var data_sentiment = data_sentiment_tidy.map(function(d){
+								return {
+									"keyword":d.key,
+									"positive":d.values.filter(function(e){return e.sentiment ==="positive"})[0].value,
+									"negative":d.values.filter(function(e){return e.sentiment ==="negative"})[0].value,
+									"neutral":d.values.filter(function(e){return e.sentiment ==="neutral"})[0].value
+									}
+								});
+	var rangeband = 35 * data_sentiment_tidy.length;						
 	var x = d3.scale.linear().range([0, width/4]),
 		y = d3.scale.ordinal().rangeRoundBands([0,rangeband]);
 	
@@ -136,22 +147,23 @@
 				.tickSize(0)
 				.tickFormat(d3.format("%"));
 	
-	var data_sentiment = raw_data.sentiment;
 
 	x.domain([0, 1]);
 	y.domain(data_sentiment.map(function(d){return d.keyword;}));
 
 	var data_sum = data_sentiment.map(function(d){
-		if (d.positive + d.negative > 0){
+		if (d.positive + d.negative + d.neutral > 0){
 			return {"keyword": d.keyword,
 					"x0": d.positive,
 					"x1": d.negative,
-					"sum": d.positive + d.negative
+					"x2": d.neutral,
+					"sum": d.positive + d.negative + d.neutral
 					}
 		} else {
 			return {"keyword": d.keyword,
 				"x0": 1,
 				"x1": 1,
+				"x2": 1,
 				"sum": 2
 				}
 		}
@@ -184,6 +196,14 @@
 		.attr("y", function(d){return y(d.keyword)})
 		.attr("class", "bar neg")
 		.style("fill","IndianRed");
+
+	rect.append("rect")
+		.attr("width", function(d){return x(d.x2/d.sum);})
+		.attr("height", function(d){return 25;})
+		.attr("x",function(d){return x((d.x0 + d.x1)/d.sum);})
+		.attr("y", function(d){return y(d.keyword)})
+		.attr("class", "bar neu")
+		.style("fill","SandyBrown");
 
 	svg.append("g")
 		.attr("class","y axis")
