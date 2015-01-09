@@ -1,9 +1,6 @@
 var width = 700,
     height = 400,
     p = [20, 50, 30, 20],
-//    x = d3.scale.ordinal().rangeRoundBands([0, width - p[1] - p[3]]),
- //   y = d3.scale.linear().range([0, height - p[0] - p[2]]),
-//    z = d3.scale.ordinal().range(["#FF9480", "#E85349", "#FFEFA3","#00A178","#50B2B3","#A4C0FF"]),
 	z = d3.scale.ordinal()
 		.range(["#084594", "#2171b5", "#4292c6","#6baed6","#9ecae1","#c6dbef"]),
     parseDate = d3.time.format("%Y%m%d").parse,
@@ -11,8 +8,8 @@ var width = 700,
 	channel_list = ["news", "blog", "community", "voc", "twitter", "reply"],
 	start_point = [p[1], height - 80];
 
-var x = d3.time.scale()
-			.range([p[1], width - p[1] - p[3]]),
+var x = d3.scale.ordinal()
+			.rangeRoundBands([p[1], width - p[1] - p[3]]),
 	y = d3.scale.linear().range([start_point[1] - p[0], 0]);
 	
 var stack = d3.layout.stack()
@@ -20,18 +17,12 @@ var stack = d3.layout.stack()
 
 var svg = d3.select("div").append("svg")
     .attr("width", width)
-    .attr("height", height)
-//  .append("g")
-//    .attr("transform", "translate(" + p[3] + "," + (height - p[2]) + ")")
-	;
+    .attr("height", height);
 	
 var xAxis = d3.svg.axis()
 				.scale(x)
 				.orient("bottom")
-//					.innerTickSize(-height)
 				.outerTickSize(0)
-//				.ticks(d3.time.day, 8)
-				.tickFormat(returnDate)
 				.tickPadding(5);
 					
 var yAxis = d3.svg.axis()
@@ -44,7 +35,7 @@ var yAxis = d3.svg.axis()
 				
 var test_k = [], test_orign = [];
 	
-d3.json("data/mainkeywd_chn_2day.json", function(keyword) {
+d3.json("data/mainkeywd_chn_month.json", function(keyword) {
 test_orign = keyword;
   // Transpose the data into layers by channel.
 	var keywords = d3.nest()
@@ -58,28 +49,20 @@ test_orign = keyword;
 			})
 		);
 test_k = channels;
-	if (channels[0].length < 8){
-		xAxis.ticks(channels[0].length)
+	if (channels[0].length > 20){
+		xAxis.tickFormat(function(d, i){
+					return i % 5 !== 0 ? null : d;
+					});
 	}else {
-		xAxis.ticks(d3.time.day, 8)
+		xAxis.ticks(5)
 	}
-//  x.domain(d3.extent(channels[0].map(function(d) { return d.x; })))
-	x.domain([d3.min(channels[0].map(function(d) { return d.x; })),
-			d3.time.day.offset(
-				d3.max(channels[0].map(function(d) { return d.x; })),1)
-			]);
-  y.domain([0, d3.max(channels[channels.length - 1], function(d) { 
+
+	x.domain(channels[0].map(function(d) { return returnDate(d.x); }))
+	y.domain([0, d3.max(channels[channels.length - 1], function(d) { 
 					return d.y0 + d.y; 
 				})
 			]);
   
-	if(channels[0].length > 1){
-			var bar_width = (x(channels[0][1].x) - x(channels[0][0].x) - 2) ;
-			} else {
-			var bar_width = 100
-			};
-			
-	console.log(bar_width)	
 	var channel = svg.append("g")
 					 .attr("class", "bar");
 	svg.append("g")
@@ -102,12 +85,12 @@ test_k = channels;
 	var rect = channel.selectAll("g")
       .data(d3.merge(channels))
     .enter().append("rect")
-      .attr("x", function(d) { return x(d.x); })
+      .attr("x", function(d) { return x(returnDate(d.x)); })
  //     .attr("y", function(d) { return y(d.y0) - y(d.y); })
  //     .attr("height", function(d) { return y(d.y); })
 	    .attr("y", function(d) { return y(d.y + d.y0); })
 		.attr("height", function(d) { return y(d.y0) - y(d.y+d.y0); })
-		.attr("width", bar_width)
+		.attr("width", x.rangeBand()-2)
 	    .attr("class", function(d){ return "bar_" + d.chnl; })
 	    .attr("transform", 
 			"translate(0," + (start_point[1]-y(0))+")"
