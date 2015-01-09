@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Stacked Bar chart for MainKeyword Monitoring</title>
+    <script type="text/javascript" src="js/d3.min.js"></script>
+
+    <style type="text/css">
+		svg {
+		  font-family: 'Malgun Gothic';
+		  font-size: 10px;
+		  shape-rendering: crispEdges;
+		  background-color: LavenderBlush;
+		}
+		.x path {
+		  fill: none;
+		  stroke: #ccc;
+		  stroke-width: 2px;
+		  z-index:1;
+		}
+		.tick line {
+		  fill: none;
+		  stroke: #ccc;
+		  stroke-width: 1px;
+		  z-index:-1;
+		  opacity:0.3;
+		}
+		.tooltip {
+			position: absolute;
+			text-align: center;
+			width: 60px;
+			height: 40px;
+			padding: 2px;
+			background: lightsteelblue;
+			border: 0px;
+			border-radius: 8px;
+			pointer-events: none;
+		    font-family: 'Malgun Gothic';
+		    font-size: 10px;
+		}
+    </style>
+  </head>
+  <body>
+		<div class = "contents">
+				<script src="js/mainkeywd_chn_mod02.js"></script>
+		</div>
+  </body>
+</html>
