@@ -33,10 +33,8 @@ var yAxis = d3.svg.axis()
 				.outerTickSize(0)
 				.tickPadding(10);
 				
-var test_k = [], test_orign = [];
-	
+
 d3.json("data/mainkeywd_chn_month.json", function(keyword) {
-test_orign = keyword;
   // Transpose the data into layers by channel.
 	var keywords = d3.nest()
 				.key(function(d){return d.channel;})
@@ -48,7 +46,7 @@ test_orign = keyword;
 				})
 			})
 		);
-test_k = channels;
+
 	if (channels[0].length > 20){
 		xAxis.tickFormat(function(d, i){
 					return i % 5 !== 0 ? null : d;
