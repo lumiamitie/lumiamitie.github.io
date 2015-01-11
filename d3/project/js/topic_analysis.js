@@ -1,6 +1,3 @@
-var test_node = []
-var test_link = []
-
 var node_size = d3.scale.linear()
 					.range([6,18]);
 					
@@ -16,21 +13,19 @@ d3.json("data/topic_analysis.json",function(data){
 
 	var links = data.edge;
 	var nodes = data.node;
-	test_node = nodes;
-	test_link = links;
 	
-	node_distance.domain(d3.extent(nodes, function(d){console.log(d);return d.prob}));
+	node_distance.domain(d3.extent(nodes, function(d){return d.prob}));
 	
-	var width = 1000,
-		height = 700;
+	var width = 740,
+		height = 370;
 		
 	var force = d3.layout.force()
 		.nodes(d3.values(nodes))
 		.links(links)
 		.size([width, height])
-		.linkDistance(110)
+		.linkDistance(100)
 		.friction(0.5)
-		.charge(-800)
+		.charge(-500)
 		.gravity(0.2)
 		.on("tick", tick)
 		.start();
@@ -39,7 +34,7 @@ d3.json("data/topic_analysis.json",function(data){
 		.attr("width", width)
 		.attr("height", height);
 	
-	link_opacity.domain(d3.extent(test_link, function(d){return d.lift}));
+	link_opacity.domain(d3.extent(links, function(d){return d.lift}));
 	
 	var link = svg.selectAll(".link")
 		.data(force.links())
@@ -74,8 +69,17 @@ d3.json("data/topic_analysis.json",function(data){
 		  .attr("y1", function(d) { return d.source.y; })
 		  .attr("x2", function(d) { return d.target.x; })
 		  .attr("y2", function(d) { return d.target.y; });
+//	  node
+//		  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 	  node
-		  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+		  .attr("transform", function(d) { 
+			d.x = Math.max(18, Math.min(width - 18, d.x));
+			d.y = Math.max(18, Math.min(height - 18, d.y))
+			return "translate(" + d.x + "," + 
+									d.y + ")"; });
+/* 	  node
+		.attr("cx", function(d) {console.log(d.x);return d.x = Math.max(18, Math.min(width - 18, d.x))})
+		.attr("cy", function(d) {return d.y = Math.max(18, Math.min(height - 18, d.y))}); */
 	}
 	
 	function mouseover() {

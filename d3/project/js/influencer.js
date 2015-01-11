@@ -1,3 +1,6 @@
+var width = 740,
+	height = 370;
+
 var node_size = d3.scale.linear()
 					.range([6,18]);
 					
@@ -16,8 +19,8 @@ d3.json("data/influencer.json",function(data){
 	node_channel = {"name":data.channel,
 								"sentiment":"n",
 								"fixed":true,
-								"x":450, 
-								"y":250};
+								"x":width/2, 
+								"y":height/2};
 	nodes.push(node_channel);
 	nodes.reverse();
 	
@@ -26,14 +29,13 @@ d3.json("data/influencer.json",function(data){
 		links[i] = {"source":0, "target": i+1};
 	};
 	
-	var width = 900,
-		height = 500;
+
 		
 	var force = d3.layout.force()
 		.nodes(d3.values(nodes))
 		.links(links)
 		.size([width, height])
-		.linkDistance(200)
+		.linkDistance(150)
 		.friction(0.5)
 		.charge(-800)
 		.gravity(0.2)
@@ -73,7 +75,7 @@ d3.json("data/influencer.json",function(data){
 					  d3.max(nodes, function(d){return d.count})]);
 	
 	node.append("circle")
-		.attr("r", function(d, i){console.log(d);
+		.attr("r", function(d, i){
 				if (i === 0){
 					return 20;
 				} else {
@@ -123,6 +125,10 @@ d3.json("data/influencer.json",function(data){
 		  .attr("x2", function(d) { return d.target.x; })
 		  .attr("y2", function(d) { return d.target.y; });
 	  node
-		  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+		  .attr("transform", function(d) { 
+				d.x = Math.max(18, Math.min(width - 18, d.x));
+				d.y = Math.max(18, Math.min(height - 18, d.y));
+				return "translate(" + d.x + "," + d.y + ")"; 
+			});
 	}
 });
