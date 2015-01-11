@@ -3,7 +3,7 @@ var width = 740,
 
 var node_color = d3.scale.category20();
 
-var node_size = d3.scale.linear().range([10,30]);
+var node_size = d3.scale.linear().range([14,30]);
 
 d3.json("data/issue_cloud.json", function(data){
 	var nodes = data;
@@ -49,7 +49,8 @@ d3.json("data/issue_cloud.json", function(data){
 				})
 		.style("font-size", function(d){
 					return node_size(d.prob) + "pt";
-				});
+				})
+		.on("click",click_node);
 		
 	function tick() {
 	  node
@@ -70,5 +71,19 @@ d3.json("data/issue_cloud.json", function(data){
 	  d3.select(this).select("circle").transition()
 		  .duration(750)
 		  .attr("r", 8);
+	}
+	
+	function click_node(){
+		if (d3.select(this).style("font-weight") === "bold"){
+			d3.select(this)
+				.style("font-weight","normal")
+				.style("text-decoration","none");
+		} else {
+			d3.selectAll("text")
+				.style("text-decoration", "none");
+			d3.select(this)
+				.style("font-weight","bold")
+				.style("text-decoration","underline");
+		}
 	}
 });

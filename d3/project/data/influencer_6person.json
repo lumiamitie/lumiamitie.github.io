@@ -1,0 +1,7 @@
+{"channel":"blog",
+"influencer":[{"name":"AAA****","sentiment":"positive","count":5},
+{"name":"BBB****","sentiment":"positive", "count":7},
+{"name":"CCC****","sentiment":"positive", "count":9},
+{"name":"DDD****","sentiment":"negative", "count":11},
+{"name":"EEE****","sentiment":"negative", "count":15},
+{"name":"FFF****","sentiment":"negative", "count":20}]}

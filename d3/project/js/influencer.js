@@ -52,7 +52,8 @@ d3.json("data/influencer.json",function(data){
 	var link = svg.selectAll(".link")
 		.data(force.links())
 	  .enter().append("line")
-		.attr("class", "link");
+		.attr("class", "link")
+		.style("opacity", 0.7);
 				
 	var node = svg.selectAll(".node")
 		.data(force.nodes())
@@ -82,7 +83,7 @@ d3.json("data/influencer.json",function(data){
 					return node_size(d.count);
 				}
 			})
-		.style("fill", function(d){
+/* 		.style("fill", function(d){
 				if (d.sentiment === "positive"){
 						return "steelblue";
 					} else if (d.sentiment === "negative"){
@@ -90,7 +91,10 @@ d3.json("data/influencer.json",function(data){
 					} else {
 						return "darkslategray";
 					}
-			});
+			}) */
+		.style("fill",default_color)
+		.on("click",click_node)
+		;
 		
 	node.append("text")
 		.attr("x",  function(d){if (d.fixed === true){
@@ -131,4 +135,26 @@ d3.json("data/influencer.json",function(data){
 				return "translate(" + d.x + "," + d.y + ")"; 
 			});
 	}
+	
+	function default_color(d){
+		if (d.sentiment === "positive"){
+						return "steelblue";
+					} else if (d.sentiment === "negative"){
+						return "maroon";
+					} else {
+						return "darkslategray";
+					}
+	};
+	
+	function click_node(d){
+		if(d.focused === 1){
+			d3.selectAll("circle").style("fill", default_color);
+			d.focused = 0;
+		} else if(d.sentiment !== "n"){
+			d3.selectAll("circle").style("fill", default_color);
+			d3.select(this).style("fill", "LemonChiffon");
+			d.focused = 1;
+		}
+	}
+
 });
