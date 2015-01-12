@@ -1,11 +1,11 @@
 var margin = {top: 20, right: 15, bottom: 60, left: 60}
-  , width = 960 - margin.left - margin.right
-  , height = 500 - margin.top - margin.bottom;
+  , width = 740 - margin.left - margin.right
+  , height = 370 - margin.top - margin.bottom;
 
 
 
 var chart = d3.select('div')
-					.append('svg:svg')
+					.append('svg')
 					.attr('width', width + margin.right + margin.left)
 					.attr('height', height + margin.top + margin.bottom)
 					.attr('class', 'chart')
@@ -32,13 +32,13 @@ d3.json("data/word_distance.json", function(data){
 	var z = d3.scale.linear()
 							.domain([d3.min(data, function(d) {return d.score; }), 
 									d3.max(data, function(d) {return d.score; })])
-							.range([20, 40])
+							.range([10, 30])
 	
 	// draw the x axis					
 	var xAxis = d3.svg.axis()
 						.scale(x)
 						.orient('bottom')
-						.innerTickSize(-height)
+//						.innerTickSize(-height)
 						.outerTickSize(0)
 						.tickPadding(10);
 	main.append('g')
@@ -50,6 +50,7 @@ d3.json("data/word_distance.json", function(data){
 	var yAxis = d3.svg.axis()
 						.scale(y)
 						.orient('left')
+						.ticks(5)
 						.innerTickSize(-width)
 						.outerTickSize(0)
 						.tickPadding(10);;
@@ -60,15 +61,32 @@ d3.json("data/word_distance.json", function(data){
 	
 	
 	var g = main.append("svg:g"); 
-	
+	var selectedDot = 0;
 	g.selectAll(".scatter-dots")
 	  .data(data)
-	  .enter().append("svg:circle")
+	  .enter().append("circle")
 		  .attr("cx", function (d,i) { return x(d.x); } )
 		  .attr("cy", function (d) { return y(d.y); } )
 		  .attr("r", function (d) { return z(d.score); })
 		  .attr("fill", function(d){return color(d.word)})
-		  .attr("class", "scatter-dots");
+		  .attr("class", "scatter-dots")
+		  .style("opacity", 0.6)
+		  .on("click",function(d,i){
+			if(selectedDot !== i){
+				d3.selectAll(".scatter-dots")
+					.style("opacity",0.6)
+					.style("stroke","none");
+				d3.select(this)
+					.style("opacity", 1)
+					.style("stroke", "black")
+					.style("stroke-width", "2px");
+				selectedDot = i;
+			} else {
+				d3.selectAll(".scatter-dots")
+					.style("stroke","none")
+					.style("opacity",0.6);
+			}
+		  });
 	
 	//Label    
 	g.selectAll("text")
