@@ -1,13 +1,11 @@
-﻿var width = 700,
-    height = 400,
-    p = [20, 50, 30, 20],
-/* 	z = d3.scale.ordinal()
-		.range(["#084594", "#2171b5", "#4292c6","#6baed6","#9ecae1","#c6dbef"]), */
+﻿var width = 560,
+    height = 300,
+    p = [20, 50, 20, 20],
 	z = d3.scale.category10(),
     parseDate = d3.time.format("%Y%m%d").parse,
     returnDate = d3.time.format("%m/%d"),
 	channel_list = ["news", "blog", "community", "voc", "twitter", "reply"],
-	start_point = [p[1], height - 80];
+	start_point = [p[1], height - 70];
 
 var x = d3.scale.ordinal()
 			.rangeRoundBands([p[1], width - p[1] - p[3]]),
@@ -19,28 +17,13 @@ var stack = d3.layout.stack()
 var svg = d3.select("div").append("svg")
     .attr("width", width)
     .attr("height", height);
-	
-/* var xAxis = d3.svg.axis()
-				.scale(x)
-				.orient("bottom")
-				.outerTickSize(0)
-				.tickPadding(5);
-					
-var yAxis = d3.svg.axis()
-				.scale(y)
-				.orient("left")
-				.innerTickSize((-width + 2 * p[1]))
-				.ticks(5)
-				.outerTickSize(0)
-				.tickPadding(10); */
-				
-test_chn = []
+
 d3.json("data/mainkeywd_chn_month.json", function(keyword) {
 
 	var visible = {news: "inline", blog: "inline", community: "inline",
 					voc: "inline", twitter:"inline", reply:"inline"}
 
-	keywords = d3.nest()
+	var keywords = d3.nest()
 				.key(function(d){return d.channel;})
 				.entries(keyword)
 
@@ -66,7 +49,7 @@ d3.json("data/mainkeywd_chn_month.json", function(keyword) {
       .each(function(d, i) {
 		var g = d3.select(this);
 			g.append("rect")
-			  .attr("x", p[1] + i*100)
+			  .attr("x", p[1] + i*80)
 			  .attr("y", height - p[0] - p[2] + 10)
 			  .attr("width", 10)
 			  .attr("height", 10)
@@ -90,13 +73,13 @@ d3.json("data/mainkeywd_chn_month.json", function(keyword) {
 			  });
         
         g.append("text")
-          .attr("x", p[1] + i*100 + 15)
+          .attr("x", p[1] + i*80 + 15)
           .attr("y", height - p[0] - p[2] + 19)
           .attr("height",30)
           .attr("width",100)
           .style("fill", "black")
 		  .style("font-size", "12px")
-          .text(function(){return d})
+          .text(function(d){return translate_kor(d)})
           ;
 	});
 	function setKeywd(keywords){
@@ -189,7 +172,7 @@ d3.json("data/mainkeywd_chn_month.json", function(keyword) {
 				tooltip.transition()
 						.duration(200)
 						.style("opacity", 0.9);
-				tooltip.html(returnDate(d.x)+"<br/>"+d.chnl+"<br/>"+ d.y)
+				tooltip.html(returnDate(d.x)+"<br/>"+translate_kor(d.chnl)+"<br/>"+ d.y)
 						.style("left", (d3.event.pageX) + "px")
 						.style("top", (d3.event.pageY - 28) + "px");			
 			})
@@ -201,5 +184,20 @@ d3.json("data/mainkeywd_chn_month.json", function(keyword) {
 			.transition()
 			.duration(500)
 			.attr("height", function(d) { return y(d.y0) - y(d.y+d.y0); });	
+	}
+	function translate_kor(data){
+		if (data === "news"){
+			return "뉴스";
+		} else if (data === "blog"){
+			return "블로그";
+		} else if (data === "community"){
+			return "커뮤니티";
+		} else if (data === "voc"){
+			return "VOC";
+		} else if (data === "twitter"){
+			return "트위터";
+		} else if (data === "reply"){
+			return "댓글";
+		}
 	}
 });
