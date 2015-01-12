@@ -11,7 +11,7 @@ var svg = d3.select("div").append("svg")
 			.append("g")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
 
- */	
+
 d3.json("data/sentiment_neutral_2month.json", function(data) {
 	var sentiment = d3.nest()
 					.key(function(d){return d.sentiment})
@@ -220,6 +220,7 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 			.call(d3.svg.axis()
 					.scale(y)
 					.orient("left")
+					.innerTickSize(-width+margin.left + margin.right+10)
 					.tickPadding(10)
 					.ticks(5)
 					.outerTickSize(1)
