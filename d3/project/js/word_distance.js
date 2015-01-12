@@ -1,4 +1,4 @@
-var margin = {top: 20, right: 15, bottom: 60, left: 60}
+﻿var margin = {top: 20, right: 15, bottom: 60, left: 60}
   , width = 740 - margin.left - margin.right
   , height = 370 - margin.top - margin.bottom;
 
@@ -86,7 +86,20 @@ d3.json("data/word_distance.json", function(data){
 					.style("stroke","none")
 					.style("opacity",0.6);
 			}
-		  });
+		  })
+		.on("mouseover", function(d){
+				tooltip.transition()
+						.duration(200)
+						.style("opacity", 0.9);
+				tooltip.html(d.word+"<br/>"+d.score)
+						.style("left", (d3.event.pageX) + "px")
+						.style("top", (d3.event.pageY - 28) + "px");			
+			})
+			.on("mouseout", function(d){
+				tooltip.transition()
+						.duration(500)
+						.style("opacity", 0);
+			});;
 	
 	//Label    
 	g.selectAll("text")
@@ -99,5 +112,9 @@ d3.json("data/word_distance.json", function(data){
 		.attr("fill",'black')
 		.attr("class","label")
 		.attr("text-anchor","middle");
+
+	var tooltip = d3.select("div").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
 	
 });
