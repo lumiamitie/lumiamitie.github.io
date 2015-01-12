@@ -3,7 +3,8 @@ var margin = {top: 20, right: 80, bottom: 60, left: 50},
 	height = 800 /* - margin.top - margin.bottom */,
 	radius = 200;
 
-var parseDate = d3.time.format("%Y%m%d").parse;
+var parseDate = d3.time.format("%Y%m%d").parse,
+	returnDate = d3.time.format("%m/%d");
 
 var color = d3.scale.category10();
 
@@ -39,6 +40,7 @@ var xAxis = d3.svg.axis()
 //					.innerTickSize(-height)
 					.outerTickSize(0)
 					.ticks(5)
+					.tickFormat(returnDate)
 					.tickPadding(10);
 					
 var yAxis = d3.svg.axis()
@@ -56,16 +58,12 @@ var line = d3.svg.line()
 var test_data = [];
 var test_keywords = [];
 
-			
-
-		
-d3.json("data/interest.json", function(error, raw_data) { 
+d3.json("data/interest_skewed.json", function(error, raw_data) { 
 
 	var nest_data_pie = d3.nest()
 								.key(function(d){return d.key})
 								.key(function(d){return d.channel})
 								.entries(raw_data);
-
 	var pie_data=[];
 	
 	for (i=0; i< nest_data_pie.length; i++){
@@ -125,11 +123,28 @@ d3.json("data/interest.json", function(error, raw_data) {
 			return d3.rgb(color(d.data.channel)) //data가 맞나 pie_data가 맞나
 						.darker((i % 2)/7)
 						.toString();
+			})
+		.on("mouseover",function(d){
+				tooltip.transition()
+						.duration(200)
+						.style("opacity", 0.9);
+				tooltip.html(d.data.keyword+"<br/>"+d.data.channel+"<br/>"+d.value)
+						.style("left", (d3.event.pageX) + "px")
+						.style("top", (d3.event.pageY - 28) + "px");
+			})
+		.on("mouseout", function(d){
+				tooltip.transition()
+						.duration(500)
+						.style("opacity", 0);
 			});
 
 	outer_g.append("text")
 			.attr("transform", function(d){return "translate("+ outer_arc.centroid(d)+")";})
-			.text(function(d){return d.data.keyword})
+			.text(function(d){
+				if (d.endAngle - d.startAngle > 0.2){
+					return d.data.keyword;
+					}
+				})
 			.attr("text-anchor","middle")
 			.style("font-size", "10px");
 			
@@ -151,8 +166,6 @@ d3.json("data/interest.json", function(error, raw_data) {
 			.attr("transform", function(d){return "translate("+ inner_arc.centroid(d)+")";})
 			.text(function(d){return d.data.channel})
 			.attr("text-anchor","middle");
-			
-
 
 	var nest_data = d3.nest()
 								.key(function(d){return d.key})
@@ -171,21 +184,19 @@ d3.json("data/interest.json", function(error, raw_data) {
 		}
 	}
 
-		//날짜는 문자열 "20140101", 값들은 문자/숫자 관계없음
 		color.domain(d3.keys(line_data[0])
 			.filter(function(key) { 
 				return key !== "date"; 
 			})
 		);
 		
-	  
 		  line_data.forEach(function(d) {
 				d.date = parseDate(d.date);
 		  });
 			
 		  keywords = d3.nest()
 								.key(function(d){return d.key})
-								.entries(line_data)
+								.entries(line_data);
 
 		  x.domain(d3.extent(line_data, function(d) { return d.date; }));
 		  y.domain([
@@ -217,19 +228,6 @@ d3.json("data/interest.json", function(error, raw_data) {
 						  .attr("d", function(d) {return line(d.values); })
 						  .style("fill", "none")
 						  .style("stroke", function(d) { return color(d.key); });
-			
-		var tip = svg_line.append("g").attr("class","tip");
-
-		tip.selectAll(".tips")
-			.data(line_data)
-			.enter()
-			.append("circle")
-			.attr("cx",function(d){return x(d.date)})
-			.attr("cy", function(d){return y(d.count)})
-			.attr("r",2)
-			.style("fill","white")
-			.attr("stroke","#ccc")
-			.attr("class", function(d){return "tip_"+d.key;});	  
 			
 		  var legend = svg_line.append("g")
 			  .attr("class", "legend")
@@ -266,9 +264,7 @@ d3.json("data/interest.json", function(error, raw_data) {
 						   g.select("rect")
 								.style("opacity", 1);
 						}
-						
 					  });
-						
 						g.append("text")
 						  .attr("x", (i) * 120 + 15)
 						  .attr("y", height/3 + 60)
@@ -279,5 +275,36 @@ d3.json("data/interest.json", function(error, raw_data) {
 									return d.key;
 							});
 				});
-		  
+
+	var tooltip = d3.select("div").append("div")
+			.attr("class", "tooltip")
+			.style("opacity", 0);
+
+	var tip = svg_line.append("g")
+					.attr("class","tips");
+
+	tip.selectAll(".tips")
+		.data(line_data)
+		.enter()
+		.append("circle")
+		.attr("cx",function(d){return x(d.date)})
+		.attr("cy", function(d){return y(d.count)})
+		.attr("r",2)
+		.style("fill","white")
+		.attr("stroke","#ccc")
+		.attr("class", function(d){return "tip_"+d.key;})
+			.on("mouseover", function(d){
+				tooltip.transition()
+						.duration(200)
+						.style("opacity", 0.9);
+				tooltip.html(d.key+"<br/>"+returnDate(d.date)+ "<br/>"+d.count)
+						.style("left", (d3.event.pageX) + "px")
+						.style("top", (d3.event.pageY - 28) + "px");			
+			})
+			.on("mouseout", function(d){
+				tooltip.transition()
+						.duration(500)
+						.style("opacity", 0);
+			});
+	  
 });
