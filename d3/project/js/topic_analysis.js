@@ -1,5 +1,5 @@
 var node_size = d3.scale.linear()
-					.range([6,18]);
+					.range([6,16]);
 					
 var node_color = d3.scale.category10();
 
@@ -7,7 +7,7 @@ var node_distance = d3.scale.linear()
 								.range([10, 250]);
 
 var link_opacity = d3.scale.linear()
-							.range([0.1, 1]);
+							.range([0.05, 0.8]);
 							
 d3.json("data/topic_analysis.json",function(data){
 
@@ -49,6 +49,7 @@ d3.json("data/topic_analysis.json",function(data){
 		.attr("class", "node")
 		.on("mouseover", mouseover)
 		.on("mouseout", mouseout)
+		.on("click",selectCluster)
 		.call(force.drag);
 		
 	node_size.domain([d3.min(nodes, function(d){return d.prob}), 
@@ -69,17 +70,14 @@ d3.json("data/topic_analysis.json",function(data){
 		  .attr("y1", function(d) { return d.source.y; })
 		  .attr("x2", function(d) { return d.target.x; })
 		  .attr("y2", function(d) { return d.target.y; });
-//	  node
-//		  .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+ 
 	  node
 		  .attr("transform", function(d) { 
 			d.x = Math.max(18, Math.min(width - 18, d.x));
 			d.y = Math.max(18, Math.min(height - 18, d.y))
 			return "translate(" + d.x + "," + 
 									d.y + ")"; });
-/* 	  node
-		.attr("cx", function(d) {console.log(d.x);return d.x = Math.max(18, Math.min(width - 18, d.x))})
-		.attr("cy", function(d) {return d.y = Math.max(18, Math.min(height - 18, d.y))}); */
+
 	}
 	
 	function mouseover() {
@@ -92,5 +90,34 @@ d3.json("data/topic_analysis.json",function(data){
 	  d3.select(this).select("circle").transition()
 		  .duration(750)
 		  .attr("r", function(d){return node_size(d.prob)});
+	}
+	var selectedCluster = 0;
+	function selectCluster(d){
+		if(selectedCluster !== d.cluster){
+			node.selectAll("circle")
+				.attr("class",function(node){
+					if(node.cluster === d.cluster){
+						return "node focused";
+					} else {
+						return "node out_focused"
+					}
+				})
+			node.selectAll("text")
+				.attr("class",function(node){
+					if(node.cluster === d.cluster){
+						return "node focused";
+					} else {
+						return "node out_focused";
+					}
+				})
+			selectedCluster = d.cluster;
+		} else {
+			node.selectAll("circle")
+				.attr("class", "node focused")
+			node.selectAll("text")
+				.attr("class", "node focused")	
+			selectedCluster = 0;
+		}
+
 	}
 });
