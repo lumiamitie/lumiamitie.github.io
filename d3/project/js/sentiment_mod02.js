@@ -11,14 +11,12 @@ var svg = d3.select("div").append("svg")
 			.append("g")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
 
-/* var test_data = [];	
-var test_senti = [];	 */	
+ */	
 d3.json("data/sentiment_neutral_2month.json", function(data) {
 	var sentiment = d3.nest()
 					.key(function(d){return d.sentiment})
 					.entries(data.map(function(d){return {"count":d.count, "sentiment":d.sentiment, "date":parseDate(d.date)};}));
-/* test_data = data;
-test_senti = sentiment; */
+
 	var visible = {positive: "inline", negative: "inline", neutral: "inline"}
 	
 	drawAxes(data);
@@ -253,7 +251,6 @@ test_senti = sentiment; */
 						
 		var areaElements = svg.append("path")
 								.attr("class", "area "+clsName)
-//								.attr("d", area(dataSet))
 								.attr("d", area_default(dataSet))
 								.transition()
 								.duration(1000)
