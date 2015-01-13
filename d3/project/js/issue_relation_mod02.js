@@ -230,7 +230,13 @@ d3.json("data/issue_relation.json", function(data){
 						.append("text")
 							.attr("x",function(d){return (coord[d.source].x+coord[d.target].x)/2})
 							.attr("y",function(d){return (coord[d.source].y+coord[d.target].y)/2})
-							.text(function(d){return d3.format("%")(d.data/d.main_data)})
+							.text(function(d){
+								if (d.main_data != 0){
+									return d3.format("%")(d.data/d.main_data)
+								} else {
+									return "0%";
+								}
+								})
 							.attr("class", function(d){
 								if (d.main === d.linked){
 									return "none";
