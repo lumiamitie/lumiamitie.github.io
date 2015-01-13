@@ -121,6 +121,7 @@ d3.json("data/influencer.json",function(data){
 							});
 		
  	function tick() {
+
 		  link
 		  .attr("x1", function(d) { return Math.max(18, Math.min(width - 18, d.source.x)); })
 		  .attr("y1", function(d) { return Math.max(18, Math.min(height - 18, d.source.y)); })
@@ -146,11 +147,14 @@ d3.json("data/influencer.json",function(data){
 	
 	function click_node(d){
 		if(d.focused === 1){
-			d3.selectAll("circle").style("fill", default_color);
+			d3.selectAll("circle").style("fill", default_color)
+											.style("stroke","white");
 			d.focused = 0;
 		} else if(d.sentiment !== "n"){
-			d3.selectAll("circle").style("fill", default_color);
-			d3.select(this).style("fill", "LemonChiffon");
+			d3.selectAll("circle").style("fill", default_color)
+											.style("stroke","white");
+			d3.select(this).style("fill", "LemonChiffon")
+									.style("stroke", "black");
 			d.focused = 1;
 		}
 	}
