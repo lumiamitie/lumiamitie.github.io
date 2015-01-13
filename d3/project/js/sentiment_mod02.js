@@ -1,4 +1,4 @@
-﻿var width = 740,
+var width = 740,
 	height = 370,
 	margin = {top:20, right:30, bottom:70, left:20},
 	parseDate = d3.time.format("%Y%m%d").parse,
@@ -18,7 +18,7 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 					.entries(data.map(function(d){return {"count":d.count, "sentiment":d.sentiment, "date":parseDate(d.date)};}));
 
 	var visible = {positive: "inline", negative: "inline", neutral: "inline"}
-	
+
 	drawAxes(data);
 
 	draw(visible);
@@ -111,16 +111,19 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 
 	function draw(visible){
 		if (visible.positive === "inline"){
-			drawArea(sentiment[0].values,"pos","monotone");
+			drawArea(sentiment.filter(function(d){return d.key === "positive"})[0].values,"pos","monotone");
 		};
 		if (visible.negative === "inline"){
-			drawArea(sentiment[1].values, "neg","monotone");
+			drawArea(sentiment.filter(function(d){return d.key === "negative"})[0].values, "neg","monotone");
 		};
 		if (visible.neutral === "inline"){
-			drawLine(sentiment[2].values, "neu", "monotone");
+			drawLine(sentiment.filter(function(d){return d.key === "neutral"})[0].values, "neu", "monotone");
 		}
 	}
 	function drawTips(data){
+		data = data.filter(function(d){
+				return d.sentiment === "positive" |  d.sentiment === "negative" | d.sentiment === "neutral" ;
+			});
 		if (visible.positive === "none"){
 			data = data.filter(function(d){return d.sentiment !== "positive"});
 		};
@@ -156,8 +159,11 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 				})
 			.style("display",function(d){
 				return visible[d.sentiment];
+
 			})
-			.attr("stroke","#ccc")
+			.style("opacity", 0.3)
+			.style("border", "0px")
+	//		.attr("stroke","#ccc")
 			.attr("class", function(d){return "tip_"+d.key;})
 				.on("mouseover", function(d){
 					tooltip.transition()
@@ -174,10 +180,13 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 				})
 			.transition()
 			.duration(1700) 
-			.attr("r",2);	
+			.attr("r",3);	
 	}
 	
 	function drawAxes(data){
+			data = data.filter(function(d){
+				return d.sentiment === "positive" |  d.sentiment === "negative" | d.sentiment === "neutral" ;
+				});
 		if (visible.positive === "none"){
 			data = data.filter(function(d){return d.sentiment !== "positive"});
 		};
