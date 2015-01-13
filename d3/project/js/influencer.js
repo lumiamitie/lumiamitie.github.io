@@ -29,8 +29,6 @@ d3.json("data/influencer.json",function(data){
 		links[i] = {"source":0, "target": i+1};
 	};
 	
-
-		
 	var force = d3.layout.force()
 		.nodes(d3.values(nodes))
 		.links(links)
@@ -123,11 +121,11 @@ d3.json("data/influencer.json",function(data){
 							});
 		
  	function tick() {
-	  link
-		  .attr("x1", function(d) { return d.source.x; })
-		  .attr("y1", function(d) { return d.source.y; })
-		  .attr("x2", function(d) { return d.target.x; })
-		  .attr("y2", function(d) { return d.target.y; });
+		  link
+		  .attr("x1", function(d) { return Math.max(18, Math.min(width - 18, d.source.x)); })
+		  .attr("y1", function(d) { return Math.max(18, Math.min(height - 18, d.source.y)); })
+		  .attr("x2", function(d) { return Math.max(18, Math.min(width - 18, d.target.x)); })
+		  .attr("y2", function(d) { return Math.max(18, Math.min(height - 18, d.target.y)); });
 	  node
 		  .attr("transform", function(d) { 
 				d.x = Math.max(18, Math.min(width - 18, d.x));
