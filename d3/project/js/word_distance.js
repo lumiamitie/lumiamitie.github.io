@@ -1,4 +1,4 @@
-﻿var margin = {top: 20, right: 15, bottom: 60, left: 60}
+var margin = {top: 20, right: 15, bottom: 60, left: 60}
   , width = 740 - margin.left - margin.right
   , height = 370 - margin.top - margin.bottom;
 
@@ -110,7 +110,7 @@ d3.json("data/word_distance.json", function(data){
 		.attr("x", function(d,i) {return x(d.x);})
 		.attr("y", function(d,i) {return y(d.y);})
 		.attr("fill",'black')
-		.attr("class","label")
+		.attr("class","circle_label")
 		.attr("text-anchor","middle");
 
 	var tooltip = d3.select("div").append("div")
