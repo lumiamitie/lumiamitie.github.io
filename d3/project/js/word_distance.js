@@ -41,11 +41,23 @@ d3.json("data/word_distance.json", function(data){
 //						.innerTickSize(-height)
 						.outerTickSize(0)
 						.tickPadding(10);
-	main.append('g')
+	var xAxis_call = main.append('g')
 			.attr('transform', 'translate(0,' + height + ')')
 			.attr('class', 'main axis date')
 			.call(xAxis);
-		
+	
+	chart.append("text")
+			.text("단어빈도수")
+			.attr("x", 10)
+			.attr("y", 20)
+			.attr("class", "axis_name")
+			
+	chart.append("text")
+			.text("거리 평균")
+			.attr("x", width)
+			.attr("y", height + margin.bottom)
+			.attr("class", "axis_name")
+						
 	// draw the y axis
 	var yAxis = d3.svg.axis()
 						.scale(y)
@@ -54,7 +66,7 @@ d3.json("data/word_distance.json", function(data){
 						.innerTickSize(-width)
 						.outerTickSize(0)
 						.tickPadding(10);;
-	main.append('g')
+	var yAxis_call = main.append('g')
 			.attr('transform', 'translate(0,0)')
 			.attr('class', 'main axis date')
 			.call(yAxis);		
@@ -91,7 +103,10 @@ d3.json("data/word_distance.json", function(data){
 				tooltip.transition()
 						.duration(200)
 						.style("opacity", 0.9);
-				tooltip.html(d.word+"<br/>"+d.score)
+				tooltip.html("<b>"+d.word+"</b>" + "<br/>"+ "<br/>"+
+								"거리 평균 :" + d3.round(d.x, 2) +"<br/>"+
+								"단어빈도수: " + d3.round(d.y, 2) +"<br/>"+
+								"총점수: "+ d3.round(d.score,2))
 						.style("left", (d3.event.pageX) + "px")
 						.style("top", (d3.event.pageY - 28) + "px");			
 			})
