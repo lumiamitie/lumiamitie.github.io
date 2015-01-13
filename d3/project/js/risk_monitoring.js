@@ -42,7 +42,7 @@ var line = d3.svg.line()
 					.y(function(d) { return y(d.count); });
 
 
-d3.json("data/mainkeywd_line_15lgn.json", function(error, data) { 
+d3.json("data/mainkeywd_line_space.json", function(error, data) { 
 
 	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 	  
@@ -69,11 +69,11 @@ d3.json("data/mainkeywd_line_15lgn.json", function(error, data) {
 								.data(keywords)
 								.enter()
 								.append("g")
-								.attr("class", function(d, i){ return "keyword_" + d.key});
-	   
+								.attr("class", function(d, i){ return "keyword_" + i});
+   
 		keyword.append("path")
 					  .attr("class", "line")
-					  .attr("id", function(d, i){ return "line_" + d.key})
+					  .attr("id", function(d, i){ return "line_" + i})
 					  .attr("d", function(d) { return line(d.values); })
 					  .style("fill", "none")
 					  .style("stroke", function(d) { return color(d.key); });
@@ -91,28 +91,28 @@ d3.json("data/mainkeywd_line_15lgn.json", function(error, data) {
 		  .each(function(d, i) {
 				var g = d3.select(this);
 					g.append("rect")
-					  .attr("x", i%7 *100 -12)
+					  .attr("x", i % 7 *100 -12)
 					  .attr("y", height+35 + Math.floor(i/7)*14)
 					  .attr("width", 10)
 					  .attr("height", 10)
 					  .style("fill", function(){
 										return color(d.key)})
 					  .on("click", function(d){
-					if (d3.select("#line_" + d.key).style("display") == "inline"){
-					  d3.select("#line_" + d.key)
-							.style('display','none');
-					  d3.selectAll(".tip_" + d.key)
-						.style('display', 'none');
-					  g.select("rect")
-							.style("opacity", 0.3);
-					} else {
-					   d3.select("#line_" + d.key)
-							.style('display', 'inline');
-					   d3.selectAll('.tip_'+d.key)
-							.style('display', 'inline');
-					   g.select("rect")
-							.style("opacity", 1);
-					}
+							if (d3.select("#line_" + i).style("display") == "inline"){
+							  d3.select("#line_" + i)
+									.style('display','none');
+							  d3.selectAll(".tip_" + i)
+								.style('display', 'none');
+							  g.select("rect")
+									.style("opacity", 0.3);
+							} else {
+							   d3.select("#line_" + i)
+									.style('display', 'inline');
+							   d3.selectAll('.tip_'+i)
+									.style('display', 'inline');
+							   g.select("rect")
+									.style("opacity", 1);
+							}
 					
 				  });
 					
@@ -144,7 +144,9 @@ d3.json("data/mainkeywd_line_15lgn.json", function(error, data) {
 		.attr("r",2)
 		.style("fill","white")
 		.attr("stroke","#ccc")
-		.attr("class", function(d){return "tip_"+d.key;})
+		.attr("class", function(d, i){
+				return "tip_"+ keywords.map(function(e){return e.key}).indexOf(d.key);
+			})
 			.on("mouseover", function(d){
 				tooltip.transition()
 						.duration(200)
