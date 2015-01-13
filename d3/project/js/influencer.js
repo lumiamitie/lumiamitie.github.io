@@ -76,7 +76,7 @@ d3.json("data/influencer.json",function(data){
 	node.append("circle")
 		.attr("r", function(d, i){
 				if (i === 0){
-					return 20;
+					return 29;
 				} else {
 					return node_size(d.count);
 				}
