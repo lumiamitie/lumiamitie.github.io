@@ -1,6 +1,6 @@
-﻿var margin = {top: 20, right: 80, bottom: 60, left: 50},
-	width = 780 - margin.left - margin.right,
-	height = 400 - margin.top - margin.bottom;
+var margin = {top: 20, right: 40, bottom: 80, left: 50},
+	width = 740 - margin.left - margin.right,
+	height = 370 - margin.top - margin.bottom;
 
 var parseDate = d3.time.format("%Y%m%d").parse;
 var returnDate = d3.time.format("%m/%d");
@@ -18,12 +18,11 @@ var svg = d3.select("div")
 			 .append("g")
 				.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 				
-var color = d3.scale.category10();
+var color = d3.scale.category20();
 
 var xAxis = d3.svg.axis()
 					.scale(x)
 					.orient("bottom")
-//					.innerTickSize(-height)
 					.outerTickSize(0)
 					.ticks(10)
 					.tickFormat(returnDate)
@@ -42,21 +41,17 @@ var line = d3.svg.line()
 					.x(function(d) { return x(d.date); })
 					.y(function(d) { return y(d.count); });
 
-var test_k=[];
-var test_data = [];
-d3.json("data/mainkeywd_line_new.json", function(error, data) { 
-console.log(data);
+
+d3.json("data/mainkeywd_line_15lgn.json", function(error, data) { 
+
 	  color.domain(d3.keys(data[0]).filter(function(key) { return key !== "date"; }));
 	  
 	  data.forEach(function(d) {
 			d.date = parseDate(d.date);
 	  });
-
-test_k = data;
-	  
+  
 	  keywords = d3.nest().key(function(d){return d.key}).entries(data)
-console.log(keywords);
-test_data = keywords;
+
 	  x.domain(d3.extent(data, function(d) { return d.date; }));
 	  y.domain([
 			d3.min(keywords, function(c) { return d3.min(c.values, function(v) { return v.count; }); }),
@@ -96,8 +91,8 @@ test_data = keywords;
 		  .each(function(d, i) {
 				var g = d3.select(this);
 					g.append("rect")
-					  .attr("x", margin.left + i*80 -12)
-					  .attr("y", height+40)
+					  .attr("x", i%7 *100 -12)
+					  .attr("y", height+35 + Math.floor(i/7)*14)
 					  .attr("width", 10)
 					  .attr("height", 10)
 					  .style("fill", function(){
@@ -122,8 +117,8 @@ test_data = keywords;
 				  });
 					
 					g.append("text")
-					  .attr("x", margin.left + i * 80)
-					  .attr("y", height + 48)
+					  .attr("x", i%7 * 100)
+					  .attr("y", height + 43+ Math.floor(i/7)*14)
 					  .attr("height", 30)
 					  .attr("width", 100)
 					  .style("fill", "black")
