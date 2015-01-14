@@ -168,7 +168,36 @@ test_data = raw_data;
 				}
 		}
 		});
-
+	var pie_legend = svg.append("g")
+					.attr("x", width-250)
+					.attr("y", 70)
+					.attr("class", "legend");
+					
+	pie_legend.selectAll("g")
+			.data(["긍정", "부정", "중립"])
+			.enter()
+			.append("text")
+			.attr("x", function(d, i){return width-240 + i* 70})
+			.attr("y", 108)
+			.text(function(d){return d;});
+	pie_legend.selectAll("g")
+			.data(["긍정", "부정", "중립"])
+			.enter()
+			.append("rect")
+			.attr("x", function(d, i){return width-260 + i* 70})
+			.attr("y", 100)
+			.attr("width", 10)
+			.attr("height", 10)
+			.attr("fill", function(d){
+				if (d === "긍정"){
+					return "steelblue";
+				} else if (d === "부정"){
+					return "IndianRed";
+				} else {
+					return "SandyBrown";
+				}
+			
+			});
 	
 /* 	var svg = d3.select(".contents")
 				.append("svg")
@@ -179,7 +208,7 @@ test_data = raw_data;
 		.data(data_sum)
 		.enter()
 		.append("g")
-		.attr("transform", "translate(" + [width-250, 100]+ ")")
+		.attr("transform", "translate(" + [width-250, 150]+ ")")
 		
 	rect.append("rect")
 		.attr("width", function(d){return x(d.x0/d.sum);})
@@ -207,11 +236,11 @@ test_data = raw_data;
 
 	svg.append("g")
 		.attr("class","y axis")
-		.attr("transform", "translate(" + [width -250, 100]+ ")")
+		.attr("transform", "translate(" + [width -250, 150]+ ")")
 		.call(yAxis);
 		
 	svg.append("g")
 		.attr("class","x axis")
-		.attr("transform", "translate(" + [width -250, 100]+ ")")
+		.attr("transform", "translate(" + [width -250, 150]+ ")")
 		.call(xAxis);		
 });
