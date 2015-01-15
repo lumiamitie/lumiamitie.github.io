@@ -12,7 +12,7 @@ var svg = d3.select("div").append("svg")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
 var test_data = []
 var test_senti = []
-d3.json("data/sentiment_neutral_day.json", function(data) {
+d3.json("data/sentiment_neutral_week.json", function(data) {
 	var null_date = data.filter(function(d){return d.sentiment !== "positive" && d.sentiment !=="negative" && d.sentiment !== "neutral"})
 									.map(function(d){return d.date});				
 					
