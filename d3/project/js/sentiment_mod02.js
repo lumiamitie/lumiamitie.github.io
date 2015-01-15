@@ -10,15 +10,35 @@ var svg = d3.select("div").append("svg")
 			.attr("height", height)
 			.append("g")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
-
-
-d3.json("data/sentiment_neutral_2month.json", function(data) {
+var test_data = []
+var test_senti = []
+d3.json("data/sentiment_neutral_week.json", function(data) {
+	var null_date = data.filter(function(d){return d.sentiment !== "positive" && d.sentiment !=="negative" && d.sentiment !== "neutral"})
+									.map(function(d){return d.date});				
+					
+	if (null_date.length >0){
+		for (i=0; i< null_date.length; i++){
+			data.push({"date":null_date[i], "sentiment":"positive", "count":0})
+			data.push({"date":null_date[i], "sentiment":"negative", "count":0})
+			data.push({"date":null_date[i], "sentiment":"neutral", "count":0})
+		}
+	data.sort(function(a,b){
+			if (a.date >b.date) {
+				return 1;
+			}else if (a.date <b.date){ 
+				return -1;
+			} else {
+			return 0}
+		})
+	};
+	
 	var sentiment = d3.nest()
 					.key(function(d){return d.sentiment})
-					.entries(data.map(function(d){return {"count":d.count, "sentiment":d.sentiment, "date":parseDate(d.date)};}));
-
+					.entries(data.map(function(d){return {"count":d.count, "sentiment":d.sentiment, "date":parseDate(d.date)};}))
+					.filter(function(d){return d.key === "positive" | d.key ==="negative" | d.key === "neutral"});
 	var visible = {positive: "inline", negative: "inline", neutral: "inline"}
-
+test_data = data;
+test_senti = sentiment;
 	drawAxes(data);
 
 	draw(visible);
@@ -210,8 +230,13 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 						})
 					)
 					.range([margin.left, width - margin.left - margin.right]);
-		
-		
+					
+		if (sentiment[0].values.length < 8){
+				var tick_number =  sentiment[0].values.length - 1;
+			} else {
+				var  tick_number = 7; 
+			}
+
 		svg.append("g")
 			.attr("class", "x axis")
 			.attr("transform", "translate(" + [0, height - margin.top - margin.bottom] + ")")
@@ -220,7 +245,7 @@ d3.json("data/sentiment_neutral_2month.json", function(data) {
 					.tickFormat(returnDate)
 					.orient("bottom")
 					.tickPadding(10)
-					.ticks(10)
+					.ticks(tick_number)
 					.outerTickSize(1)
 				);
 		svg.append("g")
