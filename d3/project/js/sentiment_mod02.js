@@ -12,7 +12,7 @@ var svg = d3.select("div").append("svg")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
 var test_data = []
 var test_senti = []
-d3.json("data/sentiment_neutral_week.json", function(data) {
+d3.json("data/sentiment_neutral_day.json", function(data) {
 	var null_date = data.filter(function(d){return d.sentiment !== "positive" && d.sentiment !=="negative" && d.sentiment !== "neutral"})
 									.map(function(d){return d.date});				
 					
@@ -230,12 +230,14 @@ test_senti = sentiment;
 						})
 					)
 					.range([margin.left, width - margin.left - margin.right]);
-					
-		if (sentiment[0].values.length < 8){
+		
+		var tick_number = sentiment[0].values.length < 8 ? sentiment[0].values.length  : 7;
+//		console.log(tick_number)
+/* 		if (sentiment[0].values.length < 8){
 				var tick_number =  sentiment[0].values.length - 1;
 			} else {
 				var  tick_number = 7; 
-			}
+			} */
 
 		svg.append("g")
 			.attr("class", "x axis")
