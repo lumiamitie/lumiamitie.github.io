@@ -146,7 +146,7 @@ d3.json("data/interest_skewed.json", function(error, raw_data) {
 					}
 				})
 			.attr("text-anchor","middle")
-			.style("font-size", "10px");
+			.style("font-size", "12px");
 			
 	var inner_g = svg.selectAll(".inner")
 					.data(pie(data_chn_sum))
