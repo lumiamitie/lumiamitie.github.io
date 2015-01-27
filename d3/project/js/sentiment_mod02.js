@@ -1,17 +1,17 @@
-var width = 740,
+﻿var width = 740,//차트 사이즈
 	height = 370,
-	margin = {top:20, right:30, bottom:70, left:20},
-	parseDate = d3.time.format("%Y%m%d").parse,
-    returnDate = d3.time.format("%m/%d")
+	margin = {top:20, right:30, bottom:70, left:20}, //차트 여백
+	parseDate = d3.time.format("%Y%m%d").parse, //날짜 파싱
+    returnDate = d3.time.format("%m/%d") //축에 보이는 날짜 포맷
 	;
 	
-var svg = d3.select("div").append("svg")
+var svg = d3.select("div").append("svg") // svg구성
 			.attr("width", width)
 			.attr("height", height)
 			.append("g")
 			.attr("transform","translate("+margin.left+","+margin.top+")");
-var test_data = []
-var test_senti = []
+//var test_data = [] 
+//var test_senti = []
 d3.json("data/sentiment_neutral_week.json", function(data) {
 	var null_date = data.filter(function(d){return d.sentiment !== "positive" && d.sentiment !=="negative" && d.sentiment !== "neutral"})
 									.map(function(d){return d.date});				
@@ -32,19 +32,29 @@ d3.json("data/sentiment_neutral_week.json", function(data) {
 		})
 	};
 	
-	var sentiment = d3.nest()
+	var sentiment = d3.nest() //감성별로 그룹화
 					.key(function(d){return d.sentiment})
-					.entries(data.map(function(d){return {"count":d.count, "sentiment":d.sentiment, "date":parseDate(d.date)};}))
-					.filter(function(d){return d.key === "positive" | d.key ==="negative" | d.key === "neutral"});
+					.entries(data.map(function(d){
+						return {"count":d.count, 
+								"sentiment":d.sentiment, 
+								"date":parseDate(d.date)
+								};
+							})
+						)
+					.filter(function(d){ // 긍정/중립/부정인 경우만
+						return d.key === "positive" | d.key ==="negative" | d.key === "neutral"});
+	
+	// 현재 화면에서 보일지 숨길지 여부					
 	var visible = {positive: "inline", negative: "inline", neutral: "inline"}
-test_data = data;
-test_senti = sentiment;
-	drawAxes(data);
+//test_data = data;
+//test_senti = sentiment;
+	drawAxes(data); //축 그리기
 
-	draw(visible);
+	draw(visible); // 차트 그리기
 	
-	drawTips(data);
+	drawTips(data); // 팁 그리기
 	
+	// 범례
 	var legend = svg.append("g")
 					.attr("class", "legend")
 					.attr("x", width/3)
@@ -52,7 +62,7 @@ test_senti = sentiment;
 					.attr("height", 100)
 					.attr("width", 100);
 	legend.selectAll("g")
-			.data(sentiment.map(function(d){return d.key}))
+			.data(sentiment.map(function(d){return d.key})) //키워드를 적용
 			.enter()
 			.append("g")
 			.each(function(d, i) {
@@ -71,7 +81,7 @@ test_senti = sentiment;
 									return "SandyBrown";
 								}
 						})
-					  .on("click", function(d){
+					  .on("click", function(d){ //클릭 이벤트
 					if (d === "positive"){
 						if (visible.positive === "inline"){
 							visible.positive = "none";
@@ -104,21 +114,21 @@ test_senti = sentiment;
 								.style("opacity", 1);
 						}
 					}
-					d3.selectAll(".axis").remove();		
+					d3.selectAll(".axis").remove();		//차트화면 제거
 					d3.selectAll(".area").remove();
 					d3.selectAll(".line").remove();
 					d3.selectAll(".tips").remove();
-					drawAxes(data);
+					drawAxes(data); //다시 그리기
 					draw(visible);
 					drawTips(data);
 				  })
-					g.append("text")
+					g.append("text") //범례 텍스트
 					  .attr("x", margin.left + i * 100 +15)
 					  .attr("y", height - 38)
 					  .attr("height", 30)
 					  .attr("width", 100)
 					  .style("fill", "black")
-					  .text(function(d){
+					  .text(function(d){ //범례 내용 한글로 표기
 								if (d === "positive"){
 									return "긍정";
 								} else if (d === "negative"){
@@ -129,7 +139,7 @@ test_senti = sentiment;
 							});
 			});
 
-	function draw(visible){
+	function draw(visible){ // 차트그리기 함수
 		if (visible.positive === "inline"){
 			drawArea(sentiment.filter(function(d){return d.key === "positive"})[0].values,"pos","monotone");
 		};
@@ -263,7 +273,7 @@ test_senti = sentiment;
 				);
 	}
 						
-	function drawLine(dataSet, clsName, intp_type){
+	function drawLine(dataSet, clsName, intp_type){ //선그리기 함수
 		var line_neu = d3.svg.line()
 							.x(function(d){return x(d.date)})
 							.y(function(d){return y(d.count)})
@@ -274,24 +284,34 @@ test_senti = sentiment;
 								.attr("d", line_neu(dataSet));
 	}
 	
-	function drawArea(dataSet, clsName, intp_type){
-		var area_default = d3.svg.area()
+	function drawArea(dataSet, clsName, intp_type){ //면적 그리기 함수
+		var area_default = d3.svg.area() //면적 0 인 시점
 						.x(function(d){return x(d.date)})
-						.y0(function(d){return height-margin.top - margin.bottom})
-						.y1(function(d){return height-margin.top - margin.bottom})
+						.y0(function(d){
+							return height-margin.top - margin.bottom
+							})
+						.y1(function(d){return 
+							height-margin.top - margin.bottom
+							})
 						.interpolate("monotone");
 		var area = d3.svg.area()
-						.x(function(d){return x(d.date)})
-						.y0(function(d){return height-margin.top - margin.bottom})
-						.y1(function(d){return y(d.count)})
+						.x(function(d){
+							return x(d.date)
+							})
+						.y0(function(d){ //색칠될 면적의 아래쪽 좌표
+							return height-margin.top - margin.bottom
+							})
+						.y1(function(d){ //색칠될 면적의 위쪽 좌표
+							return y(d.count)
+							})
 						.interpolate("monotone");
 						
-		var areaElements = svg.append("path")
+		var areaElements = svg.append("path") //애니메이션 적용
 								.attr("class", "area "+clsName)
-								.attr("d", area_default(dataSet))
+								.attr("d", area_default(dataSet)) //변하기 전
 								.transition()
-								.duration(1000)
-								.attr("d", area(dataSet));
+									.duration(1000)
+									.attr("d", area(dataSet)); //변한 후
 	}
 	function translate_kor(sentiment){
 				if (sentiment === "positive"){
