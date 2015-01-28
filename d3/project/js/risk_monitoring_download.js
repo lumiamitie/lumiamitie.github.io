@@ -162,7 +162,7 @@ d3.json("data/mainkeywd_line_week.json", function(error, data) {
 		.attr("cy", function(d){return y(d.count)}) //원의 y축
 		.attr("r",4) //원의 반지름
 		.style("fill","white")
-		.attr("stroke",function(d){ console.log(d);//색은 선과 동일하게
+		.attr("stroke",function(d){//색은 선과 동일하게
 										return color(d.key)})
 		.attr("stroke-width", "2px")
 		.attr("class", function(d, i){ //선별로 클래스 다르게 지정
