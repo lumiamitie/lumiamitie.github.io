@@ -184,14 +184,15 @@ d3.json("data/mainkeywd_line_week.json", function(error, data) {
 			});
 
    d3.select("#saveImage")
-	.on("click", function(){ console.log(1)
+	.on("click", function(){
 		d3.select("body")
 			.append('div')
 			.attr("class","image");
 		Pablo('svg')
 			.append(Pablo('.css'))
-			.toImage('png')
-			.appendTo('.image')
+			.toImage() // 'png' 옵션은 빼는게 나을듯....
+			.appendTo('.image');
+		// 익스플로러에서는 Pablo('svg').append(Pablo('.css')).toImage().appendTo('.image');
 		});
 });
 
