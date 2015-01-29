@@ -242,12 +242,6 @@ d3.json("data/sentiment_neutral_week.json", function(data) {
 					.range([margin.left, width - margin.left - margin.right]);
 		
 		var tick_number = sentiment[0].values.length < 8 ? sentiment[0].values.length  : 7;
-//		console.log(tick_number)
-/* 		if (sentiment[0].values.length < 8){
-				var tick_number =  sentiment[0].values.length - 1;
-			} else {
-				var  tick_number = 7; 
-			} */
 
 		svg.append("g")
 			.attr("class", "x axis")
@@ -288,10 +282,10 @@ d3.json("data/sentiment_neutral_week.json", function(data) {
 		var area_default = d3.svg.area() //면적 0 인 시점
 						.x(function(d){return x(d.date)})
 						.y0(function(d){
-							return height-margin.top - margin.bottom
+							return height-margin.top - margin.bottom;
 							})
-						.y1(function(d){return 
-							height-margin.top - margin.bottom
+						.y1(function(d){
+							return height-margin.top - margin.bottom;
 							})
 						.interpolate("monotone");
 		var area = d3.svg.area()
@@ -299,7 +293,7 @@ d3.json("data/sentiment_neutral_week.json", function(data) {
 							return x(d.date)
 							})
 						.y0(function(d){ //색칠될 면적의 아래쪽 좌표
-							return height-margin.top - margin.bottom
+							return height-margin.top - margin.bottom;
 							})
 						.y1(function(d){ //색칠될 면적의 위쪽 좌표
 							return y(d.count)
