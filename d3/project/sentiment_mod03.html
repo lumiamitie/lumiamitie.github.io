@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sentiment Monitoring</title>
+    <script type="text/javascript" src="js/d3.min.js"></script>
+    <style type="text/css">
+		svg {
+		  font-family: 'Malgun Gothic';
+		  font-size: 12	px;
+		  background-color: LavenderBlush;
+		}
+		.axis line{
+			stroke: #ccc;
+		}
+		.pos {
+			fill:steelblue;
+			opacity:0.6;
+		}
+		.neg {
+			fill:maroon;
+			opacity:0.6
+		}
+		.neu{
+			fill:none;
+			stroke:SandyBrown;
+			stroke-width:1.5px;
+		}
+		.tooltip {
+			font-family: 'Malgun Gothic';
+			font-size: 10px;
+			position: absolute;
+			text-align: center;
+			width: 80px;
+			height: 50px;
+			padding: 2px;
+			background: lightsteelblue;
+			border: 0px;
+			border-radius: 8px;
+			pointer-events: none;
+		}
+		.tick line {
+			opacity: 0.5;
+		}
+    </style>
+  </head>
+  <body>
+		<div class ="contents">
+		    <script type="text/javascript" src="js/sentiment_mod03.js"></script>
+		</div>
+		<button id= "area">area</button>
+		<button id ="stacked">stacked</button>
+  </body>
+</html>
