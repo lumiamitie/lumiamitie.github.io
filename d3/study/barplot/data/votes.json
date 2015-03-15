@@ -1,0 +1,937 @@
+﻿[
+    {
+        "region": "서울특별시",
+        "variable": "선거인수",
+        "value": 8393847
+    },
+    {
+        "region": "부산광역시",
+        "variable": "선거인수",
+        "value": 2911700
+    },
+    {
+        "region": "대구광역시",
+        "variable": "선거인수",
+        "value": 1990746
+    },
+    {
+        "region": "인천광역시",
+        "variable": "선거인수",
+        "value": 2241366
+    },
+    {
+        "region": "광주광역시",
+        "variable": "선거인수",
+        "value": 1117781
+    },
+    {
+        "region": "대전광역시",
+        "variable": "선거인수",
+        "value": 1182321
+    },
+    {
+        "region": "울산광역시",
+        "variable": "선거인수",
+        "value": 886061
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "선거인수",
+        "value": 87707
+    },
+    {
+        "region": "경기도",
+        "variable": "선거인수",
+        "value": 9364077
+    },
+    {
+        "region": "강원도",
+        "variable": "선거인수",
+        "value": 1235647
+    },
+    {
+        "region": "충청북도",
+        "variable": "선거인수",
+        "value": 1234832
+    },
+    {
+        "region": "충청남도",
+        "variable": "선거인수",
+        "value": 1601751
+    },
+    {
+        "region": "전라북도",
+        "variable": "선거인수",
+        "value": 1483402
+    },
+    {
+        "region": "전라남도",
+        "variable": "선거인수",
+        "value": 1530012
+    },
+    {
+        "region": "경상북도",
+        "variable": "선거인수",
+        "value": 2185987
+    },
+    {
+        "region": "경상남도",
+        "variable": "선거인수",
+        "value": 2608874
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "선거인수",
+        "value": 451731
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t7_9",
+        "value": 631897
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t7_9",
+        "value": 286191
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t7_9",
+        "value": 215811
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t7_9",
+        "value": 197496
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t7_9",
+        "value": 112697
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t7_9",
+        "value": 107650
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t7_9",
+        "value": 79573
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t7_9",
+        "value": 6474
+    },
+    {
+        "region": "경기도",
+        "variable": "t7_9",
+        "value": 792317
+    },
+    {
+        "region": "강원도",
+        "variable": "t7_9",
+        "value": 105450
+    },
+    {
+        "region": "충청북도",
+        "variable": "t7_9",
+        "value": 107226
+    },
+    {
+        "region": "충청남도",
+        "variable": "t7_9",
+        "value": 145663
+    },
+    {
+        "region": "전라북도",
+        "variable": "t7_9",
+        "value": 139745
+    },
+    {
+        "region": "전라남도",
+        "variable": "t7_9",
+        "value": 143014
+    },
+    {
+        "region": "경상북도",
+        "variable": "t7_9",
+        "value": 213289
+    },
+    {
+        "region": "경상남도",
+        "variable": "t7_9",
+        "value": 255615
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t7_9",
+        "value": 50957
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t9_11",
+        "value": 1088818
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t9_11",
+        "value": 409856
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t9_11",
+        "value": 317418
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t9_11",
+        "value": 310775
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t9_11",
+        "value": 178036
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t9_11",
+        "value": 174411
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t9_11",
+        "value": 126723
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t9_11",
+        "value": 14677
+    },
+    {
+        "region": "경기도",
+        "variable": "t9_11",
+        "value": 1325753
+    },
+    {
+        "region": "강원도",
+        "variable": "t9_11",
+        "value": 203078
+    },
+    {
+        "region": "충청북도",
+        "variable": "t9_11",
+        "value": 197582
+    },
+    {
+        "region": "충청남도",
+        "variable": "t9_11",
+        "value": 270440
+    },
+    {
+        "region": "전라북도",
+        "variable": "t9_11",
+        "value": 257237
+    },
+    {
+        "region": "전라남도",
+        "variable": "t9_11",
+        "value": 275179
+    },
+    {
+        "region": "경상북도",
+        "variable": "t9_11",
+        "value": 373335
+    },
+    {
+        "region": "경상남도",
+        "variable": "t9_11",
+        "value": 397804
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t9_11",
+        "value": 67457
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t11_12",
+        "value": 645497
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t11_12",
+        "value": 230199
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t11_12",
+        "value": 181471
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t11_12",
+        "value": 174103
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t11_12",
+        "value": 114613
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t11_12",
+        "value": 100315
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t11_12",
+        "value": 72081
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t11_12",
+        "value": 8108
+    },
+    {
+        "region": "경기도",
+        "variable": "t11_12",
+        "value": 768052
+    },
+    {
+        "region": "강원도",
+        "variable": "t11_12",
+        "value": 117549
+    },
+    {
+        "region": "충청북도",
+        "variable": "t11_12",
+        "value": 112059
+    },
+    {
+        "region": "충청남도",
+        "variable": "t11_12",
+        "value": 146103
+    },
+    {
+        "region": "전라북도",
+        "variable": "t11_12",
+        "value": 142283
+    },
+    {
+        "region": "전라남도",
+        "variable": "t11_12",
+        "value": 145227
+    },
+    {
+        "region": "경상북도",
+        "variable": "t11_12",
+        "value": 211548
+    },
+    {
+        "region": "경상남도",
+        "variable": "t11_12",
+        "value": 223929
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t11_12",
+        "value": 33849
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t12_13",
+        "value": 863589
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t12_13",
+        "value": 296392
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t12_13",
+        "value": 203746
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t12_13",
+        "value": 220698
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t12_13",
+        "value": 127177
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t12_13",
+        "value": 129066
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t12_13",
+        "value": 98617
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t12_13",
+        "value": 8741
+    },
+    {
+        "region": "경기도",
+        "variable": "t12_13",
+        "value": 972992
+    },
+    {
+        "region": "강원도",
+        "variable": "t12_13",
+        "value": 137479
+    },
+    {
+        "region": "충청북도",
+        "variable": "t12_13",
+        "value": 130850
+    },
+    {
+        "region": "충청남도",
+        "variable": "t12_13",
+        "value": 155685
+    },
+    {
+        "region": "전라북도",
+        "variable": "t12_13",
+        "value": 154227
+    },
+    {
+        "region": "전라남도",
+        "variable": "t12_13",
+        "value": 170776
+    },
+    {
+        "region": "경상북도",
+        "variable": "t12_13",
+        "value": 251721
+    },
+    {
+        "region": "경상남도",
+        "variable": "t12_13",
+        "value": 266029
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t12_13",
+        "value": 47925
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t13_14",
+        "value": 614813
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t13_14",
+        "value": 200654
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t13_14",
+        "value": 152149
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t13_14",
+        "value": 169456
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t13_14",
+        "value": 83038
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t13_14",
+        "value": 87215
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t13_14",
+        "value": 64431
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t13_14",
+        "value": 5450
+    },
+    {
+        "region": "경기도",
+        "variable": "t13_14",
+        "value": 706034
+    },
+    {
+        "region": "강원도",
+        "variable": "t13_14",
+        "value": 83112
+    },
+    {
+        "region": "충청북도",
+        "variable": "t13_14",
+        "value": 83118
+    },
+    {
+        "region": "충청남도",
+        "variable": "t13_14",
+        "value": 100417
+    },
+    {
+        "region": "전라북도",
+        "variable": "t13_14",
+        "value": 104884
+    },
+    {
+        "region": "전라남도",
+        "variable": "t13_14",
+        "value": 96076
+    },
+    {
+        "region": "경상북도",
+        "variable": "t13_14",
+        "value": 150391
+    },
+    {
+        "region": "경상남도",
+        "variable": "t13_14",
+        "value": 193847
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t13_14",
+        "value": 26452
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t14_15",
+        "value": 605150
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t14_15",
+        "value": 201835
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t14_15",
+        "value": 132637
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t14_15",
+        "value": 149092
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t14_15",
+        "value": 75950
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t14_15",
+        "value": 81322
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t14_15",
+        "value": 62086
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t14_15",
+        "value": 5361
+    },
+    {
+        "region": "경기도",
+        "variable": "t14_15",
+        "value": 646218
+    },
+    {
+        "region": "강원도",
+        "variable": "t14_15",
+        "value": 78027
+    },
+    {
+        "region": "충청북도",
+        "variable": "t14_15",
+        "value": 81723
+    },
+    {
+        "region": "충청남도",
+        "variable": "t14_15",
+        "value": 96589
+    },
+    {
+        "region": "전라북도",
+        "variable": "t14_15",
+        "value": 97628
+    },
+    {
+        "region": "전라남도",
+        "variable": "t14_15",
+        "value": 92325
+    },
+    {
+        "region": "경상북도",
+        "variable": "t14_15",
+        "value": 146141
+    },
+    {
+        "region": "경상남도",
+        "variable": "t14_15",
+        "value": 166894
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t14_15",
+        "value": 24168
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t15_16",
+        "value": 569728
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t15_16",
+        "value": 173982
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t15_16",
+        "value": 112032
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t15_16",
+        "value": 129895
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t15_16",
+        "value": 60303
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t15_16",
+        "value": 70663
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t15_16",
+        "value": 54285
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t15_16",
+        "value": 4531
+    },
+    {
+        "region": "경기도",
+        "variable": "t15_16",
+        "value": 555696
+    },
+    {
+        "region": "강원도",
+        "variable": "t15_16",
+        "value": 57063
+    },
+    {
+        "region": "충청북도",
+        "variable": "t15_16",
+        "value": 64222
+    },
+    {
+        "region": "충청남도",
+        "variable": "t15_16",
+        "value": 75169
+    },
+    {
+        "region": "전라북도",
+        "variable": "t15_16",
+        "value": 75706
+    },
+    {
+        "region": "전라남도",
+        "variable": "t15_16",
+        "value": 76856
+    },
+    {
+        "region": "경상북도",
+        "variable": "t15_16",
+        "value": 110159
+    },
+    {
+        "region": "경상남도",
+        "variable": "t15_16",
+        "value": 150195
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t15_16",
+        "value": 20630
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t16_17",
+        "value": 497294
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t16_17",
+        "value": 150584
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t16_17",
+        "value": 97677
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t16_17",
+        "value": 110103
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t16_17",
+        "value": 58342
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t16_17",
+        "value": 55437
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t16_17",
+        "value": 52133
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t16_17",
+        "value": 4201
+    },
+    {
+        "region": "경기도",
+        "variable": "t16_17",
+        "value": 471153
+    },
+    {
+        "region": "강원도",
+        "variable": "t16_17",
+        "value": 47060
+    },
+    {
+        "region": "충청북도",
+        "variable": "t16_17",
+        "value": 51762
+    },
+    {
+        "region": "충청남도",
+        "variable": "t16_17",
+        "value": 62287
+    },
+    {
+        "region": "전라북도",
+        "variable": "t16_17",
+        "value": 61001
+    },
+    {
+        "region": "전라남도",
+        "variable": "t16_17",
+        "value": 63632
+    },
+    {
+        "region": "경상북도",
+        "variable": "t16_17",
+        "value": 97630
+    },
+    {
+        "region": "경상남도",
+        "variable": "t16_17",
+        "value": 121708
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t16_17",
+        "value": 16705
+    },
+    {
+        "region": "서울특별시",
+        "variable": "t17_18",
+        "value": 578726
+    },
+    {
+        "region": "부산광역시",
+        "variable": "t17_18",
+        "value": 186679
+    },
+    {
+        "region": "대구광역시",
+        "variable": "t17_18",
+        "value": 106820
+    },
+    {
+        "region": "인천광역시",
+        "variable": "t17_18",
+        "value": 131563
+    },
+    {
+        "region": "광주광역시",
+        "variable": "t17_18",
+        "value": 53698
+    },
+    {
+        "region": "대전광역시",
+        "variable": "t17_18",
+        "value": 57445
+    },
+    {
+        "region": "울산광역시",
+        "variable": "t17_18",
+        "value": 61732
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "t17_18",
+        "value": 4819
+    },
+    {
+        "region": "경기도",
+        "variable": "t17_18",
+        "value": 542537
+    },
+    {
+        "region": "강원도",
+        "variable": "t17_18",
+        "value": 49699
+    },
+    {
+        "region": "충청북도",
+        "variable": "t17_18",
+        "value": 58448
+    },
+    {
+        "region": "충청남도",
+        "variable": "t17_18",
+        "value": 72787
+    },
+    {
+        "region": "전라북도",
+        "variable": "t17_18",
+        "value": 63387
+    },
+    {
+        "region": "전라남도",
+        "variable": "t17_18",
+        "value": 63181
+    },
+    {
+        "region": "경상북도",
+        "variable": "t17_18",
+        "value": 97918
+    },
+    {
+        "region": "경상남도",
+        "variable": "t17_18",
+        "value": 157342
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "t17_18",
+        "value": 22458
+    },
+    {
+        "region": "서울특별시",
+        "variable": "총투표수",
+        "value": 6307869
+    },
+    {
+        "region": "부산광역시",
+        "variable": "총투표수",
+        "value": 2219699
+    },
+    {
+        "region": "대구광역시",
+        "variable": "총투표수",
+        "value": 1585806
+    },
+    {
+        "region": "인천광역시",
+        "variable": "총투표수",
+        "value": 1657821
+    },
+    {
+        "region": "광주광역시",
+        "variable": "총투표수",
+        "value": 898416
+    },
+    {
+        "region": "대전광역시",
+        "variable": "총투표수",
+        "value": 904367
+    },
+    {
+        "region": "울산광역시",
+        "variable": "총투표수",
+        "value": 694938
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "총투표수",
+        "value": 64990
+    },
+    {
+        "region": "경기도",
+        "variable": "총투표수",
+        "value": 7018577
+    },
+    {
+        "region": "강원도",
+        "variable": "총투표수",
+        "value": 911988
+    },
+    {
+        "region": "충청북도",
+        "variable": "총투표수",
+        "value": 925778
+    },
+    {
+        "region": "충청남도",
+        "variable": "총투표수",
+        "value": 1168095
+    },
+    {
+        "region": "전라북도",
+        "variable": "총투표수",
+        "value": 1142133
+    },
+    {
+        "region": "전라남도",
+        "variable": "총투표수",
+        "value": 1171210
+    },
+    {
+        "region": "경상북도",
+        "variable": "총투표수",
+        "value": 1710122
+    },
+    {
+        "region": "경상남도",
+        "variable": "총투표수",
+        "value": 2008683
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "총투표수",
+        "value": 330967
+    }
+]

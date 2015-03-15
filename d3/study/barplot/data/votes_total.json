@@ -1,0 +1,87 @@
+﻿[    
+	{
+        "region": "서울특별시",
+        "variable": "총투표수",
+        "value": 6307869
+    },
+    {
+        "region": "부산광역시",
+        "variable": "총투표수",
+        "value": 2219699
+    },
+    {
+        "region": "대구광역시",
+        "variable": "총투표수",
+        "value": 1585806
+    },
+    {
+        "region": "인천광역시",
+        "variable": "총투표수",
+        "value": 1657821
+    },
+    {
+        "region": "광주광역시",
+        "variable": "총투표수",
+        "value": 898416
+    },
+    {
+        "region": "대전광역시",
+        "variable": "총투표수",
+        "value": 904367
+    },
+    {
+        "region": "울산광역시",
+        "variable": "총투표수",
+        "value": 694938
+    },
+    {
+        "region": "세종특별자치시",
+        "variable": "총투표수",
+        "value": 64990
+    },
+    {
+        "region": "경기도",
+        "variable": "총투표수",
+        "value": 7018577
+    },
+    {
+        "region": "강원도",
+        "variable": "총투표수",
+        "value": 911988
+    },
+    {
+        "region": "충청북도",
+        "variable": "총투표수",
+        "value": 925778
+    },
+    {
+        "region": "충청남도",
+        "variable": "총투표수",
+        "value": 1168095
+    },
+    {
+        "region": "전라북도",
+        "variable": "총투표수",
+        "value": 1142133
+    },
+    {
+        "region": "전라남도",
+        "variable": "총투표수",
+        "value": 1171210
+    },
+    {
+        "region": "경상북도",
+        "variable": "총투표수",
+        "value": 1710122
+    },
+    {
+        "region": "경상남도",
+        "variable": "총투표수",
+        "value": 2008683
+    },
+    {
+        "region": "제주특별자치도",
+        "variable": "총투표수",
+        "value": 330967
+    }
+]
