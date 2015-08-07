@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+<title type="text">lmnsh</title>
+<generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
+<link rel="self" type="application/atom+xml" href="http://luiamitie.github.io/feed.xml" />
+<link rel="alternate" type="text/html" href="http://luiamitie.github.io" />
+<updated>2015-08-07T18:23:29+09:00</updated>
+<id>http://luiamitie.github.io/</id>
+<author>
+  <name>Minho Lee</name>
+  <uri>http://luiamitie.github.io/</uri>
+  <email>lumiamitie@email.com</email>
+</author>
+
+
+<entry>
+  <title type="html"><![CDATA[koding.com 에서 Jekyll 활용하기]]></title>
+  <link>http://luiamitie.github.io/web/koding-com</link>
+  <id>http://luiamitie.github.io/web/koding-com</id>
+  <published>2015-08-05T00:00:00+09:00</published>
+  <updated>2015-08-05T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://luiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/old-book.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;kodingcom&quot;&gt;Koding.com&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://koding.com&quot;&gt;Koding&lt;/a&gt;은 Amazon EC2 인스턴스를 기반으로 하는 서비스다. 가입하면 무료로 VM을 하나 받을 수 있다. RAM 1기가에 하드 3기가 뿐이지만 우분투가 기본적으로 설치되어있고, 파이썬이나 루비 등이 미리 세팅되어있다. 무료로 사용하는 동안에는 접속이 끊어지면 VM도 자동으로 종료된다.&lt;/p&gt;
+
+&lt;p&gt;VM내부의 Web 폴더는 github.io 처럼 정적인 호스트를 제공하기 때문에 Jekyll 페이지를 테스트하는 용도로 사용하기로 했다.&lt;/p&gt;
+
+&lt;p&gt;원래 jekyll 페이지를 작성하고 웹페이지로 변환시키려면 &lt;code&gt;jekyll serve&lt;/code&gt; 명령어를 사용한다. 우리는 변환시킨 결과물을 &lt;strong&gt;Web&lt;/strong&gt; 폴더에 보내려고 한다. 이 경우에는 &lt;em&gt;-d&lt;/em&gt; 옵션을 사용하고 (destination) 그 뒤에 대상 폴더의 주소를 지정하면 된다. (~/Web)&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;jekyll serve -d ~/Web
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;이제 Koding.com의 VM이 켜져있는 동안에는 id.koding.io 에서 결과물을 확인할 수 있다&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://luiamitie.github.io/web/koding-com&quot;&gt;koding.com 에서 Jekyll 활용하기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://luiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 05, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[jekyll을 사용한 첫 게시물]]></title>
+  <link>http://luiamitie.github.io/web/%EC%B2%AB%EA%B2%8C%EC%8B%9C%EB%AC%BC</link>
+  <id>http://luiamitie.github.io/web/첫게시물</id>
+  <published>2015-08-04T00:00:00+09:00</published>
+  <updated>2015-08-04T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://luiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;jekyll-notepad----&quot;&gt;jekyll Notepad 테마를 적용한 블로그 게시&lt;/h2&gt;
+
+&lt;p&gt;일단은 koding.com에서 테스트 중이다
+유료 계정이 아니라 종료하면 VM이 꺼지는데 그러면 호스팅도 종료가 되기 때문에 어느 정도 완성되면 github.io로 업로드할 예정이다&lt;/p&gt;
+
+&lt;p&gt;dropbox에서 공유를 통해 받아오는 주소로는 커버이미지 적용이 안되는 것이 확인되었다
+이것이 주소 또는 드랍박스의 문제인지 markdown 문법상의 문제인지 확인을 위해 구글에서 검색한 이미지로 커버 등록을 시도한다&lt;/p&gt;
+
+&lt;p&gt;구글에서 검색한 이미지의 주소로 바로 링크했을 때는 커버 등록이 되는 것을 확인했다&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;images&lt;/em&gt;폴더에 저장된 그림파일을 불러오기 위해서는 ../../images/그림파일 의 주소로 연결해주면 된다&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;www.pexels.com&quot;&gt;pexels&lt;/a&gt;에서 이용 가능한 사진들을 찾았다&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://luiamitie.github.io/web/%EC%B2%AB%EA%B2%8C%EC%8B%9C%EB%AC%BC&quot;&gt;jekyll을 사용한 첫 게시물&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://luiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 04, 2015.&lt;/p&gt;</content>
+</entry>
+
+
+<entry>
+  <title type="html"><![CDATA[마크다운에 Dropbox 공유 이미지 링크하기]]></title>
+  <link>http://luiamitie.github.io/web/image-link-test</link>
+  <id>http://luiamitie.github.io/web/image-link-test</id>
+  <published>2015-08-04T00:00:00+09:00</published>
+  <updated>2015-08-04T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://luiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;커버이미지를 등록하는 것 때문에 매번 필요한 사진이 생기면 다운로드 받아서 jekyll 폴더에 넣어줘야 하는지 고민하다가 Dropbox에 사진을 넣고 공유해서 그 링크를 첨부하는 방식을 생각했다. 그런데 막상 해보니 제대로 링크가 연결되지 않아서 파일을 직접 넣어주는 방향으로 생각하고 있었는데, 마크다운 문법 때문에 블로그를 돌아다니다가 &lt;a href=&quot;http://scriptogr.am/myevan/post/markdown-syntax-guide-for-scriptogram&quot;&gt;Song Young-jin님의 블로그&lt;/a&gt;에서 적절한 해결 방안을 발견했다.&lt;/p&gt;
+
+&lt;p&gt;원래 공유를 하면 다음과 같은 링크가 주어진다&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;https://www.dropbox.com/s/randomrandom/image.png?dl=0&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;여기서 https 를 http로, www를 dl로 변경하고 ?dl=0 을 제거한다&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;http://dl.dropbox.com/s/randomrandom/image.png&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;위 링크를 사용하면 마크다운에서 Dropbox 공유 이미지를 불러올 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hw5qjxa91jy560g/apple_mean_price.png&quot; alt=&quot;서울시 구별 사과 평균가격&quot; /&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://luiamitie.github.io/web/image-link-test&quot;&gt;마크다운에 Dropbox 공유 이미지 링크하기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://luiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 04, 2015.&lt;/p&gt;</content>
+</entry>
+
+</feed>
