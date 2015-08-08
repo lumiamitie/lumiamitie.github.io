@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Mapping with ggplot2+shp",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2",
+		  "date"       : "2015-08-08 00:00:00 +0900",
+		  "shortdate"  : "August 08, 2015"
+		} ,
+	
+		{
 		  "title"      : "koding.com 에서 Jekyll 활용하기",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/web/koding-com",

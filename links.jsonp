@@ -13,6 +13,11 @@ callback([
   {
     "text": "koding.com 에서 Jekyll 활용하기",
     "href": "http://lumiamitie.github.io/web/koding-com"
+  } ,
+
+  {
+    "text": "Mapping with ggplot2+shp",
+    "href": "http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2"
   } 
 
 ])
