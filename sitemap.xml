@@ -16,6 +16,10 @@
     
     
     <url>
+        <loc>http://lumiamitie.github.io/r/magrittr</loc>
+    </url>
+    
+    <url>
         <loc>http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2</loc>
     </url>
     

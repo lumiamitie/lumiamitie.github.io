@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
 /* tools */
 .cf:before,
 .cf:after {
@@ -8,19 +10,19 @@
   clear: both; }
 
 body {
-  font-family: "Open Sans", sans-serif;
+  font-family: "Open Sans",'NanumBarunGothic','Malgun Gothic',sans-serif;
   height: auto;
   min-height: 100%; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Montserrat", sans-serif; }
+  font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif; }
 
 .summer-blog-menu {
   padding-top: 0;
   padding-bottom: 0;
   margin-right: 0.9375rem;
   float: right;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif;
   font-weight: 400;
   font-size: 2.625rem;
   height: 5rem; }
@@ -125,7 +127,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 5rem;
     line-height: 5rem;
     vertical-align: middle;
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif;
     font-size: 1.625rem;
     font-weight: 700;
     color: black;
@@ -213,13 +215,13 @@ h1, h2, h3, h4, h5, h6 {
       font-size: 3.25rem;
       font-weight: 800;
       color: #364e91;
-      font-family: "Montserrat", sans-serif; }
+      font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif; }
     .summer-content .summer-index-post .summer-post-meta .month-year {
       display: block;
       font-size: 1rem;
       color: black;
       font-size: 0.875rem;
-      font-family: "Montserrat", sans-serif;
+      font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif;
       text-transform: uppercase; }
   .summer-content .summer-index-post .summer-post-header .summer-post-title {
     color: black;
@@ -252,7 +254,7 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 0.8125rem;
     color: black;
     margin-top: 1.5625rem;
-    font-family: "Montserrat", sans-serif;
+    font-family: 'NanumBarunGothic','Malgun Gothic',sans-serif;
     text-align: center; }
     .summer-content .summer-index-post .summer-index-post-tags a {
       display: inline-block;
@@ -370,7 +372,7 @@ nav.pagination {
 .summer-tags-container {
   background: #f2f2f2; }
   .summer-tags-container .summer-tags-header {
-    font-family: "Montserrat", sans-serif;
+    font-family: "Montserrat", 'NanumBarunGothic','Malgun Gothic',sans-serif;
     font-size: 1.125rem;
     color: black;
     text-transform: uppercase;

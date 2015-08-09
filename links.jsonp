@@ -18,6 +18,11 @@ callback([
   {
     "text": "Mapping with ggplot2+shp",
     "href": "http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2"
+  } ,
+
+  {
+    "text": "magrittr - Ceci n'est pas une pipe",
+    "href": "http://lumiamitie.github.io/r/magrittr"
   } 
 
 ])
