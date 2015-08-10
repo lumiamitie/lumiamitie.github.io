@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-08-09T18:35:07+09:00</updated>
+<updated>2015-08-10T21:46:29+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
@@ -24,66 +24,47 @@
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;magrittr&quot;&gt;magrittr&lt;/h2&gt;
 
 &lt;p&gt;dplyr 이후로 Hadley Wickham의 패키지들은 &lt;code&gt;%&amp;gt;%&lt;/code&gt;라는 연산자를 굉장히 많이 사용한다. 파이프 연산자를 사용하면 코드의 가독성을 향상시키면서 생산성도 높이고, 유지 보수에도 굉장히 도움이 많이 된다. 그런데 pipe operator를 모르는 사람에게 코드를 보여주면 코드자체가 암호문으로 변해버리는 단점?이 있었다. 그래서 파이프 연산자의 사용법을 간단하게 설명하면서 &lt;code&gt;magrittr&lt;/code&gt; 패키지의 기능들을 일부 설명해보려고 한다.&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
-&lt;h2 id=&quot;pipe-&quot;&gt;기본적인 pipe의 이용&lt;/h2&gt;
+&lt;h2 id=&quot;기본적인-pipe의-이용&quot;&gt;기본적인 pipe의 이용&lt;/h2&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;code&gt;fun(x,y,z)&lt;/code&gt;는 &lt;code&gt;x %&amp;gt;% fun(y,z)&lt;/code&gt;와 같다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;파이프를 기준으로 왼쪽에 있는 오브젝트(또는 연산의 결과물)는 파이프 오른쪽의 연산에 가장 첫 번째 인자로 들어간다. 만약 첫 번째가 아닌 다른 위치로 보내려고 한다면 . 으로 위치를 표시한다. 따라서
-&lt;code&gt;y %&amp;gt;% fun(x, ., z)&lt;/code&gt; 도 &lt;code&gt;fun(x, y, z)&lt;/code&gt;와 같다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;파이프는 연속적으로 적용할 수 있기 때문에 중첩된 함수를 쉽게 표현할 수 있다.
-&lt;code&gt;fun3(fun2(fun1(x)))&lt;/code&gt; 은 &lt;code&gt;x %&amp;gt;% fun1 %&amp;gt;% fun2 %&amp;gt;% fun3&lt;/code&gt;과 같다&lt;/p&gt;
-  &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;&lt;code&gt;fun(x,y,z)&lt;/code&gt;는 &lt;code&gt;x %&amp;gt;% fun(y,z)&lt;/code&gt;와 같다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;파이프를 기준으로 왼쪽에 있는 오브젝트(또는 연산의 결과물)는 파이프 오른쪽의 연산에 가장 첫 번째 인자로 들어간다. 만약 첫 번째가 아닌 다른 위치로 보내려고 한다면 . 으로 위치를 표시한다. 따라서
+&lt;code&gt;y %&amp;gt;% fun(x, ., z)&lt;/code&gt; 도 &lt;code&gt;fun(x, y, z)&lt;/code&gt;와 같다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;파이프는 연속적으로 적용할 수 있기 때문에 중첩된 함수를 쉽게 표현할 수 있다.
+&lt;code&gt;fun3(fun2(fun1(x)))&lt;/code&gt; 은 &lt;code&gt;x %&amp;gt;% fun1 %&amp;gt;% fun2 %&amp;gt;% fun3&lt;/code&gt;과 같다&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
 &lt;p&gt;실제로 pipe연산이 어떻게 이용되는지 보기 위해서 다음과 같은 연산 과정을 생각해보자&lt;/p&gt;
 
 &lt;ol&gt;
-  &lt;li&gt;
-    &lt;p&gt;iris 데이터에서 Sepal.Length와 Species 열만 선택한다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Species에 대해 group_by 지정한다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;Sepal.Length의 평균과 표준편차를 계산하여 정규화시킨다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;계산과정을 위해 생성한 열을 제거한다&lt;/p&gt;
-  &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;iris 데이터에서 Sepal.Length와 Species 열만 선택한다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Species에 대해 group_by 지정한다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Sepal.Length의 평균과 표준편차를 계산하여 정규화시킨다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;계산과정을 위해 생성한 열을 제거한다&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;library(magrittr)
-library(dplyr)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;select(
-  mutate(
-    group_by(
-      select(iris, Sepal.Length, Species), 
-      Species),
-    sp_mean = mean(Sepal.Length),
-    sp_sd = sd(Sepal.Length),
-    norm = (Sepal.Length - sp_mean) / sp_sd
-    ), 
-  -sp_mean, -sp_sd)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [150 x 3]
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;magrittr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+      select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Species&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+      Species&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    sp_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    sp_sd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+    norm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; sp_mean&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; sp_sd
+    &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;sp_mean&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;sp_sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [150 x 3]
 ## Groups: Species
 ## 
 ##    Sepal.Length Species        norm
@@ -98,37 +79,25 @@ library(dplyr)
 ## 9           4.4  setosa -1.71919923
 ## 10          4.9  setosa -0.30071802
 ## ..          ...     ...         ...
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;우선 문제가 되는 것은 연산과정에서 맨 먼저 적용되는, 중심 데이터의 위치를 찾기가 어렵다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;또, 중심이 되는 iris 데이터를 기준으로 해서 함수들이 중첩되어 있다.&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;그래서 코드를 읽으려면 코드 덩어리에 중심에서부터 한 단계씩 밖으로 나오게 되는데
-중심을 기준으로 함수명은 앞에, 옵션은 뒤에 있기 때문에 코드를 보고 내용을 이해하기가 힘들어진다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;위와 같은 상황에서는 가독성을 위해 코드를 중간중간 끊어서 사용하게 되는데, 
-그러면 불필요한 임시변수들이 많이 생길 수 있다&lt;/p&gt;
-  &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;우선 문제가 되는 것은 연산과정에서 맨 먼저 적용되는, 중심 데이터의 위치를 찾기가 어렵다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;또, 중심이 되는 iris 데이터를 기준으로 해서 함수들이 중첩되어 있다.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;그래서 코드를 읽으려면 코드 덩어리에 중심에서부터 한 단계씩 밖으로 나오게 되는데
+중심을 기준으로 함수명은 앞에, 옵션은 뒤에 있기 때문에 코드를 보고 내용을 이해하기가 힘들어진다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;위와 같은 상황에서는 가독성을 위해 코드를 중간중간 끊어서 사용하게 되는데, 
+그러면 불필요한 임시변수들이 많이 생길 수 있다&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;위 코드를 pipe를 이용해서 정리하면 다음과 같다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;iris %&amp;gt;%
-  select(Sepal.Length, Species) %&amp;gt;%
-  group_by(Species) %&amp;gt;%
-  mutate(sp_mean = mean(Sepal.Length),
-         sp_sd = sd(Sepal.Length),
-         norm = (Sepal.Length - sp_mean) / sp_sd) %&amp;gt;%
-  select(-sp_mean, -sp_sd)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [150 x 3]
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Species&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Species&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sp_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+         sp_sd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+         norm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; sp_mean&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; sp_sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;sp_mean&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;sp_sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [150 x 3]
 ## Groups: Species
 ## 
 ##    Sepal.Length Species        norm
@@ -143,164 +112,112 @@ library(dplyr)
 ## 9           4.4  setosa -1.71919923
 ## 10          4.9  setosa -0.30071802
 ## ..          ...     ...         ...
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;ul&gt;
-  &lt;li&gt;
-    &lt;p&gt;일단 코드가 훨씬 깔끔하게 정리되었다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;또 함수와 해당 함수의 옵션 및 추가적인 인수들을 같은 줄에서 관리할 수 있다&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;시작이 되는 데이터가 iris 라는 것이 명확하게 보이고, 우리가 처음에 생각했던 연산 순서대로 함수를 볼 수 있게 되었다&lt;/p&gt;
-  &lt;/li&gt;
+&lt;li&gt;&lt;p&gt;일단 코드가 훨씬 깔끔하게 정리되었다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;또 함수와 해당 함수의 옵션 및 추가적인 인수들을 같은 줄에서 관리할 수 있다&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;시작이 되는 데이터가 iris 라는 것이 명확하게 보이고, 우리가 처음에 생각했던 연산 순서대로 함수를 볼 수 있게 되었다&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
 &lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt; 등의 패키지는 자동으로 &lt;code&gt;%&amp;gt;%&lt;/code&gt; 함수를 불러오기 때문에 &lt;code&gt;magrittr&lt;/code&gt; 패키지를 굳이 불러오지 않더라도 많이 사용하게 되는데 &lt;code&gt;magrittr&lt;/code&gt; 패키지를 불러오면 기본 pipe 이외에도 몇 가지 추가적인 기능을 제공하는 pipe operator와 pipeline을 통한 코드 작성을 도와주는 함수들을 더 제공한다&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
-&lt;h2 id=&quot;section&quot;&gt;다양한 파이프 연산자들&lt;/h2&gt;
+&lt;h2 id=&quot;다양한-파이프-연산자들&quot;&gt;다양한 파이프 연산자들&lt;/h2&gt;
 
-&lt;h3 id=&quot;tee-operator-t&quot;&gt;‘tee’ operator %T&amp;gt;%&lt;/h3&gt;
+&lt;h3 id=&quot;&amp;#39;tee&amp;#39;-operator-%t&amp;gt;%&quot;&gt;&amp;lsquo;tee&amp;rsquo; operator %T&amp;gt;%&lt;/h3&gt;
 
 &lt;p&gt;pipe를 기준으로 왼쪽에 있는 연산은 값을 반환하지만 오른쪽에 있는 연산은 값을 반환하지 않는다. 따라서 tee opeator 다음에는 print, plot 등의 함수를 사용해서 연산 중간에 자연스럽게 부수적인 결과물을 출력시킬 수 있다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;rnorm(5) %T&amp;gt;%
-  print %&amp;gt;%
-  mean
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1]  0.4826458 -0.8295812  0.1662653  0.0854539  0.9908439
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1] 0.1791255
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%T&amp;gt;%&lt;/span&gt;
+  print &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1]  0.4826458 -0.8295812  0.1662653  0.0854539  0.9908439
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.1791255
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;위 코드는 표준정규분포를 따르는 난수 5개를 발생시키고&lt;/p&gt;
 
 &lt;p&gt;해당 난수를 print함수를 이용해 출력한 다음에 5개 난수의 평균을 내보낸다.&lt;/p&gt;
 
 &lt;p&gt;rnorm(5)에서 나온 값이 print와 mean에 반영된다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;iris %&amp;gt;%
-  head(n=3) %T&amp;gt;%
-  plot %&amp;gt;%
-  select(Sepal.Length)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/iqvk8pznc8r09lv/unnamed-chunk-4-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##   Sepal.Length
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%T&amp;gt;%&lt;/span&gt;
+  plot &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/iqvk8pznc8r09lv/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length
 ## 1          5.1
 ## 2          4.9
 ## 3          4.7
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;위 코드에서는 iris 데이터의 1~3행에 대해서 plot을 그리고 Sepal.Length 열만 선택한다&lt;/p&gt;
 
 &lt;p&gt;plot 함수는 기본적으로 데이터를 반환하지 않기 때문에 pipeline의 중간에 plot을 넣기 위해 tee operator를 사용했다&lt;/p&gt;
 
-&lt;h3 id=&quot;exposition-operator-&quot;&gt;‘exposition’ operator %$%&lt;/h3&gt;
+&lt;h3 id=&quot;&amp;#39;exposition&amp;#39;-operator-%$%&quot;&gt;&amp;#39;exposition&amp;rsquo; operator %$%&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;with&lt;/code&gt; 함수의 축약버전이다. pipe 기준으로 왼쪽에 있는 오브젝트 내의 name을 pipe 오른쪽의 연산에서 오브젝트 처럼 사용할 수 있게 해준다&lt;/p&gt;
 
 &lt;p&gt;다음 세 가지 코드는 같은 결과물을 출력한다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;cor(iris$Petal.Length, iris$Petal.Width)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1] 0.9628654
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;with(iris,
-     cor(Petal.Length, Petal.Width))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1] 0.9628654
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;iris %$%
-  cor(Petal.Length, Petal.Width)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## [1] 0.9628654
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h3 id=&quot;compound-assignment-operator-&quot;&gt;compound assignment operator %&amp;lt;&amp;gt;%&lt;/h3&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Petal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Petal.Width&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.9628654
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Petal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Petal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.9628654
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%$%&lt;/span&gt;
+  cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Petal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Petal.Width&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.9628654
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h3 id=&quot;compound-assignment-operator-%&amp;lt;&amp;gt;%&quot;&gt;compound assignment operator %&amp;lt;&amp;gt;%&lt;/h3&gt;
 
 &lt;p&gt;chain의 맨 처음에서 사용될 수 있다. pipeline의 결과물을 operator 왼쪽의 오브젝트에 저장한다&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;data &amp;lt;- data %&amp;gt;% func1 %&amp;gt;% func2&lt;/code&gt; 는 &lt;code&gt;data %&amp;lt;&amp;gt;% func1 %&amp;gt;% func2&lt;/code&gt; 와 같다&lt;/p&gt;
 
 &lt;p&gt;c(1:10)의 값을 모두 로그변환을 하고 소수점 둘째 자리까지만 남도록 반올림한다면&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;x &amp;lt;- 1:10
-x &amp;lt;- round(log(x),2)
-print(x)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;x &amp;lt;- 1:10
-x %&amp;lt;&amp;gt;% log %&amp;gt;%
-  round(2)
-print(x)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&quot;section-1&quot;&gt;기본연산을 대체하는 함수들&lt;/h2&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
+x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;x &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
+x &lt;span class=&quot;o&quot;&gt;%&amp;lt;&amp;gt;%&lt;/span&gt; log &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;기본연산을-대체하는-함수들&quot;&gt;기본연산을 대체하는 함수들&lt;/h2&gt;
 
 &lt;p&gt;magrittr 패키지에서는 다양한 기본 연산을 pipeline에 쉽게 적용할 수 있도록 다양한 기본 연산에 대한 대체 함수를 제공한다&lt;/p&gt;
 
 &lt;p&gt;예를 들면, &lt;code&gt;iris %&amp;gt;% select(Species)&lt;/code&gt; 는 데이터프레임의 형태로 Species 를 반환하는데
 &lt;code&gt;iris$Species&lt;/code&gt; 처럼 단순하게 벡터 형태로 반환해야 한다면
-&lt;code&gt;&#39;$&#39;&lt;/code&gt; 함수를 직접 호출하여 이용할 수도 있지만
+&lt;code&gt;&amp;#39;$&amp;#39;&lt;/code&gt; 함수를 직접 호출하여 이용할 수도 있지만
 magrittr의 &lt;code&gt;use_series&lt;/code&gt; 함수를 이용할 수 있다&lt;/p&gt;
 
 &lt;p&gt;따라서 아래 두 연산은 동일하다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;mtcars %&amp;gt;%
-  &#39;$&#39;(&#39;mpg&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtcars &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;s&quot;&gt;&amp;#39;$&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;mpg&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
 ## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
 ## [29] 15.8 19.7 15.0 21.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;mtcars %&amp;gt;%
-  use_series(mpg)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtcars &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  use_series&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mpg&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
 ## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
 ## [29] 15.8 19.7 15.0 21.4
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;또 &lt;code&gt;&#39;==&#39;&lt;/code&gt; 연산에 대한 함수로 &lt;code&gt;equals&lt;/code&gt; 함수를 제공한다
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;또 &lt;code&gt;&amp;#39;==&amp;#39;&lt;/code&gt; 연산에 대한 함수로 &lt;code&gt;equals&lt;/code&gt; 함수를 제공한다
 결과물이 TRUE, FALSE로 반환되기 때문에 &lt;code&gt;dplyr::filter&lt;/code&gt; 등의 함수에서도 적용할 수 있다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;letters %&amp;gt;%
-  equals(&#39;a&#39;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kc&quot;&gt;letters&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  equals&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;a&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 ## [23] FALSE FALSE FALSE FALSE
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;mtcars %&amp;gt;%
-  filter(cyl %&amp;gt;% equals(4))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtcars &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; equals&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
 ## 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
 ## 2  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
 ## 3  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
@@ -312,78 +229,61 @@ magrittr의 &lt;code&gt;use_series&lt;/code&gt; 함수를 이용할 수 있다&l
 ## 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
 ## 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
 ## 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;code&gt;gcookbook&lt;/code&gt; 패키지의 &lt;code&gt;aapl&lt;/code&gt;데이터에서 2012년의 자료만 필터링하려면 다음과 같이 해볼 수 있다.&lt;/p&gt;
 
 &lt;p&gt;아래 두 가지 방법은 동일한 결과물을 출력한다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;library(gcookbook)
-aapl %&amp;gt;% 
-  filter(strftime(date, &#39;%Y&#39;) == &#39;2012&#39;) %&amp;gt;%
-  head
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##         date adj_price
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gcookbook&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+aapl &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;%Y&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;2012&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##         date adj_price
 ## 1 2012-01-06    420.59
 ## 2 2012-01-13    418.02
 ## 3 2012-01-20    418.50
 ## 4 2012-01-27    445.37
 ## 5 2012-02-03    457.71
 ## 6 2012-02-10    491.31
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;aapl %&amp;gt;%
-  filter(date %&amp;gt;% strftime(&#39;%Y&#39;) %&amp;gt;% equals(2012)) %&amp;gt;%
-  head
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##         date adj_price
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;aapl &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;date &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;strftime&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;%Y&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; equals&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2012&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##         date adj_price
 ## 1 2012-01-06    420.59
 ## 2 2012-01-13    418.02
 ## 3 2012-01-20    418.50
 ## 4 2012-01-27    445.37
 ## 5 2012-02-03    457.71
 ## 6 2012-02-10    491.31
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이처럼 다양한 연산에 대한 대체 함수를 이용하면 pipeline 위주로 코드를 작성할 때 도움이 될 수 있다&lt;/p&gt;
 
 &lt;p&gt;함수들의 목록은 다음과 같다&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hcgg2cwxhct26r1/magrittr_alias.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hcgg2cwxhct26r1/magrittr_alias.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
-&lt;hr /&gt;
+&lt;hr&gt;
 
 &lt;p&gt;함수를 pipe의 형태로 적용하면 중복되는 pipe 연산들에 동시에 적용할 수도 있다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;iris %&amp;gt;%
-  group_by(Species) %&amp;gt;%
-  summarise(cnt = n())
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [3 x 2]
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Species&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  summarise&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cnt &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; n&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
 ## 
 ##      Species cnt
 ## 1     setosa  50
 ## 2 versicolor  50
 ## 3  virginica  50
-&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;count_group &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Species&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; summarise&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cnt &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; n&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;count_group &amp;lt;- . %&amp;gt;% group_by(Species) %&amp;gt;% summarise(cnt = n())
-
-iris %&amp;gt;%
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
   count_group
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;## Source: local data frame [3 x 2]
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
 ## 
 ##      Species cnt
 ## 1     setosa  50
 ## 2 versicolor  50
 ## 3  virginica  50
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;동일한 연산 과정들이 반복되거나, 구조가 같은 여러 자료에 공통적으로 적용할 수 있는 연산들의 경우에는
 이러한 방법으로 함수를 작성하여 반복되는 연산을 간단하게 표현할 수 있다.&lt;/p&gt;
 
@@ -405,137 +305,99 @@ iris %&amp;gt;%
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot; /&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;
 여기서는 shp파일을 불러와서 직접 ggplot2를 이용해 지도를 그리는 방법을 설명하려고 한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-library(maptools)
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-## Loading required package: sp
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;library(maptools)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: sp
 ## Checking rgeos availability: TRUE
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-library(ggplot2)
-&lt;/code&gt;
-maptools 패키지를 실행시키면 &lt;code&gt;Checking rgeos availability&lt;/code&gt; 라는 문구가 나오는데 여기서 FALSE가 나온다면 rgeos 패키지를 설치해주자&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;library(ggplot2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;maptools 패키지를 실행시키면 &lt;code&gt;Checking rgeos availability&lt;/code&gt; 라는 문구가 나오는데 여기서 FALSE가 나온다면 rgeos 패키지를 설치해주자&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://www.diva-gis.org/gdata&quot;&gt;여기 주소&lt;/a&gt;를 통해 한국의 행정구역이 표시된 shp파일을 구해서 데이터를 불러오도록 한다. &lt;strong&gt;Administrative areas&lt;/strong&gt;항목을 다운로드 받는다. 그 중에서 &lt;code&gt;KOR_adm2.shp&lt;/code&gt;파일을 &lt;code&gt;maptools::readShapePoly()&lt;/code&gt;함수로 불러오고, &lt;code&gt;str()&lt;/code&gt; 함수로 데이터를 살펴보자.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;shp2 &amp;lt;- readShapePoly(&quot;D:\\data\\gis\\SouthKorea_source\\KOR_adm\\KOR_adm2.shp&quot;)
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shp2 &amp;lt;- readShapePoly(&amp;quot;D:\\data\\gis\\SouthKorea_source\\KOR_adm\\KOR_adm2.shp&amp;quot;)
 str(shp2@data)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;  ## &#39;data.frame&#39;:	228 obs. of  18 variables:
-    $ ID_0      : int  124 124 124 124 124 124 124 124 124 124 ...
-    $ ISO       : Factor w/ 1 level &quot;KOR&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-    $ NAME_0    : Factor w/ 1 level &quot;South Korea&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-    $ ID_1      : int  1591 1591 1591 1591 1591 1592 1592 1592 1587 1588 ...
-    $ NAME_1    : Factor w/ 16 levels &quot;Busan&quot;,&quot;Chungcheongbuk-do&quot;,..: 14 14 14 14 14 15 15 15 10 11 ...
-    $ ID_2      : int  19391 19392 19393 19394 19395 19396 19397 19398 19347 19348 ...
-    $ NAME_2    : Factor w/ 208 levels &quot;Andong&quot;,&quot;Ansan&quot;,..: 166 179 191 197 204 34 36 39 186 13 ...
-    $ VARNAME_2 : Factor w/ 0 levels: NA NA NA NA NA NA NA NA NA NA ...
-    $ NL_NAME_2 : Factor w/ 9 levels &quot;?? | ??&quot;,&quot;??? |  ???&quot;,..: 6 6 6 6 6 6 5 6 6 6 ...
-    $ HASC_2    : Factor w/ 0 levels: NA NA NA NA NA NA NA NA NA NA ...
-    $ CC_2      : Factor w/ 0 levels: NA NA NA NA NA NA NA NA NA NA ...
-    $ TYPE_2    : Factor w/ 3 levels &quot;Gu&quot;,&quot;Gun&quot;,&quot;Si&quot;: 3 2 2 2 3 1 1 1 3 1 ...
-    $ ENGTYPE_2 : Factor w/ 3 levels &quot;City&quot;,&quot;County&quot;,..: 1 2 2 2 1 3 3 3 1 3 ...
-    $ VALIDFR_2 : Factor w/ 1 level &quot;Unknown&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-    $ VALIDTO_2 : Factor w/ 1 level &quot;Present&quot;: 1 1 1 1 1 1 1 1 1 1 ...
-    $ REMARKS_2 : Factor w/ 0 levels: NA NA NA NA NA NA NA NA NA NA ...
-    $ Shape_Leng: num  1.63 12.39 2.17 2 7.53 ...
-    $ Shape_Area: num  0.0809 0.0463 0.06 0.0473 0.0484 ...
-    -attr(*, &quot;data_types&quot;)= chr  &quot;N&quot; &quot;C&quot; &quot;C&quot; &quot;N&quot; ...
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;데이터를 보면 &lt;code&gt;NAME_1&lt;/code&gt; 항목에는 광역시와 도 등 광역단체목록이 담겨있고, &lt;code&gt;NAME_2&lt;/code&gt;에는 시/군 과 서울의 구가 들어있다.&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;  &lt;span class=&quot;c1&quot;&gt;## &amp;#39;data.frame&amp;#39;:  228 obs. of  18 variables:&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; ID_0      &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; int  &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;124&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; ISO       &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; level &lt;span class=&quot;s&quot;&gt;&amp;quot;KOR&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; NAME_0    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; level &lt;span class=&quot;s&quot;&gt;&amp;quot;South Korea&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; ID_1      &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; int  &lt;span class=&quot;m&quot;&gt;1591&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1591&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1591&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1591&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1591&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1592&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1592&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1592&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1587&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1588&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; NAME_1    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;16&lt;/span&gt; levels &lt;span class=&quot;s&quot;&gt;&amp;quot;Busan&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Chungcheongbuk-do&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;14&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; ID_2      &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; int  &lt;span class=&quot;m&quot;&gt;19391&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19392&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19393&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19394&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19395&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19396&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19397&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19398&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19347&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;19348&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; NAME_2    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;208&lt;/span&gt; levels &lt;span class=&quot;s&quot;&gt;&amp;quot;Andong&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Ansan&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;166&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;179&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;191&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;197&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;204&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;34&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;36&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;39&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;186&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;13&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; VARNAME_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;levels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; NL_NAME_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;9&lt;/span&gt; levels &lt;span class=&quot;s&quot;&gt;&amp;quot;?? | ??&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;??? |  ???&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;6&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; HASC_2    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;levels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; CC_2      &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;levels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; TYPE_2    &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; levels &lt;span class=&quot;s&quot;&gt;&amp;quot;Gu&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Gun&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Si&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; ENGTYPE_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; levels &lt;span class=&quot;s&quot;&gt;&amp;quot;City&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;County&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; VALIDFR_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; level &lt;span class=&quot;s&quot;&gt;&amp;quot;Unknown&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; VALIDTO_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; level &lt;span class=&quot;s&quot;&gt;&amp;quot;Present&amp;quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; REMARKS_2 &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; Factor w&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;levels&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; Shape_Leng&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; num  &lt;span class=&quot;m&quot;&gt;1.63&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;12.39&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2.17&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;7.53&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;$&lt;/span&gt; Shape_Area&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; num  &lt;span class=&quot;m&quot;&gt;0.0809&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.0463&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.06&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.0473&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.0484&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;attr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;data_types&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; chr  &lt;span class=&quot;s&quot;&gt;&amp;quot;N&amp;quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;C&amp;quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;C&amp;quot;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;N&amp;quot;&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;데이터를 보면 &lt;code&gt;NAME_1&lt;/code&gt; 항목에는 광역시와 도 등 광역단체목록이 담겨있고, &lt;code&gt;NAME_2&lt;/code&gt;에는 시/군 과 서울의 구가 들어있다. &lt;/p&gt;
 
 &lt;p&gt;일단은 shp 데이터를 불러온 것 만으로도 지도의 형태는 살펴볼 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-plot(shp2)
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/qb64zrq2mqrzftt/unnamed-chunk-3-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;plot(shp2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/qb64zrq2mqrzftt/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;를 이용해서 지도를 그리려면 이 데이터를 데이터 프레임으로 변경해야 하는데 &lt;code&gt;ggplot2::fortify()&lt;/code&gt; 함수를 이용해서 shp 데이터를 데이터 프레임으로 바꿀 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-shp2_ffd_noregion &amp;lt;- fortify(shp2)
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;
-head(shp2_ffd_noregion)
-&lt;/code&gt;&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;##       long      lat order  hole piece group id
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shp2_ffd_noregion &amp;lt;- fortify(shp2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;head(shp2_ffd_noregion)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       long      lat order  hole piece group id
 ## 1 127.5484 35.08423     1 FALSE     1   0.1  0
 ## 2 127.5519 35.07868     2 FALSE     1   0.1  0
 ## 3 127.5509 35.07233     3 FALSE     1   0.1  0
 ## 4 127.5491 35.06628     4 FALSE     1   0.1  0
 ## 5 127.5443 35.05591     5 FALSE     1   0.1  0
 ## 6 127.5422 35.04578     6 FALSE     1   0.1  0
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이렇게 데이터를 보면 &lt;code&gt;group&lt;/code&gt;과 &lt;code&gt;id&lt;/code&gt;가 숫자로 구분된 것을 볼 수 있는데, 나중에 다른 데이터를 합칠 수 있도록 어떤 변수로 지역을 구분할지 명시할 수 있다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;shp2_ffd &amp;lt;- fortify(shp2, region = &quot;NAME_1&quot;)
-shp2_ffd2 &amp;lt;- fortify(shp2, region = &quot;NAME_2&quot;)
-head(shp2_ffd)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##       long      lat order  hole piece   group    id
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;shp2_ffd &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; region &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;NAME_1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+shp2_ffd2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; region &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;NAME_2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       long      lat order  hole piece   group    id
 ## 1 129.0179 35.07678     1 FALSE     1 Busan.1 Busan
 ## 2 129.0179 35.07653     2 FALSE     1 Busan.1 Busan
 ## 3 129.0176 35.07653     3 FALSE     1 Busan.1 Busan
 ## 4 129.0176 35.07625     4 FALSE     1 Busan.1 Busan
 ## 5 129.0174 35.07625     5 FALSE     1 Busan.1 Busan
 ## 6 129.0174 35.07597     6 FALSE     1 Busan.1 Busan
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;데이터 프레임으로 구성했으니 ggplot2를 이용해서 지도를 그릴 수 있다. path를 이용해 각 점을 선으로 연결하는 형태이므로 &lt;code&gt;geom_path()&lt;/code&gt;를 사용하면 되고 데이터에서 &lt;code&gt;long&lt;/code&gt;, &lt;code&gt;lat&lt;/code&gt;, &lt;code&gt;group&lt;/code&gt; 변수를 이용한다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(shp2_ffd, 
-  aes(x=long, y=lat, group=group)) + 
-  geom_path()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/e1t1yel4pas24t6/unnamed-chunk-6-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_path&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/e1t1yel4pas24t6/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;NAME_1&lt;/code&gt; 변수를 기준으로 구분한 지도는 광역단체로만 구분이 되고, 아래와 같이 &lt;code&gt;NAME_2&lt;/code&gt; 변수를 기준으로 fortify시킨경우에는 시(도의 경우), 구(서울 등)로 구분되는 것을 볼 수 있다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(shp2_ffd2, 
-  aes(x=long, y=lat, group=group)) + 
-  geom_path()
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/v2bkis5y2tf71tj/unnamed-chunk-7-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_path&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/v2bkis5y2tf71tj/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;geom_path()&lt;/code&gt;가 아니라 &lt;code&gt;geom_polygon()&lt;/code&gt;을 사용하면 지역별로 색상을 채우는 것이 가능하다. 적용할만한 다른 데이터를 추가하면 히트맵이나 코로플레스같은 시각화를 할 수 있다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(shp2_ffd, aes(x=long, y=lat, group=group)) + 
-  geom_polygon(aes(fill=id))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tl02ufsiry4xgqz/unnamed-chunk-8-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;id&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tl02ufsiry4xgqz/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt;패키지를 불러와서 난수를 데이터에 대입시키고 어떻게 ggplot2를 이용할 수 있을지 살펴보자.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;library(dplyr)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;shp2_value &amp;lt;- data.frame(
-  shp2_ffd %&amp;gt;% 
-  select(id) %&amp;gt;%
-  distinct,
-  value = round(runif(16,10,100)))
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;shp2_value &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  shp2_ffd &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;id&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  distinct&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;round&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;runif&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;16&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
 
 shp2_value
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code&gt;##                   id value
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##                   id value
 ## 1              Busan    24
 ## 2  Chungcheongbuk-do    76
 ## 3  Chungcheongnam-do    74
@@ -552,45 +414,33 @@ shp2_value
 ## 14      Jeollanam-do    41
 ## 15             Seoul    96
 ## 16             Ulsan    32
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;각 광역 단체에 적당한 값을 넣은 데이터 프레임을 만들었다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;shp2_data &amp;lt;- shp2_ffd %&amp;gt;%
-  left_join(shp2_value)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(shp2_data, aes(x=long, y=lat, group=group)) + 
-  geom_polygon(aes(fill = value))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/o7319yk4d0mv023/unnamed-chunk-10-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;shp2_data &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; shp2_ffd &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/o7319yk4d0mv023/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;원래의 fortify된 지도에 &lt;code&gt;left_join&lt;/code&gt;을 해서 값을 대입하고, 추가한 열을 &lt;code&gt;geom_polygon&lt;/code&gt;에서 fill값으로 잡아주면 된다. 색상을 변경하려면 scale 값을 조정해주는 함수를 사용하면 된다. 여기서는 &lt;code&gt;RColorBrewer&lt;/code&gt;패키지를 이용하는 &lt;code&gt;scale_fill_distiller&lt;/code&gt;함수를 사용했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_fill_distiller&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Spectral&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/x91bxbrbve2j1in/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(shp2_data, aes(x=long, y=lat, group=group)) + 
-  geom_polygon(aes(fill = value)) +
-  scale_fill_distiller(palette = &quot;Spectral&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/x91bxbrbve2j1in/unnamed-chunk-11-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
-&lt;hr /&gt;
+&lt;hr&gt;
 
 &lt;p&gt;이제 지도에서 일부분을 추출해보려고 한다. 예를 들어 서울만 지도를 그리고 싶다면, 맨 처음에 shp 파일을 불러왔을 때 &lt;code&gt;NAME_1&lt;/code&gt; 항목이 &lt;em&gt;Seoul&lt;/em&gt;인 것만 찾아서 &lt;code&gt;fortify&lt;/code&gt;시키면 된다. 이 경우에는 구별로 구분된 지도를 봐야 하기 때문에 region 구분은 &lt;code&gt;NAME_2&lt;/code&gt;를 기준으로 해야 한다.&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;shp2_subset &amp;lt;- shp2[shp2$NAME_1 == &quot;Seoul&quot;,]
-seoul_ffd &amp;lt;- fortify(shp2_subset, region=&quot;NAME_2&quot;)
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;shp2_subset &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; shp2&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;shp2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;NAME_1 &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Seoul&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,]&lt;/span&gt;
+seoul_ffd &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_subset&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; region&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;NAME_2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이후에는 위에서 했던 것과 같은 방식으로 지도를 그릴 수 있다&lt;/p&gt;
-
-&lt;pre&gt;&lt;code class=&quot;language-r&quot;&gt;ggplot(seoul_ffd, aes(x=long, y=lat, group=group)) + 
-  geom_polygon(aes(fill=id))
-&lt;/code&gt;&lt;/pre&gt;
-
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tdf3bk6cpqxfwiz/unnamed-chunk-13-1.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seoul_ffd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;id&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tdf3bk6cpqxfwiz/unnamed-chunk-13-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2&quot;&gt;Mapping with ggplot2+shp&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 08, 2015.&lt;/p&gt;</content>
 </entry>
@@ -607,19 +457,17 @@ seoul_ffd &amp;lt;- fortify(shp2_subset, region=&quot;NAME_2&quot;)
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/old-book.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/old-book.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;kodingcom&quot;&gt;Koding.com&lt;/h2&gt;
+&lt;h2 id=&quot;koding.com&quot;&gt;Koding.com&lt;/h2&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://koding.com&quot;&gt;Koding&lt;/a&gt;은 Amazon EC2 인스턴스를 기반으로 하는 서비스다. 가입하면 무료로 VM을 하나 받을 수 있다. RAM 1기가에 하드 3기가 뿐이지만 우분투가 기본적으로 설치되어있고, 파이썬이나 루비 등이 미리 세팅되어있다. 무료로 사용하는 동안에는 접속이 끊어지면 VM도 자동으로 종료된다.&lt;/p&gt;
 
-&lt;p&gt;VM내부의 Web 폴더는 github.io 처럼 정적인 호스트를 제공하기 때문에 Jekyll 페이지를 테스트하는 용도로 사용하기로 했다.&lt;/p&gt;
+&lt;p&gt;VM내부의 Web 폴더는 github.io 처럼 정적인 호스트를 제공하기 때문에 Jekyll 페이지를 테스트하는 용도로 사용하기로 했다. &lt;/p&gt;
 
 &lt;p&gt;원래 jekyll 페이지를 작성하고 웹페이지로 변환시키려면 &lt;code&gt;jekyll serve&lt;/code&gt; 명령어를 사용한다. 우리는 변환시킨 결과물을 &lt;strong&gt;Web&lt;/strong&gt; 폴더에 보내려고 한다. 이 경우에는 &lt;em&gt;-d&lt;/em&gt; 옵션을 사용하고 (destination) 그 뒤에 대상 폴더의 주소를 지정하면 된다. (~/Web)&lt;/p&gt;
-
-&lt;pre&gt;&lt;code&gt;jekyll serve -d ~/Web
-&lt;/code&gt;&lt;/pre&gt;
-
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;jekyll serve -d ~/Web
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이제 Koding.com의 VM이 켜져있는 동안에는 id.koding.io 에서 결과물을 확인할 수 있다&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/web/koding-com&quot;&gt;koding.com 에서 Jekyll 활용하기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 05, 2015.&lt;/p&gt;</content>
@@ -637,9 +485,9 @@ seoul_ffd &amp;lt;- fortify(shp2_subset, region=&quot;NAME_2&quot;)
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;jekyll-notepad----&quot;&gt;jekyll Notepad 테마를 적용한 블로그 게시&lt;/h2&gt;
+&lt;h2 id=&quot;jekyll-notepad-테마를-적용한-블로그-게시&quot;&gt;jekyll Notepad 테마를 적용한 블로그 게시&lt;/h2&gt;
 
 &lt;p&gt;일단은 koding.com에서 테스트 중이다
 유료 계정이 아니라 종료하면 VM이 꺼지는데 그러면 호스팅도 종료가 되기 때문에 어느 정도 완성되면 github.io로 업로드할 예정이다&lt;/p&gt;
@@ -668,25 +516,25 @@ seoul_ffd &amp;lt;- fortify(shp2_subset, region=&quot;NAME_2&quot;)
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot; /&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;커버이미지를 등록하는 것 때문에 매번 필요한 사진이 생기면 다운로드 받아서 jekyll 폴더에 넣어줘야 하는지 고민하다가 Dropbox에 사진을 넣고 공유해서 그 링크를 첨부하는 방식을 생각했다. 그런데 막상 해보니 제대로 링크가 연결되지 않아서 파일을 직접 넣어주는 방향으로 생각하고 있었는데, 마크다운 문법 때문에 블로그를 돌아다니다가 &lt;a href=&quot;http://scriptogr.am/myevan/post/markdown-syntax-guide-for-scriptogram&quot;&gt;Song Young-jin님의 블로그&lt;/a&gt;에서 적절한 해결 방안을 발견했다.&lt;/p&gt;
 
 &lt;p&gt;원래 공유를 하면 다음과 같은 링크가 주어진다&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;https://www.dropbox.com/s/randomrandom/image.png?dl=0&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.dropbox.com/s/randomrandom/image.png?dl=0&quot;&gt;https://www.dropbox.com/s/randomrandom/image.png?dl=0&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;여기서 https 를 http로, www를 dl로 변경하고 ?dl=0 을 제거한다&lt;/p&gt;
 
 &lt;blockquote&gt;
-  &lt;p&gt;http://dl.dropbox.com/s/randomrandom/image.png&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://dl.dropbox.com/s/randomrandom/image.png&quot;&gt;http://dl.dropbox.com/s/randomrandom/image.png&lt;/a&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 
 &lt;p&gt;위 링크를 사용하면 마크다운에서 Dropbox 공유 이미지를 불러올 수 있다&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hw5qjxa91jy560g/apple_mean_price.png&quot; alt=&quot;서울시 구별 사과 평균가격&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hw5qjxa91jy560g/apple_mean_price.png&quot; alt=&quot;서울시 구별 사과 평균가격&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/web/image-link-test&quot;&gt;마크다운에 Dropbox 공유 이미지 링크하기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 04, 2015.&lt;/p&gt;</content>
 </entry>
