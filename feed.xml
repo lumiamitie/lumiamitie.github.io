@@ -4,13 +4,161 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-08-10T21:46:29+09:00</updated>
+<updated>2015-08-14T21:01:03+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Geocoding with R]]></title>
+  <link>http://lumiamitie.github.io/r/geocoding-with-r</link>
+  <id>http://lumiamitie.github.io/r/geocoding-with-r</id>
+  <published>2015-08-14T00:00:00+09:00</published>
+  <updated>2015-08-14T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/rocks-waves.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ggmap::geocode-함수를-이용한-지오코딩&quot;&gt;ggmap::geocode 함수를 이용한 지오코딩&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;ggmap&lt;/strong&gt; 패키지에는 &lt;strong&gt;geocode&lt;/strong&gt;라는 함수가 있다&lt;/p&gt;
+
+&lt;p&gt;지명을 인자로 넣어주면 위도와 경도값을 반환해주고, 옵션에 따라 더 많은 정보를 불러오기도 한다&lt;/p&gt;
+
+&lt;p&gt;그런데 언어가 영문으로 고정되어 있기 때문인지 영문지명으로 입력해야 하고 반환되는 값 또한 영문주소가 반환된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: ggplot2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Seoul&amp;amp;sensor=false
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat
+## 1 126.978 37.56654
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; output&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;latlona&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat            address
+## 1 126.978 37.56654 seoul, south korea
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; output&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;more&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat     type     loctype            address   north   south
+## 1 126.978 37.56654 locality approximate seoul, south korea 37.6956 37.4346
+##       east     west postal_code     country administrative_area_level_2
+## 1 127.1823 126.7968        &amp;lt;NA&amp;gt; south korea                        &amp;lt;NA&amp;gt;
+##   administrative_area_level_1 locality street streetNo point_of_interest
+## 1                        &amp;lt;NA&amp;gt;    seoul   &amp;lt;NA&amp;gt;       NA              &amp;lt;NA&amp;gt;
+##   query
+## 1 Seoul
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아래와 같이 한글로 지명을 입력하면 오류가 난다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;geocode(&amp;#39;서울&amp;#39;)&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;옵션을 일부 변경하면 한글도 사용할 수 있지 않을까 하고 생각했지만 아직까지는 방법을 찾지 못했다&lt;/p&gt;
+
+&lt;p&gt;한글지명으로 입력하서 한글주소를 반환받으려면 어떻게 해야할까?&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;geocoding-with-google-api-(+rvest)&quot;&gt;Geocoding with Google API (+rvest)&lt;/h2&gt;
+
+&lt;p&gt;일단 여기서는 위도와 경도 자료만 가지고 오려고 한다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;서울&amp;#39;&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;웹브라우저에서 위 url로 들어가보면 xml 데이터를 볼 수 있다&lt;/p&gt;
+
+&lt;p&gt;url 중간에 있는 xml을 json으로 바꿔주면 json 형태의 자료도 받을 수 있다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;그러면 아래에서는 &lt;code&gt;rvest&lt;/code&gt;패키지를 이용해 위 주소의 xml자료를 가져오고 원하는 항목만 정리해보려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;rvest&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;서울&amp;#39;&amp;quot;&lt;/span&gt;
+seoul_xml &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;location 태그를 검색하면 하위 항목에 위도, 경도 자료가 있는 것을 볼 수 있다 &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;location&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## &amp;lt;location&amp;gt;
+##   &amp;lt;lat&amp;gt;37.5665350&amp;lt;/lat&amp;gt;
+##   &amp;lt;lng&amp;gt;126.9779692&amp;lt;/lng&amp;gt;
+## &amp;lt;/location&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;아래 처럼 자식항목의 텍스트를 한꺼번에 받아와도 되고&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;location&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_children&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##           lat           lng 
+##  &amp;quot;37.5665350&amp;quot; &amp;quot;126.9779692&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;아래처럼 필요한 항목에 직접 접근해서 받아와도 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lat&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;37.5665350&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;기본적인 방법을 알았으니 복수의 지명에 대해서 위도/경도 자료를 가지고 오자&lt;/p&gt;
+
+&lt;p&gt;여기서는 우선 지명에 대한 목록을 작성한 후에&lt;/p&gt;
+
+&lt;p&gt;각 지명에 대해 api로 접근해서 위도, 경도값을 받아오고&lt;/p&gt;
+
+&lt;p&gt;이 작업을 for 문을 이용해 반복해서 원하는 결과를 얻으려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 위도,경도값을 얻으려고 하는 지명의 목록이다&lt;/span&gt;
+loc_list &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;서울&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;대전&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;부산&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 결과물을 취합하기 위한 빈 벡터&lt;/span&gt;
+geocode_result &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;loc &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; loc_list&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 검색어를 제외한 url&lt;/span&gt;
+  url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;&amp;quot;&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 검색어를 포함시켜서 만든 완전한 url&lt;/span&gt;
+  geocode_url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; loc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# url에서 utf-8 인코딩으로 xml자료를 가져온다&lt;/span&gt;
+  geocode_xml &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_url&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 위도값을 가져온다&lt;/span&gt;
+  geocode_lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; geocode_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+    xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lat&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+    xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 경도값을 가져온다&lt;/span&gt;
+  geocode_lon &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; geocode_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+    xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lng&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+    xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+  &lt;span class=&quot;c1&quot;&gt;# 지명, 위도, 경도를 1행짜리 데이터 프레임으로 구성한다&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 이 때 위도,경도값을 숫자로 변환한다&lt;/span&gt;
+  geocode_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;location &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; loc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                            lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_lat&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                            lon &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_lon&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+                            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;c1&quot;&gt;# 최종 결과물이 저장될 오브젝트에 누적시켜서 값을 저장한다&lt;/span&gt;
+  geocode_result &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rbind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_result&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; geocode_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+geocode_result
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   location      lat      lon
+## 1     서울 37.56654 126.9780
+## 2     대전 36.35041 127.3845
+## 3     부산 35.17955 129.0756
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/geocoding-with-r&quot;&gt;Geocoding with R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 14, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

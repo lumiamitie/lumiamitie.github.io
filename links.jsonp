@@ -23,6 +23,11 @@ callback([
   {
     "text": "magrittr - Ceci n'est pas une pipe",
     "href": "http://lumiamitie.github.io/r/magrittr"
+  } ,
+
+  {
+    "text": "Geocoding with R",
+    "href": "http://lumiamitie.github.io/r/geocoding-with-r"
   } 
 
 ])

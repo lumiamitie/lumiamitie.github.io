@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Geocoding with R",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/geocoding-with-r",
+		  "date"       : "2015-08-14 00:00:00 +0900",
+		  "shortdate"  : "August 14, 2015"
+		} ,
+	
+		{
 		  "title"      : "magrittr - Ceci n&#39;est pas une pipe",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/magrittr",
