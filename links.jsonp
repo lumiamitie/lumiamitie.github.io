@@ -28,6 +28,11 @@ callback([
   {
     "text": "Geocoding with R",
     "href": "http://lumiamitie.github.io/r/geocoding-with-r"
+  } ,
+
+  {
+    "text": "ggplot2 - 01 Grammar of Graphics",
+    "href": "http://lumiamitie.github.io/r/visualization/ggplot2-01"
   } 
 
 ])

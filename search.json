@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "ggplot2 - 01 Grammar of Graphics",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-01",
+		  "date"       : "2015-08-14 00:00:00 +0900",
+		  "shortdate"  : "August 14, 2015"
+		} ,
+	
+		{
 		  "title"      : "Geocoding with R",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/geocoding-with-r",
