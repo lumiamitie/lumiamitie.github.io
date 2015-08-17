@@ -33,6 +33,11 @@ callback([
   {
     "text": "ggplot2 - 01 Grammar of Graphics",
     "href": "http://lumiamitie.github.io/r/visualization/ggplot2-01"
+  } ,
+
+  {
+    "text": "ggplot2 - 02 Drawing Graphs",
+    "href": "http://lumiamitie.github.io/r/visualization/ggplot2-02"
   } 
 
 ])

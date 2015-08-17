@@ -4,13 +4,390 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-08-15T02:57:28+09:00</updated>
+<updated>2015-08-17T19:15:38+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[ggplot2 - 02 Drawing Graphs]]></title>
+  <link>http://lumiamitie.github.io/r/visualization/ggplot2-02</link>
+  <id>http://lumiamitie.github.io/r/visualization/ggplot2-02</id>
+  <published>2015-08-17T00:00:00+09:00</published>
+  <updated>2015-08-17T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
+
+&lt;p&gt;저번 글에서는 ggplot2가 어떻게 동작하는지를 위주로 살펴보았습니다. 이번에는 그래프가 에러없이 뜨는데 만족하지 않고 원하는 형태로 그래프를 만들 수 있도록 다른 옵션들을 조작하는 방법을 살펴보겠습니다. &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h4 id=&quot;parameter&quot;&gt;Parameter&lt;/h4&gt;
+
+&lt;p&gt;parameter를 추가하면 geom의 형태를 변경하거나 stat이 적용되는 방법을 바꿀 수 있습니다. 에스테틱을 직접 적용하거나 각 함수마다 주어지는 옵션을 변경하게 됩니다. 에스테틱은 &lt;strong&gt;aes&lt;/strong&gt;함수 안에서 쓰이면 데이터의 값에 매핑되지만, 밖에서 쓰일 경우에는 해당 요소를 전부 변경합니다. 예를 들어 &lt;code&gt;geom_point(aes(size = var))&lt;/code&gt;은 &lt;strong&gt;var&lt;/strong&gt; 데이터의 값에 따라 점의 크기가 변하게 됩니다. 하지만 &lt;code&gt;geom_point(size = 3)&lt;/code&gt; 의 경우에는 모든 점의 크기가 3으로 고정됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/7ekhiqufhbze3bi/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;에스테틱 중에서 좌표를 나타내는 &lt;strong&gt;x&lt;/strong&gt;와 &lt;strong&gt;y&lt;/strong&gt;를 제외하면&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;colour&lt;/strong&gt;(또는 color)는 점이나 선 색상이나 면의 테두리 색을 결정합니다&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;fill&lt;/strong&gt;은 면의 색상을 결정합니다&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;alpha&lt;/strong&gt;는 색의 투명도를 나타냅니다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;에스테틱은 아니지만 각 함수의 세부적인 내용을 조정하는 parameter들도 존재합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;geom_smooth&lt;/strong&gt;의 경우에는 &lt;code&gt;method = &amp;#39;lm&amp;#39;&lt;/code&gt;으로 지정하면 추세선을 직선으로 그려줍니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lm&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/3qgmefpww21h7wz/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;linetype&lt;/strong&gt; 옵션은 선의 모양을 변경할 수 있게 합니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;linetype &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/g62ytcfxbh50um6/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;se&lt;/strong&gt; 옵션을 끄면 standard error의 범위를 표현하지 않습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;se &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/9aeal2qtwr59me6/unnamed-chunk-5-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;각각의 함수들에는 적용할 수 있는 다양한 parameter들이 있습니다. 각 parameter들에 대한 자세한 설명은 역시 &lt;a href=&quot;http://docs.ggplot2.org/current/&quot;&gt;이 곳&lt;/a&gt;의 링크로 남겨놓는 편이 좋겠네요. 아직 이번 1월에 업데이트된 공식 1.0.0 버전에 추가된 내용은 반영되지 않은 것 같습니다만, 그래도 상당히 많은 예제를 볼 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;position-adjustment&quot;&gt;Position Adjustment&lt;/h3&gt;
+
+&lt;p&gt;&lt;strong&gt;position&lt;/strong&gt;은 &lt;strong&gt;geom&lt;/strong&gt;이 보여지는 형태를 바꿉니다. 막대그래프라면 막대가 누적으로 쌓일지, 옆에 나란히 놓일지 결정할 수 있습니다. 산점도라면 여러 점들이 겹쳐있을때 각 좌표에 일정 난수를 더해서 흩어져보이게 만들 수도 있습니다. &lt;/p&gt;
+
+&lt;hr&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;jitter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/z4hsb5vuzc2uxnf/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;position = &amp;lsquo;jitter&amp;rsquo;&lt;/strong&gt;를 적용하면 각 x,y값에 난수를 더해서 점이 겹치지 않도록 합니다. &lt;code&gt;geom_point(position=&amp;#39;jitter&amp;#39;)&lt;/code&gt;는 &lt;code&gt;geom_jitter()&lt;/code&gt; 로 줄여서 쓸 수 있습니다&lt;/p&gt;
+
+&lt;hr&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stack&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/r168eqbulj7bugh/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;막대그래프에서 &lt;strong&gt;position = &amp;#39;stack&amp;rsquo;&lt;/strong&gt;은 각 막대를 쌓아서 누적된 형태로 보여줍니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zn2um7alzmfq4yx/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;position = &amp;#39;fill&amp;rsquo;&lt;/strong&gt;은 비율을 나타내는 누적 막대를 보여줍니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;dodge&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/1xp7nxxh4xxb3wy/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;position = &amp;#39;dodge&amp;rsquo;&lt;/strong&gt;는 각 막대를 옆으로 나열합니다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;postion을 적용하지 않을 때에는 &lt;strong&gt;position = &amp;#39;identity&amp;rsquo;&lt;/strong&gt; 옵션이 사용됩니다. 기본값이 postion = &amp;#39;identity&amp;#39;인 함수를 사용하고 있다면 position옵션을 생략할 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;그리고, position을 더 상세하게 지정하고 싶다면 &lt;em&gt;position_옵션이름&lt;/em&gt; 으로 지정된 함수에 parameter를 적용하면 됩니다. &lt;strong&gt;position_dodge&lt;/strong&gt;의 경우에는 어느 정도 간격으로 떨어뜨려 놓을지 정할 수 있고, &lt;strong&gt;position_jitter&lt;/strong&gt;에서는 난수를 어느 정도로 적용할 지 결정할 수 있습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dodge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; position_dodge&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sleep&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ID&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;extra&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_line&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; dodge&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; dodge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; size&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; shape&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## ymax not defined: adjusting position using y instead
+## ymax not defined: adjusting position using y instead
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/ki1n8ebz7aqghgj/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;위에서는 &lt;strong&gt;position_dodge&lt;/strong&gt;를 사용하지 않으면 ID=5일 때 점이 겹쳐보입니다. 일부러 점을 떨어져있게 만들고 싶다면 위와 같이 position_dodge 함수를 적용시킬 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;scales&quot;&gt;Scales&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;Scale&lt;/strong&gt;은 데이터의 값이 그래프의 에스테틱에 대입되는 과정을 조절하고 &lt;strong&gt;guide&lt;/strong&gt;(축과 범례 등)가 어떻게 표시되는지 결정한다고 저번 글에서 말씀드렸습니다. 스케일과 관련된 함수는 기본적으로는 &lt;strong&gt;scale_에스테틱_적용방법&lt;/strong&gt;으로 이름이 정해집니다. 스케일을 조절하는 함수는 에스테틱의 종류만큼이나 다양하게 존재하지만, 어느 정도 규칙적인 함수명 덕분에 비교적 쉽게 검색해서 적용이 가능합니다. &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;우선 본격적으로 관련 함수들에 대해서 알아보기 전에 &lt;code&gt;xlim&lt;/code&gt;, &lt;code&gt;ylim&lt;/code&gt; 함수를 살펴보겠습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  xlim&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
+## Warning: Removed 153 rows containing missing values (geom_point).
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zkziiemwfhl3b9y/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;xlim()&lt;/strong&gt;, 또는 &lt;strong&gt;ylim()&lt;/strong&gt;함수를 이용하면 화면에 보이는 그래프의 범위를 보여줄 수 있습니다. 화면에 나오지 못하는 데이터가 생긴다면 경고메세지가 발생하지만 그래프는 문제없이 그려집니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;다음으로는 색상과 관련된 scale에 대해서 살펴보려고 합니다. 아래 예제에서는 fill을 기준으로 설명하겠지만, fill을 colour로 바꾸기만 하면 많은 경우에 동일한 방식으로 적용할 수 있습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diamonds&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/dgkf9q6grsl8zbg/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;xxx_brewer&lt;/strong&gt;로 끝나는 색상관련 scale 함수들은 &lt;strong&gt;RColorBrewer&lt;/strong&gt;패키지를 이용해서 색상을 지정합니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;RColorBrewer&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;display.brewer.all&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/iy1yjajlurkmhss/colorbrewer_palette.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;display.brewer.all()&lt;/code&gt; 함수를 통해 사용가능한 색 조합의 이름과 색상들을 살펴볼 수 있습니다. 값의 높고 낮음을 보여줄 수 있는 Sequential, 서로 다른 범주나 그룹들을 구분지어 보여줄 수 있는 Qualitative, 어느 중심 값을 기준으로 얼마나 떨어져 있는지를 보여주는 Diverging 의 순서로 정리가 되어 있습니다. 현재 표현하고자 하는 데이터의 형태를 잘 살펴보고, 적절한 색조합을 적용시키면 됩니다. &lt;/p&gt;
+
+&lt;p&gt;원하는 색조합을 찾았다면, &lt;strong&gt;palette&lt;/strong&gt; 옵션에 조합의 이름을 넣어서 색상을 적용할 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Paired&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/uizqp3y5iezro0c/unnamed-chunk-14-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Accent&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/ewkxls3p3c2d8kt/unnamed-chunk-14-2.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;다음은 축에 대한 scale함수를 사용해보겠습니다. 연속적인 수치 자료가 y축에 있을 때 스케일은 &lt;strong&gt;scale_y_continuous&lt;/strong&gt;함수를 적용할 수 있습니다. x축이라면 y를 x로 바꾸면 되고, 이산형자료라면 continuous가 discrete로 바뀝니다.&lt;/p&gt;
+
+&lt;p&gt;위에서 &lt;strong&gt;xlim&lt;/strong&gt; 함수를 살펴보았는데요. &lt;strong&gt;scale_x_continuous&lt;/strong&gt; 안에 &lt;strong&gt;limits&lt;/strong&gt; 옵션을 지정하면 동일한 효과를 얻을 수 있습니다. &lt;strong&gt;xlim&lt;/strong&gt;이 적용되었던 예제를 &lt;strong&gt;scale_x_continuous&lt;/strong&gt;로 표현하면 다음과 같습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+    scale_x_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
+## Warning: Removed 153 rows containing missing values (geom_point).
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/t12slazk5s9zigu/unnamed-chunk-15-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;산점도 같은 경우에는 그래프로 표현하는 범위를 강제하더라도 문제가 없겠지만, 막대 그래프 같은 경우에는 위와 같은 방식을 사용하면 막대 자체가 표현이 되지 않을 수 있으니 유의하시기 바랍니다.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;trans&lt;/strong&gt;옵션은 변수변환을 스케일 차원에서 조절할 수 있게 해줍니다. &lt;strong&gt;trans = log10&lt;/strong&gt;옵션을 적용하면 y축에 log10 함수를 적용합니다. &lt;strong&gt;scale_y_log10&lt;/strong&gt; 처럼 자주 쓰이는 함수들은 미리 함수들이 지정되어 있기도 하지만 옵션에서 사용하면 사용가능한 함수의 이름을 입력하는 방식으로 사용할 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Accent&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;trans &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;log10&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/2rc5i9nykl4ycpg/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;breaks&lt;/strong&gt;옵션은 눈금에 표시되는 항목을 지정할 수 있게 해줍니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;breaks &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/9mvg39iambqj606/unnamed-chunk-17-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;coordinate-system&quot;&gt;Coordinate System&lt;/h2&gt;
+
+&lt;p&gt;좌표계의 경우 아무런 값이 지정되지 않으면 기본값으로 Cartesian을 적용합니다(&lt;strong&gt;coord_cartesian()&lt;/strong&gt;). &lt;strong&gt;coord_flip()&lt;/strong&gt;을 이용해 x축과 y축을 뒤바꿀 수 있고, &lt;strong&gt;coord_polar()&lt;/strong&gt;를 사용하면 극좌표계로 변환시킬 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_flip&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/0phyjtlodcq59s9/unnamed-chunk-18-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_polar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hewbz0fx3dywndq/unnamed-chunk-19-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;그래프에서 보이는 축의 범위를 조절하려고 할 때 위에서 했던 대로 scale을 변경할 수도 있지만, 좌표계를 직접 변형시키는 방법이 있습니다. 하지만 두 개의 방식에는 큰 차이가 있는데, scale을 변경하면 해당 스케일을 벗어나는 데이터는 제거하고 그래프를 그립니다. 따라서 boxplot의 경우에는 남아있는 데이터로 box가 새로 그려질 것이고 막대그래프의 경우에는 데이터의 범위를 벗어나는 막대는 막대 자체가 그려지지 않습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려지지 않는다&lt;/span&gt;
+dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rwnm8kwmjizzd24/unnamed-chunk-20-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 16 rows containing non-finite values (stat_boxplot).
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/knj2j6c1kbre66r/unnamed-chunk-21-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;반면에 좌표를 직접 수정하는 경우에는 그래프를 일단 그린 다음에 입력한 범위만 확대하거나 축소하는 등 변형을 시킵니다. 그래서 그래프의 모양이 변하거나 하지 않습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려진다. 대신 15000 이후로는 보이지 않는다&lt;/span&gt;
+dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/mczzqqwkc2ne6gi/unnamed-chunk-22-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
+  geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zkn7vynvxvffm8f/unnamed-chunk-23-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;coord&lt;/strong&gt; 항목을 신경써서 적용해야 할 때가 또 있습니다. 바로 지도를 그릴 때인데요. 지도를 그릴 때는 기본적으로 위도와 경도가 직교좌표계에 그려지는데, &lt;strong&gt;coord_map()&lt;/strong&gt;을 사용하면 지도의 투영 방식을 적용하여 ggplot 그래프를 그릴 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;maps&lt;/strong&gt; 패키지에서 지도를 받아온 후에 좌표계를 지정하지 않고 그려보겠습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;maps&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+asia &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; map_data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;world&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; region &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Japan&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;China&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;North Korea&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;South Korea&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/n6lpkedji83z88y/unnamed-chunk-24-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;다음은 &lt;strong&gt;coord_map&lt;/strong&gt; 함수를 사용합니다. 기본 투영법은 &lt;strong&gt;mercator&lt;/strong&gt;입니다. 위도선이 나타나는 간격이 달라지는 것을 볼 수 있습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_map&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/w2cvqrzyjyrqt19/unnamed-chunk-25-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;?mapproject&lt;/strong&gt;을 통해서 적용할 수 있는 다양한 투영법과 적용할 수 있는 옵션을 찾아볼 수 있습니다. 아래에서는 그 중 몇 가지만 함께 살펴보도록 하겠습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;orthographic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/71v6llv6xhk7rh5/unnamed-chunk-26-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/20fhdtnsh0wi3ki/unnamed-chunk-27-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;facetting&quot;&gt;Facetting&lt;/h2&gt;
+
+&lt;p&gt;&lt;strong&gt;facet&lt;/strong&gt;을 적용하면 데이터의 부분집합들을 하위 그래프로 분리해서 그릴 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;facet_wrap()&lt;/strong&gt;을 사용하면 하위 그래프들이 수평으로 나열되고, &lt;strong&gt;facet_grip()&lt;/strong&gt;은 수직과 수평으로 각각 다른 변수를 지정할 수 있습니다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; wt&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/6dun5dpe0p4bg7s/unnamed-chunk-28-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;두 개 이상의 변수를 동시에 지정하면 각 변수들의 경우의 수에 맞게 그래프를 그려줍니다.&lt;/p&gt;
+
+&lt;p&gt;이렇게 많은 숫자의 그래프가 그려질 때 &lt;strong&gt;ncol&lt;/strong&gt; 옵션을 이용하면 한 열에 보여질 그래프의 개수를 조정할 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;gear&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ncol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zk1ot342brer6ft/unnamed-chunk-29-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/vxdhqg1qsxvrf20/unnamed-chunk-29-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;facet_wrap&lt;/strong&gt;의 경우에는 scales 옵션을 이용하면 각 그래프의 축을 고정시킬지 그래프별로 다르게 할지 결정할 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;scales = &amp;#39;fixed&amp;rsquo;&lt;/strong&gt;는 각 그래프 모두 축이 일정하게 그려집니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;scales = &amp;#39;free&amp;rsquo;&lt;/strong&gt;는 각 그래프의 데이터 범위에 맞게 조정해서 그립니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;scales = &amp;#39;free_x&amp;rsquo;&lt;/strong&gt;는 x축은 데이터 범위에 맞게 조절하고, y축은 고정시킵니다. &lt;strong&gt;&amp;#39;free_y&amp;rsquo;&lt;/strong&gt; 옵션도 마찬가지로 사용할 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;fixed&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/xs5ig7n0akbigg6/unnamed-chunk-30-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/kf5uxcx7zj7m3x8/unnamed-chunk-30-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zk2hmlf30wbmn79/unnamed-chunk-30-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;facet_grid&lt;/strong&gt;에서도 마찬가지로 &lt;strong&gt;scales&lt;/strong&gt; 옵션에  &lt;strong&gt;&amp;#39;free&amp;rsquo;&lt;/strong&gt; 나 &lt;strong&gt;&amp;#39;free_x&amp;rsquo;, &amp;#39;free_y&amp;rsquo;&lt;/strong&gt; 등을 적용할 수 있습니다. &lt;strong&gt;facet_grid&lt;/strong&gt;에서는 추가적으로 &lt;strong&gt;space&lt;/strong&gt; 옵션을 추가할 수 있는데, 기본적으는 각 그래프의 크기가 동일하게 그려지지만, &lt;strong&gt;space = &amp;#39;free&amp;rsquo;&lt;/strong&gt; 옵션이 지정되면 데이터의 범위에 따라 그래프의 크기도 변경됩니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/t6pzux5aiy8y7yr/unnamed-chunk-31-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/5h7fd25nbd9egy0/unnamed-chunk-31-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; space &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/gz6j6faugpkel0u/unnamed-chunk-31-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;여기까지 해서 ggplot 객체를 구성하는 layer, scale, coord, facet까지 훑어보았습니다. 이제 어느 정도 원하는 대로 ggplot 그래프를 그릴 수 있게 되었습니다. 다음 글에서는 ggplot 그래프에 저장된 테마를 적용하는 방법과 &lt;strong&gt;stat&lt;/strong&gt;이 생성하는 변수 등 앞에서 제대로 다루지 않았던 항목들을 살펴보려고 합니다.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-02&quot;&gt;ggplot2 - 02 Drawing Graphs&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 17, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
