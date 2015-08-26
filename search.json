@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "ggplot2 - 03",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-03",
+		  "date"       : "2015-08-26 00:00:00 +0900",
+		  "shortdate"  : "August 26, 2015"
+		} ,
+	
+		{
 		  "title"      : "ggplot2 - 02 Drawing Graphs",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-02",

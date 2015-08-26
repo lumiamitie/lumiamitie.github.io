@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>GGPLOT2 - 03</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="jekyll">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ggplot2 - 03">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/visualization/ggplot2-03">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/visualization/ggplot2-03">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>ggplot2 - 03</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-08-26T00:00:00+09:00">26 Aug 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="../../../images/desk-pen-ruler.jpg" alt="cover-image"></p>
+
+<h2 id="ggplot2">ggplot2</h2>
+
+<p>지난번 포스팅까지 해서 ggplot2의 그래프를 그리는 방법에 대해서는 전반적으로 살펴보았습니다.</p>
+
+<p>이번 글에서는 필수적이지는 않지만 도움이 될 만한 내용들을 몇 가지 설명하려고 합니다.</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="stat이-생성하는-값들">stat이 생성하는 값들</h2>
+
+<p>stat은 주어진 데이터프레임 이외에, 그래프를 그리는데 필요한 값을 추가로 생성해서 데이터프레임에 추가합니다.</p>
+
+<p>주어진 값을 그대로 사용한다는 <code>stat_identity()</code>를 제외하면 나머지 stat 함수들은 제각기 다른 값을 생성하는데 필요하다면 여기서 생성된 값을 가져다가 에스테틱에 적용할 수 있습니다. </p>
+
+<p>이 때, 기존 데이터의 변수들과 구별하기 위해 변수 이름 앞뒤로 ..을 붙입니다. </p>
+
+<p><code>..count..</code>, <code>..density..</code>와 같은 형태로 에스테틱에 적용할 수 있습니다. </p>
+
+<p>각 stat 함수가 어떤 값을 생성하는지는 <a href="http://docs.ggplot2.org/current/">http://docs.ggplot2.org/current/</a>의 문서에서 확인할 수 있습니다.</p>
+
+<p><br />
+<br /></p>
+
+<p>예를 들면, stat_bin의 경우 다음과 같은 값을 추가로 생성합니다</p>
+
+<p>문서는 <a href="http://docs.ggplot2.org/current/stat_bin.html">이 곳</a>에서 확인할 수 있습니다.</p>
+
+<p><strong>count</strong> : 각 구간(bin)에 속한 항목의 개수</p>
+
+<p><strong>density</strong> : 각 구간(bin)의 밀도(전체의 합이 1)</p>
+
+<p><strong>ncount</strong> : count와 비슷합니다, 가장 큰 count 값을 1로 두고 다른 값들을 조정합니다</p>
+
+<p><strong>ndensity</strong> : density, 가장 높은 density 값이 1이 됩니다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+iris_sl <span class="o">=</span> ggplot<span class="p">(</span>data <span class="o">=</span> iris<span class="p">[</span><span class="s">&#39;Sepal.Length&#39;</span><span class="p">],</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">()</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/8025u8kz400f100/unnamed-chunk-2-1.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>count..<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/vpvbydcyo2hvxm4/unnamed-chunk-2-2.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>density..<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/nysh8cy9zpj92ap/unnamed-chunk-2-3.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>ncount..<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/rystjzu8zvg75gd/unnamed-chunk-2-4.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>ndensity..<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zfiic6cf3cx5xh2/unnamed-chunk-2-5.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>R에서 기본적으로 제공하는 volcano 데이터를 그래프로 그려보려고 합니다.</p>
+
+<p>reshape2 패키지의 <code>melt</code>함수를 이용해서 데이터프레임으로 변형시키고 ggplot2로 그래프를 그립니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">volcano_df <span class="o">=</span> reshape2<span class="o">::</span>melt<span class="p">(</span>volcano<span class="p">)</span>
+volcano_gg <span class="o">=</span> ggplot<span class="p">(</span>volcano_df<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Var1<span class="p">,</span> y<span class="o">=</span>Var2<span class="p">,</span> z <span class="o">=</span> value<span class="p">))</span>
+</code></pre></div>
+<p><code>stat_contour</code>가 생성하는 level 변수를 사용해서 그래프의 에스테틱에 반영시킬 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/3vo9jplrtk60tby/unnamed-chunk-4-1.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">(</span>aes<span class="p">(</span>colour <span class="o">=</span> <span class="m">..</span>level..<span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/2o2agkxq60pbwzr/unnamed-chunk-4-2.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">(</span>geom <span class="o">=</span> <span class="s">&#39;polygon&#39;</span><span class="p">,</span> aes<span class="p">(</span>fill <span class="o">=</span> <span class="m">..</span>level..<span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/0z6kigmg6rza0p3/unnamed-chunk-4-3.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="테마">테마</h2>
+
+<p>축의 모양이나 배경색 등 그래프의 세부적인 요소들을 조절해서 테마로 저장할 수 있습니다.</p>
+
+<p>기본적으로 ggplot2에서 제공하는 테마들도 있고 패키지로 배포되는 테마들도 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">&lt;-</span> ggplot<span class="p">(</span>diamonds<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span><span class="kp">cut</span><span class="p">,</span> fill <span class="o">=</span> <span class="kp">cut</span><span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">()</span>
+
+dia_bar <span class="o">+</span> theme_gray<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/tqhivmv0cc9yf2u/unnamed-chunk-5-1.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_bw<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/hpdtj4mpleh01da/unnamed-chunk-5-2.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_classic<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/8yr132sms91n5za/unnamed-chunk-5-3.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<p><code>ggthemes</code>패키지를 설치하면 추가적인 ggplot2 테마를 적용할 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#install.packages(&#39;ggthemes&#39;)</span>
+<span class="kn">library</span><span class="p">(</span>ggthemes<span class="p">)</span>
+
+dia_bar <span class="o">+</span> theme_economist<span class="p">()</span> <span class="o">+</span> scale_colour_economist<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/34nrv61ywsi483u/unnamed-chunk-6-1.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_excel<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/wad7ly0io29mpvx/unnamed-chunk-6-2.png" alt=""></p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_solarized<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/rbb51wi0lcq41hg/unnamed-chunk-6-3.png" alt=""></p>
+
+<p><br />
+<br />
+<br /></p>
+
+<hr>
+
+<p>세 번에 걸쳐 ggplot2를 사용하는 방법을 설명하면서 ggplot2의 다양한 기능과 적용 방법에 대해 알아보았습니다.
+기본적인 사용 방법을 익힌 후에 실제 데이터를 가지고 직접 데이터를 그려보면 생각했던 것 보다 원하는 그래프를 얻는 것이 힘들다는 것을 알게 됩니다.
+하지만 ggplot2에 어느 정도의 데이터 정제 능력이 뒷받침된다면 많은 문제들을 해결해 가면서 원하는 시각화를 구현할 수 있을 거라고 생각합니다.
+이후의 ggplot2 관련 글들은 ggplot2와 기타 다른 패키지들을 이용해서 시각화를 시도하고, 발생하는 문제의 원인을 파악해서 해결하는 과정을 보여드리게 될 것 같습니다.</p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;ggplot2 - 03&quot;%20http://lumiamitie.github.io/r/visualization/ggplot2-03%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/visualization/ggplot2-03"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/visualization/ggplot2-03"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/llmnsh">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+ 
+</body>
+</html>

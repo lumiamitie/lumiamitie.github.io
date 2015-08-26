@@ -4,13 +4,162 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-08-17T19:15:38+09:00</updated>
+<updated>2015-08-26T20:55:02+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[ggplot2 - 03]]></title>
+  <link>http://lumiamitie.github.io/r/visualization/ggplot2-03</link>
+  <id>http://lumiamitie.github.io/r/visualization/ggplot2-03</id>
+  <published>2015-08-26T00:00:00+09:00</published>
+  <updated>2015-08-26T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
+
+&lt;p&gt;지난번 포스팅까지 해서 ggplot2의 그래프를 그리는 방법에 대해서는 전반적으로 살펴보았습니다.&lt;/p&gt;
+
+&lt;p&gt;이번 글에서는 필수적이지는 않지만 도움이 될 만한 내용들을 몇 가지 설명하려고 합니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;stat이-생성하는-값들&quot;&gt;stat이 생성하는 값들&lt;/h2&gt;
+
+&lt;p&gt;stat은 주어진 데이터프레임 이외에, 그래프를 그리는데 필요한 값을 추가로 생성해서 데이터프레임에 추가합니다.&lt;/p&gt;
+
+&lt;p&gt;주어진 값을 그대로 사용한다는 &lt;code&gt;stat_identity()&lt;/code&gt;를 제외하면 나머지 stat 함수들은 제각기 다른 값을 생성하는데 필요하다면 여기서 생성된 값을 가져다가 에스테틱에 적용할 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;이 때, 기존 데이터의 변수들과 구별하기 위해 변수 이름 앞뒤로 ..을 붙입니다. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;..count..&lt;/code&gt;, &lt;code&gt;..density..&lt;/code&gt;와 같은 형태로 에스테틱에 적용할 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;각 stat 함수가 어떤 값을 생성하는지는 &lt;a href=&quot;http://docs.ggplot2.org/current/&quot;&gt;http://docs.ggplot2.org/current/&lt;/a&gt;의 문서에서 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들면, stat_bin의 경우 다음과 같은 값을 추가로 생성합니다&lt;/p&gt;
+
+&lt;p&gt;문서는 &lt;a href=&quot;http://docs.ggplot2.org/current/stat_bin.html&quot;&gt;이 곳&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;count&lt;/strong&gt; : 각 구간(bin)에 속한 항목의 개수&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;density&lt;/strong&gt; : 각 구간(bin)의 밀도(전체의 합이 1)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ncount&lt;/strong&gt; : count와 비슷합니다, 가장 큰 count 값을 1로 두고 다른 값들을 조정합니다&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;ndensity&lt;/strong&gt; : density, 가장 높은 density 값이 1이 됩니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+iris_sl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Sepal.Length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/8025u8kz400f100/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;count..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/vpvbydcyo2hvxm4/unnamed-chunk-2-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;density..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/nysh8cy9zpj92ap/unnamed-chunk-2-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ncount..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rystjzu8zvg75gd/unnamed-chunk-2-4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ndensity..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zfiic6cf3cx5xh2/unnamed-chunk-2-5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;R에서 기본적으로 제공하는 volcano 데이터를 그래프로 그려보려고 합니다.&lt;/p&gt;
+
+&lt;p&gt;reshape2 패키지의 &lt;code&gt;melt&lt;/code&gt;함수를 이용해서 데이터프레임으로 변형시키고 ggplot2로 그래프를 그립니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; reshape2&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;melt&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;volcano&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+volcano_gg &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;volcano_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Var1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Var2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; z &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;stat_contour&lt;/code&gt;가 생성하는 level 변수를 사용해서 그래프의 에스테틱에 반영시킬 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/3vo9jplrtk60tby/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/2o2agkxq60pbwzr/unnamed-chunk-4-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;polygon&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/0z6kigmg6rza0p3/unnamed-chunk-4-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;테마&quot;&gt;테마&lt;/h2&gt;
+
+&lt;p&gt;축의 모양이나 배경색 등 그래프의 세부적인 요소들을 조절해서 테마로 저장할 수 있습니다.&lt;/p&gt;
+
+&lt;p&gt;기본적으로 ggplot2에서 제공하는 테마들도 있고 패키지로 배포되는 테마들도 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diamonds&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_gray&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tqhivmv0cc9yf2u/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_bw&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hpdtj4mpleh01da/unnamed-chunk-5-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_classic&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/8yr132sms91n5za/unnamed-chunk-5-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ggthemes&lt;/code&gt;패키지를 설치하면 추가적인 ggplot2 테마를 적용할 수 있습니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#install.packages(&amp;#39;ggthemes&amp;#39;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggthemes&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_colour_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/34nrv61ywsi483u/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_excel&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/wad7ly0io29mpvx/unnamed-chunk-6-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_solarized&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rbb51wi0lcq41hg/unnamed-chunk-6-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;세 번에 걸쳐 ggplot2를 사용하는 방법을 설명하면서 ggplot2의 다양한 기능과 적용 방법에 대해 알아보았습니다.
+기본적인 사용 방법을 익힌 후에 실제 데이터를 가지고 직접 데이터를 그려보면 생각했던 것 보다 원하는 그래프를 얻는 것이 힘들다는 것을 알게 됩니다.
+하지만 ggplot2에 어느 정도의 데이터 정제 능력이 뒷받침된다면 많은 문제들을 해결해 가면서 원하는 시각화를 구현할 수 있을 거라고 생각합니다.
+이후의 ggplot2 관련 글들은 ggplot2와 기타 다른 패키지들을 이용해서 시각화를 시도하고, 발생하는 문제의 원인을 파악해서 해결하는 과정을 보여드리게 될 것 같습니다.&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-03&quot;&gt;ggplot2 - 03&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 26, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
