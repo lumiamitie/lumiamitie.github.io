@@ -43,6 +43,11 @@ callback([
   {
     "text": "ggplot2 - 03",
     "href": "http://lumiamitie.github.io/r/visualization/ggplot2-03"
+  } ,
+
+  {
+    "text": "Jupyter with R",
+    "href": "http://lumiamitie.github.io/r/python/jupyter-r-kernel"
   } 
 
 ])
