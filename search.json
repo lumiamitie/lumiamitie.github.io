@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Web Scraping with rvest",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/web/web-scraping-with-rvest",
+		  "date"       : "2015-09-02 00:00:00 +0900",
+		  "shortdate"  : "September 02, 2015"
+		} ,
+	
+		{
 		  "title"      : "Jupyter with R",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/python/jupyter-r-kernel",

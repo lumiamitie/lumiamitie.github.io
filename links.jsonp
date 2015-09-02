@@ -48,6 +48,11 @@ callback([
   {
     "text": "Jupyter with R",
     "href": "http://lumiamitie.github.io/r/python/jupyter-r-kernel"
+  } ,
+
+  {
+    "text": "Web Scraping with rvest",
+    "href": "http://lumiamitie.github.io/r/web/web-scraping-with-rvest"
   } 
 
 ])
