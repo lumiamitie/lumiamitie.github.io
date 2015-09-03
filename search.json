@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "D3 - enter/update/exit",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/d3/d3-enter-update-exit",
+		  "date"       : "2015-09-03 00:00:00 +0900",
+		  "shortdate"  : "September 03, 2015"
+		} ,
+	
+		{
 		  "title"      : "Web Scraping with rvest",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/web/web-scraping-with-rvest",

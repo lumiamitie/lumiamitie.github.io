@@ -53,6 +53,11 @@ callback([
   {
     "text": "Web Scraping with rvest",
     "href": "http://lumiamitie.github.io/r/web/web-scraping-with-rvest"
+  } ,
+
+  {
+    "text": "D3 - enter/update/exit",
+    "href": "http://lumiamitie.github.io/d3/d3-enter-update-exit"
   } 
 
 ])
