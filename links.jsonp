@@ -58,6 +58,11 @@ callback([
   {
     "text": "D3 - enter/update/exit",
     "href": "http://lumiamitie.github.io/d3/d3-enter-update-exit"
+  } ,
+
+  {
+    "text": "Replace NA with tidyr",
+    "href": "http://lumiamitie.github.io/r/replace_na_with_tidyr"
   } 
 
 ])

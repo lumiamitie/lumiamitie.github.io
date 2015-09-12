@@ -4,13 +4,215 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-09-04T01:44:33+09:00</updated>
+<updated>2015-09-12T21:58:00+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Replace NA with tidyr]]></title>
+  <link>http://lumiamitie.github.io/r/replace_na_with_tidyr</link>
+  <id>http://lumiamitie.github.io/r/replace_na_with_tidyr</id>
+  <published>2015-09-12T00:00:00+09:00</published>
+  <updated>2015-09-12T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;9월 7일에 업데이트된 tidyr 0.3 버전에는 NA 값을 처리하는 함수들이 일부 추가되었다.&lt;/p&gt;
+
+&lt;p&gt;그 중에서 &lt;code&gt;replace_na&lt;/code&gt;와 &lt;code&gt;fill&lt;/code&gt; 함수에 대해 살펴보려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;tidyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data_frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;a&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;b&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;우선 &lt;code&gt;replace_na&lt;/code&gt; 함수는 각 열별로 NA를 대체할 값을 list를 통해 전달한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  replace_na&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;unknown&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
+## 
+##       x       y
+##   (dbl)   (chr)
+## 1     1       a
+## 2     2 unknown
+## 3     0       b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;fill&lt;/code&gt;함수는 NA값이 등장하면 해당 열에서 마지막으로 나온 NA값이 아닌 값으로 NA를 채워넣는다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  fill&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;y&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
+## 
+##       x     y
+##   (dbl) (chr)
+## 1     1     a
+## 2     2     a
+## 3     2     b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;fill 함수 내부에서 select문의 변수 선택 용법대로 값을 채워넣을 열을 선택할 수도 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  fill&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;y&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# x열부터 y열까지&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
+## 
+##       x     y
+##   (dbl) (chr)
+## 1     1     a
+## 2     2     a
+## 3     2     b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  fill&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;y&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# x열 포함, y열 제외&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
+## 
+##       x     y
+##   (dbl) (chr)
+## 1     1     a
+## 2     2    NA
+## 3     2     b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.nytimes.com/movies/boxoffice/us/weekend.html&quot;&gt;http://www.nytimes.com/movies/boxoffice/us/weekend.html&lt;/a&gt; 에서 데이터를 가져와서 이번주 영화 순위와 저번주 영화순위만으로 데이터를 다시 정리했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;movie_thiswk &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;weekly_thiswk.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; stringsAsFactors &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+movie_thiswk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    thiswk                             title
+## 1       1                          War Room
+## 2       2            Straight Outta Compton
+## 3       3               A Walk in the Woods
+## 4       4 Mission Impossible : Rogue Nation
+## 5       5          The Transporter Refueled
+## 6       6                         No Escape
+## 7       7                        Inside Out
+## 8       8           The Man From U.N.C.L.E.
+## 9       9        Un Gallo Con Muchos Huevos
+## 10     10                        Sinister 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;movie_lastwk &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;weekly_lastwk.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; stringsAsFactors &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+movie_lastwk
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    lastwk                             title
+## 1       1            Straight Outta Compton
+## 2       2                          War Room
+## 3       3 Mission Impossible : Rogue Nation
+## 4       4                         No Escape
+## 5       5                        Sinister 2
+## 6       6           The Man From U.N.C.L.E.
+## 7       7                  Hitman: Agent 47
+## 8       8                           Ant-Man
+## 9       9                    Jurassic World
+## 10     10                          The Gift
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;movie_thiswk&lt;/code&gt;와 &lt;code&gt;movie_lastwk&lt;/code&gt;를 left_join으로 묶어서 생기는 NA값을 처리하려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mv_rank &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; movie_thiswk &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;movie_lastwk&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; by &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;title&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+mv_rank
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    thiswk                             title lastwk
+## 1       1                          War Room      2
+## 2       2            Straight Outta Compton      1
+## 3       3               A Walk in the Woods     NA
+## 4       4 Mission Impossible : Rogue Nation      3
+## 5       5          The Transporter Refueled     NA
+## 6       6                         No Escape      4
+## 7       7                        Inside Out     NA
+## 8       8           The Man From U.N.C.L.E.      6
+## 9       9        Un Gallo Con Muchos Huevos     NA
+## 10     10                        Sinister 2      5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;lastwk 열의 NA값을 0으로 대체하려면 다음과 같이 할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mv_rank &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  replace_na&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lastwk &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    thiswk                             title lastwk
+## 1       1                          War Room      2
+## 2       2            Straight Outta Compton      1
+## 3       3               A Walk in the Woods      0
+## 4       4 Mission Impossible : Rogue Nation      3
+## 5       5          The Transporter Refueled      0
+## 6       6                         No Escape      4
+## 7       7                        Inside Out      0
+## 8       8           The Man From U.N.C.L.E.      6
+## 9       9        Un Gallo Con Muchos Huevos      0
+## 10     10                        Sinister 2      5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;gcookbook&lt;/code&gt;패키지의 &lt;code&gt;aapl&lt;/code&gt;데이터에서 2012-09-20일 이후의 데이터는 3건이 있다&lt;/p&gt;
+
+&lt;p&gt;9월 21일부터 10월 2일까지 날짜 데이터에 aapl 데이터를 left_join 시키고 &lt;code&gt;fill&lt;/code&gt; 함수를 이용해서 처리하려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gcookbook&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aapl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##         date adj_price
+## 1 1984-09-07      3.01
+## 2 1984-09-14      3.17
+## 3 1984-09-21      3.05
+## 4 1984-09-28      2.85
+## 5 1984-10-05      2.83
+## 6 1984-10-12      2.58
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;aapl_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; aapl &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;date &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;2012-09-20&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+aapl_data
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##         date adj_price
+## 1 2012-09-21    700.09
+## 2 2012-09-28    667.10
+## 3 2012-10-01    659.39
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daily_price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;date &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.Date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;2012-09-21&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; format&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;%Y-%m-%d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;+0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aapl_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daily_price
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##          date adj_price
+## 1  2012-09-21    700.09
+## 2  2012-09-22        NA
+## 3  2012-09-23        NA
+## 4  2012-09-24        NA
+## 5  2012-09-25        NA
+## 6  2012-09-26        NA
+## 7  2012-09-27        NA
+## 8  2012-09-28    667.10
+## 9  2012-09-29        NA
+## 10 2012-09-30        NA
+## 11 2012-10-01    659.39
+## 12 2012-10-02        NA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;아래와 같이 &lt;code&gt;fill&lt;/code&gt;함수를 사용하면 NA값들이 직전에 나온 값으로 대체되는 것을 볼 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daily_price &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  fill&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;adj_price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##          date adj_price
+## 1  2012-09-21    700.09
+## 2  2012-09-22    700.09
+## 3  2012-09-23    700.09
+## 4  2012-09-24    700.09
+## 5  2012-09-25    700.09
+## 6  2012-09-26    700.09
+## 7  2012-09-27    700.09
+## 8  2012-09-28    667.10
+## 9  2012-09-29    667.10
+## 10 2012-09-30    667.10
+## 11 2012-10-01    659.39
+## 12 2012-10-02    659.39
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/replace_na_with_tidyr&quot;&gt;Replace NA with tidyr&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 12, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>

@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Replace NA with tidyr",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/replace_na_with_tidyr",
+		  "date"       : "2015-09-12 00:00:00 +0900",
+		  "shortdate"  : "September 12, 2015"
+		} ,
+	
+		{
 		  "title"      : "D3 - enter/update/exit",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/d3/d3-enter-update-exit",
