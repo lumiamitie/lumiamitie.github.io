@@ -63,6 +63,11 @@ callback([
   {
     "text": "Replace NA with tidyr",
     "href": "http://lumiamitie.github.io/r/replace_na_with_tidyr"
+  } ,
+
+  {
+    "text": "Geocoding with R - 02",
+    "href": "http://lumiamitie.github.io/r/geocoding-with-r-02"
   } 
 
 ])

@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Geocoding with R - 02",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/geocoding-with-r-02",
+		  "date"       : "2015-09-14 00:00:00 +0900",
+		  "shortdate"  : "September 14, 2015"
+		} ,
+	
+		{
 		  "title"      : "Replace NA with tidyr",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/replace_na_with_tidyr",
