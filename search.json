@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "leaflet in R",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/leaflet-in-R",
+		  "date"       : "2015-09-25 00:00:00 +0900",
+		  "shortdate"  : "September 25, 2015"
+		} ,
+	
+		{
 		  "title"      : "Geocoding with R - 02",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/geocoding-with-r-02",
