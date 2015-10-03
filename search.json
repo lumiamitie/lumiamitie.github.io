@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "networkD3",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/networkD3",
+		  "date"       : "2015-10-03 00:00:00 +0900",
+		  "shortdate"  : "October 03, 2015"
+		} ,
+	
+		{
 		  "title"      : "leaflet in R",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/leaflet-in-R",

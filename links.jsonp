@@ -73,6 +73,11 @@ callback([
   {
     "text": "leaflet in R",
     "href": "http://lumiamitie.github.io/r/visualization/leaflet-in-R"
+  } ,
+
+  {
+    "text": "networkD3",
+    "href": "http://lumiamitie.github.io/r/visualization/networkD3"
   } 
 
 ])

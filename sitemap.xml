@@ -16,6 +16,10 @@
     
     
     <url>
+        <loc>http://lumiamitie.github.io/r/visualization/networkD3</loc>
+    </url>
+    
+    <url>
         <loc>http://lumiamitie.github.io/r/visualization/leaflet-in-R</loc>
     </url>
     
