@@ -78,6 +78,11 @@ callback([
   {
     "text": "networkD3",
     "href": "http://lumiamitie.github.io/r/visualization/networkD3"
+  } ,
+
+  {
+    "text": "List and sapply",
+    "href": "http://lumiamitie.github.io/r/list-and-sapply"
   } 
 
 ])
