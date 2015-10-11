@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+     
+    <url>
+        <loc>http://lumiamitie.github.io/</loc>
+    </url> 
+    <url>
+        <loc>http://lumiamitie.github.io/featured</loc>
+    </url> 
+    <url>
+        <loc>http://lumiamitie.github.io/categories</loc>
+    </url> 
+    <url>
+        <loc>http://lumiamitie.github.io/mino</loc>
+    </url>
+    
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/list-and-sapply</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/networkD3</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/leaflet-in-R</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/geocoding-with-r-02</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/replace_na_with_tidyr</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/d3/d3-enter-update-exit</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/web/web-scraping-with-rvest</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/python/jupyter-r-kernel</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/ggplot2-03</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/ggplot2-02</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/ggplot2-01</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/geocoding-with-r</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/magrittr</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/web/koding-com</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/web/%EC%B2%AB%EA%B2%8C%EC%8B%9C%EB%AC%BC</loc>
+    </url>
+    
+    <url>
+        <loc>http://lumiamitie.github.io/web/image-link-test</loc>
+    </url>
+    
+</urlset>

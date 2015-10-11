@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>MAGRITTR - CECI N'EST PAS UNE PIPE</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="jekyll">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="magrittr - Ceci n'est pas une pipe">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/magrittr">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/magrittr">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>magrittr - Ceci n'est pas une pipe</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-08-09T00:00:00+09:00">09 Aug 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="../../images/note-and-pen.jpg" alt="cover-image"></p>
+
+<h2 id="magrittr">magrittr</h2>
+
+<p>dplyr 이후로 Hadley Wickham의 패키지들은 <code>%&gt;%</code>라는 연산자를 굉장히 많이 사용한다. 파이프 연산자를 사용하면 코드의 가독성을 향상시키면서 생산성도 높이고, 유지 보수에도 굉장히 도움이 많이 된다. 그런데 pipe operator를 모르는 사람에게 코드를 보여주면 코드자체가 암호문으로 변해버리는 단점?이 있었다. 그래서 파이프 연산자의 사용법을 간단하게 설명하면서 <code>magrittr</code> 패키지의 기능들을 일부 설명해보려고 한다.</p>
+
+<hr>
+
+<h2 id="기본적인-pipe의-이용">기본적인 pipe의 이용</h2>
+
+<ul>
+<li><p><code>fun(x,y,z)</code>는 <code>x %&gt;% fun(y,z)</code>와 같다</p></li>
+<li><p>파이프를 기준으로 왼쪽에 있는 오브젝트(또는 연산의 결과물)는 파이프 오른쪽의 연산에 가장 첫 번째 인자로 들어간다. 만약 첫 번째가 아닌 다른 위치로 보내려고 한다면 . 으로 위치를 표시한다. 따라서
+<code>y %&gt;% fun(x, ., z)</code> 도 <code>fun(x, y, z)</code>와 같다</p></li>
+<li><p>파이프는 연속적으로 적용할 수 있기 때문에 중첩된 함수를 쉽게 표현할 수 있다.
+<code>fun3(fun2(fun1(x)))</code> 은 <code>x %&gt;% fun1 %&gt;% fun2 %&gt;% fun3</code>과 같다</p></li>
+</ul>
+
+<hr>
+
+<p>실제로 pipe연산이 어떻게 이용되는지 보기 위해서 다음과 같은 연산 과정을 생각해보자</p>
+
+<ol>
+<li><p>iris 데이터에서 Sepal.Length와 Species 열만 선택한다</p></li>
+<li><p>Species에 대해 group_by 지정한다</p></li>
+<li><p>Sepal.Length의 평균과 표준편차를 계산하여 정규화시킨다</p></li>
+<li><p>계산과정을 위해 생성한 열을 제거한다</p></li>
+</ol>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>magrittr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">select<span class="p">(</span>
+  mutate<span class="p">(</span>
+    group_by<span class="p">(</span>
+      select<span class="p">(</span>iris<span class="p">,</span> Sepal.Length<span class="p">,</span> Species<span class="p">),</span> 
+      Species<span class="p">),</span>
+    sp_mean <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">),</span>
+    sp_sd <span class="o">=</span> sd<span class="p">(</span>Sepal.Length<span class="p">),</span>
+    norm <span class="o">=</span> <span class="p">(</span>Sepal.Length <span class="o">-</span> sp_mean<span class="p">)</span> <span class="o">/</span> sp_sd
+    <span class="p">),</span> 
+  <span class="o">-</span>sp_mean<span class="p">,</span> <span class="o">-</span>sp_sd<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [150 x 3]
+## Groups: Species
+## 
+##    Sepal.Length Species        norm
+## 1           5.1  setosa  0.26667447
+## 2           4.9  setosa -0.30071802
+## 3           4.7  setosa -0.86811050
+## 4           4.6  setosa -1.15180675
+## 5           5.0  setosa -0.01702177
+## 6           5.4  setosa  1.11776320
+## 7           4.6  setosa -1.15180675
+## 8           5.0  setosa -0.01702177
+## 9           4.4  setosa -1.71919923
+## 10          4.9  setosa -0.30071802
+## ..          ...     ...         ...
+</code></pre></div>
+<ul>
+<li><p>우선 문제가 되는 것은 연산과정에서 맨 먼저 적용되는, 중심 데이터의 위치를 찾기가 어렵다</p></li>
+<li><p>또, 중심이 되는 iris 데이터를 기준으로 해서 함수들이 중첩되어 있다.</p></li>
+<li><p>그래서 코드를 읽으려면 코드 덩어리에 중심에서부터 한 단계씩 밖으로 나오게 되는데
+중심을 기준으로 함수명은 앞에, 옵션은 뒤에 있기 때문에 코드를 보고 내용을 이해하기가 힘들어진다</p></li>
+<li><p>위와 같은 상황에서는 가독성을 위해 코드를 중간중간 끊어서 사용하게 되는데, 
+그러면 불필요한 임시변수들이 많이 생길 수 있다</p></li>
+</ul>
+
+<p>위 코드를 pipe를 이용해서 정리하면 다음과 같다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%&gt;%</span>
+  select<span class="p">(</span>Sepal.Length<span class="p">,</span> Species<span class="p">)</span> <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span>
+  mutate<span class="p">(</span>sp_mean <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">),</span>
+         sp_sd <span class="o">=</span> sd<span class="p">(</span>Sepal.Length<span class="p">),</span>
+         norm <span class="o">=</span> <span class="p">(</span>Sepal.Length <span class="o">-</span> sp_mean<span class="p">)</span> <span class="o">/</span> sp_sd<span class="p">)</span> <span class="o">%&gt;%</span>
+  select<span class="p">(</span><span class="o">-</span>sp_mean<span class="p">,</span> <span class="o">-</span>sp_sd<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [150 x 3]
+## Groups: Species
+## 
+##    Sepal.Length Species        norm
+## 1           5.1  setosa  0.26667447
+## 2           4.9  setosa -0.30071802
+## 3           4.7  setosa -0.86811050
+## 4           4.6  setosa -1.15180675
+## 5           5.0  setosa -0.01702177
+## 6           5.4  setosa  1.11776320
+## 7           4.6  setosa -1.15180675
+## 8           5.0  setosa -0.01702177
+## 9           4.4  setosa -1.71919923
+## 10          4.9  setosa -0.30071802
+## ..          ...     ...         ...
+</code></pre></div>
+<ul>
+<li><p>일단 코드가 훨씬 깔끔하게 정리되었다</p></li>
+<li><p>또 함수와 해당 함수의 옵션 및 추가적인 인수들을 같은 줄에서 관리할 수 있다</p></li>
+<li><p>시작이 되는 데이터가 iris 라는 것이 명확하게 보이고, 우리가 처음에 생각했던 연산 순서대로 함수를 볼 수 있게 되었다</p></li>
+</ul>
+
+<hr>
+
+<p><code>dplyr</code> 등의 패키지는 자동으로 <code>%&gt;%</code> 함수를 불러오기 때문에 <code>magrittr</code> 패키지를 굳이 불러오지 않더라도 많이 사용하게 되는데 <code>magrittr</code> 패키지를 불러오면 기본 pipe 이외에도 몇 가지 추가적인 기능을 제공하는 pipe operator와 pipeline을 통한 코드 작성을 도와주는 함수들을 더 제공한다</p>
+
+<hr>
+
+<h2 id="다양한-파이프-연산자들">다양한 파이프 연산자들</h2>
+
+<h3 id="&#39;tee&#39;-operator-%t&gt;%">&lsquo;tee&rsquo; operator %T&gt;%</h3>
+
+<p>pipe를 기준으로 왼쪽에 있는 연산은 값을 반환하지만 오른쪽에 있는 연산은 값을 반환하지 않는다. 따라서 tee opeator 다음에는 print, plot 등의 함수를 사용해서 연산 중간에 자연스럽게 부수적인 결과물을 출력시킬 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">rnorm<span class="p">(</span><span class="m">5</span><span class="p">)</span> <span class="o">%T&gt;%</span>
+  print <span class="o">%&gt;%</span>
+  <span class="kp">mean</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1]  0.4826458 -0.8295812  0.1662653  0.0854539  0.9908439
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.1791255
+</code></pre></div>
+<p>위 코드는 표준정규분포를 따르는 난수 5개를 발생시키고</p>
+
+<p>해당 난수를 print함수를 이용해 출력한 다음에 5개 난수의 평균을 내보낸다.</p>
+
+<p>rnorm(5)에서 나온 값이 print와 mean에 반영된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%&gt;%</span>
+  <span class="kp">head</span><span class="p">(</span>n<span class="o">=</span><span class="m">3</span><span class="p">)</span> <span class="o">%T&gt;%</span>
+  plot <span class="o">%&gt;%</span>
+  select<span class="p">(</span>Sepal.Length<span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/iqvk8pznc8r09lv/unnamed-chunk-4-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length
+## 1          5.1
+## 2          4.9
+## 3          4.7
+</code></pre></div>
+<p>위 코드에서는 iris 데이터의 1~3행에 대해서 plot을 그리고 Sepal.Length 열만 선택한다</p>
+
+<p>plot 함수는 기본적으로 데이터를 반환하지 않기 때문에 pipeline의 중간에 plot을 넣기 위해 tee operator를 사용했다</p>
+
+<h3 id="&#39;exposition&#39;-operator-%$%">&#39;exposition&rsquo; operator %$%</h3>
+
+<p><code>with</code> 함수의 축약버전이다. pipe 기준으로 왼쪽에 있는 오브젝트 내의 name을 pipe 오른쪽의 연산에서 오브젝트 처럼 사용할 수 있게 해준다</p>
+
+<p>다음 세 가지 코드는 같은 결과물을 출력한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">cor<span class="p">(</span>iris<span class="o">$</span>Petal.Length<span class="p">,</span> iris<span class="o">$</span>Petal.Width<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.9628654
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">with</span><span class="p">(</span>iris<span class="p">,</span>
+     cor<span class="p">(</span>Petal.Length<span class="p">,</span> Petal.Width<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.9628654
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%$%</span>
+  cor<span class="p">(</span>Petal.Length<span class="p">,</span> Petal.Width<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.9628654
+</code></pre></div>
+<h3 id="compound-assignment-operator-%&lt;&gt;%">compound assignment operator %&lt;&gt;%</h3>
+
+<p>chain의 맨 처음에서 사용될 수 있다. pipeline의 결과물을 operator 왼쪽의 오브젝트에 저장한다</p>
+
+<p><code>data &lt;- data %&gt;% func1 %&gt;% func2</code> 는 <code>data %&lt;&gt;% func1 %&gt;% func2</code> 와 같다</p>
+
+<p>c(1:10)의 값을 모두 로그변환을 하고 소수점 둘째 자리까지만 남도록 반올림한다면</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">x <span class="o">&lt;-</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span>
+x <span class="o">&lt;-</span> <span class="kp">round</span><span class="p">(</span><span class="kp">log</span><span class="p">(</span>x<span class="p">),</span><span class="m">2</span><span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span>x<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">x <span class="o">&lt;-</span> <span class="m">1</span><span class="o">:</span><span class="m">10</span>
+x <span class="o">%&lt;&gt;%</span> log <span class="o">%&gt;%</span>
+  <span class="kp">round</span><span class="p">(</span><span class="m">2</span><span class="p">)</span>
+<span class="kp">print</span><span class="p">(</span>x<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  [1] 0.00 0.69 1.10 1.39 1.61 1.79 1.95 2.08 2.20 2.30
+</code></pre></div>
+<h2 id="기본연산을-대체하는-함수들">기본연산을 대체하는 함수들</h2>
+
+<p>magrittr 패키지에서는 다양한 기본 연산을 pipeline에 쉽게 적용할 수 있도록 다양한 기본 연산에 대한 대체 함수를 제공한다</p>
+
+<p>예를 들면, <code>iris %&gt;% select(Species)</code> 는 데이터프레임의 형태로 Species 를 반환하는데
+<code>iris$Species</code> 처럼 단순하게 벡터 형태로 반환해야 한다면
+<code>&#39;$&#39;</code> 함수를 직접 호출하여 이용할 수도 있지만
+magrittr의 <code>use_series</code> 함수를 이용할 수 있다</p>
+
+<p>따라서 아래 두 연산은 동일하다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtcars <span class="o">%&gt;%</span>
+  <span class="s">&#39;$&#39;</span><span class="p">(</span><span class="s">&#39;mpg&#39;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+## [29] 15.8 19.7 15.0 21.4
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">mtcars <span class="o">%&gt;%</span>
+  use_series<span class="p">(</span>mpg<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  [1] 21.0 21.0 22.8 21.4 18.7 18.1 14.3 24.4 22.8 19.2 17.8 16.4 17.3 15.2
+## [15] 10.4 10.4 14.7 32.4 30.4 33.9 21.5 15.5 15.2 13.3 19.2 27.3 26.0 30.4
+## [29] 15.8 19.7 15.0 21.4
+</code></pre></div>
+<p>또 <code>&#39;==&#39;</code> 연산에 대한 함수로 <code>equals</code> 함수를 제공한다
+결과물이 TRUE, FALSE로 반환되기 때문에 <code>dplyr::filter</code> 등의 함수에서도 적용할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kc">letters</span> <span class="o">%&gt;%</span>
+  equals<span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  [1]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [12] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+## [23] FALSE FALSE FALSE FALSE
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">mtcars <span class="o">%&gt;%</span>
+  filter<span class="p">(</span>cyl <span class="o">%&gt;%</span> equals<span class="p">(</span><span class="m">4</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1  22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 2  24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 3  22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 4  32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 5  30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 6  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 7  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 8  27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 9  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 10 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 11 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+</code></pre></div>
+<p><code>gcookbook</code> 패키지의 <code>aapl</code>데이터에서 2012년의 자료만 필터링하려면 다음과 같이 해볼 수 있다.</p>
+
+<p>아래 두 가지 방법은 동일한 결과물을 출력한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>gcookbook<span class="p">)</span>
+aapl <span class="o">%&gt;%</span> 
+  filter<span class="p">(</span><span class="kp">strftime</span><span class="p">(</span><span class="kp">date</span><span class="p">,</span> <span class="s">&#39;%Y&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="s">&#39;2012&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span>
+  <span class="kp">head</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##         date adj_price
+## 1 2012-01-06    420.59
+## 2 2012-01-13    418.02
+## 3 2012-01-20    418.50
+## 4 2012-01-27    445.37
+## 5 2012-02-03    457.71
+## 6 2012-02-10    491.31
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">aapl <span class="o">%&gt;%</span>
+  filter<span class="p">(</span>date <span class="o">%&gt;%</span> <span class="kp">strftime</span><span class="p">(</span><span class="s">&#39;%Y&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> equals<span class="p">(</span><span class="m">2012</span><span class="p">))</span> <span class="o">%&gt;%</span>
+  <span class="kp">head</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##         date adj_price
+## 1 2012-01-06    420.59
+## 2 2012-01-13    418.02
+## 3 2012-01-20    418.50
+## 4 2012-01-27    445.37
+## 5 2012-02-03    457.71
+## 6 2012-02-10    491.31
+</code></pre></div>
+<p>이처럼 다양한 연산에 대한 대체 함수를 이용하면 pipeline 위주로 코드를 작성할 때 도움이 될 수 있다</p>
+
+<p>함수들의 목록은 다음과 같다</p>
+
+<p><img src="http://dl.dropbox.com/s/hcgg2cwxhct26r1/magrittr_alias.png" alt=""></p>
+
+<hr>
+
+<p>함수를 pipe의 형태로 적용하면 중복되는 pipe 연산들에 동시에 적용할 수도 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%&gt;%</span>
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span>
+  summarise<span class="p">(</span>cnt <span class="o">=</span> n<span class="p">())</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [3 x 2]
+## 
+##      Species cnt
+## 1     setosa  50
+## 2 versicolor  50
+## 3  virginica  50
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">count_group <span class="o">&lt;-</span> <span class="m">.</span> <span class="o">%&gt;%</span> group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span> summarise<span class="p">(</span>cnt <span class="o">=</span> n<span class="p">())</span>
+
+iris <span class="o">%&gt;%</span>
+  count_group
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [3 x 2]
+## 
+##      Species cnt
+## 1     setosa  50
+## 2 versicolor  50
+## 3  virginica  50
+</code></pre></div>
+<p>동일한 연산 과정들이 반복되거나, 구조가 같은 여러 자료에 공통적으로 적용할 수 있는 연산들의 경우에는
+이러한 방법으로 함수를 작성하여 반복되는 연산을 간단하게 표현할 수 있다.</p>
+
+<p><code>magrittr</code>패키지에 대해 더 알아보려면 패키지 내에 존재하는 vignette 문서를 살펴보거나 다음
+<a href="http://www.r-statistics.com/2014/08/simpler-r-coding-with-pipes-the-present-and-future-of-the-magrittr-package/">문서</a> 등을 읽어보면 보움이 될 것이다</p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;magrittr - Ceci n'est pas une pipe&quot;%20http://lumiamitie.github.io/r/magrittr%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/magrittr"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/magrittr"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+ 
+</body>
+</html>

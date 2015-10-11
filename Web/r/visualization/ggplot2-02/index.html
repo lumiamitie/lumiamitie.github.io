@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>GGPLOT2 - 02 DRAWING GRAPHS</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="jekyll">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ggplot2 - 02 Drawing Graphs">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/visualization/ggplot2-02">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/visualization/ggplot2-02">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>ggplot2 - 02 Drawing Graphs</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-08-17T00:00:00+09:00">17 Aug 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="../../../images/taking-notes.jpg" alt="cover-image"></p>
+
+<h2 id="ggplot2">ggplot2</h2>
+
+<p>저번 글에서는 ggplot2가 어떻게 동작하는지를 위주로 살펴보았습니다. 이번에는 그래프가 에러없이 뜨는데 만족하지 않고 원하는 형태로 그래프를 만들 수 있도록 다른 옵션들을 조작하는 방법을 살펴보겠습니다. </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+iris_plot <span class="o">=</span> ggplot<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">,</span> y<span class="o">=</span>Sepal.Width<span class="p">))</span>
+</code></pre></div>
+<h4 id="parameter">Parameter</h4>
+
+<p>parameter를 추가하면 geom의 형태를 변경하거나 stat이 적용되는 방법을 바꿀 수 있습니다. 에스테틱을 직접 적용하거나 각 함수마다 주어지는 옵션을 변경하게 됩니다. 에스테틱은 <strong>aes</strong>함수 안에서 쓰이면 데이터의 값에 매핑되지만, 밖에서 쓰일 경우에는 해당 요소를 전부 변경합니다. 예를 들어 <code>geom_point(aes(size = var))</code>은 <strong>var</strong> 데이터의 값에 따라 점의 크기가 변하게 됩니다. 하지만 <code>geom_point(size = 3)</code> 의 경우에는 모든 점의 크기가 3으로 고정됩니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_plot <span class="o">+</span>
+  geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span> <span class="o">+</span>
+  geom_smooth<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/7ekhiqufhbze3bi/unnamed-chunk-2-1.png" alt=""> </p>
+
+<p>에스테틱 중에서 좌표를 나타내는 <strong>x</strong>와 <strong>y</strong>를 제외하면</p>
+
+<p><strong>colour</strong>(또는 color)는 점이나 선 색상이나 면의 테두리 색을 결정합니다</p>
+
+<p><strong>fill</strong>은 면의 색상을 결정합니다</p>
+
+<p><strong>alpha</strong>는 색의 투명도를 나타냅니다</p>
+
+<hr>
+
+<p>에스테틱은 아니지만 각 함수의 세부적인 내용을 조정하는 parameter들도 존재합니다.</p>
+
+<p><strong>geom_smooth</strong>의 경우에는 <code>method = &#39;lm&#39;</code>으로 지정하면 추세선을 직선으로 그려줍니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_plot <span class="o">+</span>
+  geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span> <span class="o">+</span>
+  geom_smooth<span class="p">(</span>method <span class="o">=</span> <span class="s">&#39;lm&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/3qgmefpww21h7wz/unnamed-chunk-3-1.png" alt=""> </p>
+
+<p><strong>linetype</strong> 옵션은 선의 모양을 변경할 수 있게 합니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_plot <span class="o">+</span>
+  geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span> <span class="o">+</span>
+  geom_smooth<span class="p">(</span>linetype <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/g62ytcfxbh50um6/unnamed-chunk-4-1.png" alt=""> </p>
+
+<p><strong>se</strong> 옵션을 끄면 standard error의 범위를 표현하지 않습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_plot <span class="o">+</span>
+  geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;red&#39;</span><span class="p">)</span> <span class="o">+</span>
+  geom_smooth<span class="p">(</span>se <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/9aeal2qtwr59me6/unnamed-chunk-5-1.png?dl=0" alt=""> </p>
+
+<hr>
+
+<p>각각의 함수들에는 적용할 수 있는 다양한 parameter들이 있습니다. 각 parameter들에 대한 자세한 설명은 역시 <a href="http://docs.ggplot2.org/current/">이 곳</a>의 링크로 남겨놓는 편이 좋겠네요. 아직 이번 1월에 업데이트된 공식 1.0.0 버전에 추가된 내용은 반영되지 않은 것 같습니다만, 그래도 상당히 많은 예제를 볼 수 있습니다. </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h3 id="position-adjustment">Position Adjustment</h3>
+
+<p><strong>position</strong>은 <strong>geom</strong>이 보여지는 형태를 바꿉니다. 막대그래프라면 막대가 누적으로 쌓일지, 옆에 나란히 놓일지 결정할 수 있습니다. 산점도라면 여러 점들이 겹쳐있을때 각 좌표에 일정 난수를 더해서 흩어져보이게 만들 수도 있습니다. </p>
+
+<hr>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>data <span class="o">=</span> mpg<span class="p">,</span> aes<span class="p">(</span>displ<span class="p">,</span> hwy<span class="p">))</span> <span class="o">+</span>
+  geom_point<span class="p">(</span>position <span class="o">=</span> <span class="s">&quot;jitter&quot;</span><span class="p">)</span> <span class="o">+</span>
+  geom_smooth<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/z4hsb5vuzc2uxnf/unnamed-chunk-6-1.png" alt=""> </p>
+
+<p><strong>position = &lsquo;jitter&rsquo;</strong>를 적용하면 각 x,y값에 난수를 더해서 점이 겹치지 않도록 합니다. <code>geom_point(position=&#39;jitter&#39;)</code>는 <code>geom_jitter()</code> 로 줄여서 쓸 수 있습니다</p>
+
+<hr>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>mtcars<span class="p">,</span>
+  aes<span class="p">(</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">),</span> fill <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>vs<span class="p">)))</span> <span class="o">+</span>
+  geom_bar<span class="p">(</span>position<span class="o">=</span><span class="s">&quot;stack&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/r168eqbulj7bugh/unnamed-chunk-7-1.png" alt=""> </p>
+
+<p>막대그래프에서 <strong>position = &#39;stack&rsquo;</strong>은 각 막대를 쌓아서 누적된 형태로 보여줍니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>mtcars<span class="p">,</span>
+  aes<span class="p">(</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">),</span> fill <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>vs<span class="p">)))</span> <span class="o">+</span>
+  geom_bar<span class="p">(</span>position<span class="o">=</span><span class="s">&quot;fill&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zn2um7alzmfq4yx/unnamed-chunk-8-1.png" alt=""> </p>
+
+<p><strong>position = &#39;fill&rsquo;</strong>은 비율을 나타내는 누적 막대를 보여줍니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>mtcars<span class="p">,</span>
+  aes<span class="p">(</span><span class="kp">factor</span><span class="p">(</span>cyl<span class="p">),</span> fill <span class="o">=</span> <span class="kp">factor</span><span class="p">(</span>vs<span class="p">)))</span> <span class="o">+</span>
+  geom_bar<span class="p">(</span>position<span class="o">=</span><span class="s">&quot;dodge&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/1xp7nxxh4xxb3wy/unnamed-chunk-9-1.png" alt=""> </p>
+
+<p><strong>position = &#39;dodge&rsquo;</strong>는 각 막대를 옆으로 나열합니다</p>
+
+<hr>
+
+<p>postion을 적용하지 않을 때에는 <strong>position = &#39;identity&rsquo;</strong> 옵션이 사용됩니다. 기본값이 postion = &#39;identity&#39;인 함수를 사용하고 있다면 position옵션을 생략할 수 있습니다. </p>
+
+<p>그리고, position을 더 상세하게 지정하고 싶다면 <em>position_옵션이름</em> 으로 지정된 함수에 parameter를 적용하면 됩니다. <strong>position_dodge</strong>의 경우에는 어느 정도 간격으로 떨어뜨려 놓을지 정할 수 있고, <strong>position_jitter</strong>에서는 난수를 어느 정도로 적용할 지 결정할 수 있습니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dodge <span class="o">=</span> position_dodge<span class="p">(</span><span class="m">0.3</span><span class="p">)</span>
+
+ggplot<span class="p">(</span>sleep<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>ID<span class="p">,</span> y<span class="o">=</span>extra<span class="p">,</span> group<span class="o">=</span>group<span class="p">))</span> <span class="o">+</span> 
+  geom_line<span class="p">(</span>position <span class="o">=</span> dodge<span class="p">)</span> <span class="o">+</span> 
+  geom_point<span class="p">(</span>position <span class="o">=</span> dodge<span class="p">,</span> size<span class="o">=</span><span class="m">4</span><span class="p">,</span> fill<span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">,</span> shape<span class="o">=</span><span class="m">21</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## ymax not defined: adjusting position using y instead
+## ymax not defined: adjusting position using y instead
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/ki1n8ebz7aqghgj/unnamed-chunk-10-1.png" alt=""> </p>
+
+<p>위에서는 <strong>position_dodge</strong>를 사용하지 않으면 ID=5일 때 점이 겹쳐보입니다. 일부러 점을 떨어져있게 만들고 싶다면 위와 같이 position_dodge 함수를 적용시킬 수 있습니다.</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="scales">Scales</h2>
+
+<p><strong>Scale</strong>은 데이터의 값이 그래프의 에스테틱에 대입되는 과정을 조절하고 <strong>guide</strong>(축과 범례 등)가 어떻게 표시되는지 결정한다고 저번 글에서 말씀드렸습니다. 스케일과 관련된 함수는 기본적으로는 <strong>scale_에스테틱_적용방법</strong>으로 이름이 정해집니다. 스케일을 조절하는 함수는 에스테틱의 종류만큼이나 다양하게 존재하지만, 어느 정도 규칙적인 함수명 덕분에 비교적 쉽게 검색해서 적용이 가능합니다. </p>
+
+<hr>
+
+<p>우선 본격적으로 관련 함수들에 대해서 알아보기 전에 <code>xlim</code>, <code>ylim</code> 함수를 살펴보겠습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>data <span class="o">=</span> mpg<span class="p">,</span> aes<span class="p">(</span>displ<span class="p">,</span> hwy<span class="p">))</span> <span class="o">+</span>
+  geom_point<span class="p">()</span> <span class="o">+</span>
+  geom_smooth<span class="p">()</span> <span class="o">+</span>
+  xlim<span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Removed 153 rows containing missing values (stat_smooth).
+## Warning: Removed 153 rows containing missing values (geom_point).
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zkziiemwfhl3b9y/unnamed-chunk-11-1.png" alt=""> </p>
+
+<p><strong>xlim()</strong>, 또는 <strong>ylim()</strong>함수를 이용하면 화면에 보이는 그래프의 범위를 보여줄 수 있습니다. 화면에 나오지 못하는 데이터가 생긴다면 경고메세지가 발생하지만 그래프는 문제없이 그려집니다.</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>다음으로는 색상과 관련된 scale에 대해서 살펴보려고 합니다. 아래 예제에서는 fill을 기준으로 설명하겠지만, fill을 colour로 바꾸기만 하면 많은 경우에 동일한 방식으로 적용할 수 있습니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">&lt;-</span> ggplot<span class="p">(</span>diamonds<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span><span class="kp">cut</span><span class="p">,</span> fill <span class="o">=</span> <span class="kp">cut</span><span class="p">))</span> <span class="o">+</span> geom_bar<span class="p">()</span>
+
+dia_bar <span class="o">+</span>
+  scale_fill_brewer<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/dgkf9q6grsl8zbg/unnamed-chunk-12-1.png" alt=""> </p>
+
+<p><strong>xxx_brewer</strong>로 끝나는 색상관련 scale 함수들은 <strong>RColorBrewer</strong>패키지를 이용해서 색상을 지정합니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">RColorBrewer<span class="o">::</span>display.brewer.all<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/iy1yjajlurkmhss/colorbrewer_palette.jpg" alt=""> </p>
+
+<p><code>display.brewer.all()</code> 함수를 통해 사용가능한 색 조합의 이름과 색상들을 살펴볼 수 있습니다. 값의 높고 낮음을 보여줄 수 있는 Sequential, 서로 다른 범주나 그룹들을 구분지어 보여줄 수 있는 Qualitative, 어느 중심 값을 기준으로 얼마나 떨어져 있는지를 보여주는 Diverging 의 순서로 정리가 되어 있습니다. 현재 표현하고자 하는 데이터의 형태를 잘 살펴보고, 적절한 색조합을 적용시키면 됩니다. </p>
+
+<p>원하는 색조합을 찾았다면, <strong>palette</strong> 옵션에 조합의 이름을 넣어서 색상을 적용할 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+  scale_fill_brewer<span class="p">(</span>palette <span class="o">=</span> <span class="s">&#39;Paired&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/uizqp3y5iezro0c/unnamed-chunk-14-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+  scale_fill_brewer<span class="p">(</span>palette <span class="o">=</span> <span class="s">&#39;Accent&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/ewkxls3p3c2d8kt/unnamed-chunk-14-2.png?dl=0" alt=""> </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>다음은 축에 대한 scale함수를 사용해보겠습니다. 연속적인 수치 자료가 y축에 있을 때 스케일은 <strong>scale_y_continuous</strong>함수를 적용할 수 있습니다. x축이라면 y를 x로 바꾸면 되고, 이산형자료라면 continuous가 discrete로 바뀝니다.</p>
+
+<p>위에서 <strong>xlim</strong> 함수를 살펴보았는데요. <strong>scale_x_continuous</strong> 안에 <strong>limits</strong> 옵션을 지정하면 동일한 효과를 얻을 수 있습니다. <strong>xlim</strong>이 적용되었던 예제를 <strong>scale_x_continuous</strong>로 표현하면 다음과 같습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>data <span class="o">=</span> mpg<span class="p">,</span> aes<span class="p">(</span>displ<span class="p">,</span> hwy<span class="p">))</span> <span class="o">+</span>
+    geom_point<span class="p">()</span> <span class="o">+</span>
+    geom_smooth<span class="p">()</span> <span class="o">+</span>
+    scale_x_continuous<span class="p">(</span>limits<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">4</span><span class="p">,</span><span class="m">6</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Removed 153 rows containing missing values (stat_smooth).
+## Warning: Removed 153 rows containing missing values (geom_point).
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/t12slazk5s9zigu/unnamed-chunk-15-1.png" alt=""> </p>
+
+<p>산점도 같은 경우에는 그래프로 표현하는 범위를 강제하더라도 문제가 없겠지만, 막대 그래프 같은 경우에는 위와 같은 방식을 사용하면 막대 자체가 표현이 되지 않을 수 있으니 유의하시기 바랍니다.</p>
+
+<hr>
+
+<p><strong>trans</strong>옵션은 변수변환을 스케일 차원에서 조절할 수 있게 해줍니다. <strong>trans = log10</strong>옵션을 적용하면 y축에 log10 함수를 적용합니다. <strong>scale_y_log10</strong> 처럼 자주 쓰이는 함수들은 미리 함수들이 지정되어 있기도 하지만 옵션에서 사용하면 사용가능한 함수의 이름을 입력하는 방식으로 사용할 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+  scale_fill_brewer<span class="p">(</span>palette <span class="o">=</span> <span class="s">&quot;Accent&quot;</span><span class="p">)</span> <span class="o">+</span>
+  scale_y_continuous<span class="p">(</span>trans <span class="o">=</span> <span class="s">&quot;log10&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/2rc5i9nykl4ycpg/unnamed-chunk-16-1.png" alt=""> </p>
+
+<hr>
+
+<p><strong>breaks</strong>옵션은 눈금에 표시되는 항목을 지정할 수 있게 해줍니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+scale_y_continuous<span class="p">(</span>breaks <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="m">5000</span><span class="p">,</span> <span class="m">15000</span><span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/9mvg39iambqj606/unnamed-chunk-17-1.png" alt=""> </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="coordinate-system">Coordinate System</h2>
+
+<p>좌표계의 경우 아무런 값이 지정되지 않으면 기본값으로 Cartesian을 적용합니다(<strong>coord_cartesian()</strong>). <strong>coord_flip()</strong>을 이용해 x축과 y축을 뒤바꿀 수 있고, <strong>coord_polar()</strong>를 사용하면 극좌표계로 변환시킬 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+  coord_flip<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/0phyjtlodcq59s9/unnamed-chunk-18-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span>
+  coord_polar<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/hewbz0fx3dywndq/unnamed-chunk-19-1.png" alt=""> </p>
+
+<p>그래프에서 보이는 축의 범위를 조절하려고 할 때 위에서 했던 대로 scale을 변경할 수도 있지만, 좌표계를 직접 변형시키는 방법이 있습니다. 하지만 두 개의 방식에는 큰 차이가 있는데, scale을 변경하면 해당 스케일을 벗어나는 데이터는 제거하고 그래프를 그립니다. 따라서 boxplot의 경우에는 남아있는 데이터로 box가 새로 그려질 것이고 막대그래프의 경우에는 데이터의 범위를 벗어나는 막대는 막대 자체가 그려지지 않습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># &#39;Ideal&#39;의 막대가 그려지지 않는다</span>
+dia_bar <span class="o">+</span> scale_y_continuous<span class="p">(</span>limits<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">15000</span><span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/rwnm8kwmjizzd24/unnamed-chunk-20-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>InsectSprays<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>spray<span class="p">,</span> y<span class="o">=</span>count<span class="p">))</span> <span class="o">+</span> 
+  geom_boxplot<span class="p">()</span> <span class="o">+</span>
+  scale_y_continuous<span class="p">(</span>limits<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">15</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Warning: Removed 16 rows containing non-finite values (stat_boxplot).
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/knj2j6c1kbre66r/unnamed-chunk-21-1.png" alt=""> </p>
+
+<p>반면에 좌표를 직접 수정하는 경우에는 그래프를 일단 그린 다음에 입력한 범위만 확대하거나 축소하는 등 변형을 시킵니다. 그래서 그래프의 모양이 변하거나 하지 않습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># &#39;Ideal&#39;의 막대가 그려진다. 대신 15000 이후로는 보이지 않는다</span>
+dia_bar <span class="o">+</span>
+  coord_cartesian<span class="p">(</span>ylim<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">15000</span><span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/mczzqqwkc2ne6gi/unnamed-chunk-22-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>InsectSprays<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>spray<span class="p">,</span> y<span class="o">=</span>count<span class="p">))</span> <span class="o">+</span> 
+  geom_boxplot<span class="p">()</span> <span class="o">+</span>
+  coord_cartesian<span class="p">(</span>ylim<span class="o">=</span><span class="kt">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">15</span><span class="p">))</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zkn7vynvxvffm8f/unnamed-chunk-23-1.png" alt=""> </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><strong>coord</strong> 항목을 신경써서 적용해야 할 때가 또 있습니다. 바로 지도를 그릴 때인데요. 지도를 그릴 때는 기본적으로 위도와 경도가 직교좌표계에 그려지는데, <strong>coord_map()</strong>을 사용하면 지도의 투영 방식을 적용하여 ggplot 그래프를 그릴 수 있습니다.</p>
+
+<p><strong>maps</strong> 패키지에서 지도를 받아온 후에 좌표계를 지정하지 않고 그려보겠습니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>maps<span class="p">)</span>
+asia <span class="o">=</span> map_data<span class="p">(</span><span class="s">&#39;world&#39;</span><span class="p">,</span> region <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;Japan&#39;</span><span class="p">,</span> <span class="s">&#39;China&#39;</span><span class="p">,</span> <span class="s">&#39;North Korea&#39;</span><span class="p">,</span> <span class="s">&#39;South Korea&#39;</span><span class="p">))</span>
+
+ggplot<span class="p">(</span>asia<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span> y <span class="o">=</span> lat<span class="p">,</span> group <span class="o">=</span> group<span class="p">))</span> <span class="o">+</span>
+  geom_polygon<span class="p">(</span>fill <span class="o">=</span> <span class="s">&#39;white&#39;</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/n6lpkedji83z88y/unnamed-chunk-24-1.png" alt=""> </p>
+
+<hr>
+
+<p>다음은 <strong>coord_map</strong> 함수를 사용합니다. 기본 투영법은 <strong>mercator</strong>입니다. 위도선이 나타나는 간격이 달라지는 것을 볼 수 있습니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>asia<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> long<span class="p">,</span> y <span class="o">=</span> lat<span class="p">,</span> group <span class="o">=</span> group<span class="p">))</span> <span class="o">+</span>
+  geom_polygon<span class="p">(</span>fill <span class="o">=</span> <span class="s">&#39;white&#39;</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+  coord_map<span class="p">()</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/w2cvqrzyjyrqt19/unnamed-chunk-25-1.png" alt=""> </p>
+
+<hr>
+
+<p><strong>?mapproject</strong>을 통해서 적용할 수 있는 다양한 투영법과 적용할 수 있는 옵션을 찾아볼 수 있습니다. 아래에서는 그 중 몇 가지만 함께 살펴보도록 하겠습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>asia<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>long<span class="p">,</span> y<span class="o">=</span>lat<span class="p">,</span> group <span class="o">=</span> group<span class="p">))</span> <span class="o">+</span>
+  geom_polygon<span class="p">(</span>fill <span class="o">=</span> <span class="s">&#39;white&#39;</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+  coord_map<span class="p">(</span><span class="s">&quot;orthographic&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/71v6llv6xhk7rh5/unnamed-chunk-26-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>asia<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>long<span class="p">,</span> y<span class="o">=</span>lat<span class="p">,</span> group <span class="o">=</span> group<span class="p">))</span> <span class="o">+</span>
+  geom_polygon<span class="p">(</span>fill <span class="o">=</span> <span class="s">&#39;white&#39;</span><span class="p">,</span> colour <span class="o">=</span> <span class="s">&#39;black&#39;</span><span class="p">)</span> <span class="o">+</span>
+  coord_map<span class="p">(</span><span class="s">&quot;polyconic&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/20fhdtnsh0wi3ki/unnamed-chunk-27-1.png" alt=""> </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="facetting">Facetting</h2>
+
+<p><strong>facet</strong>을 적용하면 데이터의 부분집합들을 하위 그래프로 분리해서 그릴 수 있습니다.</p>
+
+<p><strong>facet_wrap()</strong>을 사용하면 하위 그래프들이 수평으로 나열되고, <strong>facet_grid()</strong>은 수직과 수평으로 각각 다른 변수를 지정할 수 있습니다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">&lt;-</span> ggplot<span class="p">(</span>mtcars<span class="p">,</span> aes<span class="p">(</span>mpg<span class="p">,</span> wt<span class="p">))</span> <span class="o">+</span>
+  geom_point<span class="p">()</span>
+
+mtc_point <span class="o">+</span>
+  facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/6dun5dpe0p4bg7s/unnamed-chunk-28-1.png" alt=""> </p>
+
+<p>두 개 이상의 변수를 동시에 지정하면 각 변수들의 경우의 수에 맞게 그래프를 그려줍니다.</p>
+
+<p>이렇게 많은 숫자의 그래프가 그려질 때 <strong>ncol</strong> 옵션을 이용하면 한 화면에 보여질 그래프 열의 개수를 조정할 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="o">+</span>gear<span class="p">,</span> ncol <span class="o">=</span> <span class="m">2</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zk1ot342brer6ft/unnamed-chunk-29-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/vxdhqg1qsxvrf20/unnamed-chunk-29-2.png" alt=""> </p>
+
+<hr>
+
+<p><strong>facet_wrap</strong>의 경우에는 scales 옵션을 이용하면 각 그래프의 축을 고정시킬지 그래프별로 다르게 할지 결정할 수 있습니다. </p>
+
+<p><strong>scales = &#39;fixed&rsquo;</strong>는 각 그래프 모두 축이 일정하게 그려집니다.</p>
+
+<p><strong>scales = &#39;free&rsquo;</strong>는 각 그래프의 데이터 범위에 맞게 조정해서 그립니다.</p>
+
+<p><strong>scales = &#39;free_x&rsquo;</strong>는 x축은 데이터 범위에 맞게 조절하고, y축은 고정시킵니다. <strong>&#39;free_y&rsquo;</strong> 옵션도 마찬가지로 사용할 수 있습니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;fixed&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/xs5ig7n0akbigg6/unnamed-chunk-30-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;free&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/kf5uxcx7zj7m3x8/unnamed-chunk-30-2.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_wrap<span class="p">(</span><span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;free_x&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/zk2hmlf30wbmn79/unnamed-chunk-30-3.png" alt=""> </p>
+
+<hr>
+
+<p><strong>facet_grid</strong>에서도 마찬가지로 <strong>scales</strong> 옵션에  <strong>&#39;free&rsquo;</strong> 나 <strong>&#39;free_x&rsquo;, &#39;free_y&rsquo;</strong> 등을 적용할 수 있습니다. <strong>facet_grid</strong>에서는 추가적으로 <strong>space</strong> 옵션을 추가할 수 있는데, 기본적으는 각 그래프의 크기가 동일하게 그려지지만, <strong>space = &#39;free&rsquo;</strong> 옵션이 지정되면 데이터의 범위에 따라 그래프의 크기도 변경됩니다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;free_x&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/t6pzux5aiy8y7yr/unnamed-chunk-31-1.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;free&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/5h7fd25nbd9egy0/unnamed-chunk-31-2.png" alt=""> </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">mtc_point <span class="o">+</span>
+  facet_grid<span class="p">(</span>gear<span class="o">~</span>cyl<span class="p">,</span> scales <span class="o">=</span> <span class="s">&quot;free&quot;</span><span class="p">,</span> space <span class="o">=</span> <span class="s">&quot;free&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="http://dl.dropbox.com/s/gz6j6faugpkel0u/unnamed-chunk-31-3.png" alt=""> </p>
+
+<p><br />
+<br />
+<br /></p>
+
+<hr>
+
+<p>여기까지 해서 ggplot 객체를 구성하는 layer, scale, coord, facet까지 훑어보았습니다. 이제 어느 정도 원하는 대로 ggplot 그래프를 그릴 수 있게 되었습니다. 다음 글에서는 ggplot 그래프에 저장된 테마를 적용하는 방법과 <strong>stat</strong>이 생성하는 변수 등 앞에서 제대로 다루지 않았던 항목들을 살펴보려고 합니다.</p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;ggplot2 - 02 Drawing Graphs&quot;%20http://lumiamitie.github.io/r/visualization/ggplot2-02%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/visualization/ggplot2-02"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/visualization/ggplot2-02"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+ 
+</body>
+</html>
