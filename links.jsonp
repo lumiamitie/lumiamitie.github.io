@@ -86,8 +86,8 @@ callback([
   } ,
 
   {
-    "text": "dplyr advanced - NSE",
-    "href": "http://lumiamitie.github.io/r/dplyr-advanced-nse"
+    "text": "dplyr advanced - Standard Evaluation",
+    "href": "http://lumiamitie.github.io/r/dplyr-advanced-se"
   } 
 
 ])
