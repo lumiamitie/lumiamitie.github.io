@@ -83,6 +83,11 @@ callback([
   {
     "text": "List and sapply",
     "href": "http://lumiamitie.github.io/r/list-and-sapply"
+  } ,
+
+  {
+    "text": "dplyr advanced - NSE",
+    "href": "http://lumiamitie.github.io/r/dplyr-advanced-nse"
   } 
 
 ])

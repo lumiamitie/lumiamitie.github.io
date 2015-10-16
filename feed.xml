@@ -4,13 +4,266 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-10-12T00:26:40+09:00</updated>
+<updated>2015-10-16T21:24:15+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[dplyr advanced - NSE]]></title>
+  <link>http://lumiamitie.github.io/r/dplyr-advanced-nse</link>
+  <id>http://lumiamitie.github.io/r/dplyr-advanced-nse</id>
+  <published>2015-10-16T00:00:00+09:00</published>
+  <updated>2015-10-16T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/old-book.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;non-standard-evaluation&quot;&gt;Non-standard Evaluation&lt;/h1&gt;
+
+&lt;p&gt;dplyr은 기본적으로 non-standard evaluation (NSE)을 사용하여 연산을 처리한다&lt;/p&gt;
+
+&lt;p&gt;사실 이 글을 쓰는 지금도 NSE가 정확히 어떤 것인지는 잘 모르겠다&amp;hellip; &lt;/p&gt;
+
+&lt;p&gt;모든 값을 계산하지 않고 필요할 때만 계산하는? 것이라고 알아들었기는 하지만 정확한 동작 방식은 정말 모르겠다..&lt;/p&gt;
+
+&lt;p&gt;내부적으로 어떻게 다른지는 알 수 없지만 한 가지 눈에 보이는 확실한 차이점은 존재한다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;NSE는 아래 코드처럼 column name을 하나의 object 처럼 사용한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sl2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species  sl2
+## 1          5.1         3.5          1.4         0.2  setosa 10.2
+## 2          4.9         3.0          1.4         0.2  setosa  9.8
+## 3          4.7         3.2          1.3         0.2  setosa  9.4
+## 4          4.6         3.1          1.5         0.2  setosa  9.2
+## 5          5.0         3.6          1.4         0.2  setosa 10.0
+## 6          5.4         3.9          1.7         0.4  setosa 10.8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Species&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  summarise&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [3 x 2]
+## 
+##      Species  mean
+##       (fctr) (dbl)
+## 1     setosa 5.006
+## 2 versicolor 5.936
+## 3  virginica 6.588
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;반면에 r의 기본 함수(&lt;code&gt;[&lt;/code&gt;, &lt;code&gt;$&lt;/code&gt; 등)들은 column name을 문자열의 형태로 받는다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  &lt;span class=&quot;s&quot;&gt;&amp;#39;[&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Sepal.Length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length
+## 1          5.1
+## 2          4.9
+## 3          4.7
+## 4          4.6
+## 5          5.0
+## 6          5.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;dplyr에서는 filter, mutate, summarise, arrange, select, group_by 등의 함수에서 nse를 사용한다&lt;/p&gt;
+
+&lt;p&gt;이들 함수는 각각 se버전을 가지고 있는데, 함수 이름 뒤에 _ 를 붙이면 된다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;filter_&lt;/code&gt;, &lt;code&gt;mutate_&lt;/code&gt;, &lt;code&gt;summarise_&lt;/code&gt;, &lt;code&gt;arrange_&lt;/code&gt;, &lt;code&gt;select_&lt;/code&gt;, &lt;code&gt;group_by_&lt;/code&gt; 등이 각 함수의 se 버전이다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br / &gt;
+&lt;br / &gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;standard-evaluation&quot;&gt;Standard Evaluation&lt;/h1&gt;
+
+&lt;p&gt;se버전의 함수를 사용할 때는 함수의 input값을 따옴표로 감싸진 문자열로 넣게 된다&lt;/p&gt;
+
+&lt;p&gt;se버전에서 함수에 인자를 넘기는 방법은 크게 세 가지가 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# String&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;mean(Sepal.Length)&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+##   mean(Sepal.Length)
+## 1               4.95
+## 2               4.95
+## 3               4.95
+## 4               4.95
+## 5               4.95
+## 6               4.95
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# quote()&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;quote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+##   mean(Sepal.Length)
+## 1               4.95
+## 2               4.95
+## 3               4.95
+## 4               4.95
+## 5               4.95
+## 6               4.95
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# formula&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+##   mean(Sepal.Length)
+## 1               4.95
+## 2               4.95
+## 3               4.95
+## 4               4.95
+## 5               4.95
+## 6               4.95
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;이 중에서 가장 좋은 방법은 formula를 쓰는 것이다&lt;/p&gt;
+
+&lt;p&gt;따옴표나 quote를 사용할 때는 해당 입력값이 어느 environment에 존재하는지 못찾게 되는 경우도 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;divide_by_two &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;num&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;num&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 제대로 실행된다&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;divide_by_two&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+##   divide_by_two(Sepal.Length)
+## 1                        2.55
+## 2                        2.45
+## 3                        2.35
+## 4                        2.30
+## 5                        2.50
+## 6                        2.70
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 오류 발생&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;divide_by_two(Sepal.Length)&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Error: could not find function &amp;quot;divide_by_two&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 오류 발생&lt;/span&gt;
+iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;quote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;divide_by_two&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;Error: could not find function &amp;quot;divide_by_two&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;여러 가지 input을 한꺼번에 입력하거나, 변수명을 지정해야 할 때에는 &lt;code&gt;.dots&lt;/code&gt; argument에 값을 넘기면 된다&lt;/p&gt;
+
+&lt;p&gt;setNames 함수를 사용해서 함수의 내용과 변수명을 함께 지정해주면 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  summarise_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;dots &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; setNames&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;mean(Sepal.Length)&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;sd(Sepal.Length)&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;mean&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;sd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       mean        sd
+## 1 5.843333 0.8280661
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  summarise_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;dots &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; setNames&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;sd&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;mean&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;sd&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       mean        sd
+## 1 5.843333 0.8280661
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;이러한 se버전의 함수를 어떻게 활용할까?&lt;/p&gt;
+
+&lt;p&gt;변수를 만들 때 고정된 문자열과 변하는 숫자, 문자열을 이용해 많은 수의 변수를 생성해야 한다고 생각해보자&lt;/p&gt;
+
+&lt;p&gt;예를 들면&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sl10 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Length &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         sl20 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Length &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+         sl30 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Length &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length sl10 sl20 sl30
+## 1          5.1 15.1 25.1 35.1
+## 2          4.9 14.9 24.9 34.9
+## 3          4.7 14.7 24.7 34.7
+## 4          4.6 14.6 24.6 34.6
+## 5          5.0 15.0 25.0 35.0
+## 6          5.4 15.4 25.4 35.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;위와 같은 형태로 변수를 만들어야 한다고 생각해보자&lt;/p&gt;
+
+&lt;p&gt;위 예제는 3개만 만드니까 다 타이핑할 수 있겠지만&lt;/p&gt;
+
+&lt;p&gt;저렇게 변수를 10개 이상? 100개를 만들어야 한다면?&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이러한 상황에서 se버전의 함수를 이용하면 해결할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  head &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate_&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;dots &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; setNames&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+              &lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Sepal.Length + &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; collapse &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+              &lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sl&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; collapse &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39; &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length sl10 sl20 sl30
+## 1          5.1 15.1 25.1 35.1
+## 2          4.9 14.9 24.9 34.9
+## 3          4.7 14.7 24.7 34.7
+## 4          4.6 14.6 24.6 34.6
+## 5          5.0 15.0 25.0 35.0
+## 6          5.4 15.4 25.4 35.4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;paste0()&lt;/code&gt;는 둘 이상의 문자열을 하나로 묶어주는 역할을 한다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;sapply&lt;/code&gt; 는 첫 번째의 인자의 요소들이 차례대로 두 번째 인자의 함수에 parameter로 들어가서 값이 계산되고&lt;/p&gt;
+
+&lt;p&gt;그 결과물을 벡터 등으로 묶어서 반환해준다&lt;/p&gt;
+
+&lt;p&gt;for문을 짧은 함수 형태로 사용하는 것과 비슷한 효과를 낼 수 있다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;일반적인 상황에서 데이터를 정제하고 분석할 때는 크게 필요를 느끼지 못할 수도 있지만&lt;/p&gt;
+
+&lt;p&gt;엄청나게 반복적인 작업을 해야할 때에는 이러한 방식으로 연산하면 시간을 크게 절약할 수도 있다&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/dplyr-advanced-nse&quot;&gt;dplyr advanced - NSE&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 16, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
