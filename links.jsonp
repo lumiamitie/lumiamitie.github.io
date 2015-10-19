@@ -88,6 +88,11 @@ callback([
   {
     "text": "dplyr advanced - Standard Evaluation",
     "href": "http://lumiamitie.github.io/r/dplyr-advanced-se"
+  } ,
+
+  {
+    "text": "dplyr advanced - data_frame",
+    "href": "http://lumiamitie.github.io/r/dplyr-advanced-data_frame"
   } 
 
 ])

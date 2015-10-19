@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "dplyr advanced - data_frame",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/dplyr-advanced-data_frame",
+		  "date"       : "2015-10-19 00:00:00 +0900",
+		  "shortdate"  : "October 19, 2015"
+		} ,
+	
+		{
 		  "title"      : "dplyr advanced - Standard Evaluation",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/dplyr-advanced-se",
