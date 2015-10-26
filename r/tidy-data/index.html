@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>TIDY DATA</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="jekyll">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tidy data">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/tidy-data">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/tidy-data">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>Tidy data</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-10-26T00:00:00+09:00">26 Oct 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="../../images/taking-notes.jpg" alt="cover-image"></p>
+
+<h1 id="tidy-data">Tidy data</h1>
+
+<p>많은 패키지들, 특히 ggplot2는 특정한 형태로 정리된 데이터를 요구한다. 처음에 익숙하지 않을 때는 함수가 요구하는 데이터의 형태를 맞추기도 버거웠지만 차츰 익숙해지면서 깔끔하게 정리된 데이터의 중요성을 깨닫게 된다. 깔끔한 데이터를 만드는 과정 중에서 wide format과 long format 사이의 변환은 방법을 모르면 헤매거나 크게 돌아갈 수도 있기 때문에 여기서 가장 대표적인 패키지, <code>tidyr</code>과 <code>reshape2</code>의 기본적인 사용법을 정리해보려고 한다.</p>
+
+<p><strong>tidy data</strong>에 대한 내용은 <a href="https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html">https://cran.r-project.org/web/packages/tidyr/vignettes/tidy-data.html</a>를 참고하거나 R에서 <code>tidyr</code>을 설치하고 <code>vignette(&#39;tidy-data&#39;)</code>명령어로 문서를 볼 수 있다. </p>
+
+<p><br /></p>
+
+<hr>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>tidyr<span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>reshape2<span class="p">)</span>
+</code></pre></div>
+<hr>
+
+<p><br /></p>
+
+<p>데이터를 살펴보면 table의 형태를 가진 자료가 많다. 열과 행에 각각 변수가 들어가며, 찾고자 하는 열과 행에 기록된 값을 찾는다.</p>
+
+<p>이런 형태의 데이터는 contingency table, wide-format data 등 여러 가지 이름을 가진다</p>
+
+<p>엑셀을 사용한다면 데이터블 pivot table로 정리했을 때 이러한 형태로 데이터를 정리할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">WorldPhones
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##      N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1951  45939  21574 2876   1815    1646     89      555
+## 1956  60423  29990 4708   2568    2366   1411      733
+## 1957  64721  32510 5230   2695    2526   1546      773
+## 1958  68484  35218 6662   2845    2691   1663      836
+## 1959  71799  37598 6856   3000    2868   1769      911
+## 1960  76036  40341 8220   3145    3054   1905     1008
+## 1961  79831  43173 9053   3338    3224   2005     1076
+</code></pre></div>
+<p>위 데이터에서 1958년도 Asia의 값을 확인하려면 4번째 행, 3번째 열의 값인 6662를 보면 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">WorldPhones<span class="p">[</span><span class="m">4</span><span class="p">,</span><span class="m">3</span><span class="p">]</span> <span class="c1">#로 바로 확인할 수 있다</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 6662
+</code></pre></div>
+<p><code>WorldPhones</code> 데이터는 7개의 행과 7개의 열을 가지고 있다.</p>
+
+<p>다시 말하자면 행에 해당하는 변수(연도)가 7가지, 열에 해당하는 변수(지역)가 7가지인 셈이다.</p>
+
+<p>또, 같은 데이터를 이러한 형태로도 표현할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kt">data.frame</span><span class="p">(</span>area <span class="o">=</span> <span class="kp">dimnames</span><span class="p">(</span>WorldPhones<span class="p">)[[</span><span class="m">2</span><span class="p">]],</span> 
+            <span class="kp">as.data.frame</span><span class="p">(</span><span class="kp">t</span><span class="p">(</span>WorldPhones<span class="p">),</span> row.names<span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##       area X1951 X1956 X1957 X1958 X1959 X1960 X1961
+## 1   N.Amer 45939 60423 64721 68484 71799 76036 79831
+## 2   Europe 21574 29990 32510 35218 37598 40341 43173
+## 3     Asia  2876  4708  5230  6662  6856  8220  9053
+## 4   S.Amer  1815  2568  2695  2845  3000  3145  3338
+## 5  Oceania  1646  2366  2526  2691  2868  3054  3224
+## 6   Africa    89  1411  1546  1663  1769  1905  2005
+## 7 Mid.Amer   555   733   773   836   911  1008  1076
+</code></pre></div>
+<p><br /></p>
+
+<p>위 자료들은 모두 동일한 데이터를 표현하고 있지만 그 형태는 각기 다르다. </p>
+
+<p>그냥 단순하게 행과 열을 구분하는 것 만으로는 우리가 표현하고자 하는 데이터를 명확하게 표현하기 힘들다</p>
+
+<p>따라서 데이터가 생긴 형태뿐만 아니라 그 안에 담긴 의미를 적절하게 표현해줄 수 있는 방식을 정의할 필요가 있다</p>
+
+<hr>
+
+<p><br /></p>
+
+<h2 id="tidy-data">Tidy data</h2>
+
+<p>우리가 어떤 Dataset을 가지고 있다면 이 데이터가 가지고 있는 기본적인 속성은 다음과 같다</p>
+
+<ul>
+<li><p>기본적으로 Dataset은 숫자 또는 문자열 등의 값(value)이 모여서 구성된다. </p></li>
+<li><p>모든 값은 하나의 변수(variable)와 하나의 관측치(observation)에 속한다. </p></li>
+<li><p>변수는 같은 속성의 값을 측정한 결과를 말하고, 관측치는 관측대상 하나가 가지는 모든 속성값을 의미한다</p></li>
+</ul>
+<div class="highlight"><pre><code class="language-r" data-lang="r">WorldPhones_df <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>year <span class="o">=</span> <span class="kp">row.names</span><span class="p">(</span>WorldPhones<span class="p">),</span> 
+                            <span class="kp">as.data.frame</span><span class="p">(</span>WorldPhones<span class="p">,</span> row.names <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
+
+<span class="kp">head</span><span class="p">(</span>WorldPhones_df<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1 1951  45939  21574 2876   1815    1646     89      555
+## 2 1956  60423  29990 4708   2568    2366   1411      733
+## 3 1957  64721  32510 5230   2695    2526   1546      773
+## 4 1958  68484  35218 6662   2845    2691   1663      836
+## 5 1959  71799  37598 6856   3000    2868   1769      911
+## 6 1960  76036  40341 8220   3145    3054   1905     1008
+</code></pre></div>
+<p><br /></p>
+
+<p>위에서 설명한 데이터를 좀 더 깔끔하게 구성하기 위해 다음과 같은 원칙을 정했다</p>
+
+<ul>
+<li><p>각 변수는 하나의 열을 구성하고, 각 관측치는 하나의 행을 구성한다</p></li>
+<li><p>하나의 테이블은 동일한 속성의 관측대상들로 구성된다</p></li>
+</ul>
+
+<p>이러한 원칙 하에 정리된 데이터를 tidy data라고 한다</p>
+
+<p>WorldPhones 데이터를 깔끔하게 정리해본다면 다음과 같이 할 수 있을 것이다</p>
+
+<p>일단 함수보다는 결과물에 형태를 살펴보자</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">melt<span class="p">(</span>WorldPhones<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##    Var1     Var2 value
+## 1  1951   N.Amer 45939
+## 2  1956   N.Amer 60423
+## 3  1957   N.Amer 64721
+## 4  1958   N.Amer 68484
+## 5  1959   N.Amer 71799
+## 6  1960   N.Amer 76036
+## 7  1961   N.Amer 79831
+## 8  1951   Europe 21574
+## 9  1956   Europe 29990
+## 10 1957   Europe 32510
+## 11 1958   Europe 35218
+## 12 1959   Europe 37598
+## 13 1960   Europe 40341
+## 14 1961   Europe 43173
+## 15 1951     Asia  2876
+## 16 1956     Asia  4708
+## 17 1957     Asia  5230
+## 18 1958     Asia  6662
+## 19 1959     Asia  6856
+## 20 1960     Asia  8220
+## 21 1961     Asia  9053
+## 22 1951   S.Amer  1815
+## 23 1956   S.Amer  2568
+## 24 1957   S.Amer  2695
+## 25 1958   S.Amer  2845
+## 26 1959   S.Amer  3000
+## 27 1960   S.Amer  3145
+## 28 1961   S.Amer  3338
+## 29 1951  Oceania  1646
+## 30 1956  Oceania  2366
+## 31 1957  Oceania  2526
+## 32 1958  Oceania  2691
+## 33 1959  Oceania  2868
+## 34 1960  Oceania  3054
+## 35 1961  Oceania  3224
+## 36 1951   Africa    89
+## 37 1956   Africa  1411
+## 38 1957   Africa  1546
+## 39 1958   Africa  1663
+## 40 1959   Africa  1769
+## 41 1960   Africa  1905
+## 42 1961   Africa  2005
+## 43 1951 Mid.Amer   555
+## 44 1956 Mid.Amer   733
+## 45 1957 Mid.Amer   773
+## 46 1958 Mid.Amer   836
+## 47 1959 Mid.Amer   911
+## 48 1960 Mid.Amer  1008
+## 49 1961 Mid.Amer  1076
+</code></pre></div>
+<p>위와 같이 정리하면 변수 <code>Var1</code>에는 연도가, <code>Var2</code>에는 지역이 들어가고 <code>value</code> 열에는 값이 들어간다</p>
+
+<p>또, 첫 번째 행에는 1951년도 북아메리카의 전화기 수, 10 번째 행에는 1957년도 유럽의 전화기 수가 정리되어 있다. </p>
+
+<p>원래의 형태에 비해서는 분명 양이 많아졌지만 이와 같은 형태로 여러 가지 장점이 있다.</p>
+
+<p>우선 변수를 자유롭게 추가할 수 있다. 기존의 <code>WorldPhone</code>과 같은 Wide format의 데이터는 행과 열에 변수가 하나씩 들어간다. 때문에 두 개 변수에 대해서는 더 간단하고 깔끔하게 정리할 수 있지만 추가적인 변수를 표현하기에는 힘들다. 반면에 long format으로 정리한 경우에는 그냥 열을 하나 더 만들면 변수를 추가할 수 있다</p>
+
+<p>두 번째로는 변수를 열 하나로 관리하기 때문에 데이터를 더 깔끔하게 처리할 수 있다. 하나의 변수는 같은 속성을 공유하게 되는데 같은 변수라면 같은 열에 배치되는 이러한 방식은 동일한 속성의 값을 같은 방식으로 처리할 수 있게 해준다. 이렇게 데이터가 정리된 경우 dplyr의 mutate함수를 이용하면 열 단위로 데이터를 처리할 수 있게된다. 또한 ggplot2같은 패키지에서는 변수와 그래프의 에스테틱을 맵핑시키는 과정에서 이러한 tidy data의 강점을 최대한 활용한다. 또, formula를 사용하게 되는 경우라면 하나의 변수가 하나의 열을 구성하는 것이 필수적이다</p>
+
+<p>세 번째로는 데이터 구조가 표준화된다는 점이 있다. 어떤 함수가 tidy data를 요구한다는 것을 알면 우리는 해당 데이터를 data.frame으로 구성해서 각 변수가 각각의 열을 구성하도록 하면 된다. 그리고 이렇게 tidy data를 한 번 구성하고 나면 tidy data를 사용하는 다른 패키지 및 함수에 바로 적용할 수도 있게 된다. ggplot2에서는 이러한 성질을 이용해서 다양한 시각화를 통일된 문법으로 시도할 수 있도록 기능을 지원한다</p>
+
+<hr>
+
+<p><br / ></p>
+
+<h2 id="tidying-messy-datasets">Tidying messy datasets</h2>
+
+<p><code>tidy-data</code> 문서를 보면 지저분한 데이터의 대표적인 사례로 다섯 가지 경우를 들고 있다</p>
+
+<ul>
+<li><p>열 이름에 변수 이름이 아니라 값이 들어가있는 경우</p></li>
+<li><p>하나의 열에 여러 개의 변수가 들어가있는 경우</p></li>
+<li><p>변수가 행, 열 모두에 들어간 경우</p></li>
+<li><p>하나의 테이블에 여러 가지 종류의 관측대상이 포함된 경우</p></li>
+<li><p>하나의 관측 대상이 여러 개의 테이블에 포함된 경우</p></li>
+</ul>
+
+<p><br /></p>
+
+<p>각각의 경우에 대한 설명은 vignette에서 확인할 수 있으니 여기에서는 넘어가려고 한다. 결국 우리가 원하는 것은 지저분한 데이터를 단정하게 만드는 것이다. 글의 초반에 나와있는 문구처럼 지저분한 데이터는 그 종류를 여러가지로 나눠볼 수 있겠지만 단정하게 만들면 데이터의 형태가 비슷한 형태로 종합된다</p>
+
+<hr>
+
+<h2 id="reshape2">reshape2</h2>
+
+<p><code>tidyr</code>보다 이전에 등장하여 많이 쓰였던 패키지이다. <code>tidyr</code>패키지가 data.frame에 특화되어있기 때문에 data.frame에 대한 작업이 아니라면 여전히 reshape2 패키지를 사용하게 된다</p>
+
+<p>기본적으로는 <code>melt</code>와 <code>cast</code>라는 두 가지 함수로 구성된다. <code>melt</code>는 messy data(또는 wide format)를 tidy한 형태(또는 long format)로 변형시켜준다</p>
+
+<p><code>cast</code>는 tidy한 형태의 데이터를 contingency table이나 엑셀의 피벗테이블처럼 행과 열에 특정 변수를 지정하여 데이터를 요약해준다. 결과물의 형태에 따라 <code>acast</code>와 <code>dcast</code>로 구분된다. </p>
+
+<p><code>dcast</code>는 data.frame의 형태로 결과물을 내보내고, <code>acast</code>는 vector / matrix / array의 형태로 결과물을 만들어낸다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">phone_melt <span class="o">=</span> melt<span class="p">(</span>WorldPhones<span class="p">,</span> value.name <span class="o">=</span> <span class="s">&#39;number&#39;</span><span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>phone_melt<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Var1   Var2 number
+## 1 1951 N.Amer  45939
+## 2 1956 N.Amer  60423
+## 3 1957 N.Amer  64721
+## 4 1958 N.Amer  68484
+## 5 1959 N.Amer  71799
+## 6 1960 N.Amer  76036
+</code></pre></div>
+<p><br /></p>
+
+<p><code>dcast</code>는 formula 형태로 row와 col에 들어갈 변수를 지정할 수 있다</p>
+
+<p><strong>y~x</strong>의 형태로 사용하기 때문에 row에 들어갈 변수는 x에, col에 들어갈 변수는 y에 지정한다</p>
+
+<p><code>value.var</code>에는 value값으로 들어갈 변수를 지정할 수 있다. </p>
+
+<p>지정하지 않으면 적당한 변수를 넣지만 경고메세지가 발생한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">dcast<span class="p">(</span>phone_melt<span class="p">,</span> Var1<span class="o">~</span>Var2<span class="p">,</span> value.var <span class="o">=</span> <span class="s">&#39;number&#39;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Var1 N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1 1951  45939  21574 2876   1815    1646     89      555
+## 2 1956  60423  29990 4708   2568    2366   1411      733
+## 3 1957  64721  32510 5230   2695    2526   1546      773
+## 4 1958  68484  35218 6662   2845    2691   1663      836
+## 5 1959  71799  37598 6856   3000    2868   1769      911
+## 6 1960  76036  40341 8220   3145    3054   1905     1008
+## 7 1961  79831  43173 9053   3338    3224   2005     1076
+</code></pre></div>
+<p>같은 내용을 <code>acast</code>로 실행하면 matrix로 데이터가 출력된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">acast<span class="p">(</span>phone_melt<span class="p">,</span> Var1<span class="o">~</span>Var2<span class="p">,</span> value.var <span class="o">=</span> <span class="s">&#39;number&#39;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##      N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1951  45939  21574 2876   1815    1646     89      555
+## 1956  60423  29990 4708   2568    2366   1411      733
+## 1957  64721  32510 5230   2695    2526   1546      773
+## 1958  68484  35218 6662   2845    2691   1663      836
+## 1959  71799  37598 6856   3000    2868   1769      911
+## 1960  76036  40341 8220   3145    3054   1905     1008
+## 1961  79831  43173 9053   3338    3224   2005     1076
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># matrix</span>
+<span class="kp">class</span><span class="p">(</span>acast<span class="p">(</span>phone_melt<span class="p">,</span> Var1<span class="o">~</span>Var2<span class="p">,</span> value.var <span class="o">=</span> <span class="s">&#39;number&#39;</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;matrix&quot;
+</code></pre></div>
+<p><br /></p>
+
+<p>reshape2가 tidyr과 다른 점은 matrix에 대해서도 바로 적용할 수 있다는 것이다</p>
+
+<p>matrix형태의 데이터를 이용해 ggplot2로 그래프를 그린다고 하면 reshape2를 사용해 data.frame으로 변경하면 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">str<span class="p">(</span>volcano<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##  num [1:87, 1:61] 100 101 102 103 104 105 105 106 107 108 ...
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">volcano_melt <span class="o">=</span> melt<span class="p">(</span>volcano<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>volcano_melt<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Var1 Var2 value
+## 1    1    1   100
+## 2    2    1   101
+## 3    3    1   102
+## 4    4    1   103
+## 5    5    1   104
+## 6    6    1   105
+</code></pre></div>
+<hr>
+
+<p><br /></p>
+
+<h2 id="tidyr">tidyr</h2>
+
+<p><code>tidyr</code> 패키지는 data.frame에만 적용할 수 있는 패키지이다. pipe 연산자(%&gt;%)를 이용한 작업을 쉽게 할 수 있도록 구성되어있다. pipe에 대한 자세한 내용은 <a href="http://lumiamitie.github.io/r/magrittr/">이 곳</a> 에서 확인할 수 있다</p>
+
+<p>위에서 만들었던 <code>WorldPhones_df</code> 를 tidy한 형태로 변형시키려고 한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">WorldPhones_df
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1 1951  45939  21574 2876   1815    1646     89      555
+## 2 1956  60423  29990 4708   2568    2366   1411      733
+## 3 1957  64721  32510 5230   2695    2526   1546      773
+## 4 1958  68484  35218 6662   2845    2691   1663      836
+## 5 1959  71799  37598 6856   3000    2868   1769      911
+## 6 1960  76036  40341 8220   3145    3054   1905     1008
+## 7 1961  79831  43173 9053   3338    3224   2005     1076
+</code></pre></div>
+<p><br /></p>
+
+<p><code>gather</code>는 reshape2의 melt와 비슷한 기능을 한다. </p>
+
+<p><code>gather</code>함수는 기본적으로 <code>gather(data, key, value, column_list)</code>로 구성된다. </p>
+
+<p><code>data</code>는 말 그대로 대상이 되는 data.frame을 의미하고 <code>key</code>는 key column의 이름, <code>value</code>는 value column의 이름을 입력한다. <code>column_list</code>에는 key와 value로 구분할 열의 이름들을 지정하면 된다. <code>dplyr</code>의 <code>select</code> 항목에서 사용할 수 있는 열 선택 방법과 동일하게 사용할 수 있다. N.Amer 부터 Mid.Amer까지의 열을 선택할 것이니 <code>N.Amer:Mid.Amer</code>로 지정하면 된다</p>
+
+<p>이 중에서 첫 번째 열은 year는 놔두고, N.Amer부터 Mid.Amer까지를 key와 value로 분리시킨다</p>
+
+<p><strong>key column</strong>의 이름은 <code>area</code>, <strong>value column</strong>의 이름은 <code>number</code>로 지정한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">phone_gather <span class="o">=</span> gather<span class="p">(</span>WorldPhones_df<span class="p">,</span> area<span class="p">,</span> number<span class="p">,</span> N.Amer<span class="o">:</span>Mid.Amer<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>phone_gather<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year   area number
+## 1 1951 N.Amer  45939
+## 2 1956 N.Amer  60423
+## 3 1957 N.Amer  64721
+## 4 1958 N.Amer  68484
+## 5 1959 N.Amer  71799
+## 6 1960 N.Amer  76036
+</code></pre></div>
+<p><code>spread</code> 함수는 reshape2의 <code>cast</code>계열 함수와 비슷한 기능을 한다</p>
+
+<p><code>spread(data, key, value)</code>의 형태로 사용되는데 열별로 정리하려고하는 변수를 key에 지정하고, 값으로 정리해야하는 변수는 value에 넣는다. </p>
+
+<p><code>spread</code>함수를 이용해서 <code>gather</code>를 사용하기 전의 원래 형태로 돌리려면 다음과 같이 할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">spread<span class="p">(</span>phone_gather<span class="p">,</span> area<span class="p">,</span> number<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year N.Amer Europe Asia S.Amer Oceania Africa Mid.Amer
+## 1 1951  45939  21574 2876   1815    1646     89      555
+## 2 1956  60423  29990 4708   2568    2366   1411      733
+## 3 1957  64721  32510 5230   2695    2526   1546      773
+## 4 1958  68484  35218 6662   2845    2691   1663      836
+## 5 1959  71799  37598 6856   3000    2868   1769      911
+## 6 1960  76036  40341 8220   3145    3054   1905     1008
+## 7 1961  79831  43173 9053   3338    3224   2005     1076
+</code></pre></div>
+<p><br /></p>
+
+<p>만약 NA값이 발생할 경우 <code>fill</code> 옵션을 통해서 NA값을 임의의 값으로 채워넣을 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">na_sample <span class="o">=</span> phone_gather <span class="o">%&gt;%</span> sample_n<span class="p">(</span><span class="m">10</span><span class="p">)</span>
+</code></pre></div>
+<p>아래와 같이 NA가 잔뜩 발생하는 경우</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">spread<span class="p">(</span>na_sample<span class="p">,</span> area<span class="p">,</span> number<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year N.Amer Europe Asia S.Amer Oceania
+## 1 1951  45939     NA 2876   1815      NA
+## 2 1957     NA  32510   NA     NA      NA
+## 3 1958  68484  35218   NA     NA      NA
+## 4 1959     NA  37598 6856     NA      NA
+## 5 1961  79831     NA   NA     NA    3224
+</code></pre></div>
+<p><code>fill</code> 옵션에 0을 지정하면 NA값 대신에 0으로 빈칸을 채운다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">spread<span class="p">(</span>na_sample<span class="p">,</span> area<span class="p">,</span> number<span class="p">,</span> fill <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   year N.Amer Europe Asia S.Amer Oceania
+## 1 1951  45939      0 2876   1815       0
+## 2 1957      0  32510    0      0       0
+## 3 1958  68484  35218    0      0       0
+## 4 1959      0  37598 6856      0       0
+## 5 1961  79831      0    0      0    3224
+</code></pre></div>
+<p>좀 더 상세한 NA처리를 위해서는 <code>replace_na</code>와 <code>fill</code>이라는 함수를 제공한다</p>
+
+<p><a href="http://lumiamitie.github.io/r/replace_na_with_tidyr/">http://lumiamitie.github.io/r/replace_na_with_tidyr/</a> 에 정리한 내용을 참고하면 된다</p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Tidy data&quot;%20http://lumiamitie.github.io/r/tidy-data%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/tidy-data"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/tidy-data"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+ 
+</body>
+</html>

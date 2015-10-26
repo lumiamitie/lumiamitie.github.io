@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Tidy data",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/tidy-data",
+		  "date"       : "2015-10-26 00:00:00 +0900",
+		  "shortdate"  : "October 26, 2015"
+		} ,
+	
+		{
 		  "title"      : "dplyr advanced - data_frame",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/dplyr-advanced-data_frame",

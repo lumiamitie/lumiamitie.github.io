@@ -93,6 +93,11 @@ callback([
   {
     "text": "dplyr advanced - data_frame",
     "href": "http://lumiamitie.github.io/r/dplyr-advanced-data_frame"
+  } ,
+
+  {
+    "text": "Tidy data",
+    "href": "http://lumiamitie.github.io/r/tidy-data"
   } 
 
 ])
