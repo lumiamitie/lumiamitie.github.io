@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-10-26T21:51:23+09:00</updated>
+<updated>2015-10-27T17:16:25+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
@@ -1324,7 +1324,7 @@ df_data_sapply
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;networkd3&quot;&gt;networkD3&lt;/h2&gt;
 
@@ -1548,7 +1548,7 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
              Source &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;source_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Target &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;target_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
              NodeID &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/lj8vbnfkh51g4w7/networkd3_01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1563,7 +1563,7 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
              bounded &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
              opacityNoHover &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/jbnf4ice1bz0z2f/networkd3_02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1577,7 +1577,7 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
              opacityNoHover &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
              zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/sxcng583xrnn7x1/networkd3_03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1597,7 +1597,7 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
              linkDistance &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
              opacity &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/mhly5tta2rix9ec/networkd3_04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/networkD3&quot;&gt;networkD3&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 03, 2015.&lt;/p&gt;</content>
 </entry>
@@ -1614,7 +1614,7 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h1 id=&quot;leaflet-in-r&quot;&gt;leaflet in R&lt;/h1&gt;
 
@@ -1659,7 +1659,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   addTiles&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/bhrbn4r8xsp9ti4/leaflet01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1678,13 +1678,13 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/jm6wmogehf5d7hh/leaflet02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;CartoDB.Positron&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/qr0ee0sl0kpxrac/leaflet03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1701,7 +1701,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/xf3rp84to9hv4p2/leaflet04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1725,7 +1725,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
   addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/a9wzgklzwycudek/leaflet05.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet05.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -1749,7 +1749,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
             title &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Wifi Provider&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
             pal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; telecom_color&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; values &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; opacity &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/8q1paxvwuetzh4d/leaflet06.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet06.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -1780,7 +1780,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   addLayersControl&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;overlayGroups &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;skt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;kt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lg&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
                    options &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; layersControlOptions&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;collapsed &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/bext3z35yifutvn/leaflet07.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet07.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/leaflet-in-R&quot;&gt;leaflet in R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 25, 2015.&lt;/p&gt;</content>
 </entry>
@@ -1797,7 +1797,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;geocoding-with-ggmap::geocode&quot;&gt;Geocoding with ggmap::geocode&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -1931,7 +1931,7 @@ station_df&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;station_list &lt;span cl
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_map &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; station_latlon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;#018b4d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/aj5e3hx38y0n24h/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/geocoding_with_r-02/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/geocoding-with-r-02&quot;&gt;Geocoding with R - 02&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 14, 2015.&lt;/p&gt;</content>
 </entry>
@@ -2715,7 +2715,7 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/rocks-waves.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/rocks-waves.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;jupyter&quot;&gt;jupyter&lt;/h2&gt;
 
@@ -2757,11 +2757,11 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;이제 jupyter를 실행시키면 새 파일을 생성하는 New 항목에 Python 뿐만 아니라 R이 선택 가능해진다&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/yuhz7jc2b5but7g/jupyterwithr00.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/jupyter_with_r/jupyterwithr00.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;R을 선택해서 새 파일을 만들고 &lt;code&gt;plot(iris)&lt;/code&gt; 를 작성한 후에 crtl + enter를 눌러서 코드를 실행시키면 아래처럼 제대로 실행되는 모습을 볼 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/m98koj5ytjgr54r/jupyterwithr01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/jupyter_with_r/jupyterwithr01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/python/jupyter-r-kernel&quot;&gt;Jupyter with R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 29, 2015.&lt;/p&gt;</content>
 </entry>
@@ -2778,7 +2778,7 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
 
@@ -2822,23 +2822,23 @@ iris_sl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quo
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/8025u8kz400f100/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;count..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/vpvbydcyo2hvxm4/unnamed-chunk-2-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;density..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/nysh8cy9zpj92ap/unnamed-chunk-2-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ncount..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rystjzu8zvg75gd/unnamed-chunk-2-4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ndensity..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zfiic6cf3cx5xh2/unnamed-chunk-2-5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -2854,13 +2854,13 @@ volcano_gg &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&
 &lt;p&gt;&lt;code&gt;stat_contour&lt;/code&gt;가 생성하는 level 변수를 사용해서 그래프의 에스테틱에 반영시킬 수 있습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/3vo9jplrtk60tby/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/2o2agkxq60pbwzr/unnamed-chunk-4-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;polygon&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/0z6kigmg6rza0p3/unnamed-chunk-4-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -2876,13 +2876,13 @@ volcano_gg &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&
 
 dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_gray&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tqhivmv0cc9yf2u/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_bw&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hpdtj4mpleh01da/unnamed-chunk-5-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_classic&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/8yr132sms91n5za/unnamed-chunk-5-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -2893,13 +2893,13 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_gray&lt;span class=
 
 dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_colour_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/34nrv61ywsi483u/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_excel&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/wad7ly0io29mpvx/unnamed-chunk-6-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_solarized&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rbb51wi0lcq41hg/unnamed-chunk-6-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;
@@ -2927,7 +2927,7 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_economist&lt;span c
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
 
@@ -2947,7 +2947,7 @@ iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&q
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/7ekhiqufhbze3bi/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;에스테틱 중에서 좌표를 나타내는 &lt;strong&gt;x&lt;/strong&gt;와 &lt;strong&gt;y&lt;/strong&gt;를 제외하면&lt;/p&gt;
 
@@ -2966,21 +2966,21 @@ iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&q
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lm&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/3qgmefpww21h7wz/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;linetype&lt;/strong&gt; 옵션은 선의 모양을 변경할 수 있게 합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;linetype &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/g62ytcfxbh50um6/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;se&lt;/strong&gt; 옵션을 끄면 standard error의 범위를 표현하지 않습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;se &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/9aeal2qtwr59me6/unnamed-chunk-5-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-5-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3000,7 +3000,7 @@ iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&q
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;jitter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/z4hsb5vuzc2uxnf/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;position = &amp;lsquo;jitter&amp;rsquo;&lt;/strong&gt;를 적용하면 각 x,y값에 난수를 더해서 점이 겹치지 않도록 합니다. &lt;code&gt;geom_point(position=&amp;#39;jitter&amp;#39;)&lt;/code&gt;는 &lt;code&gt;geom_jitter()&lt;/code&gt; 로 줄여서 쓸 수 있습니다&lt;/p&gt;
 
@@ -3009,21 +3009,21 @@ iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&q
   aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stack&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/r168eqbulj7bugh/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;막대그래프에서 &lt;strong&gt;position = &amp;#39;stack&amp;rsquo;&lt;/strong&gt;은 각 막대를 쌓아서 누적된 형태로 보여줍니다. &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zn2um7alzmfq4yx/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;position = &amp;#39;fill&amp;rsquo;&lt;/strong&gt;은 비율을 나타내는 누적 막대를 보여줍니다. &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
   aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;dodge&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/1xp7nxxh4xxb3wy/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;position = &amp;#39;dodge&amp;rsquo;&lt;/strong&gt;는 각 막대를 옆으로 나열합니다&lt;/p&gt;
 
@@ -3040,7 +3040,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sleep&lt;span class=&quot;p&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## ymax not defined: adjusting position using y instead
 ## ymax not defined: adjusting position using y instead
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/ki1n8ebz7aqghgj/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;위에서는 &lt;strong&gt;position_dodge&lt;/strong&gt;를 사용하지 않으면 ID=5일 때 점이 겹쳐보입니다. 일부러 점을 떨어져있게 만들고 싶다면 위와 같이 position_dodge 함수를 적용시킬 수 있습니다.&lt;/p&gt;
 
@@ -3063,7 +3063,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sleep&lt;span class=&quot;p&
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
 ## Warning: Removed 153 rows containing missing values (geom_point).
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zkziiemwfhl3b9y/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;xlim()&lt;/strong&gt;, 또는 &lt;strong&gt;ylim()&lt;/strong&gt;함수를 이용하면 화면에 보이는 그래프의 범위를 보여줄 수 있습니다. 화면에 나오지 못하는 데이터가 생긴다면 경고메세지가 발생하지만 그래프는 문제없이 그려집니다.&lt;/p&gt;
 
@@ -3078,12 +3078,12 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sleep&lt;span class=&quot;p&
 dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/dgkf9q6grsl8zbg/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;xxx_brewer&lt;/strong&gt;로 끝나는 색상관련 scale 함수들은 &lt;strong&gt;RColorBrewer&lt;/strong&gt;패키지를 이용해서 색상을 지정합니다. &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;RColorBrewer&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;display.brewer.all&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/iy1yjajlurkmhss/colorbrewer_palette.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/colorbrewer_palette.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;display.brewer.all()&lt;/code&gt; 함수를 통해 사용가능한 색 조합의 이름과 색상들을 살펴볼 수 있습니다. 값의 높고 낮음을 보여줄 수 있는 Sequential, 서로 다른 범주나 그룹들을 구분지어 보여줄 수 있는 Qualitative, 어느 중심 값을 기준으로 얼마나 떨어져 있는지를 보여주는 Diverging 의 순서로 정리가 되어 있습니다. 현재 표현하고자 하는 데이터의 형태를 잘 살펴보고, 적절한 색조합을 적용시키면 됩니다. &lt;/p&gt;
 
@@ -3091,11 +3091,11 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Paired&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/uizqp3y5iezro0c/unnamed-chunk-14-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-14-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Accent&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/ewkxls3p3c2d8kt/unnamed-chunk-14-2.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-14-2.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -3112,7 +3112,7 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
 ## Warning: Removed 153 rows containing missing values (geom_point).
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/t12slazk5s9zigu/unnamed-chunk-15-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-15-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;산점도 같은 경우에는 그래프로 표현하는 범위를 강제하더라도 문제가 없겠지만, 막대 그래프 같은 경우에는 위와 같은 방식을 사용하면 막대 자체가 표현이 되지 않을 수 있으니 유의하시기 바랍니다.&lt;/p&gt;
 
@@ -3123,7 +3123,7 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Accent&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;trans &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;log10&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/2rc5i9nykl4ycpg/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3131,7 +3131,7 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;breaks &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/9mvg39iambqj606/unnamed-chunk-17-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-17-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -3144,35 +3144,35 @@ scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;breaks &lt;span 
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_flip&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/0phyjtlodcq59s9/unnamed-chunk-18-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-18-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_polar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hewbz0fx3dywndq/unnamed-chunk-19-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-19-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;그래프에서 보이는 축의 범위를 조절하려고 할 때 위에서 했던 대로 scale을 변경할 수도 있지만, 좌표계를 직접 변형시키는 방법이 있습니다. 하지만 두 개의 방식에는 큰 차이가 있는데, scale을 변경하면 해당 스케일을 벗어나는 데이터는 제거하고 그래프를 그립니다. 따라서 boxplot의 경우에는 남아있는 데이터로 box가 새로 그려질 것이고 막대그래프의 경우에는 데이터의 범위를 벗어나는 막대는 막대 자체가 그려지지 않습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려지지 않는다&lt;/span&gt;
 dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/rwnm8kwmjizzd24/unnamed-chunk-20-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-20-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 16 rows containing non-finite values (stat_boxplot).
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/knj2j6c1kbre66r/unnamed-chunk-21-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-21-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;반면에 좌표를 직접 수정하는 경우에는 그래프를 일단 그린 다음에 입력한 범위만 확대하거나 축소하는 등 변형을 시킵니다. 그래서 그래프의 모양이 변하거나 하지 않습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려진다. 대신 15000 이후로는 보이지 않는다&lt;/span&gt;
 dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/mczzqqwkc2ne6gi/unnamed-chunk-22-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-22-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zkn7vynvxvffm8f/unnamed-chunk-23-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-23-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -3188,7 +3188,7 @@ asia &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; map_data&lt;span class=&quot
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/n6lpkedji83z88y/unnamed-chunk-24-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-24-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3197,7 +3197,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&q
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_map&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/w2cvqrzyjyrqt19/unnamed-chunk-25-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-25-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3206,12 +3206,12 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&q
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;orthographic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/71v6llv6xhk7rh5/unnamed-chunk-26-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-26-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/20fhdtnsh0wi3ki/unnamed-chunk-27-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-27-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
@@ -3229,7 +3229,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&q
 mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/6dun5dpe0p4bg7s/unnamed-chunk-28-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-28-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;두 개 이상의 변수를 동시에 지정하면 각 변수들의 경우의 수에 맞게 그래프를 그려줍니다.&lt;/p&gt;
 
@@ -3237,11 +3237,11 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;gear&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ncol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zk1ot342brer6ft/unnamed-chunk-29-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-29-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/vxdhqg1qsxvrf20/unnamed-chunk-29-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-29-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3255,15 +3255,15 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;fixed&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/xs5ig7n0akbigg6/unnamed-chunk-30-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/kf5uxcx7zj7m3x8/unnamed-chunk-30-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/zk2hmlf30wbmn79/unnamed-chunk-30-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3271,15 +3271,15 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/t6pzux5aiy8y7yr/unnamed-chunk-31-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/5h7fd25nbd9egy0/unnamed-chunk-31-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; space &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/gz6j6faugpkel0u/unnamed-chunk-31-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;
@@ -3322,11 +3322,11 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 
 &lt;p&gt;R에서 기본적으로 제공하는 그래픽 함수들은 &lt;strong&gt;사용하기가 편리합니다&lt;/strong&gt;. 물론 이것은 상황에 따라서 달라지긴 하겠지만 iris 데이터의 Scatter plot matrix는 &lt;code&gt;plot(iris)&lt;/code&gt; 라는 짧은 한 줄짜리 코드로 실행시킬 수 있습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/1ipfctira06226k/unnamed-chunk-1-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-1-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;그리고 &lt;strong&gt;plot&lt;/strong&gt; 함수는 어느 정도 데이터의 형태를 확인해서 그에 적합한 시각화 방식을 제공합니다. &lt;code&gt;plot(Nile)&lt;/code&gt;의 경우에는 시계열 자료라는 특성에 맞게 시간에 따른 선그래프를 그려줍니다&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/opjrx2aa32u6l8v/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3337,14 +3337,14 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;p&gt;R에서 기본으로 제공하는 데이터는 &lt;code&gt;data()&lt;/code&gt;로 확인할 수 있습니다. 기본 데이터 중에서 &lt;code&gt;BOD&lt;/code&gt; 데이터를 가지고 막대그래프와 선그래프를 그려보려고 합니다. &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;BOD&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/9pdezafx0rnmdao/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;&lt;strong&gt;plot&lt;/strong&gt;함수로 그려놓고 보니 우리가 원하던 선의 형태가 아닙니다. 선 모양으로 강제하기 위해서는 &lt;code&gt;type = &amp;#39;l&amp;#39;&lt;/code&gt;옵션을 추가해 주어야 합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;BOD&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;l&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/noae829euaorw2i/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3357,7 +3357,7 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;p&gt;그러면 행렬로 데이터를 변환시킨 후에 사용해 보겠습니다. &lt;strong&gt;as.matrix()&lt;/strong&gt;를 사용합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;barplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;as.matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;BOD&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/mbt3zkp8blokmn8/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3366,14 +3366,14 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   &lt;span class=&quot;kp&quot;&gt;t&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;as.matrix&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;BOD&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
   &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/18htgjdz7242tnj/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;그려놓고 보니 생각지도 않던 누적 막대 그래프입니다. &lt;strong&gt;plot&lt;/strong&gt; 함수는 알아서 &lt;em&gt;Time&lt;/em&gt; 변수를 X축으로 인식했는데 &lt;strong&gt;barplot&lt;/strong&gt;은 그렇지 않은 것 같습니다. 우리는 &lt;strong&gt;demand&lt;/strong&gt; 변수만을 높이로 해서 막대를 그리면 되기 때문에 아래와 같이 그래프를 완성하겠습니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;barplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;BOD&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;demand&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/qk1ym8fw6a2x2ue/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3389,11 +3389,11 @@ mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; BOD&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Time&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;demand&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/li7kykyxoey9wxt/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; BOD&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Time&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;demand&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
     geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;stat&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/jlh5181l0vqexud/unnamed-chunk-8-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-8-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3407,13 +3407,13 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;h2 id=&quot;ggplot2가-그래프를-그리는-방식&quot;&gt;ggplot2가 그래프를 그리는 방식&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/cojet1wx2b8wiji/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
 &lt;p&gt;&lt;strong&gt;iris&lt;/strong&gt; 데이터에서 &lt;em&gt;Sepal.Length&lt;/em&gt;와 &lt;em&gt;Sepal.Width&lt;/em&gt; 데이터로 산점도를 그린 후에 &lt;em&gt;Species&lt;/em&gt;변수에 따라 색상을 달리하여 ggplot2 그래프를 그려보았습니다. 여기서 ggplot2 그래프의 구성을 그림으로 살펴보면 다음과 같습니다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/l1aqw8wzwebawai/ggplot2_structure.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/ggplot2_structure.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3463,7 +3463,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;h2 id=&quot;ggplot2의-구성&quot;&gt;ggplot2의 구성&lt;/h2&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/jr287jjnm0l6qhq/ggplot2_structure2.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/ggplot2_structure2.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;위에서 살펴본 다섯 가지 구성 요소들은 하나의 레이어를 구성합니다. 그리고 하나 이상의 레이어만 구성되면 &lt;strong&gt;ggplot2&lt;/strong&gt;는 우리에게 그래프를 출력합니다. 레이어 이외에 ggplot2의 그래프를 구성하는 요소는 &lt;strong&gt;Scale&lt;/strong&gt;, &lt;strong&gt;Coordinate System&lt;/strong&gt;, &lt;strong&gt;Facet&lt;/strong&gt;, &lt;strong&gt;Guide&lt;/strong&gt;가 있습니다. &lt;/p&gt;
 
@@ -3517,7 +3517,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
         stat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
         position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/v45v14nafasz828/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -3528,7 +3528,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Species&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/crknc2q35qyclzp/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;geom_point&lt;/strong&gt;는 &lt;code&gt;geom=&amp;#39;point&amp;#39;&lt;/code&gt;, &lt;code&gt;stat=&amp;#39;identity&amp;#39;&lt;/code&gt;, &lt;code&gt;position=&amp;#39;identity&amp;#39;&lt;/code&gt;가 기본값으로 정해져 있는 함수입니다. 이러한 shortcut 들을 사용하여 더 편리하게 그래프를 그릴 수 있습니다. &lt;/p&gt;
 
@@ -3539,7 +3539,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
   geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/yo47zyuwb7yh9dv/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;이와 같이 여러개의 레이어를 중복시켜서 그릴 수도 있습니다. 이 때, 공통적으로 반영되는 요소들은 미리 &lt;strong&gt;ggplot()&lt;/strong&gt; 안에 정의해두면 geom이나 stat을 추가할 때 자동적으로 상속받게 됩니다. 또, ggplot을 이용해 만든 결과물은 객체로 저장할 수 있습니다. Mapping되는 부분까지만 객체로 저장해두고 다양한 차트를 그려보는 것도 가능합니다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
@@ -3548,7 +3548,7 @@ iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/0gwj3prrdoqndse/unnamed-chunk-13-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_01/unnamed-chunk-13-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;
@@ -3735,7 +3735,7 @@ geocode_result
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
 &lt;h2 id=&quot;magrittr&quot;&gt;magrittr&lt;/h2&gt;
 
@@ -3857,7 +3857,7 @@ geocode_result
   plot &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
   select&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/iqvk8pznc8r09lv/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/magrittr/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length
 ## 1          5.1
 ## 2          4.9
@@ -3970,7 +3970,7 @@ aapl &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
 
 &lt;p&gt;함수들의 목록은 다음과 같다&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/hcgg2cwxhct26r1/magrittr_alias.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/magrittr/magrittr_alias.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -4016,7 +4016,7 @@ iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
     <uri>http://lumiamitie.github.io</uri>
     <email>lumiamitie@email.com</email>
   </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;
 여기서는 shp파일을 불러와서 직접 ggplot2를 이용해 지도를 그리는 방법을 설명하려고 한다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;library(maptools)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: sp
@@ -4054,7 +4054,7 @@ str(shp2@data)
 &lt;p&gt;일단은 shp 데이터를 불러온 것 만으로도 지도의 형태는 살펴볼 수 있다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;plot(shp2)
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/qb64zrq2mqrzftt/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;를 이용해서 지도를 그리려면 이 데이터를 데이터 프레임으로 변경해야 하는데 &lt;code&gt;ggplot2::fortify()&lt;/code&gt; 함수를 이용해서 shp 데이터를 데이터 프레임으로 바꿀 수 있다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;shp2_ffd_noregion &amp;lt;- fortify(shp2)
@@ -4084,20 +4084,20 @@ shp2_ffd2 &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fortify&lt;span
   aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_path&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/e1t1yel4pas24t6/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;NAME_1&lt;/code&gt; 변수를 기준으로 구분한 지도는 광역단체로만 구분이 되고, 아래와 같이 &lt;code&gt;NAME_2&lt;/code&gt; 변수를 기준으로 fortify시킨경우에는 시(도의 경우), 구(서울 등)로 구분되는 것을 볼 수 있다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
   aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_path&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/v2bkis5y2tf71tj/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;geom_path()&lt;/code&gt;가 아니라 &lt;code&gt;geom_polygon()&lt;/code&gt;을 사용하면 지역별로 색상을 채우는 것이 가능하다. 적용할만한 다른 데이터를 추가하면 히트맵이나 코로플레스같은 시각화를 할 수 있다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_ffd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;id&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tl02ufsiry4xgqz/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;dplyr&lt;/code&gt;패키지를 불러와서 난수를 데이터에 대입시키고 어떻게 ggplot2를 이용할 수 있을지 살펴보자.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -4132,14 +4132,14 @@ shp2_value
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/o7319yk4d0mv023/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;p&gt;원래의 fortify된 지도에 &lt;code&gt;left_join&lt;/code&gt;을 해서 값을 대입하고, 추가한 열을 &lt;code&gt;geom_polygon&lt;/code&gt;에서 fill값으로 잡아주면 된다. 색상을 변경하려면 scale 값을 조정해주는 함수를 사용하면 된다. 여기서는 &lt;code&gt;RColorBrewer&lt;/code&gt;패키지를 이용하는 &lt;code&gt;scale_fill_distiller&lt;/code&gt;함수를 사용했다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;shp2_data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_distiller&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Spectral&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/x91bxbrbve2j1in/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
 &lt;hr&gt;
 
@@ -4151,7 +4151,7 @@ seoul_ffd &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; fortify&lt;span
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;seoul_ffd&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
   geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;id&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;http://dl.dropbox.com/s/tdf3bk6cpqxfwiz/unnamed-chunk-13-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/mapping_with_ggplot2/unnamed-chunk-13-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/mapping-with-ggplot2&quot;&gt;Mapping with ggplot2+shp&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 08, 2015.&lt;/p&gt;</content>
 </entry>

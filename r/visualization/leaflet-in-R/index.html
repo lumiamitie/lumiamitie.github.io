@@ -132,7 +132,7 @@ Description: Awesome dude, awesome life
         <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
         
         <article class="summer-post-content post">
-            <div><p><img src="../../../images/desk-pen-ruler.jpg" alt="cover-image"></p>
+            <div><p><img src="/images/desk-pen-ruler.jpg" alt="cover-image"></p>
 
 <h1 id="leaflet-in-r">leaflet in R</h1>
 
@@ -177,7 +177,7 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
   addTiles<span class="p">()</span> <span class="o">%&gt;%</span> 
   addCircles<span class="p">(</span>lng <span class="o">=</span> <span class="o">~</span>lon<span class="p">,</span> lat<span class="o">=~</span>lat<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/bhrbn4r8xsp9ti4/leaflet01.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet01.PNG" alt=""></p>
 
 <hr>
 
@@ -196,13 +196,13 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
   addProviderTiles<span class="p">(</span><span class="s">&#39;Stamen.Toner&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   addCircles<span class="p">(</span>lng <span class="o">=</span> <span class="o">~</span>lon<span class="p">,</span> lat<span class="o">=~</span>lat<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/jm6wmogehf5d7hh/leaflet02.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet02.PNG" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">leaflet<span class="p">(</span>wifi_data<span class="p">)</span> <span class="o">%&gt;%</span> 
   setView<span class="p">(</span>lng <span class="o">=</span> seoul_lonlat<span class="p">[</span><span class="m">1</span><span class="p">],</span> lat <span class="o">=</span> seoul_lonlat<span class="p">[</span><span class="m">2</span><span class="p">],</span> zoom <span class="o">=</span> <span class="m">11</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   addProviderTiles<span class="p">(</span><span class="s">&#39;CartoDB.Positron&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   addCircles<span class="p">(</span>lng <span class="o">=</span> <span class="o">~</span>lon<span class="p">,</span> lat<span class="o">=~</span>lat<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/qr0ee0sl0kpxrac/leaflet03.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet03.PNG" alt=""></p>
 
 <hr>
 
@@ -219,7 +219,7 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
   addProviderTiles<span class="p">(</span><span class="s">&#39;Stamen.Toner&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   addCircles<span class="p">(</span>lng <span class="o">=</span> <span class="o">~</span>lon<span class="p">,</span> lat<span class="o">=~</span>lat<span class="p">,</span> popup <span class="o">=</span> <span class="o">~</span>div<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/xf3rp84to9hv4p2/leaflet04.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet04.PNG" alt=""></p>
 
 <hr>
 
@@ -243,7 +243,7 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
   addProviderTiles<span class="p">(</span><span class="s">&#39;Stamen.Toner&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
   addCircles<span class="p">(</span>lng <span class="o">=</span> <span class="o">~</span>lon<span class="p">,</span> lat<span class="o">=~</span>lat<span class="p">,</span> popup <span class="o">=</span> <span class="o">~</span>div<span class="p">,</span> color <span class="o">=</span> <span class="o">~</span>telecom_color<span class="p">(</span>div<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/a9wzgklzwycudek/leaflet05.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet05.PNG" alt=""></p>
 
 <hr>
 
@@ -267,7 +267,7 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
             title <span class="o">=</span> <span class="s">&#39;Wifi Provider&#39;</span><span class="p">,</span> 
             pal <span class="o">=</span> telecom_color<span class="p">,</span> values <span class="o">=</span> <span class="o">~</span>div<span class="p">,</span> opacity <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/8q1paxvwuetzh4d/leaflet06.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet06.PNG" alt=""></p>
 
 <p><br />
 <br /></p>
@@ -298,7 +298,7 @@ wifi_data <span class="o">=</span> read.csv<span class="p">(</span><span class="
   addLayersControl<span class="p">(</span>overlayGroups <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&#39;skt&#39;</span><span class="p">,</span> <span class="s">&#39;kt&#39;</span><span class="p">,</span> <span class="s">&#39;lg&#39;</span><span class="p">),</span>
                    options <span class="o">=</span> layersControlOptions<span class="p">(</span>collapsed <span class="o">=</span> <span class="kc">FALSE</span><span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/bext3z35yifutvn/leaflet07.PNG" alt=""></p>
+<p><img src="/images/post_image/leaflet_in_R/leaflet07.PNG" alt=""></p>
 
             </div>
         </article>

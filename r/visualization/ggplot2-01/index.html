@@ -150,11 +150,11 @@ Description: Awesome dude, awesome life
 
 <p>R에서 기본적으로 제공하는 그래픽 함수들은 <strong>사용하기가 편리합니다</strong>. 물론 이것은 상황에 따라서 달라지긴 하겠지만 iris 데이터의 Scatter plot matrix는 <code>plot(iris)</code> 라는 짧은 한 줄짜리 코드로 실행시킬 수 있습니다.</p>
 
-<p><img src="http://dl.dropbox.com/s/1ipfctira06226k/unnamed-chunk-1-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-1-1.png" alt=""> </p>
 
 <p>그리고 <strong>plot</strong> 함수는 어느 정도 데이터의 형태를 확인해서 그에 적합한 시각화 방식을 제공합니다. <code>plot(Nile)</code>의 경우에는 시계열 자료라는 특성에 맞게 시간에 따른 선그래프를 그려줍니다</p>
 
-<p><img src="http://dl.dropbox.com/s/opjrx2aa32u6l8v/unnamed-chunk-2-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-2-1.png" alt=""> </p>
 
 <hr>
 
@@ -165,14 +165,14 @@ Description: Awesome dude, awesome life
 <p>R에서 기본으로 제공하는 데이터는 <code>data()</code>로 확인할 수 있습니다. 기본 데이터 중에서 <code>BOD</code> 데이터를 가지고 막대그래프와 선그래프를 그려보려고 합니다. </p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">plot<span class="p">(</span>BOD<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/9pdezafx0rnmdao/unnamed-chunk-3-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-3-1.png" alt=""> </p>
 
 <hr>
 
 <p><strong>plot</strong>함수로 그려놓고 보니 우리가 원하던 선의 형태가 아닙니다. 선 모양으로 강제하기 위해서는 <code>type = &#39;l&#39;</code>옵션을 추가해 주어야 합니다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">plot<span class="p">(</span>BOD<span class="p">,</span> type <span class="o">=</span> <span class="s">&#39;l&#39;</span><span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/noae829euaorw2i/unnamed-chunk-4-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-4-1.png" alt=""> </p>
 
 <hr>
 
@@ -185,7 +185,7 @@ Description: Awesome dude, awesome life
 <p>그러면 행렬로 데이터를 변환시킨 후에 사용해 보겠습니다. <strong>as.matrix()</strong>를 사용합니다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">barplot<span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>BOD<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/mbt3zkp8blokmn8/unnamed-chunk-5-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-5-1.png" alt=""> </p>
 
 <hr>
 
@@ -194,14 +194,14 @@ Description: Awesome dude, awesome life
   <span class="kp">t</span><span class="p">(</span><span class="kp">as.matrix</span><span class="p">(</span>BOD<span class="p">))</span>
   <span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/18htgjdz7242tnj/unnamed-chunk-6-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-6-1.png" alt=""> </p>
 
 <hr>
 
 <p>그려놓고 보니 생각지도 않던 누적 막대 그래프입니다. <strong>plot</strong> 함수는 알아서 <em>Time</em> 변수를 X축으로 인식했는데 <strong>barplot</strong>은 그렇지 않은 것 같습니다. 우리는 <strong>demand</strong> 변수만을 높이로 해서 막대를 그리면 되기 때문에 아래와 같이 그래프를 완성하겠습니다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">barplot<span class="p">(</span>BOD<span class="o">$</span>demand<span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/qk1ym8fw6a2x2ue/unnamed-chunk-7-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-7-1.png" alt=""> </p>
 
 <hr>
 
@@ -217,11 +217,11 @@ Description: Awesome dude, awesome life
 ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Time<span class="p">,</span> y<span class="o">=</span>demand<span class="p">))</span><span class="o">+</span>
   geom_line<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/li7kykyxoey9wxt/unnamed-chunk-8-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-8-1.png" alt=""> </p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Time<span class="p">,</span> y<span class="o">=</span>demand<span class="p">))</span><span class="o">+</span>
     geom_bar<span class="p">(</span>stat<span class="o">=</span><span class="s">&#39;identity&#39;</span><span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/jlh5181l0vqexud/unnamed-chunk-8-2.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-8-2.png" alt=""> </p>
 
 <hr>
 
@@ -235,13 +235,13 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <h2 id="ggplot2가-그래프를-그리는-방식">ggplot2가 그래프를 그리는 방식</h2>
 
-<p><img src="http://dl.dropbox.com/s/cojet1wx2b8wiji/unnamed-chunk-9-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-9-1.png" alt=""> </p>
 
 <hr>
 
 <p><strong>iris</strong> 데이터에서 <em>Sepal.Length</em>와 <em>Sepal.Width</em> 데이터로 산점도를 그린 후에 <em>Species</em>변수에 따라 색상을 달리하여 ggplot2 그래프를 그려보았습니다. 여기서 ggplot2 그래프의 구성을 그림으로 살펴보면 다음과 같습니다.</p>
 
-<p><img src="http://dl.dropbox.com/s/l1aqw8wzwebawai/ggplot2_structure.PNG" alt=""></p>
+<p><img src="/images/post_image/ggplot2_01/ggplot2_structure.PNG" alt=""></p>
 
 <hr>
 
@@ -291,7 +291,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <h2 id="ggplot2의-구성">ggplot2의 구성</h2>
 
-<p><img src="http://dl.dropbox.com/s/jr287jjnm0l6qhq/ggplot2_structure2.PNG" alt=""></p>
+<p><img src="/images/post_image/ggplot2_01/ggplot2_structure2.PNG" alt=""></p>
 
 <p>위에서 살펴본 다섯 가지 구성 요소들은 하나의 레이어를 구성합니다. 그리고 하나 이상의 레이어만 구성되면 <strong>ggplot2</strong>는 우리에게 그래프를 출력합니다. 레이어 이외에 ggplot2의 그래프를 구성하는 요소는 <strong>Scale</strong>, <strong>Coordinate System</strong>, <strong>Facet</strong>, <strong>Guide</strong>가 있습니다. </p>
 
@@ -345,7 +345,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
         stat <span class="o">=</span> <span class="s">&#39;identity&#39;</span><span class="p">,</span>
         position <span class="o">=</span> <span class="s">&#39;identity&#39;</span><span class="p">)</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/v45v14nafasz828/unnamed-chunk-10-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-10-1.png" alt=""> </p>
 
 <hr>
 
@@ -356,7 +356,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 <div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">()</span><span class="o">+</span>
   geom_point<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">,</span> y<span class="o">=</span>Sepal.Width<span class="p">,</span> colour<span class="o">=</span>Species<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/crknc2q35qyclzp/unnamed-chunk-11-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-11-1.png" alt=""> </p>
 
 <p><strong>geom_point</strong>는 <code>geom=&#39;point&#39;</code>, <code>stat=&#39;identity&#39;</code>, <code>position=&#39;identity&#39;</code>가 기본값으로 정해져 있는 함수입니다. 이러한 shortcut 들을 사용하여 더 편리하게 그래프를 그릴 수 있습니다. </p>
 
@@ -367,7 +367,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
   geom_point<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">,</span> y<span class="o">=</span>Sepal.Width<span class="p">))</span> <span class="o">+</span>
   geom_smooth<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">,</span> y<span class="o">=</span>Sepal.Width<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/yo47zyuwb7yh9dv/unnamed-chunk-12-1.png" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-12-1.png" alt=""> </p>
 
 <p>이와 같이 여러개의 레이어를 중복시켜서 그릴 수도 있습니다. 이 때, 공통적으로 반영되는 요소들은 미리 <strong>ggplot()</strong> 안에 정의해두면 geom이나 stat을 추가할 때 자동적으로 상속받게 됩니다. 또, ggplot을 이용해 만든 결과물은 객체로 저장할 수 있습니다. Mapping되는 부분까지만 객체로 저장해두고 다양한 차트를 그려보는 것도 가능합니다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">iris_plot <span class="o">=</span> ggplot<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span> aes<span class="p">(</span>x<span class="o">=</span>Sepal.Length<span class="p">,</span> y<span class="o">=</span>Sepal.Width<span class="p">))</span>
@@ -376,7 +376,7 @@ iris_plot <span class="o">+</span>
   geom_point<span class="p">()</span> <span class="o">+</span>
   geom_smooth<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/0gwj3prrdoqndse/unnamed-chunk-13-1.png?dl=0" alt=""> </p>
+<p><img src="/images/post_image/ggplot2_01/unnamed-chunk-13-1.png?dl=0" alt=""> </p>
 
 <p><br />
 <br />

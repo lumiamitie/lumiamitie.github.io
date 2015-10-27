@@ -132,7 +132,7 @@ Description: Awesome dude, awesome life
         <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
         
         <article class="summer-post-content post">
-            <div><p><img src="../../../images/desk-pen-ruler.jpg" alt="cover-image"></p>
+            <div><p><img src="/images/desk-pen-ruler.jpg" alt="cover-image"></p>
 
 <h2 id="ggplot2">ggplot2</h2>
 
@@ -176,23 +176,23 @@ iris_sl <span class="o">=</span> ggplot<span class="p">(</span>data <span class=
 </code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">()</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/8025u8kz400f100/unnamed-chunk-2-1.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-2-1.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>count..<span class="p">))</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/vpvbydcyo2hvxm4/unnamed-chunk-2-2.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-2-2.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>density..<span class="p">))</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/nysh8cy9zpj92ap/unnamed-chunk-2-3.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-2-3.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>ncount..<span class="p">))</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/rystjzu8zvg75gd/unnamed-chunk-2-4.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-2-4.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">iris_sl <span class="o">+</span> geom_bar<span class="p">(</span>aes<span class="p">(</span>y<span class="o">=</span><span class="m">..</span>ndensity..<span class="p">))</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## stat_bin: binwidth defaulted to range/30. Use &#39;binwidth = x&#39; to adjust this.
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/zfiic6cf3cx5xh2/unnamed-chunk-2-5.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-2-5.png" alt=""></p>
 
 <p><br />
 <br /></p>
@@ -208,13 +208,13 @@ volcano_gg <span class="o">=</span> ggplot<span class="p">(</span>volcano_df<spa
 <p><code>stat_contour</code>가 생성하는 level 변수를 사용해서 그래프의 에스테틱에 반영시킬 수 있습니다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/3vo9jplrtk60tby/unnamed-chunk-4-1.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-4-1.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">(</span>aes<span class="p">(</span>colour <span class="o">=</span> <span class="m">..</span>level..<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/2o2agkxq60pbwzr/unnamed-chunk-4-2.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-4-2.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">volcano_gg <span class="o">+</span> stat_contour<span class="p">(</span>geom <span class="o">=</span> <span class="s">&#39;polygon&#39;</span><span class="p">,</span> aes<span class="p">(</span>fill <span class="o">=</span> <span class="m">..</span>level..<span class="p">))</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/0z6kigmg6rza0p3/unnamed-chunk-4-3.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-4-3.png" alt=""></p>
 
 <p><br />
 <br /></p>
@@ -230,13 +230,13 @@ volcano_gg <span class="o">=</span> ggplot<span class="p">(</span>volcano_df<spa
 
 dia_bar <span class="o">+</span> theme_gray<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/tqhivmv0cc9yf2u/unnamed-chunk-5-1.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-5-1.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_bw<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/hpdtj4mpleh01da/unnamed-chunk-5-2.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-5-2.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_classic<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/8yr132sms91n5za/unnamed-chunk-5-3.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-5-3.png" alt=""></p>
 
 <p><br />
 <br /></p>
@@ -247,13 +247,13 @@ dia_bar <span class="o">+</span> theme_gray<span class="p">()</span>
 
 dia_bar <span class="o">+</span> theme_economist<span class="p">()</span> <span class="o">+</span> scale_colour_economist<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/34nrv61ywsi483u/unnamed-chunk-6-1.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-6-1.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_excel<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/wad7ly0io29mpvx/unnamed-chunk-6-2.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-6-2.png" alt=""></p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">dia_bar <span class="o">+</span> theme_solarized<span class="p">()</span>
 </code></pre></div>
-<p><img src="http://dl.dropbox.com/s/rbb51wi0lcq41hg/unnamed-chunk-6-3.png" alt=""></p>
+<p><img src="/images/post_image/ggplot2_03/unnamed-chunk-6-3.png" alt=""></p>
 
 <p><br />
 <br />
