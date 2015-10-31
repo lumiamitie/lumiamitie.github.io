@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>DPLYR ADVANCED - DATABASES</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="dplyr">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dplyr advanced - Databases">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/dplyr-advanced-databases">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/dplyr-advanced-databases">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>dplyr advanced - Databases</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#dplyr" data-toggle="tooltip" title="Posts tagged with dplyr" rel="tag">dplyr</a> <strong><time datetime="2015-10-31T00:00:00+09:00">31 Oct 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="/images/macphoto.jpg" alt="cover-image"></p>
+
+<h1 id="databases">Databases</h1>
+
+<p>dplyr은 data.frame과 같은 메모리 내의 데이터 뿐만 아니라 데이터베이스에 있는 자료를 가지고 작업을 할 수 있도록 도와주는 기능을 제공한다. 일반적인 작은 데이터라면 데이터베이스를 통해 R로 자료로 가져오는 과정이 오히려 번거롭겠지만, 데이터베이스에 저장된 데이터를 가져오거나, 엄청나게 많은 양의 데이터(메모리가 감당못할)를 가져와야 할 때에는 데이터베이스를 이용해야 한다.</p>
+
+<p>만약 데이터베이스에서 대용량의 데이터를 가져와야 한다면 테이블을 통째로 가지고 오기 보다는 필요한 항목으로 간추리고 내용을 요약하여 정리하게 된다. dplyr을 이런 과정을 더 간편하게 해 준다. 데이터베이스에서 원하는 데이터를 가져다가 R에서 작업하기 위해서는 SQL과 R 양쪽에서 머리를 쥐어짜게 만드는 경우가 많은데 dplyr은 SELECT에 한해서 R의 코드가 SQL로 변환되도록 도와준다</p>
+
+<p>현재 dplyr은 <strong>SQLite</strong>, <strong>MySQL</strong>, <strong>PostgreSQL</strong>과 구글의 <strong>Bigquery</strong>를 지원하고 있다. 여기서는 가장 간단하게 사용할 수 있는 <strong>SQLite</strong>를 가지고 dplyr을 통해 데이터베이스에 접근하는 방법을 살펴보려고 한다</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>우선 시작하기 전에 <code>RSQLite</code> 패키지를 설치하고 dplyr을 불러오자</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
+
+<span class="c1"># install.packages(&#39;RSQLite&#39;)</span>
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<p>SQLite는 파일을 기반으로하는 데이터베이스이기 때문에 아래 코드와 같이 데이터베이스를 생성해주면 <strong>working directory</strong> 안에 해당 이름으로 db가 생성된다. 처음 db를 만들 때는 <code>create = T</code> 옵션을 넣어주고, 이후에 db에 접근할 때는 <code>create = F</code> 또는 <strong>create 옵션 없이</strong> 사용하면 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">sqlite_db <span class="o">=</span> src_sqlite<span class="p">(</span><span class="s">&#39;sqlite_db.sqlite3&#39;</span><span class="p">,</span> create <span class="o">=</span> <span class="bp">T</span><span class="p">)</span>
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>다른 database의 경우에도 각각의 함수들이 존재한다</p>
+
+<p><code>src_mysql()</code>, <code>src_postgres()</code>, <code>src_bigquery()</code> 의 함수를 통해 각 데이터베이스에 접근할 수 있다</p>
+
+<p><br /></p>
+
+<hr>
+
+<p><code>sqlite_db</code>에는 아직 아무런 데이터가 없다</p>
+
+<p>일단 가장 친숙한 iris 데이터를 db에 넣어보려고 한다. <code>copy_to()</code> 함수는 local의 데이터를 remote source의 db에서 사용할 수 있도록 데이터를 복사한다. </p>
+
+<p><br /></p>
+
+<p><code>copy_to(db_connection, local_data.frame)</code>의 형태로 사용한다</p>
+
+<p><code>name</code>옵션을 텍스트를 지정하면 테이블을 해당 이름으로 db에 저장한다</p>
+
+<p><code>temporary = TRUE</code> 일 경우 테이블을 임시 테이블로 저장한다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">copy_to<span class="p">(</span>sqlite_db<span class="p">,</span> iris<span class="p">,</span> temporary <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: iris [150 x 5]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           (dbl)       (dbl)        (dbl)       (dbl)   (chr)
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## ..          ...         ...          ...         ...     ...
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>이제 src_tbls 함수를 통해 db를 살펴보면 iris 데이터가 테이블 형태로 db에 들어간 것을 확인할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">src_tbls<span class="p">(</span>sqlite_db<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;iris&quot;         &quot;sqlite_stat1&quot;
+</code></pre></div>
+<p><br /></p>
+
+<p>db에서 테이블을 가져오려면 tbl함수에서 source를 db connection으로 지정하고 table 명을 지정해주면 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">tbl<span class="p">(</span>sqlite_db<span class="p">,</span> <span class="s">&#39;iris&#39;</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: iris [150 x 5]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           (dbl)       (dbl)        (dbl)       (dbl)   (chr)
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## ..          ...         ...          ...         ...     ...
+</code></pre></div>
+<p><br /></p>
+
+<p>쿼리를 직접 입력해서 데이터를 불러올 수도 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">tbl<span class="p">(</span>sqlite_db<span class="p">,</span> sql<span class="p">(</span><span class="s">&#39;SELECT * FROM iris&#39;</span><span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: &lt;derived table&gt; [?? x 5]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+##           (dbl)       (dbl)        (dbl)       (dbl)   (chr)
+## 1           5.1         3.5          1.4         0.2  setosa
+## 2           4.9         3.0          1.4         0.2  setosa
+## 3           4.7         3.2          1.3         0.2  setosa
+## 4           4.6         3.1          1.5         0.2  setosa
+## 5           5.0         3.6          1.4         0.2  setosa
+## 6           5.4         3.9          1.7         0.4  setosa
+## 7           4.6         3.4          1.4         0.3  setosa
+## 8           5.0         3.4          1.5         0.2  setosa
+## 9           4.4         2.9          1.4         0.2  setosa
+## 10          4.9         3.1          1.5         0.1  setosa
+## ..          ...         ...          ...         ...     ...
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>db에서 데이터를 불러오면 이후에는 local data를 다루는 것 처럼 작업할 수 있다
+data.frame에 사용하는 것처럼 dplyr의 기본적인 함수들인 <code>select</code>, <code>filter</code>, <code>mutate</code>, <code>summarise</code>, <code>arrange</code>를 적용할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_db <span class="o">=</span> tbl<span class="p">(</span>sqlite_db<span class="p">,</span> <span class="s">&#39;iris&#39;</span><span class="p">)</span>
+iris_db <span class="o">%&gt;%</span> filter<span class="p">(</span>Sepal.Length <span class="o">&gt;</span> <span class="m">7</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: iris [12 x 5]
+## Filter: Sepal.Length &gt; 7 
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+##           (dbl)       (dbl)        (dbl)       (dbl)     (chr)
+## 1           7.1         3.0          5.9         2.1 virginica
+## 2           7.6         3.0          6.6         2.1 virginica
+## 3           7.3         2.9          6.3         1.8 virginica
+## 4           7.2         3.6          6.1         2.5 virginica
+## 5           7.7         3.8          6.7         2.2 virginica
+## 6           7.7         2.6          6.9         2.3 virginica
+## 7           7.7         2.8          6.7         2.0 virginica
+## 8           7.2         3.2          6.0         1.8 virginica
+## 9           7.2         3.0          5.8         1.6 virginica
+## 10          7.4         2.8          6.1         1.9 virginica
+## 11          7.9         3.8          6.4         2.0 virginica
+## 12          7.7         3.0          6.1         2.3 virginica
+</code></pre></div>
+<p><br />
+<br /></p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+# From: iris [12 x 5]
+# Filter: Sepal.Length &gt; 7
+</code></pre></div>
+<p>source를 보면 <code>as.tbl(iris)</code>가 <code>Source: local data frame [150 x 5]</code> 을 보여주는 것과는 다르게 sqlite를 source로 하는 것을 확인할 수 있다.</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="laziness">Laziness</h2>
+
+<p>dplyr이 데이터베이스를 가지고 작업할 때에는 최대한 느긋한 계산을 통해 데이터를 처리하려고 한다</p>
+
+<p>다시 말하자면 사용자가 직접 요청하기 전에는 전체 데이터를 가지고 오지 않는다. 작업을 할 때에도 최대한 끝까지 작업을 미루다가 사용자가 최종적으로 요구하는 항목들만 가지고 연산해서 데이터를 가져온다. 아래 코드를 예로 들면 <code>iris_fltd</code> 라는 변수를 생성할 때 까지도 db 작업을 하지 않다가 <code>iris_fltd</code>를 진짜 실행시키는 경우에만 db에 연결하여 데이터 작업을 하게 된다</p>
+
+<p><br /></p>
+
+<p>필요한 경우에는 특정 함수를 사용해서 강제로 연산을 하도록 만들 수도 있다</p>
+
+<p><br /></p>
+
+<p>작업한 내용을 local 환경으로 가져오고 싶을 때는 <code>collect()</code>함수를 사용한다</p>
+
+<p><code>collect()</code> 함수는 쿼리를 실행하고 그 결과물을 R로 반환한다(<code>tbl_df</code> 형태로)</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_fltd <span class="o">=</span> iris_db <span class="o">%&gt;%</span> 
+  filter<span class="p">(</span>Sepal.Length <span class="o">&gt;</span> <span class="m">7</span><span class="p">)</span>
+
+collect<span class="p">(</span>iris_fltd<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [12 x 5]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+##           (dbl)       (dbl)        (dbl)       (dbl)     (chr)
+## 1           7.1         3.0          5.9         2.1 virginica
+## 2           7.6         3.0          6.6         2.1 virginica
+## 3           7.3         2.9          6.3         1.8 virginica
+## 4           7.2         3.6          6.1         2.5 virginica
+## 5           7.7         3.8          6.7         2.2 virginica
+## 6           7.7         2.6          6.9         2.3 virginica
+## 7           7.7         2.8          6.7         2.0 virginica
+## 8           7.2         3.2          6.0         1.8 virginica
+## 9           7.2         3.0          5.8         1.6 virginica
+## 10          7.4         2.8          6.1         1.9 virginica
+## 11          7.9         3.8          6.4         2.0 virginica
+## 12          7.7         3.0          6.1         2.3 virginica
+</code></pre></div>
+<p><code>source: local data frame [12 x 5]</code>로 source가 변경된 것을 확인할 수 있다</p>
+
+<p><br /></p>
+
+<p><code>compute()</code> 함수를 사용하면 쿼리를 실행하고 그 결과물을 db의 임시 테이블에 저장한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">compute<span class="p">(</span>iris_fltd<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: vdtgepxwho [12 x 5]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
+##           (dbl)       (dbl)        (dbl)       (dbl)     (chr)
+## 1           7.1         3.0          5.9         2.1 virginica
+## 2           7.6         3.0          6.6         2.1 virginica
+## 3           7.3         2.9          6.3         1.8 virginica
+## 4           7.2         3.6          6.1         2.5 virginica
+## 5           7.7         3.8          6.7         2.2 virginica
+## 6           7.7         2.6          6.9         2.3 virginica
+## 7           7.7         2.8          6.7         2.0 virginica
+## 8           7.2         3.2          6.0         1.8 virginica
+## 9           7.2         3.0          5.8         1.6 virginica
+## 10          7.4         2.8          6.1         1.9 virginica
+## 11          7.9         3.8          6.4         2.0 virginica
+## 12          7.7         3.0          6.1         2.3 virginica
+</code></pre></div>
+<p>테이블 목록을 확인하면 임시 테이블이 생성된 것을 볼 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">src_tbls<span class="p">(</span>sqlite_db<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;iris&quot;         &quot;sqlite_stat1&quot; &quot;vdtgepxwho&quot;
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><code>dplyr</code>은 db 작업을 할 때, 실수로 무거운 연산을 수행하는 것을 방지하기 위해서 몇 가지 제한을 둔다</p>
+
+<p>우선, <code>nrow()</code>의 결과는 무조건 NA로 처리한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">nrow</span><span class="p">(</span>tbl<span class="p">(</span>sqlite_db<span class="p">,</span> sql<span class="p">(</span><span class="s">&#39;SELECT * FROM iris&#39;</span><span class="p">)))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] NA
+</code></pre></div>
+<p><br /></p>
+
+<p>연산을 할 때, 실제로 계산이 다 끝나기 전에는 row의 개수가 얼마나 될지 파악하기 힘들기 때문에 <code>nrow()</code>의 결과는 NA로 반환한다</p>
+
+<p><br /></p>
+
+<p>또, tbl의 결과물은 첫 10개만 보여준다</p>
+
+<p><br /></p>
+
+<p>그리고 tail()함수를 사용할 수 없다.마찬가지로 전체 쿼리의 결과물을 보기 전에는 마지막 row를 확인할 수 없다</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># tail(tbl(sqlite_db, sql(&#39;SELECT * FROM iris&#39;)))
+# &gt; Error: tail is not supported by sql sources
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<hr>
+
+<p><code>query</code>항목에서는 데이터에 대한 작업이 sql로 어떻게 변환되었는지 확인할 수 있다</p>
+
+<p>또는 <code>show_query()</code>함수를 통해 확인할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_fltd<span class="o">$</span>query
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## &lt;Query&gt; SELECT &quot;Sepal.Length&quot;, &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;, &quot;Species&quot;
+## FROM &quot;iris&quot;
+## WHERE &quot;Sepal.Length&quot; &gt; 7.0
+## &lt;SQLiteConnection&gt;
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">show_query<span class="p">(</span>iris_fltd<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## &lt;SQL&gt;
+## SELECT &quot;Sepal.Length&quot;, &quot;Sepal.Width&quot;, &quot;Petal.Length&quot;, &quot;Petal.Width&quot;, &quot;Species&quot;
+## FROM &quot;iris&quot;
+## WHERE &quot;Sepal.Length&quot; &gt; 7.0
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="group-operation">Group Operation</h2>
+
+<p>SQLite는 window function에 대한 지원이 취약하다. 따라서 group을 지정한 상태에서 mutate나 filter에 대한 결과물이 생각과는 다르게 나올 수 있다는 점을 염두해야 한다</p>
+
+<p><br /></p>
+
+<p>로컬에 있는 iris에서 Species별로 Sepal.Length의 평균을 계산해서 새로운 열에 데이터를 저장하려고 한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%&gt;%</span> 
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>mean_SL <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [150 x 6]
+## Groups: Species [3]
+## 
+##    Sepal.Length Sepal.Width Petal.Length Petal.Width Species mean_SL
+##           (dbl)       (dbl)        (dbl)       (dbl)  (fctr)   (dbl)
+## 1           5.1         3.5          1.4         0.2  setosa   5.006
+## 2           4.9         3.0          1.4         0.2  setosa   5.006
+## 3           4.7         3.2          1.3         0.2  setosa   5.006
+## 4           4.6         3.1          1.5         0.2  setosa   5.006
+## 5           5.0         3.6          1.4         0.2  setosa   5.006
+## 6           5.4         3.9          1.7         0.4  setosa   5.006
+## 7           4.6         3.4          1.4         0.3  setosa   5.006
+## 8           5.0         3.4          1.5         0.2  setosa   5.006
+## 9           4.4         2.9          1.4         0.2  setosa   5.006
+## 10          4.9         3.1          1.5         0.1  setosa   5.006
+## ..          ...         ...          ...         ...     ...     ...
+</code></pre></div>
+<p><br /></p>
+
+<p><code>iris</code>와 <code>iris_db</code>의 데이터는 동일하지만 <code>group_by</code>를 통한 <code>mutate</code>연산을 <em>SQLite</em>*가 지원하지 않기 때문에</p>
+
+<p>위의 코드와는 전혀 다른 결과물이 나오게 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_db <span class="o">%&gt;%</span> 
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>mean_SL <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: iris [1 x 6]
+## Grouped by: Species 
+## 
+##   Sepal.Length Sepal.Width Petal.Length Petal.Width   Species  mean_SL
+##          (dbl)       (dbl)        (dbl)       (dbl)     (chr)    (dbl)
+## 1          5.9           3          5.1         1.8 virginica 5.843333
+</code></pre></div>
+<p><br /></p>
+
+<p>반면에 summarise 함수는 정상적으로 작동한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris <span class="o">%&gt;%</span> 
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span> 
+  summarise<span class="p">(</span>mean_SL <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [3 x 2]
+## 
+##      Species mean_SL
+##       (fctr)   (dbl)
+## 1     setosa   5.006
+## 2 versicolor   5.936
+## 3  virginica   6.588
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">iris_db <span class="o">%&gt;%</span> 
+  group_by<span class="p">(</span>Species<span class="p">)</span> <span class="o">%&gt;%</span> 
+  summarise<span class="p">(</span>mean_SL <span class="o">=</span> <span class="kp">mean</span><span class="p">(</span>Sepal.Length<span class="p">))</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: sqlite 3.8.6 [sqlite_db.sqlite3]
+## From: &lt;derived table&gt; [?? x 2]
+## 
+##       Species mean_SL
+##         (chr)   (dbl)
+## 1      setosa   5.006
+## 2  versicolor   5.936
+## 3   virginica   6.588
+## ..        ...     ...
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="other-databases">Other Databases</h2>
+
+<p><code>Mysql</code>의 경우에는 <code>RMySQL</code> 패키지를 설치하고 나면 <code>src_mysql()</code>함수를 통해 접근할 수 있다</p>
+
+<p><br /></p>
+
+<p>db와의 connection을 생성하고 나면 이후의 사용 방법은 대부분 비슷하다</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">mysql_db= src_mysql(dbname = &quot;dbname&quot;, 
+                    host = &quot;000.000.000.00&quot;, 
+                    user = &#39;user&#39;, 
+                    password = &#39;password&#39;)
+</code></pre></div>
+<p>의 형태로 connection을 생성할 수 있다. 다만 윈도우에서는 <code>RMySQL</code> 설치 자체가 까다로울 수 있으니 주의해야 한다</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>dplyr의 데이터베이스 작업에 대해서 더 자세한 내용을 살펴보고 싶다면 </p>
+
+<p>dplyr을 불러온 후에 <code>vignette(&#39;databases&#39;)</code> 를 통해 dplyr의 database 관련 작업에 대한 문서를 확인할 수 있다.</p>
+
+<p>또는 <a href="https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html">https://cran.r-project.org/web/packages/dplyr/vignettes/databases.html</a> 에서 문서를 볼 수 있다</p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;dplyr advanced - Databases&quot;%20http://lumiamitie.github.io/r/dplyr-advanced-databases%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/dplyr-advanced-databases"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/dplyr-advanced-databases"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-69341391-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+ 
+</body>
+</html>
