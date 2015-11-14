@@ -103,6 +103,11 @@ callback([
   {
     "text": "dplyr advanced - Databases",
     "href": "http://lumiamitie.github.io/r/dplyr-advanced-databases"
+  } ,
+
+  {
+    "text": "memoise in R",
+    "href": "http://lumiamitie.github.io/r/memoise"
   } 
 
 ])

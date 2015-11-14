@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "memoise in R",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/memoise",
+		  "date"       : "2015-11-14 00:00:00 +0900",
+		  "shortdate"  : "November 14, 2015"
+		} ,
+	
+		{
 		  "title"      : "dplyr advanced - Databases",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/dplyr-advanced-databases",
