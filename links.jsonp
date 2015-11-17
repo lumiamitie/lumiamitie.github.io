@@ -108,6 +108,11 @@ callback([
   {
     "text": "memoise in R",
     "href": "http://lumiamitie.github.io/r/memoise"
+  } ,
+
+  {
+    "text": "Grouped Bar chart",
+    "href": "http://lumiamitie.github.io/d3/grouped-bar"
   } 
 
 ])

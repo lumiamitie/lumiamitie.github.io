@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Grouped Bar chart",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/d3/grouped-bar",
+		  "date"       : "2015-11-17 00:00:00 +0900",
+		  "shortdate"  : "November 17, 2015"
+		} ,
+	
+		{
 		  "title"      : "memoise in R",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/memoise",

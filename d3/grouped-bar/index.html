@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>GROUPED BAR CHART</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="D3">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Grouped Bar chart">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/d3/grouped-bar">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/d3/grouped-bar">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>Grouped Bar chart</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#D3" data-toggle="tooltip" title="Posts tagged with D3" rel="tag">D3</a> <strong><time datetime="2015-11-17T00:00:00+09:00">17 Nov 2015</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="/images/old-book.jpg" alt="cover-image"></p>
+
+<h1 id="grouped-bar-chart">Grouped bar chart</h1>
+
+<p><a href="http://bl.ocks.org/mbostock/3887051">http://bl.ocks.org/mbostock/3887051</a>를 보고 수정하면서 알게 된 내용을 정리하려고 한다.</p>
+
+<p>위 예제에서는 x축의 scale함수를 <strong>그룹에 대한 scale</strong>과 <strong>그룹 내에서 막대의 위치</strong>에 대한 scale 두 개로 나누어서 막대를 배치하는 방식으로 구성했다. 여기서는 D3를 이용해서 기본적인 막대그래프를 만드는 방법은 알고 있다고 가정하고 기본적인 내용에 대해서는 넘어갈 것이다. </p>
+
+<p><br /></p>
+
+<hr>
+
+<p>D3를 이용해서 막대그래프를 구성할 수 있다면 일반 막대그래프와 그룹 막대그래프의 차이는 scale 함수의 구성이 일부 달라진다는 것 뿐이다. </p>
+
+<p>일반적인 막대 그래프이 다음과 같이 구성되어 있다고 생각해보자</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">x_scale
+y_scale
+
+막대의 x축 위치 : x_scale(data.x)
+막대의 높이 : height - y_scale(data.value)
+</code></pre></div>
+<p>x축의 항목이 ordinal(명목형) 변수일 때 <code>x_scale</code> 함수는 해당 변수에 맞는 x축 위치를 제공한다</p>
+
+<p>그림으로 표현하면 아래와 같다</p>
+
+<p><img src="/images/post_image/grouped_bar/grouped_bar01.PNG" alt=""></p>
+
+<p>x_scale의 결과물이 반환하는 좌표값은 각 막대의 왼쪽 끝에 해당하는 x좌표가 된다</p>
+
+<p><br /></p>
+
+<hr>
+
+<p>반면에 그룹별로 막대그래프를 만들 때에는 x축에 대한 scale 함수가 두 개 필요해진다. 우선 그룹에 맞는 위치를 찾아야하고, 그룹 내에서 막대의 위치를 잡아주어야 한다. 따라서 <code>x_scale</code> 함수도 그룹에 대한 함수와 세부적인 위치에 대한 함수를 따로 생성해야 한다</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">x_scale_group
+x_scale_bar
+y_scale
+막대의 x축 위치 : x_scale_group(data.group) + x_scale_bar(data.bar)
+막대의 높이 : height - y_scale(data.value)
+</code></pre></div>
+<p>그림으로 표현한다면 아래와 같다</p>
+
+<p><img src="/images/post_image/grouped_bar/grouped_bar02.PNG" alt=""></p>
+
+<p>먼저, group의 값에 따라서 <code>x_scale_group</code> 함수가 해당 그룹의 x 좌표를 반환한다. 화살표의 끝이 각 그룹의 왼쪽 맨 끝을 향하고 있는 것을 볼 수 있다. <code>x_scale_group</code> 함수는 각 그룹을 하나의 커다란 막대로 생각하여 값을 반환한다. 따라서 여기서 결정되는 가상의 막대 너비(그룹의 범위)는 곧 <code>x_scale_bar</code> 함수의 range를 결정하는 값이 된다. </p>
+
+<p><img src="/images/post_image/grouped_bar/grouped_bar03.PNG" alt=""></p>
+
+<p>두 번째 그룹의 막대들을 대상으로 막대의 위치를 결정한다고 하면, <code>x_scale_bar</code> 함수가 반환하는 값은 해당 그룹의 범위 내에서 막대가 위치해야 하는 지점의 좌표를 반환한다. 실제로 막대를 원하는 위치에 놓기 위해서는 <code>x_scale_group</code> 의 결과물과 <code>x_scale_bar</code> 의 결과물을 합하면 원하는 x좌표를 얻을 수 있게 된다</p>
+
+<hr>
+
+<p><br /></p>
+
+<p>이제 나머지 과정은 일반적인 막대그래프를 만드는 과정과 같다. 따라서 html, css, js, json 파일의 내용과 완성된 결과물로 마무리하려고 한다. 아래 내용을 실습하려면 웹서버 환경이 필요하기 때문에 익숙하지 않다면 <a href="https://github.com/mbostock/d3/wiki#using">https://github.com/mbostock/d3/wiki#using</a>의 내용을 참고해서 진행하면 된다. 크롬 확장프로그램에도 간단한 web server가 있으니 다른 언어를 설치하는 과정이 번거롭다면 참고할 수 있다. </p>
+
+<hr>
+
+<p><br /></p>
+
+<h3 id="grouped_bar.html">grouped_bar.html</h3>
+<div class="highlight"><pre><code class="language-html" data-lang="html"><span class="cp">&lt;!DOCTYPE html&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">charset=</span><span class="s">&quot;UTF-8&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;//d3js.org/d3.v3.min.js&quot;</span> <span class="na">charset=</span><span class="s">&quot;utf-8&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;grouped_bar.css&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;title&gt;</span>grouped bar chart<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id =</span><span class="err"> </span><span class="s">&quot;chart&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src =</span><span class="err"> </span><span class="s">&quot;grouped_bar.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+<h3 id="grouped_bar.css">grouped_bar.css</h3>
+<div class="highlight"><pre><code class="language-css" data-lang="css"><span class="nc">.pos</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="o">:</span> <span class="m">#1f4e79</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.neg</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="o">:</span> <span class="m">#e51843</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.neu</span> <span class="p">{</span>
+    <span class="n">fill</span><span class="o">:</span> <span class="m">#73ad21</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.y</span> <span class="nt">g</span><span class="nc">.tick</span><span class="nd">:first-child</span> <span class="nt">line</span> <span class="p">{</span>
+    <span class="k">display</span><span class="o">:</span> <span class="k">none</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="nc">.y</span> <span class="nt">line</span> <span class="p">{</span>
+    <span class="n">stroke</span><span class="o">:</span> <span class="m">#ccc</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="grouped_bar.json">grouped_bar.json</h3>
+<div class="highlight"><pre><code class="language-json" data-lang="json"><span class="p">[{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹1&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;긍정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">34</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹2&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;긍정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">75</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹3&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;긍정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">51</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹1&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;부정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">76</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹2&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;부정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">59</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹3&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;부정&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">79</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹1&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;중립&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">25</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹2&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;중립&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">94</span><span class="p">},</span>
+<span class="p">{</span><span class="nt">&quot;group&quot;</span><span class="p">:</span><span class="s2">&quot;그룹3&quot;</span><span class="p">,</span><span class="nt">&quot;sentiment&quot;</span><span class="p">:</span><span class="s2">&quot;중립&quot;</span><span class="p">,</span><span class="nt">&quot;value&quot;</span><span class="p">:</span><span class="mi">98</span><span class="p">}]</span> 
+</code></pre></div>
+<h3 id="grouped_bar.js">grouped_bar.js</h3>
+<div class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="c1">//grouped bar chart</span>
+
+<span class="c1">// 차트의 크기</span>
+<span class="kd">var</span> <span class="nx">chart_size</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">width</span> <span class="o">:</span> <span class="mi">600</span><span class="p">,</span>
+    <span class="nx">height</span> <span class="o">:</span> <span class="mi">400</span>
+<span class="p">}</span>
+
+<span class="c1">// margin 설정</span>
+<span class="kd">var</span> <span class="nx">margin</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">top</span> <span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="nx">bot</span> <span class="o">:</span> <span class="mi">50</span><span class="p">,</span>
+    <span class="nx">right</span> <span class="o">:</span> <span class="mi">10</span><span class="p">,</span>
+    <span class="nx">left</span> <span class="o">:</span> <span class="mi">30</span>
+<span class="p">}</span>
+
+<span class="c1">// svg 생성</span>
+<span class="c1">// id = &quot;chart&quot; 인 div 태그의 하위 element로 svg 생성</span>
+<span class="c1">// 차트의 크기에다 margin값을 더해서 svg 전체의 면적을 결정한다</span>
+<span class="c1">// x축은 margin.left, y축은 margin.top만큼 평행이동 시켜서 이후의 차트는 margin값과 상관없이 그릴 수 있도록 한다</span>
+<span class="kd">var</span> <span class="nx">svg</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s1">&#39;#chart&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;svg&#39;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">.</span><span class="nx">width</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">right</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">top</span> <span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">bot</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="s2">&quot;translate(&quot;</span><span class="o">+</span><span class="nx">margin</span><span class="p">.</span><span class="nx">left</span><span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span><span class="nx">margin</span><span class="p">.</span><span class="nx">top</span><span class="o">+</span><span class="s2">&quot;)&quot;</span><span class="p">);</span>
+
+<span class="c1">// 각 그룹의 위치를 결정하는 scale 함수</span>
+<span class="kd">var</span> <span class="nx">x_scale_group</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">ordinal</span><span class="p">()</span>
+                    <span class="p">.</span><span class="nx">rangeRoundBands</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">chart_size</span><span class="p">.</span><span class="nx">width</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">);</span>
+
+<span class="c1">// 그룹 내에서 막대의 위치를 결정하는 scale 함수</span>
+<span class="kd">var</span> <span class="nx">x_scale_bar</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">ordinal</span><span class="p">();</span>
+
+<span class="c1">// 막대의 높이를 결정하는 scale 함수</span>
+<span class="c1">// y축의 값이 위에는 높은값, 아래에는 0이 있어야 한다. 그렇기 때문에 range에 들어가는 배열에서 값의 순서가 바뀐다</span>
+<span class="kd">var</span> <span class="nx">y_scale</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">scale</span><span class="p">.</span><span class="nx">linear</span><span class="p">()</span>
+                <span class="p">.</span><span class="nx">range</span><span class="p">([</span><span class="nx">chart_size</span><span class="p">.</span><span class="nx">height</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span>
+
+<span class="c1">// x축을 생성하는 함수</span>
+<span class="kd">var</span> <span class="nx">xAxis</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">svg</span><span class="p">.</span><span class="nx">axis</span><span class="p">()</span>
+                <span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">x_scale_group</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">orient</span><span class="p">(</span><span class="s2">&quot;bottom&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">outerTickSize</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c1">// y축을 생성하는 함수</span>
+<span class="c1">// 막대 뒤에 선을 표시하기 위해서 innerTickSize에 -chart_size.width 값을 부여한다</span>
+<span class="c1">// 원래는 y축 눈금을 만드는 함수인데 -값을 주면 반대방향(차트 안쪽)으로 눈금이 길어진다</span>
+<span class="kd">var</span> <span class="nx">yAxis</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">svg</span><span class="p">.</span><span class="nx">axis</span><span class="p">()</span>
+                <span class="p">.</span><span class="nx">scale</span><span class="p">(</span><span class="nx">y_scale</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">orient</span><span class="p">(</span><span class="s2">&quot;left&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">outerTickSize</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">innerTickSize</span><span class="p">(</span><span class="o">-</span><span class="nx">chart_size</span><span class="p">.</span><span class="nx">width</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">ticks</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="c1">// json 파일을 불러온다</span>
+<span class="c1">// 외부 파일을 불러오기 때문에 웹서버 환경에서만 실행 가능해진다</span>
+<span class="nx">d3</span><span class="p">.</span><span class="nx">json</span><span class="p">(</span><span class="s2">&quot;grouped_bar.json&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">data</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">error</span><span class="p">)</span> <span class="k">throw</span> <span class="nx">error</span><span class="p">;</span>
+
+    <span class="c1">// data를 group 값을 기준으로 그룹 지정한다</span>
+    <span class="kd">var</span> <span class="nx">nested</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">nest</span><span class="p">()</span>
+            <span class="p">.</span><span class="nx">key</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">group</span><span class="p">})</span>
+            <span class="p">.</span><span class="nx">entries</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+
+
+    <span class="c1">// 그룹명(json 데이터에서 group 값)만 추출한다</span>
+    <span class="kd">var</span> <span class="nx">group_name</span> <span class="o">=</span> <span class="nx">nested</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span><span class="k">return</span> <span class="nx">d</span><span class="p">.</span><span class="nx">key</span><span class="p">});</span>
+
+    <span class="c1">// x_scale_group의 domain에 group_name 변수를 지정한다</span>
+    <span class="c1">// 그룹 수에 맞게 막대 그룹 개수 설정</span>
+    <span class="nx">x_scale_group</span><span class="p">.</span><span class="nx">domain</span><span class="p">(</span><span class="nx">group_name</span><span class="p">);</span>
+
+    <span class="c1">// x_scale_bar의 domain에 각 막대에 해당하는 값을 넣는다</span>
+    <span class="c1">// x_scale_group처럼 배열에서 값을 추출해서 쓰는 것이 더 좋다</span>
+    <span class="c1">// rangeRoundBands([interval], padding)의 형태로 사용했다</span>
+    <span class="c1">// padding의 값은 0과 1 사이의 값이 들어가는데 0.5일 때 막대의 너비와 막대 사이의 간격이 같아진다</span>
+    <span class="nx">x_scale_bar</span><span class="p">.</span><span class="nx">domain</span><span class="p">([</span><span class="s2">&quot;긍정&quot;</span><span class="p">,</span> <span class="s2">&quot;부정&quot;</span><span class="p">,</span> <span class="s2">&quot;중립&quot;</span><span class="p">])</span>
+               <span class="p">.</span><span class="nx">rangeRoundBands</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">x_scale_group</span><span class="p">.</span><span class="nx">rangeBand</span><span class="p">()],</span> <span class="mf">0.1</span><span class="p">);</span>
+
+    <span class="c1">// y_scale의 domain 범위를 지정한다</span>
+    <span class="c1">// 막대 그래프의 아래쪽 눈금은 0부터 시작하는 것이 바람직하기 때문에 배열의 첫 번째 값은 0으로 한다</span>
+    <span class="c1">// 두 번째 값은 data의 value 값중에서 가장 큰 값을 찾고 그 값에서 임의의 값(여기서는 10)을 더해서 그래프 상단의 공간이 여유가 있도록 한다</span>
+    <span class="nx">y_scale</span><span class="p">.</span><span class="nx">domain</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">max</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span>
+                <span class="k">return</span> <span class="o">+</span><span class="nx">d</span><span class="p">.</span><span class="nx">value</span> <span class="o">+</span> <span class="mi">10</span><span class="p">;</span> <span class="p">}))</span>
+            <span class="p">]);</span>
+
+    <span class="c1">// x축을 생성한다</span>
+    <span class="c1">// 그냥 만들면 (0,0) 위치 (화면 좌측 상단)에 생기기 때문에 margin.left 만큼 x축을 이동시키고 차트의 높이만큼 아래로 내려준다</span>
+    <span class="nx">svg</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;x Axis&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="s2">&quot;translate(&quot;</span><span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span> <span class="nx">chart_size</span><span class="p">.</span><span class="nx">height</span> <span class="o">+</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">xAxis</span><span class="p">);</span>
+
+    <span class="c1">// y축을 생성한다</span>
+    <span class="c1">// margin.left만큼 우측으로 평행이동 시킨다</span>
+    <span class="nx">svg</span><span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="s2">&quot;y Axis&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;transform&quot;</span><span class="p">,</span> <span class="s2">&quot;translate(&quot;</span><span class="o">+</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span><span class="s2">&quot;,&quot;</span><span class="o">+</span> <span class="mi">0</span> <span class="o">+</span><span class="s2">&quot;)&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">yAxis</span><span class="p">);</span>
+
+    <span class="c1">// 막대를 생성하기 위해서 data를 연결한다</span>
+    <span class="kd">var</span> <span class="nx">bars</span> <span class="o">=</span> <span class="nx">d3</span><span class="p">.</span><span class="nx">select</span><span class="p">(</span><span class="s2">&quot;svg&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;g&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">selectAll</span><span class="p">(</span><span class="s2">&quot;.bar&quot;</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">data</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+
+    <span class="c1">// 새로 생성되는 부분(enter)에 대한 코드</span>
+    <span class="c1">// 막대의 x축 위치는 x_scale_group으로 생성되는 그룹 위치와 x_scale_bar로 생성되는 막대 위치를 더하고 margin.left를 더한다</span>
+    <span class="c1">// 막대의 y축 위치(막대가 시작되는 좌표)는 일반 막대그래프와 마찬가지로 value값을 y_scale로 변형시키면 된다</span>
+    <span class="c1">// width의 값은 x_scale_bar.rangeBand()값을 그래도 사용한다</span>
+    <span class="c1">// 막대의 높이는 y_scale(d.value)부터 시작해서 y축의 0 위치까지 와야 한다. </span>
+    <span class="c1">// 따라서 막대가 시작되는 지점의 y좌표와 막대의 길이를 더하면 차트의 높이가 되어야 한다</span>
+    <span class="c1">// y의 값이 y_scale(d.value) 이니까 height값은 chart_size.height - y_scale(d.value)</span>
+    <span class="c1">// sentiment에 해당하는 값에 따라서 막대의 색을 다르게 하기 위해 class 항목을 지정하고 해당하는 색상은 css에서 명시한다</span>
+    <span class="nx">bars</span><span class="p">.</span><span class="nx">enter</span><span class="p">()</span>
+        <span class="p">.</span><span class="nx">append</span><span class="p">(</span><span class="s2">&quot;rect&quot;</span><span class="p">)</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> 
+            <span class="k">return</span> <span class="nx">margin</span><span class="p">.</span><span class="nx">left</span> <span class="o">+</span> 
+                <span class="nx">x_scale_group</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">group</span><span class="p">)</span> <span class="o">+</span> 
+                <span class="nx">x_scale_bar</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">sentiment</span><span class="p">);</span> 
+            <span class="p">})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span>  <span class="nx">y_scale</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">value</span><span class="p">)})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;width&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">x_scale_bar</span><span class="p">.</span><span class="nx">rangeBand</span><span class="p">();</span> <span class="p">})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;height&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> <span class="k">return</span> <span class="nx">chart_size</span><span class="p">.</span><span class="nx">height</span> <span class="o">-</span> <span class="nx">y_scale</span><span class="p">(</span><span class="nx">d</span><span class="p">.</span><span class="nx">value</span><span class="p">);</span> <span class="p">})</span>
+        <span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s2">&quot;class&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">d</span><span class="p">){</span> 
+            <span class="nx">class_list</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;긍정&quot;</span><span class="o">:</span> <span class="s2">&quot;pos&quot;</span><span class="p">,</span> <span class="s2">&quot;부정&quot;</span><span class="o">:</span> <span class="s2">&quot;neg&quot;</span><span class="p">,</span> <span class="s2">&quot;중립&quot;</span><span class="o">:</span><span class="s2">&quot;neu&quot;</span><span class="p">}</span>
+            <span class="k">return</span> <span class="nx">class_list</span><span class="p">[</span><span class="nx">d</span><span class="p">.</span><span class="nx">sentiment</span><span class="p">]});</span>
+
+<span class="p">})</span>
+</code></pre></div>
+<h3 id="chart-(image)">Chart (image)</h3>
+
+<p><img src="/images/post_image/grouped_bar/grouped_bar04.PNG" alt=""></p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Grouped Bar chart&quot;%20http://lumiamitie.github.io/d3/grouped-bar%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/d3/grouped-bar"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/d3/grouped-bar"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2015 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-69341391-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+ 
+</body>
+</html>
