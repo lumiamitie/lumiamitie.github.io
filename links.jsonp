@@ -113,6 +113,11 @@ callback([
   {
     "text": "Grouped Bar chart",
     "href": "http://lumiamitie.github.io/d3/grouped-bar"
+  } ,
+
+  {
+    "text": "tidyr Utilites",
+    "href": "http://lumiamitie.github.io/r/tidyr-util"
   } 
 
 ])

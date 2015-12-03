@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "tidyr Utilites",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/tidyr-util",
+		  "date"       : "2015-12-03 00:00:00 +0900",
+		  "shortdate"  : "December 03, 2015"
+		} ,
+	
+		{
 		  "title"      : "Grouped Bar chart",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/d3/grouped-bar",
