@@ -116,7 +116,7 @@ callback([
   } ,
 
   {
-    "text": "tidyr Utilites",
+    "text": "tidyr Utilities",
     "href": "http://lumiamitie.github.io/r/tidyr-util"
   } 
 
