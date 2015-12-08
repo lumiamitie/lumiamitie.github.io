@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Plotly for R",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/plotly-for-r",
+		  "date"       : "2015-12-08 00:00:00 +0900",
+		  "shortdate"  : "December 08, 2015"
+		} ,
+	
+		{
 		  "title"      : "tidyr Utilities",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/tidyr-util",

@@ -118,6 +118,11 @@ callback([
   {
     "text": "tidyr Utilities",
     "href": "http://lumiamitie.github.io/r/tidyr-util"
+  } ,
+
+  {
+    "text": "Plotly for R",
+    "href": "http://lumiamitie.github.io/r/visualization/plotly-for-r"
   } 
 
 ])
