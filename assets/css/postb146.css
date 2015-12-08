@@ -218,7 +218,7 @@ html, body, .summer-post-container, .summer-post-header {
           text-align: center;
           padding-top: 3.125rem;
           padding-bottom: 3.125rem;
-          max-width: 75rem; }
+          max-width: 56.25rem; }
   @media screen and (max-width: 47em) {
     .post-template .summer-post-title, .post-template .summer-post-content {
       font-size: 70%; } }
@@ -443,7 +443,7 @@ html, body, .summer-post-container, .summer-post-header {
           text-align: center;
           padding-top: 3.125rem;
           padding-bottom: 3.125rem;
-          max-width: 75rem; }
+          max-width: 56.25rem; }
   @media screen and (max-width: 47em) {
     .summer-page-container .summer-page-title, .summer-page-container .summer-page-content {
       font-size: 70%; } }
