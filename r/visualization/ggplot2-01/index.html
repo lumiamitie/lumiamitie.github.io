@@ -245,7 +245,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <hr>
 
-<h4 id="1.-data">1. Data</h4>
+<h4 id="1-data">1. Data</h4>
 
 <p>그래프를 그리려는 데이터는 <strong>iris</strong>로 결정했습니다. 데이터 내의 변수는 데이터 프레임의 열로 저장되어 있어야 합니다.</p>
 
@@ -253,7 +253,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <hr>
 
-<h4 id="2.-mapping">2. Mapping</h4>
+<h4 id="2-mapping">2. Mapping</h4>
 
 <p>그러면, 데이터의 요소와 그래프의 요소를 대응시키는 과정이 발생합니다. 여기서 </p>
 
@@ -267,19 +267,19 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <hr>
 
-<h4 id="3.-geometric-object">3. Geometric Object</h4>
+<h4 id="3-geometric-object">3. Geometric Object</h4>
 
 <p>그리고 나면 어떤 형태의 그래프를 그릴지 지정해야 합니다. ggplot2에서는 이것을 Geometric Object, 줄여서 <strong>geom</strong>이라고 합니다. 여기서는 산점도(Scaterplot)를 그렸는데, ggplot2에서는 <strong>geom_point</strong> 함수를 사용합니다. </p>
 
 <hr>
 
-<h4 id="4.-position">4. Position</h4>
+<h4 id="4-position">4. Position</h4>
 
 <p>그래프의 형태를 지정했으면 그래프에서 각 도형이 어떤 식으로 배치될 지를 결정할 수 있습니다. 이 옵션이 바로 <strong>position</strong>입니다. 막대그래프나 선 그래프라면 누적 그래프를 그리거나 할 때 <strong>position</strong> 옵션을 조정해서 형태를 바꿀 수 있습니다. 여기서는 특별한 배치가 필요없기 때문에 그대로(&#39;identity&rsquo;) 배치합니다. </p>
 
 <hr>
 
-<h4 id="5.-statistical-transformation">5. Statistical Transformation</h4>
+<h4 id="5-statistical-transformation">5. Statistical Transformation</h4>
 
 <p>마지막으로 값이 어떻게 그래프에 반영되는지 결정하는 옵션이 있습니다. <em>Statistical Transformation</em>, 줄여서 <strong>stat</strong> 옵션입니다. 히스토그램과 같이 구간내에 존재하는 값의 개수를 세거나 밀도를 계산하는 등, 주어진 값을 변형시켜서 그래프에 반영시킬 때 사용합니다. 여기서는 특별한 변환 없이 값을 그대로(&#39;identity&rsquo;) 사용합니다.</p>
 
@@ -337,7 +337,7 @@ ggplot<span class="p">(</span>data <span class="o">=</span> BOD<span class="p">,
 
 <h2 id="ggplot2-그래프-그리기">ggplot2 그래프 그리기</h2>
 
-<h4 id="ggplot2::layer">ggplot2::layer</h4>
+<h4 id="ggplot2-layer">ggplot2::layer</h4>
 <div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">()</span> <span class="o">+</span>
   layer<span class="p">(</span>data <span class="o">=</span> iris<span class="p">,</span>
         mapping <span class="o">=</span> aes<span class="p">(</span>x <span class="o">=</span> Sepal.Length<span class="p">,</span> y <span class="o">=</span> Sepal.Width<span class="p">,</span> colour <span class="o">=</span> Species<span class="p">),</span>

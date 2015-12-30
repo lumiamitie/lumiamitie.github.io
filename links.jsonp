@@ -123,6 +123,11 @@ callback([
   {
     "text": "Plotly for R",
     "href": "http://lumiamitie.github.io/r/visualization/plotly-for-r"
+  } ,
+
+  {
+    "text": "R6 basics",
+    "href": "http://lumiamitie.github.io/r/R6-basics"
   } 
 
 ])

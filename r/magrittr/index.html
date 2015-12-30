@@ -235,7 +235,7 @@ Description: Awesome dude, awesome life
 
 <h2 id="다양한-파이프-연산자들">다양한 파이프 연산자들</h2>
 
-<h3 id="&#39;tee&#39;-operator-%t&gt;%">&lsquo;tee&rsquo; operator %T&gt;%</h3>
+<h3 id="39-tee-39-operator-t-gt">&lsquo;tee&rsquo; operator %T&gt;%</h3>
 
 <p>pipe를 기준으로 왼쪽에 있는 연산은 값을 반환하지만 오른쪽에 있는 연산은 값을 반환하지 않는다. 따라서 tee opeator 다음에는 print, plot 등의 함수를 사용해서 연산 중간에 자연스럽게 부수적인 결과물을 출력시킬 수 있다</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">rnorm<span class="p">(</span><span class="m">5</span><span class="p">)</span> <span class="o">%T&gt;%</span>
@@ -264,7 +264,7 @@ Description: Awesome dude, awesome life
 
 <p>plot 함수는 기본적으로 데이터를 반환하지 않기 때문에 pipeline의 중간에 plot을 넣기 위해 tee operator를 사용했다</p>
 
-<h3 id="&#39;exposition&#39;-operator-%$%">&#39;exposition&rsquo; operator %$%</h3>
+<h3 id="39-exposition-39-operator">&#39;exposition&rsquo; operator %$%</h3>
 
 <p><code>with</code> 함수의 축약버전이다. pipe 기준으로 왼쪽에 있는 오브젝트 내의 name을 pipe 오른쪽의 연산에서 오브젝트 처럼 사용할 수 있게 해준다</p>
 
@@ -278,7 +278,7 @@ Description: Awesome dude, awesome life
   cor<span class="p">(</span>Petal.Length<span class="p">,</span> Petal.Width<span class="p">)</span>
 </code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 0.9628654
 </code></pre></div>
-<h3 id="compound-assignment-operator-%&lt;&gt;%">compound assignment operator %&lt;&gt;%</h3>
+<h3 id="compound-assignment-operator-lt-gt">compound assignment operator %&lt;&gt;%</h3>
 
 <p>chain의 맨 처음에서 사용될 수 있다. pipeline의 결과물을 operator 왼쪽의 오브젝트에 저장한다</p>
 

@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "R6 basics",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/R6-basics",
+		  "date"       : "2015-12-30 00:00:00 +0900",
+		  "shortdate"  : "December 30, 2015"
+		} ,
+	
+		{
 		  "title"      : "Plotly for R",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/plotly-for-r",

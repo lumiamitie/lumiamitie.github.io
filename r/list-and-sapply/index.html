@@ -282,7 +282,7 @@ list01
 
 <p><br /></p>
 
-<h3 id="list01의-data에서-media_id만-추출하기---for문">list01의 data에서 media_id만 추출하기 - for문</h3>
+<h3 id="list01의-data에서-media_id만-추출하기-for문">list01의 data에서 media_id만 추출하기 - for문</h3>
 
 <p>빈 벡터를 하나 만들고, for문이 돌 때마다 값을 하나씩 추가한다</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">media_id <span class="o">=</span> <span class="kt">c</span><span class="p">()</span>
@@ -295,7 +295,7 @@ media_id
 </code></pre></div>
 <hr>
 
-<h3 id="list01의-data에서-media_id만-추출하기---sapply">list01의 data에서 media_id만 추출하기 - sapply</h3>
+<h3 id="list01의-data에서-media_id만-추출하기-sapply">list01의 data에서 media_id만 추출하기 - sapply</h3>
 
 <p><code>sapply</code>함수를 이용하면 <code>list01$data</code>의 각 항목을 <code>x</code>로 둘 때 <code>x$media_id</code>의 값을 벡터로 정리해서 반환해준다</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">sapply</span><span class="p">(</span>list01<span class="o">$</span>data<span class="p">,</span> <span class="kr">function</span><span class="p">(</span>x<span class="p">)</span> x<span class="o">$</span>media_id<span class="p">)</span>
@@ -307,7 +307,7 @@ media_id
 
 <hr>
 
-<h2 id="sapply?">sapply?</h2>
+<h2 id="sapply">sapply?</h2>
 
 <p>첫 번째 인자로 들어오는 벡터 또는 리스트의 항목을 하나씩 그 뒤에 들어오는 함수에 대입시킨다</p>
 
@@ -331,13 +331,13 @@ media_id
 
 <hr>
 
-<h2 id="데이터를-data.frame에-정리하기">데이터를 data.frame에 정리하기</h2>
+<h2 id="데이터를-data-frame에-정리하기">데이터를 data.frame에 정리하기</h2>
 
 <p>위에서는 간단하게 필요한 변수만 벡터로 저장해 보았다면 여기서는 여러 가지 변수들을 모아서 데이터 프레임으로 저장해 보려고 한다.</p>
 
 <p><br /></p>
 
-<h3 id="list01$data-를-데이터-프레임으로-정리하기---for문">list01$data 를 데이터 프레임으로 정리하기 - for문</h3>
+<h3 id="list01-data-를-데이터-프레임으로-정리하기-for문">list01$data 를 데이터 프레임으로 정리하기 - for문</h3>
 
 <p>row단위로 데이터를 합치게 된다</p>
 
@@ -356,7 +356,7 @@ df_data_for
 ## 2      a02    5 filterB
 ## 3      a03   23 filterC
 </code></pre></div>
-<h3 id="list01$data를-데이터-프레임으로-정리하기---sapply">list01$data를 데이터 프레임으로 정리하기 - sapply</h3>
+<h3 id="list01-data를-데이터-프레임으로-정리하기-sapply">list01$data를 데이터 프레임으로 정리하기 - sapply</h3>
 
 <p>col단위로 데이터를 합치게 된다</p>
 

@@ -4,13 +4,298 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-12-08T23:37:44+09:00</updated>
+<updated>2015-12-30T16:47:32+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[R6 basics]]></title>
+  <link>http://lumiamitie.github.io/r/R6-basics</link>
+  <id>http://lumiamitie.github.io/r/R6-basics</id>
+  <published>2015-12-30T00:00:00+09:00</published>
+  <updated>2015-12-30T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;r6&quot;&gt;R6&lt;/h1&gt;
+
+&lt;p&gt;R6는 기존에 존재하던 RC(Reference Class)와 유사한 Class의 기능을 제공합니다. 하지만 RC와는 다르게 S4 시스템에 의존하지 않으면서 RC보다 더 효율적으로 동작합니다&lt;/p&gt;
+
+&lt;p&gt;R에서는 기본적으로 copy-on-modify가 적용됩니다. 다시 말하자면, object를 조금이라도 수정하게 되면 object를 복사한 다음에 수정을 하게 됩니다. 하지만 RC, R6의 경우에는 copy-on-modify가 적용되지 않기 때문에 주의해서 사용한다면 메모리를 더 효율적으로 사용할 수 있습니다. 기존 S3나 S4와는 크게 다른 성질을 가지기 때문에 주어진 상황에 적합한 방식을 선택하여 사용할 수 있습니다&lt;/p&gt;
+
+&lt;p&gt;그리고 다른 객체지향 언어에 익숙한 사람들이 더 쉽게 R에 익숙해질 수 있을 것 같습니다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;r6-basics&quot;&gt;R6 : Basics&lt;/h2&gt;
+
+&lt;p&gt;R6로 클래스를 생성하는 방법을 알아보도록 하겠습니다. R6에서 클래스는 &lt;code&gt;R6Class&lt;/code&gt;라는 함수를 통해서 만들 수 있습니다. &lt;/p&gt;
+
+&lt;p&gt;첫번째 요소는 &lt;strong&gt;class의 이름&lt;/strong&gt;입니다. 인스턴스를 생성했을 때 &lt;code&gt;class()&lt;/code&gt; 함수를 통해 class를 확인하면 &lt;em&gt;classname&lt;/em&gt; 요소와 &lt;em&gt;R6&lt;/em&gt;가 출력됩니다. &lt;/p&gt;
+
+&lt;p&gt;그리고 &lt;strong&gt;public&lt;/strong&gt;에는 public member들을 리스트의 형태로 담을 수 있습니다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;Random이라는 클래스를 생성해서 표준정규분포를 따르는 난수를 발생시킬 수 있도록 작성했습니다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;n&lt;/code&gt;과 &lt;code&gt;vector&lt;/code&gt; field는 NA값으로 초기화를 시킵니다. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;initialize&lt;/code&gt; 메소드 안에 있는 내용들은 &lt;code&gt;new()&lt;/code&gt;메소드를 통해 처음 인스턴스를 생성할 때 시행됩니다.&lt;/p&gt;
+
+&lt;p&gt;클래스 내부에서 public member에 접근하기 위해서는 &lt;code&gt;self$member&lt;/code&gt;, &lt;code&gt;self$method()&lt;/code&gt;와 같은 방식을 사용합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;R6&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+Random &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Random&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    initialize &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; n
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    gen_normal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+      self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;클래스의 인스턴스를 생성하기 위해서는 &lt;code&gt;$new()&lt;/code&gt; 를 사용합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Random&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Public member에 접근하기 위해서는 &lt;code&gt;$&lt;/code&gt;를 사용하면 됩니다. 기존의 리스트나 data.frame의 열에 접근할 때와 비슷한 방식으로 사용할 수 있습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] NA
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;gen_normal&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1]  1.60938489  0.22661340  0.39826320  0.62156489 -0.71540379
+##  [6]  0.26136030  0.51512304  0.02617344 -0.81198997  0.42580841
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;private-members&quot;&gt;Private members&lt;/h2&gt;
+
+&lt;p&gt;Class 내부에 &lt;strong&gt;private member&lt;/strong&gt;를 추가할 수 있습니다. public member들이 &lt;code&gt;self$n&lt;/code&gt;과 같은 형태로 접근가능했다면, private member들은 &lt;code&gt;private$sample_mean&lt;/code&gt;의 형태로 접근할 수 있습니다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;private member로 &lt;code&gt;sample_mean&lt;/code&gt;이라는 항목을 만들어서 초기화시킵니다. &lt;code&gt;calc_sp_mean&lt;/code&gt;, &lt;code&gt;print_sp_mean&lt;/code&gt;이라는 메소드를 추가해서 private member에 값을 저장하고 불러올 수 있게 합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;Random &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Random&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+     n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     &lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+     initialize &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+       self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; n
+     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     gen_normal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mu &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+       self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     calc_sp_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+       private&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sample_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+     print_sp_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+       &lt;span class=&quot;kp&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;private&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sample_mean&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+   private &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+     sample_mean &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Random&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;gen_normal&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;calc_sp_mean&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;print_sp_mean&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] -0.3280799
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;private member로 설정하게 되면 외부에서 직접적으로 호출할 수 는 없습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rd&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;sample_mean
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## NULL
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;active-bindings&quot;&gt;Active bindings&lt;/h2&gt;
+
+&lt;p&gt;Active binding의 요소들은 접근할 때마다 함수를 불러옵니다. 해당 요소들은 항상 외부에서 접근할 수 있습니다(public)&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;아래 코드는 npp요소에 접근할 때마다 n의 값이 1씩 증가하도록 되어있습니다. 그리고 npp 요소에 값을 입력하려고 하면 n의 값이 해당 값으로 변경됩니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;Count &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Count&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  active &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    npp &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      &lt;span class=&quot;kr&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;missing&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)){&lt;/span&gt;
+        self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+        &lt;span class=&quot;kr&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value
+        &lt;span class=&quot;kp&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+      &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
+    nmm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(){&lt;/span&gt;
+      self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+      &lt;span class=&quot;kp&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;npp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;npp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;npp
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;이 경우 처럼 npp 요소에 값을 할당하려고 하면 해당 값을 함수의 value 인자로 간주하고 함수를 실행시킵니다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;npp &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;active binding의 함수가 인자를 갖지 않을 경우에는 위와 같은 방식으로 값을 할당할 수 없습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_count&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;nmm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;# Error in (function ()  : unused argument (quote(5))
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;inheritance&quot;&gt;Inheritance&lt;/h2&gt;
+
+&lt;p&gt;R6 class는 다른 class로부터 상속받을 수 있습니다. 자식 클래스(subclass)는 부모 클래스(superclass)로부터 메소드를 받아서 기능을 변경하거나, 추가적인 메소드를 생성할 수 있습니다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;다음 예제에서는 맨 처음 만들었던 Random class를 상속받아서 &lt;code&gt;gen_normal&lt;/code&gt;의 기능을 확장시키도록 하겠습니다. Random에서는 rnorm에 평균과 표분편차를 입력하지 않았습니다. 그래서 평균 0, 분산 1의 기본값이 적용된 표준정규분포를 따르는 난수가 생성되었습니다. 이번에는 &lt;code&gt;gen_normal&lt;/code&gt; 메소드에 평균과 표준편차를 입력할 수 있도록 함수를 변경하겠습니다&lt;/p&gt;
+
+&lt;p&gt;상속은 Class를 생성할 때 &lt;code&gt;inherit&lt;/code&gt; 요소에 상속받으려는 R6 클래스를 입력하는 방식으로 동작합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;RandomNormal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;RandomNormal&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  inherit &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Random&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 여기서 Random class를 상속받습니다&lt;/span&gt;
+  public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    gen_normal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mu&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+      self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rdn &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; RandomNormal&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+rdn&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;gen_normal&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+rdn&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] 18.40037 18.78328 20.72541 17.22007 19.16256 21.45393 19.95351
+##  [8] 16.35129 14.99379 17.76512
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rdn&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;부모 클래스의 메소드는 &lt;code&gt;super$method()&lt;/code&gt; 의 형태로 호출할 수 있습니다. 아래 예제에서는 &lt;code&gt;gen_normal()&lt;/code&gt; 메소드를 실행시킬 때 표본평균까지 볼 수 있도록 RandomNormal class를 수정하겠습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;RandomNormal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;RandomNormal&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   inherit &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Random&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+   public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+     gen_normal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mu&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
+       self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;vector&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; rnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;self&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;n&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; mu&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sd&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+       super&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;calc_sp_mean&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+       super&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;print_sp_mean&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+     &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+   &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;rdn &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; RandomNormal&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+rdn&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;gen_normal&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 20.71161
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;h2 id=&quot;copy-on-modify-vs-modify-in-place&quot;&gt;Copy-on-modify vs Modify in place&lt;/h2&gt;
+
+&lt;p&gt;글을 시작할 때 R6는 R에서 기본적으로 사용하는 copy-on-modify가 적용되지 않는다고 말씀드렸습니다. 아래에서는 실제 예제를 통해서 살펴보겠습니다&lt;/p&gt;
+
+&lt;p&gt;보통 R에서 동작하는 방식은 다음과 같습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
+
+b &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; a
+
+a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;
+
+b
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;보셨다시피 &lt;code&gt;b = a&lt;/code&gt;를 실행시키는 순간 b는 a의 값을 그대로 받지만 이것은 복사된 객체이기 때문에 이후에 a를 변경하는 작업은 b에 영향을 주지 못합니다. 하지만 이러한 객체의 복사가 모든 영역에서 발생한다면, 큰 데이터를 다루는 작업에서는 성능에 큰 영향을 미칠 수도 있습니다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;R6 class에서는 어떻게 되는지 살펴보겠습니다. 상수값 한 개를 가지는 Constant class를 생성합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;Constant &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; R6Class&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Constant&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  public &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;Constant class의 인스턴스를 하나 생성합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Constant&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;new&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;생성한 인스턴스를 통해서 다른 인스턴스를 하나 더 만듭니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_b &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; r6_a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;새로 만든 인스턴스의 값을 확인합니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_b&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 10
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;먼저 생성한 인스턴스의 값을 변경해보겠습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_a&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;나중에 만든 인스턴스도 함께 값이 변경된 것을 볼 수 있습니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_b&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;만약 기존처럼 서로 연결되지 않는 별개의 인스턴스를 만들고 싶다면 &lt;code&gt;clone()&lt;/code&gt; 메서드를 사용하면 됩니다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_c &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; r6_a&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;clone&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+r6_c&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;r6_a&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;
+
+r6_c&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;a
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 20
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;그러면 기존 인스턴스의 값을 변경하더라도 clone으로 복제한 인스턴스의 값은 변하지 않는 것을 볼 수 있습니다&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/R6-basics&quot;&gt;R6 basics&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on December 30, 2015.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -182,7 +467,7 @@ seoul_gg
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;expand()&quot;&gt;expand()&lt;/h2&gt;
+&lt;h2 id=&quot;expand&quot;&gt;expand()&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;expand&lt;/code&gt;함수는 선택한 변수들의 조합을 만들어낸다&lt;/p&gt;
 
@@ -952,7 +1237,7 @@ y_scale
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;grouped_bar.html&quot;&gt;grouped_bar.html&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-html&quot;&gt;grouped_bar.html&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
@@ -967,7 +1252,7 @@ y_scale
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.css&quot;&gt;grouped_bar.css&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-css&quot;&gt;grouped_bar.css&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.pos&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#1f4e79&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -988,7 +1273,7 @@ y_scale
     &lt;span class=&quot;n&quot;&gt;stroke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ccc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.json&quot;&gt;grouped_bar.json&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-json&quot;&gt;grouped_bar.json&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹3&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
@@ -999,7 +1284,7 @@ y_scale
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;중립&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹3&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;중립&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;98&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.js&quot;&gt;grouped_bar.js&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-js&quot;&gt;grouped_bar.js&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//grouped bar chart&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// 차트의 크기&lt;/span&gt;
@@ -1130,7 +1415,7 @@ y_scale
 
 &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;chart-(image)&quot;&gt;Chart (image)&lt;/h3&gt;
+&lt;h3 id=&quot;chart-image&quot;&gt;Chart (image)&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/post_image/grouped_bar/grouped_bar04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
@@ -2114,7 +2399,7 @@ collect&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris_fltd&lt;span class=&qu
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;data.frame과의-차이점&quot;&gt;data.frame과의 차이점&lt;/h2&gt;
+&lt;h2 id=&quot;data-frame과의-차이점&quot;&gt;data.frame과의 차이점&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2202,7 +2487,7 @@ list_col&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;data_frame은-row.names()를-사용하지-않는다&quot;&gt;data_frame은 &lt;code&gt;row.names()&lt;/code&gt;를 사용하지 않는다&lt;/h4&gt;
+&lt;h4 id=&quot;data_frame은-row-names-를-사용하지-않는다&quot;&gt;data_frame은 &lt;code&gt;row.names()&lt;/code&gt;를 사용하지 않는다&lt;/h4&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2248,7 +2533,7 @@ list_col&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;tbl_df-클래스로-인해서-[-]의-동작도-달라진다&quot;&gt;tbl_df 클래스로 인해서 [ ]의 동작도 달라진다&lt;/h4&gt;
+&lt;h4 id=&quot;tbl_df-클래스로-인해서-의-동작도-달라진다&quot;&gt;tbl_df 클래스로 인해서 [ ]의 동작도 달라진다&lt;/h4&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2275,7 +2560,7 @@ iris_head&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;s&q
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;data_frame으로-변경하려면-as_data_frame()함수를-사용하면-된다&quot;&gt;data_frame으로 변경하려면 &lt;code&gt;as_data_frame()&lt;/code&gt;함수를 사용하면 된다&lt;/h4&gt;
+&lt;h4 id=&quot;data_frame으로-변경하려면-as_data_frame-함수를-사용하면-된다&quot;&gt;data_frame으로 변경하려면 &lt;code&gt;as_data_frame()&lt;/code&gt;함수를 사용하면 된다&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;as.data.frame()&lt;/code&gt;보다 훨씬 빠르다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;as_data_frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -2713,7 +2998,7 @@ list01
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기---for문&quot;&gt;list01의 data에서 media_id만 추출하기 - for문&lt;/h3&gt;
+&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-for문&quot;&gt;list01의 data에서 media_id만 추출하기 - for문&lt;/h3&gt;
 
 &lt;p&gt;빈 벡터를 하나 만들고, for문이 돌 때마다 값을 하나씩 추가한다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -2726,7 +3011,7 @@ media_id
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;hr&gt;
 
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기---sapply&quot;&gt;list01의 data에서 media_id만 추출하기 - sapply&lt;/h3&gt;
+&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-sapply&quot;&gt;list01의 data에서 media_id만 추출하기 - sapply&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;sapply&lt;/code&gt;함수를 이용하면 &lt;code&gt;list01$data&lt;/code&gt;의 각 항목을 &lt;code&gt;x&lt;/code&gt;로 둘 때 &lt;code&gt;x$media_id&lt;/code&gt;의 값을 벡터로 정리해서 반환해준다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -2738,7 +3023,7 @@ media_id
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;sapply?&quot;&gt;sapply?&lt;/h2&gt;
+&lt;h2 id=&quot;sapply&quot;&gt;sapply?&lt;/h2&gt;
 
 &lt;p&gt;첫 번째 인자로 들어오는 벡터 또는 리스트의 항목을 하나씩 그 뒤에 들어오는 함수에 대입시킨다&lt;/p&gt;
 
@@ -2762,13 +3047,13 @@ media_id
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;데이터를-data.frame에-정리하기&quot;&gt;데이터를 data.frame에 정리하기&lt;/h2&gt;
+&lt;h2 id=&quot;데이터를-data-frame에-정리하기&quot;&gt;데이터를 data.frame에 정리하기&lt;/h2&gt;
 
 &lt;p&gt;위에서는 간단하게 필요한 변수만 벡터로 저장해 보았다면 여기서는 여러 가지 변수들을 모아서 데이터 프레임으로 저장해 보려고 한다.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;list01$data-를-데이터-프레임으로-정리하기---for문&quot;&gt;list01$data 를 데이터 프레임으로 정리하기 - for문&lt;/h3&gt;
+&lt;h3 id=&quot;list01-data-를-데이터-프레임으로-정리하기-for문&quot;&gt;list01$data 를 데이터 프레임으로 정리하기 - for문&lt;/h3&gt;
 
 &lt;p&gt;row단위로 데이터를 합치게 된다&lt;/p&gt;
 
@@ -2787,7 +3072,7 @@ df_data_for
 ## 2      a02    5 filterB
 ## 3      a03   23 filterC
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;list01$data를-데이터-프레임으로-정리하기---sapply&quot;&gt;list01$data를 데이터 프레임으로 정리하기 - sapply&lt;/h3&gt;
+&lt;h3 id=&quot;list01-data를-데이터-프레임으로-정리하기-sapply&quot;&gt;list01$data를 데이터 프레임으로 정리하기 - sapply&lt;/h3&gt;
 
 &lt;p&gt;col단위로 데이터를 합치게 된다&lt;/p&gt;
 
@@ -3501,7 +3786,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;geocoding-with-ggmap::geocode&quot;&gt;Geocoding with ggmap::geocode&lt;/h2&gt;
+&lt;h2 id=&quot;geocoding-with-ggmap-geocode&quot;&gt;Geocoding with ggmap::geocode&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -3862,7 +4147,7 @@ aapl_data
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;enter?&quot;&gt;enter?&lt;/h2&gt;
+&lt;h2 id=&quot;enter&quot;&gt;enter?&lt;/h2&gt;
 
 &lt;p&gt;사실 제가 멍청이인게, 지금 쓰는 내용들은 그냥 &lt;a href=&quot;http://bost.ocks.org/mike/join/&quot;&gt;Thinking with Joins&lt;/a&gt; 라는 글로 Mike Bostock가 올려놓은 내용입니다. 저도 이거 몇 번 읽은 것 같은데 그 때는 그냥 그렇구나 하고 넘겼던 내용들이 사람을 참 힘들게 만들었죠. &lt;/p&gt;
 
@@ -3875,7 +4160,7 @@ aapl_data
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;대략 이런 형태가 되겠네요. 사실 그 때 잘 이해가 안됐던 것은 &lt;code&gt;.selectAll(&amp;#39;.empty&amp;#39;)&lt;/code&gt; 입니다. 예제들을 보면 뒤에서 만들 요소들을 선택하는게 보통이긴 한데 어찌됐든 저 시점에서는 아무 것도 안잡히니까 결국 비어있는 selection이거든요. 그래서 나름 실험해본답시고 다른, 전혀 상관없는 선택을 잡아서 해보니까 그래도 그래프는 그려집니다. 점점 저부분이 필요없는 부분인가 하고 고민을 하게 됩니다.&lt;/p&gt;
 
-&lt;h2 id=&quot;new-graph?&quot;&gt;New Graph?&lt;/h2&gt;
+&lt;h2 id=&quot;new-graph&quot;&gt;New Graph?&lt;/h2&gt;
 
 &lt;p&gt;이제 두 번째 오해입니다. 버튼을 누르든지 뭐든지 무엇인가 이벤트가 생기면 데이터를 바꿔서 차트를 다시 그려야하는 상황이 되었습니다. 안돌아가는 머리를 열심히 굴려서 생각해낸 방법은 이렇습니다.&lt;/p&gt;
 
@@ -3889,7 +4174,7 @@ aapl_data
 
 &lt;hr&gt;
 
-&lt;h1 id=&quot;enter-/-update-/-exit&quot;&gt;enter / update / exit&lt;/h1&gt;
+&lt;h1 id=&quot;enter-update-exit&quot;&gt;enter / update / exit&lt;/h1&gt;
 
 &lt;p&gt;d3에서 enter와 관련된 개념을 볼 때 자주 등장하는 그림이 있습니다. &lt;/p&gt;
 
@@ -4432,7 +4717,7 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;jupyter-with-r-(windows)&quot;&gt;jupyter with R (windows)&lt;/h2&gt;
+&lt;h2 id=&quot;jupyter-with-r-windows&quot;&gt;jupyter with R (windows)&lt;/h2&gt;
 
 &lt;p&gt;우선 여기서는 python, ipython, jupyter, 그리고 R까지 모두 설치되어 있다는 것을 전제로 진행하려고 한다. python과 R의 설치는 비교적 쉽게 할 수 있지만, ipython과 jupyter의 경우에는 구글에서 관련된 내용으로 검색해가면서 진행해야 할 것 같다. &lt;/p&gt;
 
@@ -5119,7 +5404,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;hr&gt;
 
-&lt;h4 id=&quot;1.-data&quot;&gt;1. Data&lt;/h4&gt;
+&lt;h4 id=&quot;1-data&quot;&gt;1. Data&lt;/h4&gt;
 
 &lt;p&gt;그래프를 그리려는 데이터는 &lt;strong&gt;iris&lt;/strong&gt;로 결정했습니다. 데이터 내의 변수는 데이터 프레임의 열로 저장되어 있어야 합니다.&lt;/p&gt;
 
@@ -5127,7 +5412,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;hr&gt;
 
-&lt;h4 id=&quot;2.-mapping&quot;&gt;2. Mapping&lt;/h4&gt;
+&lt;h4 id=&quot;2-mapping&quot;&gt;2. Mapping&lt;/h4&gt;
 
 &lt;p&gt;그러면, 데이터의 요소와 그래프의 요소를 대응시키는 과정이 발생합니다. 여기서 &lt;/p&gt;
 
@@ -5141,19 +5426,19 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;hr&gt;
 
-&lt;h4 id=&quot;3.-geometric-object&quot;&gt;3. Geometric Object&lt;/h4&gt;
+&lt;h4 id=&quot;3-geometric-object&quot;&gt;3. Geometric Object&lt;/h4&gt;
 
 &lt;p&gt;그리고 나면 어떤 형태의 그래프를 그릴지 지정해야 합니다. ggplot2에서는 이것을 Geometric Object, 줄여서 &lt;strong&gt;geom&lt;/strong&gt;이라고 합니다. 여기서는 산점도(Scaterplot)를 그렸는데, ggplot2에서는 &lt;strong&gt;geom_point&lt;/strong&gt; 함수를 사용합니다. &lt;/p&gt;
 
 &lt;hr&gt;
 
-&lt;h4 id=&quot;4.-position&quot;&gt;4. Position&lt;/h4&gt;
+&lt;h4 id=&quot;4-position&quot;&gt;4. Position&lt;/h4&gt;
 
 &lt;p&gt;그래프의 형태를 지정했으면 그래프에서 각 도형이 어떤 식으로 배치될 지를 결정할 수 있습니다. 이 옵션이 바로 &lt;strong&gt;position&lt;/strong&gt;입니다. 막대그래프나 선 그래프라면 누적 그래프를 그리거나 할 때 &lt;strong&gt;position&lt;/strong&gt; 옵션을 조정해서 형태를 바꿀 수 있습니다. 여기서는 특별한 배치가 필요없기 때문에 그대로(&amp;#39;identity&amp;rsquo;) 배치합니다. &lt;/p&gt;
 
 &lt;hr&gt;
 
-&lt;h4 id=&quot;5.-statistical-transformation&quot;&gt;5. Statistical Transformation&lt;/h4&gt;
+&lt;h4 id=&quot;5-statistical-transformation&quot;&gt;5. Statistical Transformation&lt;/h4&gt;
 
 &lt;p&gt;마지막으로 값이 어떻게 그래프에 반영되는지 결정하는 옵션이 있습니다. &lt;em&gt;Statistical Transformation&lt;/em&gt;, 줄여서 &lt;strong&gt;stat&lt;/strong&gt; 옵션입니다. 히스토그램과 같이 구간내에 존재하는 값의 개수를 세거나 밀도를 계산하는 등, 주어진 값을 변형시켜서 그래프에 반영시킬 때 사용합니다. 여기서는 특별한 변환 없이 값을 그대로(&amp;#39;identity&amp;rsquo;) 사용합니다.&lt;/p&gt;
 
@@ -5211,7 +5496,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&
 
 &lt;h2 id=&quot;ggplot2-그래프-그리기&quot;&gt;ggplot2 그래프 그리기&lt;/h2&gt;
 
-&lt;h4 id=&quot;ggplot2::layer&quot;&gt;ggplot2::layer&lt;/h4&gt;
+&lt;h4 id=&quot;ggplot2-layer&quot;&gt;ggplot2::layer&lt;/h4&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   layer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
         mapping &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Width&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Species&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
@@ -5275,154 +5560,6 @@ iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
 &lt;p&gt;&lt;a href=&quot;http://ggplot2.org/resources/2007-vanderbilt.pdf&quot;&gt;http://ggplot2.org/resources/2007-vanderbilt.pdf&lt;/a&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-01&quot;&gt;ggplot2 - 01 Grammar of Graphics&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 14, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Geocoding with R]]></title>
-  <link>http://lumiamitie.github.io/r/geocoding-with-r</link>
-  <id>http://lumiamitie.github.io/r/geocoding-with-r</id>
-  <published>2015-08-14T00:00:00+09:00</published>
-  <updated>2015-08-14T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/rocks-waves.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ggmap::geocode-함수를-이용한-지오코딩&quot;&gt;ggmap::geocode 함수를 이용한 지오코딩&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;ggmap&lt;/strong&gt; 패키지에는 &lt;strong&gt;geocode&lt;/strong&gt;라는 함수가 있다&lt;/p&gt;
-
-&lt;p&gt;지명을 인자로 넣어주면 위도와 경도값을 반환해주고, 옵션에 따라 더 많은 정보를 불러오기도 한다&lt;/p&gt;
-
-&lt;p&gt;그런데 언어가 영문으로 고정되어 있기 때문인지 영문지명으로 입력해야 하고 반환되는 값 또한 영문주소가 반환된다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: ggplot2
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Information from URL : http://maps.googleapis.com/maps/api/geocode/json?address=Seoul&amp;amp;sensor=false
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat
-## 1 126.978 37.56654
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; output&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;latlona&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat            address
-## 1 126.978 37.56654 seoul, south korea
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; output&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;more&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       lon      lat     type     loctype            address   north   south
-## 1 126.978 37.56654 locality approximate seoul, south korea 37.6956 37.4346
-##       east     west postal_code     country administrative_area_level_2
-## 1 127.1823 126.7968        &amp;lt;NA&amp;gt; south korea                        &amp;lt;NA&amp;gt;
-##   administrative_area_level_1 locality street streetNo point_of_interest
-## 1                        &amp;lt;NA&amp;gt;    seoul   &amp;lt;NA&amp;gt;       NA              &amp;lt;NA&amp;gt;
-##   query
-## 1 Seoul
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;아래와 같이 한글로 지명을 입력하면 오류가 난다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;geocode(&amp;#39;서울&amp;#39;)&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;옵션을 일부 변경하면 한글도 사용할 수 있지 않을까 하고 생각했지만 아직까지는 방법을 찾지 못했다&lt;/p&gt;
-
-&lt;p&gt;한글지명으로 입력하서 한글주소를 반환받으려면 어떻게 해야할까?&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;geocoding-with-google-api-(+rvest)&quot;&gt;Geocoding with Google API (+rvest)&lt;/h2&gt;
-
-&lt;p&gt;일단 여기서는 위도와 경도 자료만 가지고 오려고 한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;서울&amp;#39;&lt;/code&gt;&lt;/p&gt;
-
-&lt;p&gt;웹브라우저에서 위 url로 들어가보면 xml 데이터를 볼 수 있다&lt;/p&gt;
-
-&lt;p&gt;url 중간에 있는 xml을 json으로 바꿔주면 json 형태의 자료도 받을 수 있다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;그러면 아래에서는 &lt;code&gt;rvest&lt;/code&gt;패키지를 이용해 위 주소의 xml자료를 가져오고 원하는 항목만 정리해보려고 한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;rvest&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;서울&amp;#39;&amp;quot;&lt;/span&gt;
-seoul_xml &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;location 태그를 검색하면 하위 항목에 위도, 경도 자료가 있는 것을 볼 수 있다 &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;location&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## &amp;lt;location&amp;gt;
-##   &amp;lt;lat&amp;gt;37.5665350&amp;lt;/lat&amp;gt;
-##   &amp;lt;lng&amp;gt;126.9779692&amp;lt;/lng&amp;gt;
-## &amp;lt;/location&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;아래 처럼 자식항목의 텍스트를 한꺼번에 받아와도 되고&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;location&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_children&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##           lat           lng 
-##  &amp;quot;37.5665350&amp;quot; &amp;quot;126.9779692&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;아래처럼 필요한 항목에 직접 접근해서 받아와도 된다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;seoul_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lat&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;37.5665350&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;기본적인 방법을 알았으니 복수의 지명에 대해서 위도/경도 자료를 가지고 오자&lt;/p&gt;
-
-&lt;p&gt;여기서는 우선 지명에 대한 목록을 작성한 후에&lt;/p&gt;
-
-&lt;p&gt;각 지명에 대해 api로 접근해서 위도, 경도값을 받아오고&lt;/p&gt;
-
-&lt;p&gt;이 작업을 for 문을 이용해 반복해서 원하는 결과를 얻으려고 한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 위도,경도값을 얻으려고 하는 지명의 목록이다&lt;/span&gt;
-loc_list &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;서울&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;대전&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;부산&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 결과물을 취합하기 위한 빈 벡터&lt;/span&gt;
-geocode_result &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;loc &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; loc_list&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 검색어를 제외한 url&lt;/span&gt;
-  url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;http://maps.googleapis.com/maps/api/geocode/xml?sensor=false&amp;amp;language=ko&amp;amp;address=&amp;#39;&amp;quot;&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 검색어를 포함시켜서 만든 완전한 url&lt;/span&gt;
-  geocode_url &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;paste0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;url&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; loc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;&amp;#39;&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# url에서 utf-8 인코딩으로 xml자료를 가져온다&lt;/span&gt;
-  geocode_xml &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_url&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 위도값을 가져온다&lt;/span&gt;
-  geocode_lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; geocode_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-    xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lat&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-    xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 경도값을 가져온다&lt;/span&gt;
-  geocode_lon &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; geocode_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-    xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;lng&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-    xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-  &lt;span class=&quot;c1&quot;&gt;# 지명, 위도, 경도를 1행짜리 데이터 프레임으로 구성한다&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# 이 때 위도,경도값을 숫자로 변환한다&lt;/span&gt;
-  geocode_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;location &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; loc&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                            lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_lat&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-                            lon &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_lon&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-                            &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;# 최종 결과물이 저장될 오브젝트에 누적시켜서 값을 저장한다&lt;/span&gt;
-  geocode_result &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rbind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geocode_result&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; geocode_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-geocode_result
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   location      lat      lon
-## 1     서울 37.56654 126.9780
-## 2     대전 36.35041 127.3845
-## 3     부산 35.17955 129.0756
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/geocoding-with-r&quot;&gt;Geocoding with R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 14, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>
