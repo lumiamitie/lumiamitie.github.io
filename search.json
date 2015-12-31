@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "R6 - Modify in place",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/R6-modify-in-place",
+		  "date"       : "2015-12-31 00:00:00 +0900",
+		  "shortdate"  : "December 31, 2015"
+		} ,
+	
+		{
 		  "title"      : "R6 basics",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/R6-basics",

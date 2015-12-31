@@ -17,18 +17,18 @@ Description: Awesome dude, awesome life
 -->
 <head>
 <meta charset="utf-8">
-<title>KODING.COM 에서 JEKYLL 활용하기</title>
+<title>R6 - MODIFY IN PLACE</title>
 <meta name="description" content="Data and Visualization">
-<meta name="keywords" content="jekyll">
+<meta name="keywords" content="R, R6">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="koding.com 에서 Jekyll 활용하기">
+<meta property="og:title" content="R6 - Modify in place">
 <meta property="og:description" content="Data and Visualization">
-<meta property="og:url" content="http://lumiamitie.github.io/web/koding-com">
+<meta property="og:url" content="http://lumiamitie.github.io/r/R6-modify-in-place">
 <meta property="og:site_name" content="lmnsh">
 <meta property="og:image" content="http://lumiamitie.github.io/images/">
 
@@ -36,7 +36,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="http://lumiamitie.github.io/web/koding-com">
+<link rel="canonical" href="http://lumiamitie.github.io/r/R6-modify-in-place">
 <link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
 
 
@@ -124,41 +124,79 @@ Description: Awesome dude, awesome life
 </div>
             </div>
             <div class="summer-post-title bg-check">
-                <h1>koding.com 에서 Jekyll 활용하기</h1>
-                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-08-05T00:00:00+09:00">05 Aug 2015</time></strong></p>
+                <h1>R6 - Modify in place</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#R" data-toggle="tooltip" title="Posts tagged with R" rel="tag">R</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#R6" data-toggle="tooltip" title="Posts tagged with R6" rel="tag">R6</a> <strong><time datetime="2015-12-31T00:00:00+09:00">31 Dec 2015</time></strong></p>
             </div>
             <div class="bg-img"></div>
         </header>
         <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
         
         <article class="summer-post-content post">
-            <div><p><img src="../../images/old-book.jpg" alt="cover-image"></p>
+            <div><p><img src="/images/taking-notes.jpg" alt="cover-image"></p>
 
-<h2 id="koding.com">Koding.com</h2>
+<h1 id="r6-:-modify-in-place">R6 : Modify-in-place</h1>
 
-<p><a href="http://koding.com">Koding</a>은 Amazon EC2 인스턴스를 기반으로 하는 서비스다. 가입하면 무료로 VM을 하나 받을 수 있다. RAM 1기가에 하드 3기가 뿐이지만 우분투가 기본적으로 설치되어있고, 파이썬이나 루비 등이 미리 세팅되어있다. 무료로 사용하는 동안에는 접속이 끊어지면 VM도 자동으로 종료된다.</p>
+<p><a href="http://lumiamitie.github.io/r/R6-basics/">이전 글</a>에서 R6는 <strong>Modify-in-place</strong>라는 표현을 사용했다. 실제로 메모리 주소가 어떻게 변하는지 간단하게 살펴보도록 하겠다.</p>
 
-<p>VM내부의 Web 폴더는 github.io 처럼 정적인 호스트를 제공하기 때문에 Jekyll 페이지를 테스트하는 용도로 사용하기로 했다. </p>
+<p>R에서 메모리와 관련된 내용은 <a href="http://adv-r.had.co.nz/memory.html">Advanced R</a> 을 참고했다.</p>
 
-<p>원래 jekyll 페이지를 작성하고 웹페이지로 변환시키려면 <code>jekyll serve</code> 명령어를 사용한다. 우리는 변환시킨 결과물을 <strong>Web</strong> 폴더에 보내려고 한다. 이 경우에는 <em>-d</em> 옵션을 사용하고 (destination) 그 뒤에 대상 폴더의 주소를 지정하면 된다. (~/Web)</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">jekyll serve -d ~/Web
+<p><br /></p>
+
+<hr>
+
+<h3 id="case-:-r-default">CASE : R default</h3>
+
+<p>iris 데이터를 하나 복사한다. R은 기본적으로 객체를 변화시키지 않기 때문에 object를 변경하는 동작을 취하면 object를 복사한다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_test <span class="o">=</span> iris
 </code></pre></div>
-<p>이제 Koding.com의 VM이 켜져있는 동안에는 id.koding.io 에서 결과물을 확인할 수 있다</p>
+<p><code>pryr</code>패키지의 <code>address</code> 함수를 이용하면 해당 오브젝트의 메모리 주소를 확인할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">pryr<span class="o">::</span>address<span class="p">(</span>iris_test<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;0x88c6d08&quot;
+</code></pre></div>
+<p>이제 <code>iris_test</code>의 값을 변경하고 다시 메모리 주소를 확인해보자</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">iris_test<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="m">0</span>
+pryr<span class="o">::</span>address<span class="p">(</span>iris_test<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;0xadae5a8&quot;
+</code></pre></div>
+<p>메모리 주소가 변경되었다. 어떠한 오브젝트를 변경하면 실제로는 object를 복사한 후에 값을 변경하는 방식으로 동작한다는 것을 확인할 수 있다.</p>
+
+<hr>
+
+<h3 id="case-:-r6">CASE : R6</h3>
+
+<p>이번에는 R6 패키지를 불러오고 <code>Iris</code> 라는 클래스를 생성한다. data라는 field를 만들어서 iris데이터를 입력했다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>R6<span class="p">)</span>
+Iris <span class="o">=</span> R6Class<span class="p">(</span><span class="s">&quot;Iris&quot;</span><span class="p">,</span>
+               public <span class="o">=</span> <span class="kt">list</span><span class="p">(</span>
+                 data <span class="o">=</span> iris
+               <span class="p">))</span>
+</code></pre></div>
+<p>인스턴스를 생성하고 메모리 주소를 확인한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">r6_iris <span class="o">=</span> Iris<span class="o">$</span>new<span class="p">()</span>
+pryr<span class="o">::</span>address<span class="p">(</span>r6_iris<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;0x7bc32b0&quot;
+</code></pre></div>
+<p>위에서 했던 것과 마찬가지로 값을 변경하고 메모리 주소를 확인한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">r6_iris<span class="o">$</span>data<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="m">0</span>
+pryr<span class="o">::</span>address<span class="p">(</span>r6_iris<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] &quot;0x7bc32b0&quot;
+</code></pre></div>
+<p>내부의 값을 변경했지만 메모리 주소는 변경되지 않았다는 것을 볼 수 있다.</p>
 
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;koding.com 에서 Jekyll 활용하기&quot;%20http://lumiamitie.github.io/web/koding-com%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;R6 - Modify in place&quot;%20http://lumiamitie.github.io/r/R6-modify-in-place%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/web/koding-com"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/R6-modify-in-place"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/web/koding-com"
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/R6-modify-in-place"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>
