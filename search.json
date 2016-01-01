@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Linear Regression with r",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/linear-model",
+		  "date"       : "2016-01-01 00:00:00 +0900",
+		  "shortdate"  : "January 01, 2016"
+		} ,
+	
+		{
 		  "title"      : "R6 - Modify in place",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/R6-modify-in-place",

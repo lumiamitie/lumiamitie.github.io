@@ -4,13 +4,924 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2015-12-31T15:35:32+09:00</updated>
+<updated>2016-01-02T00:22:12+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Linear Regression with r]]></title>
+  <link>http://lumiamitie.github.io/r/linear-model</link>
+  <id>http://lumiamitie.github.io/r/linear-model</id>
+  <published>2016-01-01T00:00:00+09:00</published>
+  <updated>2016-01-01T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/rocks-waves.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;linear-regression&quot;&gt;Linear Regression&lt;/h1&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.packtpub.com/application-development/mastering-predictive-analytics-r&quot;&gt;Mastering Predictive Analytics with R&lt;/a&gt; 의 내용을 기본으로 하여 일부 코드를 수정하거나 추가했다.&lt;/p&gt;
+
+&lt;p&gt;해당 책의 &lt;strong&gt;Chapter2 : Linear Regression&lt;/strong&gt;을 바탕으로 작성했다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;data&quot;&gt;Data&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;caret&lt;/code&gt; 패키지의 &lt;code&gt;cars&lt;/code&gt; 데이터를 &lt;code&gt;data_envir&lt;/code&gt;의 하위 항목으로 로드한다&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Kelly Blue Book resale data for 2005 model year GM cars&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;R이 기본적으로 &lt;code&gt;cars&lt;/code&gt; 데이터를 로드한 상태이기 때문에 &lt;code&gt;caret&lt;/code&gt;의 &lt;code&gt;cars&lt;/code&gt;를 불러오면 데이터를 덮어쓰게 된다. 덮어쓰는 것이 상관없다면 &lt;code&gt;caret&lt;/code&gt; 패키지를 불러온 다음에 그냥 &lt;code&gt;data(cars)&lt;/code&gt;를 실행시키면 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;caret&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;덮어쓰지 않고 다른 변수에 데이터를 불러오려면 아래와 같이 할 수 있다&lt;/p&gt;
+
+&lt;p&gt;우선, 비어있는 environment를 생성한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;data_envir &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;new.env&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;parent &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;GlobalEnv&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;ls&lt;/code&gt; 함수를 통해 해당 environment는 비어있음을 확인할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## character(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;caret&lt;/code&gt; 패키지에서 cars데이터를 불러와서 &lt;code&gt;data_envir&lt;/code&gt;에 저장한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;caret&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; package &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;caret&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; envir &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; data_envir&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;ls&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;cars&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;list와 비슷한 방식으로 불러올 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##      Price Mileage Cylinder Doors Cruise Sound Leather Buick Cadillac
+## 1 22661.05   20105        6     4      1     0       0     1        0
+## 2 21725.01   13457        6     2      1     1       0     0        0
+## 3 29142.71   31655        4     2      1     1       1     0        0
+## 4 30731.94   22479        4     2      1     0       0     0        0
+## 5 33358.77   17590        4     2      1     1       1     0        0
+## 6 30315.17   23635        4     2      1     0       0     0        0
+##   Chevy Pontiac Saab Saturn convertible coupe hatchback sedan wagon
+## 1     0       0    0      0           0     0         0     1     0
+## 2     1       0    0      0           0     1         0     0     0
+## 3     0       0    1      0           1     0         0     0     0
+## 4     0       0    1      0           1     0         0     0     0
+## 5     0       0    1      0           1     0         0     0     0
+## 6     0       0    1      0           1     0         0     0     0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;변수간의 상관관계를 확인하기 위해서 &lt;code&gt;cor&lt;/code&gt; 함수로 &lt;strong&gt;correlation matrix&lt;/strong&gt;를 생성한다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;findCorrelation&lt;/code&gt; 함수를 통해 correlation이 높아서 제거해야할 열이 있는지 확인할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;cars_cor &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+findCorrelation&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars_cor&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## integer(0)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;cutoff를 임의로 변경해서 확인할 수 있다. 기본값보다 높은 기준치를 부여했다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;findCorrelation&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars_cor&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cutoff &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 4
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;Doors&amp;quot;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;strong&gt;Doors&lt;/strong&gt; 변수가 correlation이 높은 변수로 선정되었다.&lt;/p&gt;
+
+&lt;p&gt;차량이 coupe일 경우 문은 2개일 수밖에 없다. 따라서 Doors와 coupe 변수는 높은 상관관계를 가진다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Doors&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; coupe&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] -0.8254435
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Doors&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; coupe&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##      coupe
+## Doors   0   1
+##     2  50 140
+##     4 614   0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;sedan 변수도 마찬가지다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Doors&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sedan&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.6949056
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;with&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;table&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Doors&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sedan&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##      sedan
+## Doors   0   1
+##     2 190   0
+##     4 124 490
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;변수간의 linear dependency를 해결하기 위해서는 &lt;code&gt;findLinearCombos&lt;/code&gt; 함수를 사용한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;findLinearCombos&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $linearCombos
+## $linearCombos[[1]]
+## [1] 15  4  8  9 10 11 12 13 14
+## 
+## $linearCombos[[2]]
+##  [1] 18  4  8  9 10 11 12 13 16 17
+## 
+## 
+## $remove
+## [1] 15 18
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;결과는 list 형태가 된다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$linearCombos&lt;/code&gt; 에는 linear combination이 존재할 때 서로 의존관계에 있는 변수들의 column index가 나열된다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;$remove&lt;/code&gt;는 linear combination을 없애기 위해서 제거해야할 열의 index를 보여준다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;제거해야할 열만 idx_remove 벡터에 저장한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;idx_remove &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; findLinearCombos&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;remove&lt;/span&gt;
+cars_trim &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; idx_remove&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;caret&lt;/code&gt;의 &lt;code&gt;createDataPartition&lt;/code&gt; 함수를 통해서 training set과 test set을 분리시킨다. &lt;/p&gt;
+
+&lt;p&gt;동일한 결과물을 보기 위해서 random seed를 특정 값으로 고정시킨다. 해당 함수를 통해서 training set의 row index를 생성하고 traing set과 test set을 각각 분리한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;set.seed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+idx_cars_tr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; createDataPartition&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars_trim&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; p &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.85&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+cars_tr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_trim&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;idx_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+cars_ts &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_trim&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;idx_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;linear-model&quot;&gt;Linear Model&lt;/h2&gt;
+
+&lt;p&gt;가장 기본적인 linear model을 생성한다&lt;/p&gt;
+
+&lt;p&gt;종속변수는 &lt;strong&gt;Price&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;독립변수는 .으로 두면 나머지 모든 변수를 지정한다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;summary&lt;/code&gt; 함수를 통해 model의 기본적인 내용을 살펴볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lm_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_tr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+## Call:
+## lm(formula = Price ~ ., data = cars_tr)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9672.9 -1556.3   221.8  1468.6 13259.7 
+## 
+## Coefficients: (1 not defined because of singularities)
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -9.962e+02  1.100e+03  -0.906  0.36524    
+## Mileage     -1.791e-01  1.388e-02 -12.901  &amp;lt; 2e-16 ***
+## Cylinder     3.555e+03  1.249e+02  28.472  &amp;lt; 2e-16 ***
+## Doors        1.631e+03  2.838e+02   5.745 1.39e-08 ***
+## Cruise       4.131e+02  3.213e+02   1.285  0.19907    
+## Sound        5.480e+02  2.548e+02   2.150  0.03189 *  
+## Leather      7.012e+02  2.687e+02   2.609  0.00928 ** 
+## Buick        1.124e+03  5.956e+02   1.887  0.05956 .  
+## Cadillac     1.381e+04  6.785e+02  20.355  &amp;lt; 2e-16 ***
+## Chevy       -5.660e+02  4.642e+02  -1.219  0.22316    
+## Pontiac     -1.309e+03  5.187e+02  -2.524  0.01184 *  
+## Saab         1.204e+04  5.914e+02  20.353  &amp;lt; 2e-16 ***
+## Saturn              NA         NA      NA       NA    
+## convertible  1.142e+04  5.942e+02  19.219  &amp;lt; 2e-16 ***
+## hatchback   -6.286e+03  6.683e+02  -9.407  &amp;lt; 2e-16 ***
+## sedan       -4.494e+03  4.828e+02  -9.308  &amp;lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 2924 on 669 degrees of freedom
+## Multiple R-squared:  0.9172, Adjusted R-squared:  0.9155 
+## F-statistic: 529.5 on 14 and 669 DF,  p-value: &amp;lt; 2.2e-16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;1 not defined because of singularities&lt;/code&gt; 로 인해서 coeffiecient를 구할 수 없다고 나온다. linear dependency를 발생시키는 변수를 찾아서 제거해야 한다. &lt;code&gt;alias&lt;/code&gt; 함수를 통해 살펴볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;alias&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Model :
+## Price ~ Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Chevy + Pontiac + Saab + Saturn + convertible + 
+##     hatchback + sedan
+## 
+## Complete :
+##        (Intercept) Mileage Cylinder Doors Cruise Sound Leather Buick
+## Saturn  1           0       0        0     0      0     0      -1   
+##        Cadillac Chevy Pontiac Saab convertible hatchback sedan
+## Saturn -1       -1    -1      -1    0           0         0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;문제가 되는 변수는 &lt;code&gt;Saturn&lt;/code&gt;이라는 것을 알 수 있다. &lt;code&gt;Saturn&lt;/code&gt; 변수를 제거하고 다시 모델을 구성한다. 변수명 앞에 -를 입력하면 해당 변수를 제외하고 모델을 생성한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lm_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;Saturn&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_tr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+## Call:
+## lm(formula = Price ~ . - Saturn, data = cars_tr)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9672.9 -1556.3   221.8  1468.6 13259.7 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -9.962e+02  1.100e+03  -0.906  0.36524    
+## Mileage     -1.791e-01  1.388e-02 -12.901  &amp;lt; 2e-16 ***
+## Cylinder     3.555e+03  1.249e+02  28.472  &amp;lt; 2e-16 ***
+## Doors        1.631e+03  2.838e+02   5.745 1.39e-08 ***
+## Cruise       4.131e+02  3.213e+02   1.285  0.19907    
+## Sound        5.480e+02  2.548e+02   2.150  0.03189 *  
+## Leather      7.012e+02  2.687e+02   2.609  0.00928 ** 
+## Buick        1.124e+03  5.956e+02   1.887  0.05956 .  
+## Cadillac     1.381e+04  6.785e+02  20.355  &amp;lt; 2e-16 ***
+## Chevy       -5.660e+02  4.642e+02  -1.219  0.22316    
+## Pontiac     -1.309e+03  5.187e+02  -2.524  0.01184 *  
+## Saab         1.204e+04  5.914e+02  20.353  &amp;lt; 2e-16 ***
+## convertible  1.142e+04  5.942e+02  19.219  &amp;lt; 2e-16 ***
+## hatchback   -6.286e+03  6.683e+02  -9.407  &amp;lt; 2e-16 ***
+## sedan       -4.494e+03  4.828e+02  -9.308  &amp;lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 2924 on 669 degrees of freedom
+## Multiple R-squared:  0.9172, Adjusted R-squared:  0.9155 
+## F-statistic: 529.5 on 14 and 669 DF,  p-value: &amp;lt; 2.2e-16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;residual&quot;&gt;Residual&lt;/h2&gt;
+
+&lt;p&gt;residual(잔차)이 정규분포를 따르는지 확인하기 위해서 &lt;code&gt;qqnorm&lt;/code&gt;, &lt;code&gt;qqline&lt;/code&gt; 함수로 차트를 그려볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;qqnorm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;residuals&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+qqline&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;residuals&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;residual-plot-with-ggplot2&quot;&gt;residual plot with ggplot2&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;의 &lt;code&gt;fortify&lt;/code&gt; 함수를 사용하면 lm 객체를 data.frame 형식으로 바로 변경할 수 있다. 모형의 잔차를 그래프로 나타내려고 한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##      Price Mileage Cylinder Doors Cruise Sound Leather Buick Cadillac
+## 1 22661.05   20105        6     4      1     0       0     1        0
+## 3 29142.71   31655        4     2      1     1       1     0        0
+## 5 33358.77   17590        4     2      1     1       1     0        0
+## 6 30315.17   23635        4     2      1     0       0     0        0
+## 7 33381.82   17381        4     2      1     1       1     0        0
+## 8 30251.02   27558        4     2      1     0       1     0        0
+##   Chevy Pontiac Saab Saturn convertible hatchback sedan       .hat
+## 1     0       0    0      0           0         0     1 0.01921885
+## 3     0       0    1      0           1         0     0 0.03090775
+## 5     0       0    1      0           1         0     0 0.02872264
+## 6     0       0    1      0           1         0     0 0.03368733
+## 7     0       0    1      0           1         0     0 0.02875741
+## 8     0       0    1      0           1         0     0 0.03270262
+##     .sigma      .cooksd  .fitted    .resid  .stdresid
+## 1 2925.202 0.0008680549 20300.17  2360.883  0.8151576
+## 3 2914.451 0.0118389976 35936.02 -6793.309 -2.3596737
+## 5 2919.808 0.0061645819 38455.31 -5096.539 -1.7683038
+## 6 2917.714 0.0094868754 36123.33 -5808.159 -2.0203787
+## 7 2919.769 0.0062073810 38492.74 -5110.925 -1.7733268
+## 8 2917.529 0.0093902378 36121.85 -5870.830 -2.0411393
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;fitted&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;resid&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-17-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;표준화된 residual은 &lt;code&gt;.stdresid&lt;/code&gt; 변수를 사용한다. y축이 변경되는 것을 볼 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fortify&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;fitted&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;stdresid&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-18-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;shapiro-wilk-normality-test&quot;&gt;Shapiro-Wilk Normality Test&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;Shapiro-Wilk&lt;/code&gt;의 정규성 테스트를 해볼 수 있다 &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;shapiro.test&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;residuals&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+##  Shapiro-Wilk normality test
+## 
+## data:  lm_cars2$residuals
+## W = 0.9595, p-value = 8.544e-13
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;anova-table&quot;&gt;ANOVA table&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;anova&lt;/code&gt; 함수를 사용하면 하나 이상의 model객체를 통해서 ANOVA table을 생성할 수 있다. 여기서는 intercept의 존재만 가정하는 Null Model을 생성한 다음에. 위에서 생성했던 model과 비교한다. 변수들이 실제로 효과가 있는지 없는지의 여부를 테스트할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lm_cars_null &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_tr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+anova&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lm_cars_null&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Analysis of Variance Table
+## 
+## Model 1: Price ~ (Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Chevy + Pontiac + Saab + Saturn + convertible + 
+##     hatchback + sedan) - Saturn
+## Model 2: Price ~ 1
+##   Res.Df        RSS  Df   Sum of Sq      F    Pr(&amp;gt;F)    
+## 1    669 5.7216e+09                                     
+## 2    683 6.9127e+10 -14 -6.3405e+10 529.55 &amp;lt; 2.2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;p-value가 0에 가깝다는 것을 확인할 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;performance-metric&quot;&gt;Performance metric&lt;/h2&gt;
+
+&lt;p&gt;모델의 성능을 평가하는 방법은 여러 가지가 있다. 여기서는 가장 간단하고 살펴볼 수 있는 &lt;strong&gt;R-squared&lt;/strong&gt;를 살펴본다. R-squared와 값이 일부 조정된 Adjusted R-squared는 summary 함수의 결과물에서 볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;summary_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+summary_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;r.squared
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.91723
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;summary_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;adj.r.squared
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.9154979
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;R-squared는 평균을 기준으로 데이터 전체의 변동량에서 실제값과 예측값의 차이가 얼마나 비슷한지를 알려준다. 실제값과 예측값이 정확이 같다면 1이된다&lt;/p&gt;
+
+&lt;p&gt;실제로 R-squared를 구하는 과정을 살펴보면 아래와 같다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ssr_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;lm_cars&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;fitted.values &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+sst_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sum&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+r2_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; ssr_cars &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; sst_cars
+r2_cars
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.91723
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;결과물은 위에서 구한 R-Squared와 같다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;R-Squared&lt;/strong&gt;는 단순하면서도 직관적이라는 장점이 있다. 하지만 의미없는 변수를 추가하더라도 값이 계속 증가한다는 단점이 있다. 따라서 이러한 문제를 보완하기 위한 &lt;strong&gt;Adjusted R-Squared&lt;/strong&gt;는 feature의 개수를 통해 값을 보정한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;n_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;nrow&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cars_tr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+k_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;coefficients&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# intercept를 제외한 feature의 개수&lt;/span&gt;
+ar2_cars &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; r2_cars&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n_cars &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;/&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;n_cars &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; k_cars &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ar2_cars
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 0.9154979
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;test-set-performance&quot;&gt;Test set Performance&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;predict&lt;/code&gt; 함수를 통해 model을 가지고 test set의 결과물을 예측한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pred_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cars_ts&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;실제값과 예측값의 차이를 통해 모델이 실제와 얼마나 차이가 있는지 값을 측정할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mse_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;pred_cars2 &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+mse_cars2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8019592
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt; &lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;실제 데이터와 예측 결과를 하나의 그래프에 표현하려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+## Attaching package: &amp;#39;dplyr&amp;#39;
+## 
+## The following objects are masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     filter, lag
+## 
+## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     intersect, setdiff, setequal, union
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;diff_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_cars2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;에서 본래 추구하는 방식으로 그래프를 그리기 위해서는 tidy data의 형태로 data.frame을 정리하는 것이 좋다. tidy data에 대해서 알아보려면 &lt;a href=&quot;http://lumiamitie.github.io/r/tidy-data/&quot;&gt;예전 글&lt;/a&gt; 의 내용을 참고하면 좋을 것 같다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;diff_cars2_tidy &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; diff_cars2 &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;level&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diff_cars2_tidy&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [6 x 3]
+## Groups: level [1]
+## 
+##    level    value   idx
+##   (fctr)    (dbl) (int)
+## 1  price  8638.93     1
+## 2  price  9789.04     2
+## 3  price 10354.04     3
+## 4  price 10813.34     4
+## 5  price 10921.95     5
+## 6  price 11343.05     6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; diff_cars2_tidy&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-27-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;feature-selection&quot;&gt;Feature Selection&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;step&lt;/code&gt; 함수를 통해서 &lt;strong&gt;backward selection&lt;/strong&gt;을 시행한다. 모든 요소를 포함한 상태에서 모델을 생성하고, 설명력이 떨어지는 변수를 제거하면서 더 나은 모델을 찾아나가는 방식이다. 결과물에서는 AIC가 낮을 수록 좋은 model이다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lm_cars3 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; step&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                scope &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lower &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm_cars_null&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; upper &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm_cars2&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                direction &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;backward&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Start:  AIC=10932.66
+## Price ~ (Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Chevy + Pontiac + Saab + Saturn + convertible + 
+##     hatchback + sedan) - Saturn
+## 
+##               Df  Sum of Sq        RSS   AIC
+## - Chevy        1   12714941 5.7343e+09 10932
+## - Cruise       1   14132676 5.7358e+09 10932
+## &amp;lt;none&amp;gt;                      5.7216e+09 10933
+## - Buick        1   30460987 5.7521e+09 10934
+## - Sound        1   39546468 5.7612e+09 10935
+## - Pontiac      1   54481904 5.7761e+09 10937
+## - Leather      1   58221312 5.7799e+09 10938
+## - Doors        1  282297010 6.0039e+09 10964
+## - sedan        1  741046049 6.4627e+09 11014
+## - hatchback    1  756759889 6.4784e+09 11016
+## - Mileage      1 1423416473 7.1450e+09 11083
+## - convertible  1 3159154955 8.8808e+09 11231
+## - Saab         1 3542704945 9.2643e+09 11260
+## - Cadillac     1 3543395686 9.2650e+09 11260
+## - Cylinder     1 6933034432 1.2655e+10 11474
+## 
+## Step:  AIC=10932.18
+## Price ~ Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Pontiac + Saab + convertible + hatchback + 
+##     sedan
+## 
+##               Df  Sum of Sq        RSS   AIC
+## - Cruise       1   11655088 5.7460e+09 10932
+## &amp;lt;none&amp;gt;                      5.7343e+09 10932
+## - Sound        1   32601330 5.7669e+09 10934
+## - Pontiac      1   49199044 5.7835e+09 10936
+## - Leather      1   51468366 5.7858e+09 10936
+## - Buick        1  106476733 5.8408e+09 10943
+## - Doors        1  273386852 6.0077e+09 10962
+## - sedan        1  730783107 6.4651e+09 11012
+## - hatchback    1  777551120 6.5119e+09 11017
+## - Mileage      1 1421303710 7.1556e+09 11082
+## - convertible  1 3147012333 8.8814e+09 11229
+## - Cadillac     1 6406507443 1.2141e+10 11443
+## - Saab         1 6436594114 1.2171e+10 11445
+## - Cylinder     1 6972320144 1.2707e+10 11474
+## 
+## Step:  AIC=10931.57
+## Price ~ Mileage + Cylinder + Doors + Sound + Leather + Buick + 
+##     Cadillac + Pontiac + Saab + convertible + hatchback + sedan
+## 
+##               Df  Sum of Sq        RSS   AIC
+## &amp;lt;none&amp;gt;                      5.7460e+09 10932
+## - Sound        1   32581443 5.7786e+09 10933
+## - Pontiac      1   46537556 5.7925e+09 10935
+## - Leather      1   48481038 5.7945e+09 10935
+## - Buick        1  122937808 5.8689e+09 10944
+## - Doors        1  263004964 6.0090e+09 10960
+## - sedan        1  719958937 6.4660e+09 11010
+## - hatchback    1  789129020 6.5351e+09 11018
+## - Mileage      1 1419476570 7.1655e+09 11081
+## - convertible  1 3136917995 8.8829e+09 11228
+## - Cadillac     1 6450570826 1.2197e+10 11444
+## - Saab         1 7963463390 1.3709e+10 11524
+## - Cylinder     1 8082905852 1.3829e+10 11530
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars3&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+## Call:
+## lm(formula = Price ~ Mileage + Cylinder + Doors + Sound + Leather + 
+##     Buick + Cadillac + Pontiac + Saab + convertible + hatchback + 
+##     sedan, data = cars_tr)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9664.4 -1598.7   199.8  1523.0 13304.8 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -1.036e+03  1.086e+03  -0.953 0.340773    
+## Mileage     -1.789e-01  1.389e-02 -12.875  &amp;lt; 2e-16 ***
+## Cylinder     3.584e+03  1.167e+02  30.723  &amp;lt; 2e-16 ***
+## Doors        1.551e+03  2.799e+02   5.542  4.3e-08 ***
+## Sound        4.881e+02  2.503e+02   1.951 0.051523 .  
+## Leather      6.311e+02  2.653e+02   2.379 0.017620 *  
+## Buick        1.689e+03  4.457e+02   3.789 0.000165 ***
+## Cadillac     1.437e+04  5.235e+02  27.446  &amp;lt; 2e-16 ***
+## Pontiac     -8.204e+02  3.519e+02  -2.331 0.020038 *  
+## Saab         1.271e+04  4.169e+02  30.495  &amp;lt; 2e-16 ***
+## convertible  1.133e+04  5.918e+02  19.139  &amp;lt; 2e-16 ***
+## hatchback   -6.391e+03  6.657e+02  -9.600  &amp;lt; 2e-16 ***
+## sedan       -4.399e+03  4.797e+02  -9.169  &amp;lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 2926 on 671 degrees of freedom
+## Multiple R-squared:  0.9169, Adjusted R-squared:  0.9154 
+## F-statistic: 616.8 on 12 and 671 DF,  p-value: &amp;lt; 2.2e-16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;step&lt;/code&gt; 함수를 사용하면 현재 상황에서 각 변수를 빼거나 추가했을 때 AIC가 어떻게 변화하는지 파악한다. 만약 현재의 모델이 가장 낮은 AIC를 나타낸다면 해당 모델로 최종 확정하게 된다. 변수를 비교하는 방식은 forward, backward, 그리고 양쪽을 모두 사용하는 both 등 다양한 방식을 지원한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;lm_cars4 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; step&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                scope &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lower &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm_cars_null&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; upper &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lm_cars2&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                direction &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;both&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Start:  AIC=10932.66
+## Price ~ (Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Chevy + Pontiac + Saab + Saturn + convertible + 
+##     hatchback + sedan) - Saturn
+## 
+##               Df  Sum of Sq        RSS   AIC
+## - Chevy        1   12714941 5.7343e+09 10932
+## - Cruise       1   14132676 5.7358e+09 10932
+## &amp;lt;none&amp;gt;                      5.7216e+09 10933
+## - Buick        1   30460987 5.7521e+09 10934
+## - Sound        1   39546468 5.7612e+09 10935
+## - Pontiac      1   54481904 5.7761e+09 10937
+## - Leather      1   58221312 5.7799e+09 10938
+## - Doors        1  282297010 6.0039e+09 10964
+## - sedan        1  741046049 6.4627e+09 11014
+## - hatchback    1  756759889 6.4784e+09 11016
+## - Mileage      1 1423416473 7.1450e+09 11083
+## - convertible  1 3159154955 8.8808e+09 11231
+## - Saab         1 3542704945 9.2643e+09 11260
+## - Cadillac     1 3543395686 9.2650e+09 11260
+## - Cylinder     1 6933034432 1.2655e+10 11474
+## 
+## Step:  AIC=10932.18
+## Price ~ Mileage + Cylinder + Doors + Cruise + Sound + Leather + 
+##     Buick + Cadillac + Pontiac + Saab + convertible + hatchback + 
+##     sedan
+## 
+##               Df  Sum of Sq        RSS   AIC
+## - Cruise       1   11655088 5.7460e+09 10932
+## &amp;lt;none&amp;gt;                      5.7343e+09 10932
+## + Chevy        1   12714941 5.7216e+09 10933
+## - Sound        1   32601330 5.7669e+09 10934
+## - Pontiac      1   49199044 5.7835e+09 10936
+## - Leather      1   51468366 5.7858e+09 10936
+## - Buick        1  106476733 5.8408e+09 10943
+## - Doors        1  273386852 6.0077e+09 10962
+## - sedan        1  730783107 6.4651e+09 11012
+## - hatchback    1  777551120 6.5119e+09 11017
+## - Mileage      1 1421303710 7.1556e+09 11082
+## - convertible  1 3147012333 8.8814e+09 11229
+## - Cadillac     1 6406507443 1.2141e+10 11443
+## - Saab         1 6436594114 1.2171e+10 11445
+## - Cylinder     1 6972320144 1.2707e+10 11474
+## 
+## Step:  AIC=10931.57
+## Price ~ Mileage + Cylinder + Doors + Sound + Leather + Buick + 
+##     Cadillac + Pontiac + Saab + convertible + hatchback + sedan
+## 
+##               Df  Sum of Sq        RSS   AIC
+## &amp;lt;none&amp;gt;                      5.7460e+09 10932
+## + Cruise       1   11655088 5.7343e+09 10932
+## + Chevy        1   10237353 5.7358e+09 10932
+## - Sound        1   32581443 5.7786e+09 10933
+## - Pontiac      1   46537556 5.7925e+09 10935
+## - Leather      1   48481038 5.7945e+09 10935
+## - Buick        1  122937808 5.8689e+09 10944
+## - Doors        1  263004964 6.0090e+09 10960
+## - sedan        1  719958937 6.4660e+09 11010
+## - hatchback    1  789129020 6.5351e+09 11018
+## - Mileage      1 1419476570 7.1655e+09 11081
+## - convertible  1 3136917995 8.8829e+09 11228
+## - Cadillac     1 6450570826 1.2197e+10 11444
+## - Saab         1 7963463390 1.3709e+10 11524
+## - Cylinder     1 8082905852 1.3829e+10 11530
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;summary&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lm_cars4&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
+## Call:
+## lm(formula = Price ~ Mileage + Cylinder + Doors + Sound + Leather + 
+##     Buick + Cadillac + Pontiac + Saab + convertible + hatchback + 
+##     sedan, data = cars_tr)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9664.4 -1598.7   199.8  1523.0 13304.8 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&amp;gt;|t|)    
+## (Intercept) -1.036e+03  1.086e+03  -0.953 0.340773    
+## Mileage     -1.789e-01  1.389e-02 -12.875  &amp;lt; 2e-16 ***
+## Cylinder     3.584e+03  1.167e+02  30.723  &amp;lt; 2e-16 ***
+## Doors        1.551e+03  2.799e+02   5.542  4.3e-08 ***
+## Sound        4.881e+02  2.503e+02   1.951 0.051523 .  
+## Leather      6.311e+02  2.653e+02   2.379 0.017620 *  
+## Buick        1.689e+03  4.457e+02   3.789 0.000165 ***
+## Cadillac     1.437e+04  5.235e+02  27.446  &amp;lt; 2e-16 ***
+## Pontiac     -8.204e+02  3.519e+02  -2.331 0.020038 *  
+## Saab         1.271e+04  4.169e+02  30.495  &amp;lt; 2e-16 ***
+## convertible  1.133e+04  5.918e+02  19.139  &amp;lt; 2e-16 ***
+## hatchback   -6.391e+03  6.657e+02  -9.600  &amp;lt; 2e-16 ***
+## sedan       -4.399e+03  4.797e+02  -9.169  &amp;lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &amp;#39;***&amp;#39; 0.001 &amp;#39;**&amp;#39; 0.01 &amp;#39;*&amp;#39; 0.05 &amp;#39;.&amp;#39; 0.1 &amp;#39; &amp;#39; 1
+## 
+## Residual standard error: 2926 on 671 degrees of freedom
+## Multiple R-squared:  0.9169, Adjusted R-squared:  0.9154 
+## F-statistic: 616.8 on 12 and 671 DF,  p-value: &amp;lt; 2.2e-16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;regularization&quot;&gt;Regularization&lt;/h2&gt;
+
+&lt;p&gt;변수 선택은 종종 overfitting(과적합)에 대응하는 방법으로 사용할 수 있다. regularization을 통해 특정 coefficient가 과도하게 큰 값을 갖지 않도록 조정할 수 있다.&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;ridge regression&lt;/strong&gt;과 &lt;strong&gt;lasso&lt;/strong&gt;는 penalty term에서 차이가 발생한다. ridge regression은 가중치가 작게 주어지더라도 각 변수들의 영향력이 남아있다. 하지만 lasso의 경우 가중치가 작은 경우 아예 0으로 수렴하는 경우가 발생한다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;ridge-regression&quot;&gt;ridge regression&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;glmnet&lt;/code&gt; 패키지의 &lt;code&gt;glmnet&lt;/code&gt; 함수를 통해 ridge regression과 lasso를 시행하려고 한다&lt;/p&gt;
+
+&lt;p&gt;첫 번째 parameter로는 feature들로 구성된 matrix를 필요로 한다. &lt;code&gt;model.matrix&lt;/code&gt; 함수를 통해 design matrix를 생성한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 1열의 intercept만 제거한다&lt;/span&gt;
+mat_cars_tr &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; model.matrix&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;Saturn&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_tr&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;두 번째 parameter는 결과물 변수들(여기서는 Price)로 구성된 벡터다&lt;/p&gt;
+
+&lt;p&gt;세 번째 parameter인 alpha는 0일 때 ridge regression, 1일 때 lasso를 시행한다&lt;/p&gt;
+
+&lt;p&gt;네 번째 parameter는 lambda 벡터이다. 모델을 생성할 때 이 값이 포함된 수식을 최소화시키는 방향으로 계산된다. 좋은 model을 생성하기 위해서는 가장 좋은 결과물을 내는 lambda값을 찾아야 한다. lambda parameter는 사용자가 직접 lambda sequence를 지정할 때 사용한다. 보통은 nlambda와 lambda.min.ratio 값을 사용해서 구하게끔 되어있다. 두 값 모두 기본값이 지정되어있기 때문에(100, 0.0001) 명시하지 않을경우 기본값을 사용한다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;glmnet&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Loading required package: Matrix
+## Loading required package: foreach
+## Loaded glmnet 2.0-2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;model_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;lambda값에 250개짜리 벡터를 지정했기 때문에 250개의 model이 생성된다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;coef&lt;/code&gt;함수를 통해 특정 model의 coefficient값을 볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;coef&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;model_ridge&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   (Intercept)       Mileage      Cylinder         Doors        Cruise 
+##  6336.6474394    -0.1552561  2725.2328259   387.8009432  1688.3451952 
+##         Sound       Leather         Buick      Cadillac         Chevy 
+##   214.7119462  1166.1893897  -411.9407312 11612.9688672 -2443.3869902 
+##       Pontiac          Saab   convertible     hatchback         sedan 
+## -2156.4412870  8344.4367057 10665.7039500 -3146.6877319 -2065.8999174
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;coef&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;model_ridge&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;200&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   (Intercept)       Mileage      Cylinder         Doors        Cruise 
+##  -995.9883276    -0.1791173  3555.2756739  1630.6235076   413.1057260 
+##         Sound       Leather         Buick      Cadillac         Chevy 
+##   548.0081003   701.2180650  1123.9153032 13809.8266390  -566.0737694 
+##       Pontiac          Saab   convertible     hatchback         sedan 
+## -1309.3151867 12036.8172063 11420.4701519 -6286.0530466 -4493.8744852
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;좋은 lambda값을 찾을 수 있도록 하기 위해 glmnet 패키지에서는 &lt;code&gt;cv.glmnet&lt;/code&gt; 함수를 제공한다. 교차검증을 통해 MSE를 최소화시키는 lambda를 찾는다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ridge_lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cv.glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;predict&lt;/code&gt; 함수를 통해 model을 바탕으로 test set의 값을 예측한다&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;s&lt;/strong&gt; 에는 lambda값이 들어간다. &lt;strong&gt;type&lt;/strong&gt;의 값을 바꾸면 다양한 결과물을 볼 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;type = &amp;quot;coefficient&amp;quot;&lt;/code&gt; 일 때는 다음과 같은 정보를 알 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  model_ridge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  s &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ridge_lambda&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda.min&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;coefficient&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 15 x 1 sparse Matrix of class &amp;quot;dgCMatrix&amp;quot;
+##                         1
+## (Intercept)  3424.8104154
+## Mileage        -0.1677827
+## Cylinder     3102.4637324
+## Doors         828.4585393
+## Cruise       1166.4418117
+## Sound         375.2800236
+## Leather       994.0758585
+## Buick          33.4808904
+## Cadillac    12483.2985848
+## Chevy       -1876.6192799
+## Pontiac     -1970.2776716
+## Saab         9872.9328182
+## convertible 11090.0424876
+## hatchback   -4216.6057859
+## sedan       -2924.2738801
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;예측 결과물을 보려면 test set에 대해서도 matrix형태로 구성해야한다. &lt;code&gt;predict.glmnet&lt;/code&gt;함수의 newx에 test set의 matrix를 전달한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mat_cars_ts &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; model.matrix&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;Saturn&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+pred_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  model_ridge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  s &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ridge_lambda&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda.min&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  newx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mat_cars_ts&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;response&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+mse_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;pred_ridge &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;실제 값과 예측결과를 그래프로 비교해보려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+    price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_ridge&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_ridge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Ridge Regression&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-36-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;lasso-least-absolute-shrinkage-and-selection-operator&quot;&gt;Lasso (Least Absolute Shrinkage and Selection Operator)&lt;/h2&gt;
+
+&lt;p&gt;lasso는 ridge regression과 같은 방식으로 시행할 수 있다. alpha = 1로 설정하면 lasso가 동작한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;model_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;^&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; length &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;250&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+lasso_lambda &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cv.glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+pred_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  model_lasso&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  s &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lasso_lambda&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda.min&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  newx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mat_cars_ts&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  type &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;response&amp;#39;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+mse_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;pred_lasso &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;lasso의 경우도 실제 값과 예측결과를 그래프로 비교해볼 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_lasso&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Lasso&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-38-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;각 모델의 MSE를 비교해보면 아래와 같다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mse_cars2 &lt;span class=&quot;c1&quot;&gt;# mse of linear model&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8019592
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mse_ridge &lt;span class=&quot;c1&quot;&gt;# mse of ridge regression&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8661437
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mse_lasso &lt;span class=&quot;c1&quot;&gt;# mse of lasso&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8017329
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;위에서 lasso를 적용할 때는 이미 불필요한 변수를 제거한 상태였다
+이번에는 변수를 제거하지 않은 상태에서 lasso를 적용해보려고 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;cars_tr2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;idx_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+cars_ts2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; data_envir&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;cars&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;idx_cars_tr&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+mat_cars_tr2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; model.matrix&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_tr2&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+model_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+lasso_lambda2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cv.glmnet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  mat_cars_tr2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cars_tr2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+mat_cars_ts2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; model.matrix&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Price &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts2&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+
+pred_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  model_lasso2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  s &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lasso_lambda2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;lambda.min&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  newx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mat_cars_ts2
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+df_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso2&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_lasso2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Lasso2&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/linear_model/unnamed-chunk-40-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mse_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;((&lt;/span&gt;pred_lasso2 &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; cars_ts2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;^&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+mse_lasso2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 8037115
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;64번째 model을 살펴보면 &lt;code&gt;Saturn&lt;/code&gt;, &lt;code&gt;coupe&lt;/code&gt;, &lt;code&gt;sedan&lt;/code&gt;의 coefficient가 0이라는 것을 볼 수 있다. 따라서 변수가 제거된 것과 같은 효과를 가진다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;coef&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;model_lasso2&lt;span class=&quot;p&quot;&gt;)[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;64&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  (Intercept)      Mileage     Cylinder        Doors       Cruise 
+##  3511.878810    -0.176481  3528.994492  -586.838372   412.692812 
+##        Sound      Leather        Buick     Cadillac        Chevy 
+##   488.060710   664.244892  1093.205029 13848.673141  -504.232147 
+##      Pontiac         Saab       Saturn  convertible        coupe 
+## -1204.322090 12028.003855     0.000000 11418.509547     0.000000 
+##    hatchback        sedan        wagon 
+## -1755.734835     0.000000  4352.276380
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/linear-model&quot;&gt;Linear Regression with r&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on January 01, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -26,7 +937,7 @@
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
-&lt;h1 id=&quot;r6-:-modify-in-place&quot;&gt;R6 : Modify-in-place&lt;/h1&gt;
+&lt;h1 id=&quot;r6-modify-in-place&quot;&gt;R6 : Modify-in-place&lt;/h1&gt;
 
 &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/R6-basics/&quot;&gt;이전 글&lt;/a&gt;에서 R6는 &lt;strong&gt;Modify-in-place&lt;/strong&gt;라는 표현을 사용했다. 실제로 메모리 주소가 어떻게 변하는지 간단하게 살펴보도록 하겠다.&lt;/p&gt;
 
@@ -36,7 +947,7 @@
 
 &lt;hr&gt;
 
-&lt;h3 id=&quot;case-:-r-default&quot;&gt;CASE : R default&lt;/h3&gt;
+&lt;h3 id=&quot;case-r-default&quot;&gt;CASE : R default&lt;/h3&gt;
 
 &lt;p&gt;iris 데이터를 하나 복사한다. R은 기본적으로 객체를 변화시키지 않기 때문에 object를 변경하는 동작을 취하면 object를 복사한다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_test &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris
@@ -54,7 +965,7 @@ pryr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;address&lt;span class=&quot;p
 
 &lt;hr&gt;
 
-&lt;h3 id=&quot;case-:-r6&quot;&gt;CASE : R6&lt;/h3&gt;
+&lt;h3 id=&quot;case-r6&quot;&gt;CASE : R6&lt;/h3&gt;
 
 &lt;p&gt;이번에는 R6 패키지를 불러오고 &lt;code&gt;Iris&lt;/code&gt; 라는 클래스를 생성한다. data라는 field를 만들어서 iris데이터를 입력했다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;R6&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -105,7 +1016,7 @@ pryr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;address&lt;span class=&quot;p
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;r6-:-basics&quot;&gt;R6 : Basics&lt;/h2&gt;
+&lt;h2 id=&quot;r6-basics&quot;&gt;R6 : Basics&lt;/h2&gt;
 
 &lt;p&gt;R6로 클래스를 생성하는 방법을 알아보도록 하겠습니다. R6에서 클래스는 &lt;code&gt;R6Class&lt;/code&gt;라는 함수를 통해서 만들 수 있습니다. &lt;/p&gt;
 
@@ -533,7 +1444,7 @@ seoul_gg
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;expand()&quot;&gt;expand()&lt;/h2&gt;
+&lt;h2 id=&quot;expand&quot;&gt;expand()&lt;/h2&gt;
 
 &lt;p&gt;&lt;code&gt;expand&lt;/code&gt;함수는 선택한 변수들의 조합을 만들어낸다&lt;/p&gt;
 
@@ -1303,7 +2214,7 @@ y_scale
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;grouped_bar.html&quot;&gt;grouped_bar.html&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-html&quot;&gt;grouped_bar.html&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-html&quot; data-lang=&quot;html&quot;&gt;&lt;span class=&quot;cp&quot;&gt;&amp;lt;!DOCTYPE html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;html&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;head&amp;gt;&lt;/span&gt;
@@ -1318,7 +2229,7 @@ y_scale
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/body&amp;gt;&lt;/span&gt;
 &lt;span class=&quot;nt&quot;&gt;&amp;lt;/html&amp;gt;&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.css&quot;&gt;grouped_bar.css&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-css&quot;&gt;grouped_bar.css&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-css&quot; data-lang=&quot;css&quot;&gt;&lt;span class=&quot;nc&quot;&gt;.pos&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;n&quot;&gt;fill&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#1f4e79&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
@@ -1339,7 +2250,7 @@ y_scale
     &lt;span class=&quot;n&quot;&gt;stroke&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;#ccc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.json&quot;&gt;grouped_bar.json&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-json&quot;&gt;grouped_bar.json&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-json&quot; data-lang=&quot;json&quot;&gt;&lt;span class=&quot;p&quot;&gt;[{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹1&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;34&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹3&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;긍정&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;51&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
@@ -1350,7 +2261,7 @@ y_scale
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹2&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;중립&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;94&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;},&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;group&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;그룹3&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;sentiment&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&amp;quot;중립&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;98&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}]&lt;/span&gt; 
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;grouped_bar.js&quot;&gt;grouped_bar.js&lt;/h3&gt;
+&lt;h3 id=&quot;grouped_bar-js&quot;&gt;grouped_bar.js&lt;/h3&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-javascript&quot; data-lang=&quot;javascript&quot;&gt;&lt;span class=&quot;c1&quot;&gt;//grouped bar chart&lt;/span&gt;
 
 &lt;span class=&quot;c1&quot;&gt;// 차트의 크기&lt;/span&gt;
@@ -1481,7 +2392,7 @@ y_scale
 
 &lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;chart-(image)&quot;&gt;Chart (image)&lt;/h3&gt;
+&lt;h3 id=&quot;chart-image&quot;&gt;Chart (image)&lt;/h3&gt;
 
 &lt;p&gt;&lt;img src=&quot;/images/post_image/grouped_bar/grouped_bar04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
@@ -2465,7 +3376,7 @@ collect&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris_fltd&lt;span class=&qu
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;data.frame과의-차이점&quot;&gt;data.frame과의 차이점&lt;/h2&gt;
+&lt;h2 id=&quot;data-frame과의-차이점&quot;&gt;data.frame과의 차이점&lt;/h2&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2553,7 +3464,7 @@ list_col&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;data_frame은-row.names()를-사용하지-않는다&quot;&gt;data_frame은 &lt;code&gt;row.names()&lt;/code&gt;를 사용하지 않는다&lt;/h4&gt;
+&lt;h4 id=&quot;data_frame은-row-names-를-사용하지-않는다&quot;&gt;data_frame은 &lt;code&gt;row.names()&lt;/code&gt;를 사용하지 않는다&lt;/h4&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2599,7 +3510,7 @@ list_col&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quo
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;tbl_df-클래스로-인해서-[-]의-동작도-달라진다&quot;&gt;tbl_df 클래스로 인해서 [ ]의 동작도 달라진다&lt;/h4&gt;
+&lt;h4 id=&quot;tbl_df-클래스로-인해서-의-동작도-달라진다&quot;&gt;tbl_df 클래스로 인해서 [ ]의 동작도 달라진다&lt;/h4&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -2626,7 +3537,7 @@ iris_head&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;s&q
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h4 id=&quot;data_frame으로-변경하려면-as_data_frame()함수를-사용하면-된다&quot;&gt;data_frame으로 변경하려면 &lt;code&gt;as_data_frame()&lt;/code&gt;함수를 사용하면 된다&lt;/h4&gt;
+&lt;h4 id=&quot;data_frame으로-변경하려면-as_data_frame-함수를-사용하면-된다&quot;&gt;data_frame으로 변경하려면 &lt;code&gt;as_data_frame()&lt;/code&gt;함수를 사용하면 된다&lt;/h4&gt;
 
 &lt;p&gt;&lt;code&gt;as.data.frame()&lt;/code&gt;보다 훨씬 빠르다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;as_data_frame&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -3064,7 +3975,7 @@ list01
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기---for문&quot;&gt;list01의 data에서 media_id만 추출하기 - for문&lt;/h3&gt;
+&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-for문&quot;&gt;list01의 data에서 media_id만 추출하기 - for문&lt;/h3&gt;
 
 &lt;p&gt;빈 벡터를 하나 만들고, for문이 돌 때마다 값을 하나씩 추가한다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -3077,7 +3988,7 @@ media_id
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;hr&gt;
 
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기---sapply&quot;&gt;list01의 data에서 media_id만 추출하기 - sapply&lt;/h3&gt;
+&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-sapply&quot;&gt;list01의 data에서 media_id만 추출하기 - sapply&lt;/h3&gt;
 
 &lt;p&gt;&lt;code&gt;sapply&lt;/code&gt;함수를 이용하면 &lt;code&gt;list01$data&lt;/code&gt;의 각 항목을 &lt;code&gt;x&lt;/code&gt;로 둘 때 &lt;code&gt;x$media_id&lt;/code&gt;의 값을 벡터로 정리해서 반환해준다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
@@ -3089,7 +4000,7 @@ media_id
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;sapply?&quot;&gt;sapply?&lt;/h2&gt;
+&lt;h2 id=&quot;sapply&quot;&gt;sapply?&lt;/h2&gt;
 
 &lt;p&gt;첫 번째 인자로 들어오는 벡터 또는 리스트의 항목을 하나씩 그 뒤에 들어오는 함수에 대입시킨다&lt;/p&gt;
 
@@ -3113,13 +4024,13 @@ media_id
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;데이터를-data.frame에-정리하기&quot;&gt;데이터를 data.frame에 정리하기&lt;/h2&gt;
+&lt;h2 id=&quot;데이터를-data-frame에-정리하기&quot;&gt;데이터를 data.frame에 정리하기&lt;/h2&gt;
 
 &lt;p&gt;위에서는 간단하게 필요한 변수만 벡터로 저장해 보았다면 여기서는 여러 가지 변수들을 모아서 데이터 프레임으로 저장해 보려고 한다.&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;list01$data-를-데이터-프레임으로-정리하기---for문&quot;&gt;list01$data 를 데이터 프레임으로 정리하기 - for문&lt;/h3&gt;
+&lt;h3 id=&quot;list01-data-를-데이터-프레임으로-정리하기-for문&quot;&gt;list01$data 를 데이터 프레임으로 정리하기 - for문&lt;/h3&gt;
 
 &lt;p&gt;row단위로 데이터를 합치게 된다&lt;/p&gt;
 
@@ -3138,7 +4049,7 @@ df_data_for
 ## 2      a02    5 filterB
 ## 3      a03   23 filterC
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;list01$data를-데이터-프레임으로-정리하기---sapply&quot;&gt;list01$data를 데이터 프레임으로 정리하기 - sapply&lt;/h3&gt;
+&lt;h3 id=&quot;list01-data를-데이터-프레임으로-정리하기-sapply&quot;&gt;list01$data를 데이터 프레임으로 정리하기 - sapply&lt;/h3&gt;
 
 &lt;p&gt;col단위로 데이터를 합치게 된다&lt;/p&gt;
 
@@ -3852,7 +4763,7 @@ wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=
   </author>
   <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;geocoding-with-ggmap::geocode&quot;&gt;Geocoding with ggmap::geocode&lt;/h2&gt;
+&lt;h2 id=&quot;geocoding-with-ggmap-geocode&quot;&gt;Geocoding with ggmap::geocode&lt;/h2&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
@@ -4213,7 +5124,7 @@ aapl_data
 
 &lt;hr&gt;
 
-&lt;h2 id=&quot;enter?&quot;&gt;enter?&lt;/h2&gt;
+&lt;h2 id=&quot;enter&quot;&gt;enter?&lt;/h2&gt;
 
 &lt;p&gt;사실 제가 멍청이인게, 지금 쓰는 내용들은 그냥 &lt;a href=&quot;http://bost.ocks.org/mike/join/&quot;&gt;Thinking with Joins&lt;/a&gt; 라는 글로 Mike Bostock가 올려놓은 내용입니다. 저도 이거 몇 번 읽은 것 같은데 그 때는 그냥 그렇구나 하고 넘겼던 내용들이 사람을 참 힘들게 만들었죠. &lt;/p&gt;
 
@@ -4226,7 +5137,7 @@ aapl_data
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;대략 이런 형태가 되겠네요. 사실 그 때 잘 이해가 안됐던 것은 &lt;code&gt;.selectAll(&amp;#39;.empty&amp;#39;)&lt;/code&gt; 입니다. 예제들을 보면 뒤에서 만들 요소들을 선택하는게 보통이긴 한데 어찌됐든 저 시점에서는 아무 것도 안잡히니까 결국 비어있는 selection이거든요. 그래서 나름 실험해본답시고 다른, 전혀 상관없는 선택을 잡아서 해보니까 그래도 그래프는 그려집니다. 점점 저부분이 필요없는 부분인가 하고 고민을 하게 됩니다.&lt;/p&gt;
 
-&lt;h2 id=&quot;new-graph?&quot;&gt;New Graph?&lt;/h2&gt;
+&lt;h2 id=&quot;new-graph&quot;&gt;New Graph?&lt;/h2&gt;
 
 &lt;p&gt;이제 두 번째 오해입니다. 버튼을 누르든지 뭐든지 무엇인가 이벤트가 생기면 데이터를 바꿔서 차트를 다시 그려야하는 상황이 되었습니다. 안돌아가는 머리를 열심히 굴려서 생각해낸 방법은 이렇습니다.&lt;/p&gt;
 
@@ -4240,7 +5151,7 @@ aapl_data
 
 &lt;hr&gt;
 
-&lt;h1 id=&quot;enter-/-update-/-exit&quot;&gt;enter / update / exit&lt;/h1&gt;
+&lt;h1 id=&quot;enter-update-exit&quot;&gt;enter / update / exit&lt;/h1&gt;
 
 &lt;p&gt;d3에서 enter와 관련된 개념을 볼 때 자주 등장하는 그림이 있습니다. &lt;/p&gt;
 
@@ -4783,7 +5694,7 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
 
-&lt;h2 id=&quot;jupyter-with-r-(windows)&quot;&gt;jupyter with R (windows)&lt;/h2&gt;
+&lt;h2 id=&quot;jupyter-with-r-windows&quot;&gt;jupyter with R (windows)&lt;/h2&gt;
 
 &lt;p&gt;우선 여기서는 python, ipython, jupyter, 그리고 R까지 모두 설치되어 있다는 것을 전제로 진행하려고 한다. python과 R의 설치는 비교적 쉽게 할 수 있지만, ipython과 jupyter의 경우에는 구글에서 관련된 내용으로 검색해가면서 진행해야 할 것 같다. &lt;/p&gt;
 
@@ -4966,383 +5877,6 @@ dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_economist&lt;span c
 이후의 ggplot2 관련 글들은 ggplot2와 기타 다른 패키지들을 이용해서 시각화를 시도하고, 발생하는 문제의 원인을 파악해서 해결하는 과정을 보여드리게 될 것 같습니다.&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-03&quot;&gt;ggplot2 - 03&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 26, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[ggplot2 - 02 Drawing Graphs]]></title>
-  <link>http://lumiamitie.github.io/r/visualization/ggplot2-02</link>
-  <id>http://lumiamitie.github.io/r/visualization/ggplot2-02</id>
-  <published>2015-08-17T00:00:00+09:00</published>
-  <updated>2015-08-17T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
-
-&lt;p&gt;저번 글에서는 ggplot2가 어떻게 동작하는지를 위주로 살펴보았습니다. 이번에는 그래프가 에러없이 뜨는데 만족하지 않고 원하는 형태로 그래프를 만들 수 있도록 다른 옵션들을 조작하는 방법을 살펴보겠습니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-iris_plot &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Width&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h4 id=&quot;parameter&quot;&gt;Parameter&lt;/h4&gt;
-
-&lt;p&gt;parameter를 추가하면 geom의 형태를 변경하거나 stat이 적용되는 방법을 바꿀 수 있습니다. 에스테틱을 직접 적용하거나 각 함수마다 주어지는 옵션을 변경하게 됩니다. 에스테틱은 &lt;strong&gt;aes&lt;/strong&gt;함수 안에서 쓰이면 데이터의 값에 매핑되지만, 밖에서 쓰일 경우에는 해당 요소를 전부 변경합니다. 예를 들어 &lt;code&gt;geom_point(aes(size = var))&lt;/code&gt;은 &lt;strong&gt;var&lt;/strong&gt; 데이터의 값에 따라 점의 크기가 변하게 됩니다. 하지만 &lt;code&gt;geom_point(size = 3)&lt;/code&gt; 의 경우에는 모든 점의 크기가 3으로 고정됩니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;에스테틱 중에서 좌표를 나타내는 &lt;strong&gt;x&lt;/strong&gt;와 &lt;strong&gt;y&lt;/strong&gt;를 제외하면&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;colour&lt;/strong&gt;(또는 color)는 점이나 선 색상이나 면의 테두리 색을 결정합니다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;fill&lt;/strong&gt;은 면의 색상을 결정합니다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;alpha&lt;/strong&gt;는 색의 투명도를 나타냅니다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;에스테틱은 아니지만 각 함수의 세부적인 내용을 조정하는 parameter들도 존재합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;geom_smooth&lt;/strong&gt;의 경우에는 &lt;code&gt;method = &amp;#39;lm&amp;#39;&lt;/code&gt;으로 지정하면 추세선을 직선으로 그려줍니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lm&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;linetype&lt;/strong&gt; 옵션은 선의 모양을 변경할 수 있게 합니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;linetype &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;se&lt;/strong&gt; 옵션을 끄면 standard error의 범위를 표현하지 않습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_plot &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;red&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;se &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-5-1.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;각각의 함수들에는 적용할 수 있는 다양한 parameter들이 있습니다. 각 parameter들에 대한 자세한 설명은 역시 &lt;a href=&quot;http://docs.ggplot2.org/current/&quot;&gt;이 곳&lt;/a&gt;의 링크로 남겨놓는 편이 좋겠네요. 아직 이번 1월에 업데이트된 공식 1.0.0 버전에 추가된 내용은 반영되지 않은 것 같습니다만, 그래도 상당히 많은 예제를 볼 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h3 id=&quot;position-adjustment&quot;&gt;Position Adjustment&lt;/h3&gt;
-
-&lt;p&gt;&lt;strong&gt;position&lt;/strong&gt;은 &lt;strong&gt;geom&lt;/strong&gt;이 보여지는 형태를 바꿉니다. 막대그래프라면 막대가 누적으로 쌓일지, 옆에 나란히 놓일지 결정할 수 있습니다. 산점도라면 여러 점들이 겹쳐있을때 각 좌표에 일정 난수를 더해서 흩어져보이게 만들 수도 있습니다. &lt;/p&gt;
-
-&lt;hr&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;jitter&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;position = &amp;lsquo;jitter&amp;rsquo;&lt;/strong&gt;를 적용하면 각 x,y값에 난수를 더해서 점이 겹치지 않도록 합니다. &lt;code&gt;geom_point(position=&amp;#39;jitter&amp;#39;)&lt;/code&gt;는 &lt;code&gt;geom_jitter()&lt;/code&gt; 로 줄여서 쓸 수 있습니다&lt;/p&gt;
-
-&lt;hr&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;stack&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;막대그래프에서 &lt;strong&gt;position = &amp;#39;stack&amp;rsquo;&lt;/strong&gt;은 각 막대를 쌓아서 누적된 형태로 보여줍니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;fill&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;position = &amp;#39;fill&amp;rsquo;&lt;/strong&gt;은 비율을 나타내는 누적 막대를 보여줍니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;factor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;vs&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;dodge&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;position = &amp;#39;dodge&amp;rsquo;&lt;/strong&gt;는 각 막대를 옆으로 나열합니다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;postion을 적용하지 않을 때에는 &lt;strong&gt;position = &amp;#39;identity&amp;rsquo;&lt;/strong&gt; 옵션이 사용됩니다. 기본값이 postion = &amp;#39;identity&amp;#39;인 함수를 사용하고 있다면 position옵션을 생략할 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;그리고, position을 더 상세하게 지정하고 싶다면 &lt;em&gt;position_옵션이름&lt;/em&gt; 으로 지정된 함수에 parameter를 적용하면 됩니다. &lt;strong&gt;position_dodge&lt;/strong&gt;의 경우에는 어느 정도 간격으로 떨어뜨려 놓을지 정할 수 있고, &lt;strong&gt;position_jitter&lt;/strong&gt;에서는 난수를 어느 정도로 적용할 지 결정할 수 있습니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dodge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; position_dodge&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;sleep&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;ID&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;extra&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-  geom_line&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; dodge&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; dodge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; size&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; shape&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## ymax not defined: adjusting position using y instead
-## ymax not defined: adjusting position using y instead
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;위에서는 &lt;strong&gt;position_dodge&lt;/strong&gt;를 사용하지 않으면 ID=5일 때 점이 겹쳐보입니다. 일부러 점을 떨어져있게 만들고 싶다면 위와 같이 position_dodge 함수를 적용시킬 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;scales&quot;&gt;Scales&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;Scale&lt;/strong&gt;은 데이터의 값이 그래프의 에스테틱에 대입되는 과정을 조절하고 &lt;strong&gt;guide&lt;/strong&gt;(축과 범례 등)가 어떻게 표시되는지 결정한다고 저번 글에서 말씀드렸습니다. 스케일과 관련된 함수는 기본적으로는 &lt;strong&gt;scale_에스테틱_적용방법&lt;/strong&gt;으로 이름이 정해집니다. 스케일을 조절하는 함수는 에스테틱의 종류만큼이나 다양하게 존재하지만, 어느 정도 규칙적인 함수명 덕분에 비교적 쉽게 검색해서 적용이 가능합니다. &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;우선 본격적으로 관련 함수들에 대해서 알아보기 전에 &lt;code&gt;xlim&lt;/code&gt;, &lt;code&gt;ylim&lt;/code&gt; 함수를 살펴보겠습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  xlim&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
-## Warning: Removed 153 rows containing missing values (geom_point).
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;xlim()&lt;/strong&gt;, 또는 &lt;strong&gt;ylim()&lt;/strong&gt;함수를 이용하면 화면에 보이는 그래프의 범위를 보여줄 수 있습니다. 화면에 나오지 못하는 데이터가 생긴다면 경고메세지가 발생하지만 그래프는 문제없이 그려집니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;다음으로는 색상과 관련된 scale에 대해서 살펴보려고 합니다. 아래 예제에서는 fill을 기준으로 설명하겠지만, fill을 colour로 바꾸기만 하면 많은 경우에 동일한 방식으로 적용할 수 있습니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diamonds&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-12-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;xxx_brewer&lt;/strong&gt;로 끝나는 색상관련 scale 함수들은 &lt;strong&gt;RColorBrewer&lt;/strong&gt;패키지를 이용해서 색상을 지정합니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;RColorBrewer&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;display.brewer.all&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/colorbrewer_palette.jpg&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;display.brewer.all()&lt;/code&gt; 함수를 통해 사용가능한 색 조합의 이름과 색상들을 살펴볼 수 있습니다. 값의 높고 낮음을 보여줄 수 있는 Sequential, 서로 다른 범주나 그룹들을 구분지어 보여줄 수 있는 Qualitative, 어느 중심 값을 기준으로 얼마나 떨어져 있는지를 보여주는 Diverging 의 순서로 정리가 되어 있습니다. 현재 표현하고자 하는 데이터의 형태를 잘 살펴보고, 적절한 색조합을 적용시키면 됩니다. &lt;/p&gt;
-
-&lt;p&gt;원하는 색조합을 찾았다면, &lt;strong&gt;palette&lt;/strong&gt; 옵션에 조합의 이름을 넣어서 색상을 적용할 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Paired&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-14-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Accent&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-14-2.png?dl=0&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;다음은 축에 대한 scale함수를 사용해보겠습니다. 연속적인 수치 자료가 y축에 있을 때 스케일은 &lt;strong&gt;scale_y_continuous&lt;/strong&gt;함수를 적용할 수 있습니다. x축이라면 y를 x로 바꾸면 되고, 이산형자료라면 continuous가 discrete로 바뀝니다.&lt;/p&gt;
-
-&lt;p&gt;위에서 &lt;strong&gt;xlim&lt;/strong&gt; 함수를 살펴보았는데요. &lt;strong&gt;scale_x_continuous&lt;/strong&gt; 안에 &lt;strong&gt;limits&lt;/strong&gt; 옵션을 지정하면 동일한 효과를 얻을 수 있습니다. &lt;strong&gt;xlim&lt;/strong&gt;이 적용되었던 예제를 &lt;strong&gt;scale_x_continuous&lt;/strong&gt;로 표현하면 다음과 같습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;displ&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; hwy&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-    geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-    geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-    scale_x_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 153 rows containing missing values (stat_smooth).
-## Warning: Removed 153 rows containing missing values (geom_point).
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-15-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;산점도 같은 경우에는 그래프로 표현하는 범위를 강제하더라도 문제가 없겠지만, 막대 그래프 같은 경우에는 위와 같은 방식을 사용하면 막대 자체가 표현이 되지 않을 수 있으니 유의하시기 바랍니다.&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;trans&lt;/strong&gt;옵션은 변수변환을 스케일 차원에서 조절할 수 있게 해줍니다. &lt;strong&gt;trans = log10&lt;/strong&gt;옵션을 적용하면 y축에 log10 함수를 적용합니다. &lt;strong&gt;scale_y_log10&lt;/strong&gt; 처럼 자주 쓰이는 함수들은 미리 함수들이 지정되어 있기도 하지만 옵션에서 사용하면 사용가능한 함수의 이름을 입력하는 방식으로 사용할 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Accent&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;trans &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;log10&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;breaks&lt;/strong&gt;옵션은 눈금에 표시되는 항목을 지정할 수 있게 해줍니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;breaks &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;5000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-17-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;coordinate-system&quot;&gt;Coordinate System&lt;/h2&gt;
-
-&lt;p&gt;좌표계의 경우 아무런 값이 지정되지 않으면 기본값으로 Cartesian을 적용합니다(&lt;strong&gt;coord_cartesian()&lt;/strong&gt;). &lt;strong&gt;coord_flip()&lt;/strong&gt;을 이용해 x축과 y축을 뒤바꿀 수 있고, &lt;strong&gt;coord_polar()&lt;/strong&gt;를 사용하면 극좌표계로 변환시킬 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_flip&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-18-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_polar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-19-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;그래프에서 보이는 축의 범위를 조절하려고 할 때 위에서 했던 대로 scale을 변경할 수도 있지만, 좌표계를 직접 변형시키는 방법이 있습니다. 하지만 두 개의 방식에는 큰 차이가 있는데, scale을 변경하면 해당 스케일을 벗어나는 데이터는 제거하고 그래프를 그립니다. 따라서 boxplot의 경우에는 남아있는 데이터로 box가 새로 그려질 것이고 막대그래프의 경우에는 데이터의 범위를 벗어나는 막대는 막대 자체가 그려지지 않습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려지지 않는다&lt;/span&gt;
-dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-20-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-  geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;limits&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Warning: Removed 16 rows containing non-finite values (stat_boxplot).
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-21-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;반면에 좌표를 직접 수정하는 경우에는 그래프를 일단 그린 다음에 입력한 범위만 확대하거나 축소하는 등 변형을 시킵니다. 그래서 그래프의 모양이 변하거나 하지 않습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# &amp;#39;Ideal&amp;#39;의 막대가 그려진다. 대신 15000 이후로는 보이지 않는다&lt;/span&gt;
-dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-22-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;InsectSprays&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;spray&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;count&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; 
-  geom_boxplot&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_cartesian&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ylim&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-23-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;coord&lt;/strong&gt; 항목을 신경써서 적용해야 할 때가 또 있습니다. 바로 지도를 그릴 때인데요. 지도를 그릴 때는 기본적으로 위도와 경도가 직교좌표계에 그려지는데, &lt;strong&gt;coord_map()&lt;/strong&gt;을 사용하면 지도의 투영 방식을 적용하여 ggplot 그래프를 그릴 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;maps&lt;/strong&gt; 패키지에서 지도를 받아온 후에 좌표계를 지정하지 않고 그려보겠습니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;maps&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-asia &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; map_data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;world&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; region &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Japan&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;China&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;North Korea&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;South Korea&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-24-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;다음은 &lt;strong&gt;coord_map&lt;/strong&gt; 함수를 사용합니다. 기본 투영법은 &lt;strong&gt;mercator&lt;/strong&gt;입니다. 위도선이 나타나는 간격이 달라지는 것을 볼 수 있습니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_map&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-25-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;?mapproject&lt;/strong&gt;을 통해서 적용할 수 있는 다양한 투영법과 적용할 수 있는 옵션을 찾아볼 수 있습니다. 아래에서는 그 중 몇 가지만 함께 살펴보도록 하겠습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;orthographic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-26-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;asia&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;long&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; group&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_polygon&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;white&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;black&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  coord_map&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;polyconic&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-27-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;facetting&quot;&gt;Facetting&lt;/h2&gt;
-
-&lt;p&gt;&lt;strong&gt;facet&lt;/strong&gt;을 적용하면 데이터의 부분집합들을 하위 그래프로 분리해서 그릴 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;facet_wrap()&lt;/strong&gt;을 사용하면 하위 그래프들이 수평으로 나열되고, &lt;strong&gt;facet_grid()&lt;/strong&gt;은 수직과 수평으로 각각 다른 변수를 지정할 수 있습니다. &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mtcars&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;mpg&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; wt&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-28-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;두 개 이상의 변수를 동시에 지정하면 각 변수들의 경우의 수에 맞게 그래프를 그려줍니다.&lt;/p&gt;
-
-&lt;p&gt;이렇게 많은 숫자의 그래프가 그려질 때 &lt;strong&gt;ncol&lt;/strong&gt; 옵션을 이용하면 한 화면에 보여질 그래프 열의 개수를 조정할 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;gear&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; ncol &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-29-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-29-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;facet_wrap&lt;/strong&gt;의 경우에는 scales 옵션을 이용하면 각 그래프의 축을 고정시킬지 그래프별로 다르게 할지 결정할 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;scales = &amp;#39;fixed&amp;rsquo;&lt;/strong&gt;는 각 그래프 모두 축이 일정하게 그려집니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;scales = &amp;#39;free&amp;rsquo;&lt;/strong&gt;는 각 그래프의 데이터 범위에 맞게 조정해서 그립니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;scales = &amp;#39;free_x&amp;rsquo;&lt;/strong&gt;는 x축은 데이터 범위에 맞게 조절하고, y축은 고정시킵니다. &lt;strong&gt;&amp;#39;free_y&amp;rsquo;&lt;/strong&gt; 옵션도 마찬가지로 사용할 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;fixed&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_wrap&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-30-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;strong&gt;facet_grid&lt;/strong&gt;에서도 마찬가지로 &lt;strong&gt;scales&lt;/strong&gt; 옵션에  &lt;strong&gt;&amp;#39;free&amp;rsquo;&lt;/strong&gt; 나 &lt;strong&gt;&amp;#39;free_x&amp;rsquo;, &amp;#39;free_y&amp;rsquo;&lt;/strong&gt; 등을 적용할 수 있습니다. &lt;strong&gt;facet_grid&lt;/strong&gt;에서는 추가적으로 &lt;strong&gt;space&lt;/strong&gt; 옵션을 추가할 수 있는데, 기본적으는 각 그래프의 크기가 동일하게 그려지지만, &lt;strong&gt;space = &amp;#39;free&amp;rsquo;&lt;/strong&gt; 옵션이 지정되면 데이터의 범위에 따라 그래프의 크기도 변경됩니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free_x&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-2.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;mtc_point &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
-  facet_grid&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;gear&lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;cyl&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; scales &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; space &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;free&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_02/unnamed-chunk-31-3.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;여기까지 해서 ggplot 객체를 구성하는 layer, scale, coord, facet까지 훑어보았습니다. 이제 어느 정도 원하는 대로 ggplot 그래프를 그릴 수 있게 되었습니다. 다음 글에서는 ggplot 그래프에 저장된 테마를 적용하는 방법과 &lt;strong&gt;stat&lt;/strong&gt;이 생성하는 변수 등 앞에서 제대로 다루지 않았던 항목들을 살펴보려고 합니다.&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-02&quot;&gt;ggplot2 - 02 Drawing Graphs&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 17, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>

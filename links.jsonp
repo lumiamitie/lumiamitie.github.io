@@ -133,6 +133,11 @@ callback([
   {
     "text": "R6 - Modify in place",
     "href": "http://lumiamitie.github.io/r/R6-modify-in-place"
+  } ,
+
+  {
+    "text": "Linear Regression with r",
+    "href": "http://lumiamitie.github.io/r/linear-model"
   } 
 
 ])
