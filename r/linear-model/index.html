@@ -516,42 +516,27 @@ mse_cars2
 
 <p>실제 데이터와 예측 결과를 하나의 그래프에 표현하려고 한다</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>dplyr<span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## 
-## Attaching package: &#39;dplyr&#39;
-## 
-## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag
-## 
-## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union
-</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">diff_cars2 <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
+
+diff_cars2 <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
     price <span class="o">=</span> cars_ts<span class="o">$</span>Price<span class="p">,</span>
     pred <span class="o">=</span> pred_cars2<span class="p">)</span> <span class="o">%&gt;%</span> 
-  arrange<span class="p">(</span>price<span class="p">)</span>
+  arrange<span class="p">(</span>price<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span>
 </code></pre></div>
 <p><br /></p>
 
 <p><code>ggplot2</code>에서 본래 추구하는 방식으로 그래프를 그리기 위해서는 tidy data의 형태로 data.frame을 정리하는 것이 좋다. tidy data에 대해서 알아보려면 <a href="http://lumiamitie.github.io/r/tidy-data/">예전 글</a> 의 내용을 참고하면 좋을 것 같다.</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">diff_cars2_tidy <span class="o">=</span> diff_cars2 <span class="o">%&gt;%</span> 
-  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&quot;level&quot;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&quot;value&quot;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  group_by<span class="p">(</span>level<span class="p">)</span> <span class="o">%&gt;%</span> 
-  arrange<span class="p">(</span>value<span class="p">)</span> <span class="o">%&gt;%</span> 
-  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span>
+  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&quot;level&quot;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&quot;value&quot;</span><span class="p">,</span> price<span class="o">:</span>pred<span class="p">)</span>
 
 <span class="kp">head</span><span class="p">(</span>diff_cars2_tidy<span class="p">)</span>
-</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Source: local data frame [6 x 3]
-## Groups: level [1]
-## 
-##    level    value   idx
-##   (fctr)    (dbl) (int)
-## 1  price  8638.93     1
-## 2  price  9789.04     2
-## 3  price 10354.04     3
-## 4  price 10813.34     4
-## 5  price 10921.95     5
-## 6  price 11343.05     6
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   idx level    value
+## 1   1 price  8638.93
+## 2   2 price  9789.04
+## 3   3 price 10354.04
+## 4   4 price 10813.34
+## 5   5 price 10921.95
+## 6   6 price 11343.05
 </code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>data <span class="o">=</span> diff_cars2_tidy<span class="p">,</span> 
         aes<span class="p">(</span>x <span class="o">=</span> idx<span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> colour <span class="o">=</span> level<span class="p">))</span> <span class="o">+</span>
   geom_point<span class="p">()</span>
@@ -890,10 +875,9 @@ mse_ridge <span class="o">=</span> <span class="kp">mean</span><span class="p">(
 <div class="highlight"><pre><code class="language-r" data-lang="r">df_ridge <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
     price <span class="o">=</span> cars_ts<span class="o">$</span>Price<span class="p">,</span>
     pred <span class="o">=</span> pred_ridge<span class="p">[,</span><span class="m">1</span><span class="p">])</span> <span class="o">%&gt;%</span> 
-  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  group_by<span class="p">(</span>level<span class="p">)</span> <span class="o">%&gt;%</span> 
-  arrange<span class="p">(</span>value<span class="p">)</span> <span class="o">%&gt;%</span> 
-  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span>
+  arrange<span class="p">(</span>price<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span> <span class="o">%&gt;%</span> 
+  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">,</span> price<span class="o">:</span>pred<span class="p">)</span>
 
 ggplot<span class="p">(</span>df_ridge<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> idx<span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> colour <span class="o">=</span> level<span class="p">))</span><span class="o">+</span>
   geom_point<span class="p">()</span><span class="o">+</span>
@@ -937,12 +921,11 @@ mse_lasso <span class="o">=</span> <span class="kp">mean</span><span class="p">(
 
 <p>lasso의 경우도 실제 값과 예측결과를 그래프로 비교해볼 수 있다</p>
 <div class="highlight"><pre><code class="language-r" data-lang="r">df_lasso <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
-  price <span class="o">=</span> cars_ts<span class="o">$</span>Price<span class="p">,</span>
-  pred <span class="o">=</span> pred_lasso<span class="p">[,</span><span class="m">1</span><span class="p">])</span> <span class="o">%&gt;%</span> 
-  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  group_by<span class="p">(</span>level<span class="p">)</span> <span class="o">%&gt;%</span> 
-  arrange<span class="p">(</span>value<span class="p">)</span> <span class="o">%&gt;%</span> 
-  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span>
+    price <span class="o">=</span> cars_ts<span class="o">$</span>Price<span class="p">,</span>
+    pred <span class="o">=</span> pred_lasso<span class="p">[,</span><span class="m">1</span><span class="p">])</span> <span class="o">%&gt;%</span> 
+  arrange<span class="p">(</span>price<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span> <span class="o">%&gt;%</span> 
+  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">,</span> price<span class="o">:</span>pred<span class="p">)</span>
 
 ggplot<span class="p">(</span>df_lasso<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> idx<span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> colour <span class="o">=</span> level<span class="p">))</span><span class="o">+</span>
   geom_point<span class="p">()</span><span class="o">+</span>
@@ -996,12 +979,11 @@ pred_lasso2 <span class="o">=</span> predict<span class="p">(</span>
 <span class="p">)</span>
 
 df_lasso2 <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
-  price <span class="o">=</span> cars_ts2<span class="o">$</span>Price<span class="p">,</span>
-  pred <span class="o">=</span> pred_lasso2<span class="p">[,</span><span class="m">1</span><span class="p">])</span> <span class="o">%&gt;%</span> 
-  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">)</span> <span class="o">%&gt;%</span> 
-  group_by<span class="p">(</span>level<span class="p">)</span> <span class="o">%&gt;%</span> 
-  arrange<span class="p">(</span>value<span class="p">)</span> <span class="o">%&gt;%</span> 
-  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span>
+    price <span class="o">=</span> cars_ts2<span class="o">$</span>Price<span class="p">,</span>
+    pred <span class="o">=</span> pred_lasso2<span class="p">[,</span><span class="m">1</span><span class="p">])</span> <span class="o">%&gt;%</span> 
+  arrange<span class="p">(</span>price<span class="p">)</span> <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>idx <span class="o">=</span> row_number<span class="p">())</span> <span class="o">%&gt;%</span> 
+  tidyr<span class="o">::</span>gather<span class="p">(</span>key <span class="o">=</span> <span class="s">&#39;level&#39;</span><span class="p">,</span> value <span class="o">=</span> <span class="s">&#39;value&#39;</span><span class="p">,</span> price<span class="o">:</span>pred<span class="p">)</span>
 
 ggplot<span class="p">(</span>df_lasso2<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> idx<span class="p">,</span> y <span class="o">=</span> value<span class="p">,</span> colour <span class="o">=</span> level<span class="p">))</span><span class="o">+</span>
   geom_point<span class="p">()</span><span class="o">+</span>

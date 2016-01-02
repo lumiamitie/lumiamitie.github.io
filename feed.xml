@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-01-02T00:22:12+09:00</updated>
+<updated>2016-01-02T19:13:44+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
@@ -408,42 +408,27 @@ mse_cars2
 
 &lt;p&gt;실제 데이터와 예측 결과를 하나의 그래프에 표현하려고 한다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## 
-## Attaching package: &amp;#39;dplyr&amp;#39;
-## 
-## The following objects are masked from &amp;#39;package:stats&amp;#39;:
-## 
-##     filter, lag
-## 
-## The following objects are masked from &amp;#39;package:base&amp;#39;:
-## 
-##     intersect, setdiff, setequal, union
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;diff_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+
+diff_cars2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_cars2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;에서 본래 추구하는 방식으로 그래프를 그리기 위해서는 tidy data의 형태로 data.frame을 정리하는 것이 좋다. tidy data에 대해서 알아보려면 &lt;a href=&quot;http://lumiamitie.github.io/r/tidy-data/&quot;&gt;예전 글&lt;/a&gt; 의 내용을 참고하면 좋을 것 같다.&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;diff_cars2_tidy &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; diff_cars2 &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;level&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;level&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;value&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; price&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;pred&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 &lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diff_cars2_tidy&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Source: local data frame [6 x 3]
-## Groups: level [1]
-## 
-##    level    value   idx
-##   (fctr)    (dbl) (int)
-## 1  price  8638.93     1
-## 2  price  9789.04     2
-## 3  price 10354.04     3
-## 4  price 10813.34     4
-## 5  price 10921.95     5
-## 6  price 11343.05     6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   idx level    value
+## 1   1 price  8638.93
+## 2   2 price  9789.04
+## 3   3 price 10354.04
+## 4   4 price 10813.34
+## 5   5 price 10921.95
+## 6   6 price 11343.05
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; diff_cars2_tidy&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
         aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
@@ -782,10 +767,9 @@ mse_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_ridge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
     price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
     pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_ridge&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; price&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;pred&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_ridge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
@@ -829,12 +813,11 @@ mse_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp
 
 &lt;p&gt;lasso의 경우도 실제 값과 예측결과를 그래프로 비교해볼 수 있다&lt;/p&gt;
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_lasso &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; price&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;pred&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_lasso&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
@@ -888,12 +871,11 @@ pred_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class
 &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 df_lasso2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso2&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  group_by&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;level&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;value&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt;
+    price &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; cars_ts2&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Price&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+    pred &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pred_lasso2&lt;span class=&quot;p&quot;&gt;[,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  arrange&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;price&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tidyr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;gather&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;key &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;level&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; value &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;value&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; price&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;pred&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_lasso2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; level&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
