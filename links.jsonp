@@ -138,6 +138,11 @@ callback([
   {
     "text": "Linear Regression with r",
     "href": "http://lumiamitie.github.io/r/linear-model"
+  } ,
+
+  {
+    "text": "caret - preProcess",
+    "href": "http://lumiamitie.github.io/r/preProcess"
   } 
 
 ])

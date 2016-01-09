@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "caret - preProcess",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/preProcess",
+		  "date"       : "2016-01-09 00:00:00 +0900",
+		  "shortdate"  : "January 09, 2016"
+		} ,
+	
+		{
 		  "title"      : "Linear Regression with r",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/linear-model",

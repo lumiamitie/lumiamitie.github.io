@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>CARET - PREPROCESS</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="caret, preProcess">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="caret - preProcess">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/preProcess">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/preProcess">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>caret - preProcess</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#caret" data-toggle="tooltip" title="Posts tagged with caret" rel="tag">caret</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#preProcess" data-toggle="tooltip" title="Posts tagged with preProcess" rel="tag">preProcess</a> <strong><time datetime="2016-01-09T00:00:00+09:00">09 Jan 2016</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="/images/macphoto.jpg" alt="cover-image"></p>
+
+<h1 id="preprocessing-the-data">Preprocessing the data</h1>
+
+<p>데이터를 분석하다 보면 분석하기 전에 전처리를 수행해야 하는 경우가 많이 발생한다. 전처리를 위해 직접 코드를 짜는 경우도 있고, 다른 패키지에서 제공하는 기능을 사용할 수 있다. 여기서는 <code>caret</code> 패키지의 <code>preProcess</code> 함수를 기준으로 해서 함수를 적용하는 방법에 대해 설명하려고 한다.</p>
+
+<h2 id="feature-transformations">Feature transformations</h2>
+
+<p>caret 패키지에서는 <code>preProcess</code> 함수를 통해서 표준화 등의 전처리를 수행할 수 있다. <code>caret</code>을 이용한 변수변환은 두 개의 단계로 구성된다.</p>
+
+<p>우선 <code>preProcess</code> 함수를 사용해서 변수변환에 필요한 parameter를 설정한다</p>
+
+<p>그리고 <code>predict</code> 함수를 통해 실제로 값을 변화시킨다</p>
+
+<p>R에서 모델을 구성하고 예측하는 방법과 동일한 구조를 취하고 있기 때문에 기존에 R을 사용하던 사람이라면 쉽게 익숙해질 수 있다. </p>
+
+<p><br /></p>
+
+<hr>
+
+<p><code>preProcess</code> 함수의 첫 번째 인자는 변환시키고자 하는 데이터이다. data.frame의 형태를 가지는 수치 데이터를 요구한다</p>
+
+<p>두 번째 인자는 변환 방식이다. <code>&quot;range&quot;, &quot;BoxCox&quot;, c(&quot;center&quot;, &quot;scale&quot;), &quot;pca&quot;</code>등 다양한 방식을 제공한다. 기본값은 <code>c(&quot;center&quot;, &quot;scale&quot;)</code>이다</p>
+
+<p><br /></p>
+
+<hr>
+
+<h3 id="z-score-normalization">Z-Score normalization</h3>
+
+<p>먼저 살펴볼 변수 변환 방식은 <strong>z-score</strong>를 이용한 정규화이다. 데이터가 정규분포에 가까운 형태를 가질 경우에 생각해 볼 수 있는 방법이다. 각 변수들이 종모양의 형태를 보이지만 단위에서 큰 차이를 보일 때, 분포는 동일하게 유지하면서 값의 단위를 비슷한 수준으로 맞출 수 있다</p>
+
+<p><code>preProcess</code>함수를 적용하면 변환에 대한 정보를 살펴볼 수 있다. 수치형 자료가 아닌 <code>Species</code> 열은 무시된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># install.packages(&#39;caret&#39;)</span>
+<span class="c1"># install.packages(&#39;e1071&#39;)</span>
+<span class="kn">library</span><span class="p">(</span>caret<span class="p">)</span>
+zs_iris <span class="o">=</span> preProcess<span class="p">(</span>iris<span class="p">,</span> method <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="s">&quot;scale&quot;</span><span class="p">))</span>
+zs_iris
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - scaled (4)
+</code></pre></div>
+<p><code>method = &quot;center&quot;</code>는 데이터에서 평균값을 뺀다</p>
+
+<p><code>method = &quot;scale&quot;</code>은 데이터를 표준편차로 나눈다</p>
+
+<p>따라서 두 옵션을 모두 사용하면 Z-Score를 사용한 정규화를 시행할 수 있다. 변환시킨 변수는 평균이 0이고 분산이 1이 된다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">zs_iris_t <span class="o">=</span> predict<span class="p">(</span>zs_iris<span class="p">,</span> iris<span class="p">)</span>
+
+<span class="kp">head</span><span class="p">(</span>zs_iris_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+## 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+## 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+## 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+## 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+## 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kp">mean</span><span class="p">(</span>zs_iris_t<span class="o">$</span>Sepal.Length<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] -4.484318e-16
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">var<span class="p">(</span>zs_iris_t<span class="o">$</span>Sepal.Length<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 1
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<h3 id="feature-scaling-unity-based-normalization">Feature Scaling (Unity-based normalization)</h3>
+
+<p>데이터가 균일하게 분포되어있는 경우에는 [0, 1] 범위로 값을 조정하는 것이 도움이 될 수 있다. 데이터의 최대값을 1로 두고 최소값을 0으로 할 때, 각 데이터의 상대적인 위치를 값으로 한다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">un_iris <span class="o">=</span> preProcess<span class="p">(</span>iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;range&quot;</span><span class="p">)</span>
+un_iris
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - ignored (1)
+##   - re-scaling to [0, 1] (4)
+</code></pre></div>
+<p><code>method = &quot;range&quot;</code>는 데이터를 [0, 1] 사이의 값으로 조정한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">un_iris_t <span class="o">=</span> predict<span class="p">(</span>un_iris<span class="p">,</span> iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>un_iris_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
+## 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
+## 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
+## 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
+## 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
+## 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<h3 id="box-cox-transformation">Box-Cox transformation</h3>
+
+<p>Box-Cox 변환은 데이터가 한 쪽으로 쏠려있을 때 종모양에 가까운 형태로 데이터를 조정할 수 있게 해준다. 또는 비선형인 데이터를 선형으로 변환시키거나, 분산이 일정하지 않을 경우 사용할 수 있다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">bc_iris <span class="o">=</span> preProcess<span class="p">(</span>iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;BoxCox&quot;</span><span class="p">)</span>
+bc_iris
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (4)
+##   - ignored (1)
+## 
+## Lambda estimates for Box-Cox transformation:
+## -0.1, 0.3, 0.9, 0.6
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p><strong>lambda estimates</strong>를 보면 -0.1, 0.3, 0.9, 0.6 으로 되어있다. <strong>fudge</strong> 기본값 0.2로 인해 (1 - 0.2, 1 + 0.2) 구간은 1로 값이 변경되고 (0 - 0.2, 0 + 0.2)의 값은 0으로 값이 변경된다. <code>lambda = 0</code>일 경우에는 변환식의 분모가 0이기 때문에 해당 값의 <strong>자연로그</strong>를 취한다. 따라서 Lambda estimates가 -0.1인 <code>Sepal.Length</code>는 <code>log(iris$Sepal.Length)</code>와 값다. Labmda estimates가 0.9인 <code>Petal.Length</code>는 값이 변하지 않는다</p>
+
+<p><code>predict</code> 함수를 통해 실제로 변환시킨 값을 얻을 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">bc_iris_t <span class="o">=</span> predict<span class="p">(</span>bc_iris<span class="p">,</span> iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>bc_iris_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1     1.629241    1.520660          1.4  -1.0321154  setosa
+## 2     1.589235    1.301297          1.4  -1.0321154  setosa
+## 3     1.547563    1.391905          1.3  -1.0321154  setosa
+## 4     1.526056    1.347113          1.5  -1.0321154  setosa
+## 5     1.609438    1.561856          1.4  -1.0321154  setosa
+## 6     1.686399    1.680826          1.7  -0.7048667  setosa
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>boxcox 변환에서는 fudge 옵션의 값을 변화시키면 tolerance 수준을 변경할 수 있다. 위에서 -0.1과 0.9가 있었기 때문에 두 변수 모두 값을 변화시킬 수 있도록 값을 0으로 둔다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">bc_iris_nofudge <span class="o">=</span> preProcess<span class="p">(</span>iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;BoxCox&quot;</span><span class="p">,</span> fudge <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+bc_iris_nofudge
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (4)
+##   - ignored (1)
+## 
+## Lambda estimates for Box-Cox transformation:
+## -0.1, 0.3, 0.9, 0.6
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">bc_iris_nofudge_t <span class="o">=</span> predict<span class="p">(</span>bc_iris_nofudge<span class="p">,</span> iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>bc_iris_nofudge_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1     1.503443    1.520660    0.3929751  -1.0321154  setosa
+## 2     1.469384    1.301297    0.3929751  -1.0321154  setosa
+## 3     1.433760    1.391905    0.2959291  -1.0321154  setosa
+## 4     1.415318    1.347113    0.4893297  -1.0321154  setosa
+## 5     1.486601    1.561856    0.3929751  -1.0321154  setosa
+## 6     1.551869    1.680826    0.6801608  -0.7048667  setosa
+</code></pre></div>
+<p>모든 수치형 변수의 값이 변화되었다</p>
+
+<p><br /></p>
+
+<hr>
+
+<h4 id="uspop-데이터에-box-cox-transformation-적용하기">uspop 데이터에 Box-Cox Transformation 적용하기</h4>
+
+<p>우선 변수를 변환하기 전에 원본 데이터의 분포를 살펴보려고 한다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">plot<span class="p">(</span>density<span class="p">(</span>uspop<span class="p">))</span>
+</code></pre></div>
+<p><img src="/images/post_image/preprocess/unnamed-chunk-9-1.png" alt=""> </p>
+
+<p>오른쪽 꼬리가 비교적 길다는 것을 확인할 수 있다. <code>preProcess</code> 함수를 적용하기 위해서 데이터를 data.frame 형태로 구성한다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">df_uspop <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
+  pop <span class="o">=</span> <span class="kp">as.numeric</span><span class="p">(</span>uspop<span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><br /></p>
+
+<p><code>preProcess</code>를 통해 box-cox 변환을 적용한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">bc_uspop <span class="o">=</span> preProcess<span class="p">(</span>df_uspop<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;BoxCox&quot;</span><span class="p">)</span>
+bc_uspop
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 19 samples and 1 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (1)
+##   - ignored (0)
+## 
+## Lambda estimates for Box-Cox transformation:
+## 0.2
+</code></pre></div>
+<p><br /></p>
+
+<p><code>predict</code>를 통해 실제 데이터를 변환한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">bc_uspop_t <span class="o">=</span> predict<span class="p">(</span>bc_uspop<span class="p">,</span> df_uspop<span class="p">)</span>
+</code></pre></div>
+<p><br /></p>
+
+<p>원래의 데이터와 비교하면 한 쪽에 데이터가 쏠리는 현상이 완화되었다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">plot<span class="p">(</span>density<span class="p">(</span>bc_uspop_t<span class="o">$</span>pop<span class="p">))</span>
+</code></pre></div>
+<p><img src="/images/post_image/preprocess/unnamed-chunk-13-1.png" alt=""> </p>
+
+<p><br /></p>
+
+<hr>
+
+<h3 id="다양한-전처리-방식-한번에-적용하기">다양한 전처리 방식 한번에 적용하기</h3>
+
+<p><code>preProcess</code> 함수에서는 <code>method</code> 항목에 여러 요소를 한꺼번에 입력하면 여러 가지 전처리 방식을 한번에 적용할 수 있다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">multi_iris <span class="o">=</span> preProcess<span class="p">(</span>iris<span class="p">,</span> method <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="s">&quot;center&quot;</span><span class="p">,</span> <span class="s">&quot;scale&quot;</span><span class="p">,</span> <span class="s">&quot;pca&quot;</span><span class="p">))</span>
+<span class="c1"># 사실 &quot;pca&quot;만 적용해도 center와 scale까지 한꺼번에 적용된다</span>
+
+multi_iris
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - principal component signal extraction (4)
+##   - scaled (4)
+## 
+## PCA needed 2 components to capture 95 percent of the variance
+</code></pre></div>
+<p>PCA를 적용하고 나면 차원을 축소시켜 두 개의 변수를 남길 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">multi_iris_t <span class="o">=</span> predict<span class="p">(</span>multi_iris<span class="p">,</span> iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>multi_iris_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Species       PC1        PC2
+## 1  setosa -2.257141 -0.4784238
+## 2  setosa -2.074013  0.6718827
+## 3  setosa -2.356335  0.3407664
+## 4  setosa -2.291707  0.5953999
+## 5  setosa -2.381863 -0.6446757
+## 6  setosa -2.068701 -1.4842053
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>PCA를 적용시킨 iris데이터를 가지고 scatter plot을 그리면 다음과 같다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>multi_iris_t<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> PC1<span class="p">,</span> y <span class="o">=</span> PC2<span class="p">,</span> colour <span class="o">=</span> Species<span class="p">))</span> <span class="o">+</span>
+  geom_point<span class="p">(</span>size <span class="o">=</span> <span class="m">3</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/preprocess/unnamed-chunk-16-1.png" alt=""> </p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="near-zero-variance">Near Zero Variance</h2>
+
+<p><code>nearZeroVar</code>는 값이 하나밖에 존재하지 않는 변수나 몇 개 안되는 요소만 반복되는 변수를 파악한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">df_nzv <span class="o">=</span> <span class="kt">data.frame</span><span class="p">(</span>
+  v1 <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="kp">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">21</span><span class="p">),</span> <span class="m">2</span><span class="p">),</span>
+  v2 <span class="o">=</span> <span class="kt">c</span><span class="p">(</span><span class="kp">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">11</span><span class="p">),</span> <span class="kp">rep</span><span class="p">(</span><span class="m">2</span><span class="p">,</span> <span class="m">8</span><span class="p">),</span> <span class="kp">rep</span><span class="p">(</span><span class="m">3</span><span class="p">,</span> <span class="m">3</span><span class="p">)),</span>
+  v3 <span class="o">=</span> <span class="kp">rep</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">22</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>nearZeroVar</code>함수를 사용하면 제거해야 할 열의 index를 반환해준다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 1 3
+</code></pre></div>
+<p>어떤 기준을 통해서 제거할 열을 선택했는지 살펴보려면 <code>saveMetrics = TRUE</code>옵션을 추가한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">,</span> saveMetrics <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE  TRUE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p><code>nearZeroVar</code>의 옵션 중에서 <code>freqRatio</code>는 제일 많이 등장하는 값의 개수와 두 번째로 많이 등장하는 값 개수의 비율을 의미한다</p>
+
+<p>v1의 경우 21/1 = 21</p>
+
+<p>v2의 경우 11/8 = 1.375</p>
+
+<p>v3의 경우 값이 한 가지밖에 없기 때문에 0</p>
+
+<hr>
+
+<p><code>percentUnique</code> (<code>uniqueCut</code>에서 비교하는 값)은 전체 데이터 중에서 겹치지 않는(unique한) 값의 비율을 나타낸다</p>
+
+<p>v1의 경우 1, 2이므로 2/22 * 100 = 9.0909</p>
+
+<p>v2의 경우 1, 2, 3 이므로 3/22 = 13.6364</p>
+
+<p>v3의 경우 1 밖에 없기 때문에 1/22 = 4.5454</p>
+
+<hr>
+
+<p>기본적으로 freqCut은 19, uniqueCut은 10을 기준으로 near zero variance를 판단한다. 옵션을 통해 기준이 되는 값을 변경할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">,</span> uniqueCut <span class="o">=</span> <span class="m">5</span><span class="p">,</span> saveMetrics <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE FALSE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">,</span> uniqueCut <span class="o">=</span> <span class="m">5</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 3
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">,</span> freqCut <span class="o">=</span> <span class="m">1</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## [1] 1 3
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">nearZeroVar<span class="p">(</span>df_nzv<span class="p">,</span> freqCut <span class="o">=</span> <span class="m">1</span><span class="p">,</span> saveMetrics <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE  TRUE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p><code>method = &quot;nzv&quot;</code>를 통해 <code>preProcess</code> 함수에서도 <code>nearZeroVar</code>를 적용할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">pp_nzv <span class="o">=</span> preProcess<span class="p">(</span>df_nzv<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;nzv&quot;</span><span class="p">)</span>
+pp_nzv
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 22 samples and 2 variables
+## 
+## Pre-processing:
+##   - ignored (0)
+##   - removed (2)
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">pp_nzv_t <span class="o">=</span> predict<span class="p">(</span>pp_nzv<span class="p">,</span> df_nzv<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>pp_nzv_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   v2
+## 1  1
+## 2  1
+## 3  1
+## 4  1
+## 5  1
+## 6  1
+</code></pre></div>
+<p>v1, v3이 제거되었다</p>
+
+<p><br /></p>
+
+<hr>
+
+<p><code>method = &quot;zv&quot;</code>를 사용하면 zero variance(변수의 모든 값이 같은 경우)만 제거한다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">pp_zv <span class="o">=</span> preProcess<span class="p">(</span>df_nzv<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;zv&quot;</span><span class="p">)</span>
+pp_zv
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 22 samples and 1 variables
+## 
+## Pre-processing:
+##   - ignored (0)
+##   - removed (1)
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">pp_zv_t <span class="o">=</span> predict<span class="p">(</span>pp_zv<span class="p">,</span> df_nzv<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>pp_zv_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   v1 v2
+## 1  1  1
+## 2  1  1
+## 3  1  1
+## 4  1  1
+## 5  1  1
+## 6  1  1
+</code></pre></div>
+<p>v3가 제거되었다</p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="missing-values">Missing Values</h2>
+
+<p>결측치를 다루는 방법에는 여러 가지가 있다. 결측치가 존재하는 열이나 행을 제거하거나 결측치를 특정 값으로 바꾸는 등의 방법이 있다. caret의 <code>preProcess</code> 함수는 knn, bagging, median 등의 방법을 이용해서 결측치를 다른 값으로 채울 수 있다. 기능을 사용하기 위해서는 다른 패키지를 추가로 설치해야 할 수도 있다</p>
+
+<hr>
+
+<p>실습을 위해서 iris데이터를 복사하고 [2, 2]의 값을 <code>NA</code>로 변경했다. NA로 변경한 값의 실제 값은 3.0이다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">df_na_iris <span class="o">=</span> iris
+df_na_iris<span class="p">[</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">]</span> <span class="o">=</span> <span class="kc">NA</span>
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>우선 <strong>K-nearest Neighbor</strong>를 이용해서 결측치를 채울 수 있다. 추가로 패키지를 요구할 수 있는데 경고가 뜰 경우 필요한 패키지를 설치하고 다시 실행하면 된다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#install.packages(&quot;RANN&quot;)</span>
+knnimp_na <span class="o">=</span> preProcess<span class="p">(</span>df_na_iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;knnImpute&quot;</span><span class="p">)</span>
+knnimp_na
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - 5 nearest neighbor imputation (4)
+##   - scaled (4)
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">knnimp_na_t <span class="o">=</span> predict<span class="p">(</span>knnimp_na<span class="p">,</span> df_na_iris<span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">4</span><span class="p">])</span>
+<span class="kp">head</span><span class="p">(</span>knnimp_na_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width
+## 1   -0.8976739  1.01136747    -1.335752   -1.311052
+## 2   -1.1392005  0.78269713    -1.335752   -1.311052
+## 3   -1.3807271  0.32535645    -1.392399   -1.311052
+## 4   -1.5014904  0.09668612    -1.279104   -1.311052
+## 5   -1.0184372  1.24003781    -1.335752   -1.311052
+## 6   -0.5353840  1.92604882    -1.165809   -1.048667
+</code></pre></div>
+<p><code>knnImpute</code>를 적용하면 centering과 scaling이 같이 적용된다</p>
+
+<p><br /></p>
+
+<hr>
+
+<p><code>bagImpute</code>를 사용하면 <code>Bagged Tree Model</code>을 통해 결측치를 예측하여 채워넣는다. 마찬가지로 다른 패키지를 추가로 설치해야할 수 있다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1">#install.packages(&quot;ipred&quot;)</span>
+bagimp_na <span class="o">=</span> preProcess<span class="p">(</span>df_na_iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;bagImpute&quot;</span><span class="p">)</span>
+bagimp_na
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - bagged tree imputation (4)
+##   - ignored (1)
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">bagimp_na_t <span class="o">=</span> predict<span class="p">(</span>bagimp_na<span class="p">,</span> df_na_iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>bagimp_na_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1    3.500000          1.4         0.2  setosa
+## 2          4.9    3.253777          1.4         0.2  setosa
+## 3          4.7    3.200000          1.3         0.2  setosa
+## 4          4.6    3.100000          1.5         0.2  setosa
+## 5          5.0    3.600000          1.4         0.2  setosa
+## 6          5.4    3.900000          1.7         0.4  setosa
+</code></pre></div>
+<p><br /></p>
+
+<hr>
+
+<p>median 값을 이용해서 결측치를 채워넣을 수도 있다. 이 경우 가장 간단하고 빠르지만 비교적 부정확할 수 있다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">medimp_na <span class="o">=</span> preProcess<span class="p">(</span>df_na_iris<span class="p">,</span> method <span class="o">=</span> <span class="s">&quot;medianImpute&quot;</span><span class="p">)</span>
+medimp_na
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - ignored (1)
+##   - median imputation (4)
+</code></pre></div><div class="highlight"><pre><code class="language-r" data-lang="r">medimp_na_t <span class="o">=</span> predict<span class="p">(</span>medimp_na<span class="p">,</span> df_na_iris<span class="p">)</span>
+<span class="kp">head</span><span class="p">(</span>medimp_na_t<span class="p">)</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+</code></pre></div>
+<p><br />
+<br /></p>
+
+<hr>
+
+<p>caret의 preProcess 함수에 대한 문서와 데이터 전처리에 대해 잘 정리된 블로그 링크를 첨부했다. 추가적으로 필요한 내용이 있다면 큰 도움이 될 것 같다.</p>
+
+<p><a href="http://topepo.github.io/caret/preprocess.html">caret document - preProcessing</a></p>
+
+<p><a href="http://wlsrnr1218.tistory.com/19">데이터 전처리 관련 참고</a></p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;caret - preProcess&quot;%20http://lumiamitie.github.io/r/preProcess%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/preProcess"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/preProcess"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2016 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-69341391-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+ 
+</body>
+</html>

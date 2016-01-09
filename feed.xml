@@ -4,13 +4,477 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-01-02T19:13:44+09:00</updated>
+<updated>2016-01-09T23:06:31+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[caret - preProcess]]></title>
+  <link>http://lumiamitie.github.io/r/preProcess</link>
+  <id>http://lumiamitie.github.io/r/preProcess</id>
+  <published>2016-01-09T00:00:00+09:00</published>
+  <updated>2016-01-09T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;preprocessing-the-data&quot;&gt;Preprocessing the data&lt;/h1&gt;
+
+&lt;p&gt;데이터를 분석하다 보면 분석하기 전에 전처리를 수행해야 하는 경우가 많이 발생한다. 전처리를 위해 직접 코드를 짜는 경우도 있고, 다른 패키지에서 제공하는 기능을 사용할 수 있다. 여기서는 &lt;code&gt;caret&lt;/code&gt; 패키지의 &lt;code&gt;preProcess&lt;/code&gt; 함수를 기준으로 해서 함수를 적용하는 방법에 대해 설명하려고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;feature-transformations&quot;&gt;Feature transformations&lt;/h2&gt;
+
+&lt;p&gt;caret 패키지에서는 &lt;code&gt;preProcess&lt;/code&gt; 함수를 통해서 표준화 등의 전처리를 수행할 수 있다. &lt;code&gt;caret&lt;/code&gt;을 이용한 변수변환은 두 개의 단계로 구성된다.&lt;/p&gt;
+
+&lt;p&gt;우선 &lt;code&gt;preProcess&lt;/code&gt; 함수를 사용해서 변수변환에 필요한 parameter를 설정한다&lt;/p&gt;
+
+&lt;p&gt;그리고 &lt;code&gt;predict&lt;/code&gt; 함수를 통해 실제로 값을 변화시킨다&lt;/p&gt;
+
+&lt;p&gt;R에서 모델을 구성하고 예측하는 방법과 동일한 구조를 취하고 있기 때문에 기존에 R을 사용하던 사람이라면 쉽게 익숙해질 수 있다. &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;preProcess&lt;/code&gt; 함수의 첫 번째 인자는 변환시키고자 하는 데이터이다. data.frame의 형태를 가지는 수치 데이터를 요구한다&lt;/p&gt;
+
+&lt;p&gt;두 번째 인자는 변환 방식이다. &lt;code&gt;&amp;quot;range&amp;quot;, &amp;quot;BoxCox&amp;quot;, c(&amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;), &amp;quot;pca&amp;quot;&lt;/code&gt;등 다양한 방식을 제공한다. 기본값은 &lt;code&gt;c(&amp;quot;center&amp;quot;, &amp;quot;scale&amp;quot;)&lt;/code&gt;이다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;z-score-normalization&quot;&gt;Z-Score normalization&lt;/h3&gt;
+
+&lt;p&gt;먼저 살펴볼 변수 변환 방식은 &lt;strong&gt;z-score&lt;/strong&gt;를 이용한 정규화이다. 데이터가 정규분포에 가까운 형태를 가질 경우에 생각해 볼 수 있는 방법이다. 각 변수들이 종모양의 형태를 보이지만 단위에서 큰 차이를 보일 때, 분포는 동일하게 유지하면서 값의 단위를 비슷한 수준으로 맞출 수 있다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;preProcess&lt;/code&gt;함수를 적용하면 변환에 대한 정보를 살펴볼 수 있다. 수치형 자료가 아닌 &lt;code&gt;Species&lt;/code&gt; 열은 무시된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# install.packages(&amp;#39;caret&amp;#39;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# install.packages(&amp;#39;e1071&amp;#39;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;caret&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+zs_iris &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;center&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;scale&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+zs_iris
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - scaled (4)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;method = &amp;quot;center&amp;quot;&lt;/code&gt;는 데이터에서 평균값을 뺀다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;method = &amp;quot;scale&amp;quot;&lt;/code&gt;은 데이터를 표준편차로 나눈다&lt;/p&gt;
+
+&lt;p&gt;따라서 두 옵션을 모두 사용하면 Z-Score를 사용한 정규화를 시행할 수 있다. 변환시킨 변수는 평균이 0이고 분산이 1이 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;zs_iris_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;zs_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;zs_iris_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1   -0.8976739  1.01560199    -1.335752   -1.311052  setosa
+## 2   -1.1392005 -0.13153881    -1.335752   -1.311052  setosa
+## 3   -1.3807271  0.32731751    -1.392399   -1.311052  setosa
+## 4   -1.5014904  0.09788935    -1.279104   -1.311052  setosa
+## 5   -1.0184372  1.24503015    -1.335752   -1.311052  setosa
+## 6   -0.5353840  1.93331463    -1.165809   -1.048667  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;mean&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;zs_iris_t&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] -4.484318e-16
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;var&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;zs_iris_t&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;feature-scaling-unity-based-normalization&quot;&gt;Feature Scaling (Unity-based normalization)&lt;/h3&gt;
+
+&lt;p&gt;데이터가 균일하게 분포되어있는 경우에는 [0, 1] 범위로 값을 조정하는 것이 도움이 될 수 있다. 데이터의 최대값을 1로 두고 최소값을 0으로 할 때, 각 데이터의 상대적인 위치를 값으로 한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;un_iris &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;range&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+un_iris
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - ignored (1)
+##   - re-scaling to [0, 1] (4)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;method = &amp;quot;range&amp;quot;&lt;/code&gt;는 데이터를 [0, 1] 사이의 값으로 조정한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;un_iris_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;un_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;un_iris_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1   0.22222222   0.6250000   0.06779661  0.04166667  setosa
+## 2   0.16666667   0.4166667   0.06779661  0.04166667  setosa
+## 3   0.11111111   0.5000000   0.05084746  0.04166667  setosa
+## 4   0.08333333   0.4583333   0.08474576  0.04166667  setosa
+## 5   0.19444444   0.6666667   0.06779661  0.04166667  setosa
+## 6   0.30555556   0.7916667   0.11864407  0.12500000  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;box-cox-transformation&quot;&gt;Box-Cox transformation&lt;/h3&gt;
+
+&lt;p&gt;Box-Cox 변환은 데이터가 한 쪽으로 쏠려있을 때 종모양에 가까운 형태로 데이터를 조정할 수 있게 해준다. 또는 비선형인 데이터를 선형으로 변환시키거나, 분산이 일정하지 않을 경우 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_iris &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;BoxCox&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+bc_iris
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (4)
+##   - ignored (1)
+## 
+## Lambda estimates for Box-Cox transformation:
+## -0.1, 0.3, 0.9, 0.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;strong&gt;lambda estimates&lt;/strong&gt;를 보면 -0.1, 0.3, 0.9, 0.6 으로 되어있다. &lt;strong&gt;fudge&lt;/strong&gt; 기본값 0.2로 인해 (1 - 0.2, 1 + 0.2) 구간은 1로 값이 변경되고 (0 - 0.2, 0 + 0.2)의 값은 0으로 값이 변경된다. &lt;code&gt;lambda = 0&lt;/code&gt;일 경우에는 변환식의 분모가 0이기 때문에 해당 값의 &lt;strong&gt;자연로그&lt;/strong&gt;를 취한다. 따라서 Lambda estimates가 -0.1인 &lt;code&gt;Sepal.Length&lt;/code&gt;는 &lt;code&gt;log(iris$Sepal.Length)&lt;/code&gt;와 값다. Labmda estimates가 0.9인 &lt;code&gt;Petal.Length&lt;/code&gt;는 값이 변하지 않는다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;predict&lt;/code&gt; 함수를 통해 실제로 변환시킨 값을 얻을 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_iris_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_iris_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1     1.629241    1.520660          1.4  -1.0321154  setosa
+## 2     1.589235    1.301297          1.4  -1.0321154  setosa
+## 3     1.547563    1.391905          1.3  -1.0321154  setosa
+## 4     1.526056    1.347113          1.5  -1.0321154  setosa
+## 5     1.609438    1.561856          1.4  -1.0321154  setosa
+## 6     1.686399    1.680826          1.7  -0.7048667  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;boxcox 변환에서는 fudge 옵션의 값을 변화시키면 tolerance 수준을 변경할 수 있다. 위에서 -0.1과 0.9가 있었기 때문에 두 변수 모두 값을 변화시킬 수 있도록 값을 0으로 둔다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_iris_nofudge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;BoxCox&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fudge &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+bc_iris_nofudge
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (4)
+##   - ignored (1)
+## 
+## Lambda estimates for Box-Cox transformation:
+## -0.1, 0.3, 0.9, 0.6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_iris_nofudge_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_iris_nofudge&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_iris_nofudge_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1     1.503443    1.520660    0.3929751  -1.0321154  setosa
+## 2     1.469384    1.301297    0.3929751  -1.0321154  setosa
+## 3     1.433760    1.391905    0.2959291  -1.0321154  setosa
+## 4     1.415318    1.347113    0.4893297  -1.0321154  setosa
+## 5     1.486601    1.561856    0.3929751  -1.0321154  setosa
+## 6     1.551869    1.680826    0.6801608  -0.7048667  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;모든 수치형 변수의 값이 변화되었다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h4 id=&quot;uspop-데이터에-box-cox-transformation-적용하기&quot;&gt;uspop 데이터에 Box-Cox Transformation 적용하기&lt;/h4&gt;
+
+&lt;p&gt;우선 변수를 변환하기 전에 원본 데이터의 분포를 살펴보려고 한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;density&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;uspop&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/preprocess/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;오른쪽 꼬리가 비교적 길다는 것을 확인할 수 있다. &lt;code&gt;preProcess&lt;/code&gt; 함수를 적용하기 위해서 데이터를 data.frame 형태로 구성한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_uspop &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  pop &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;as.numeric&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;uspop&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;preProcess&lt;/code&gt;를 통해 box-cox 변환을 적용한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_uspop &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_uspop&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;BoxCox&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+bc_uspop
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 19 samples and 1 variables
+## 
+## Pre-processing:
+##   - Box-Cox transformation (1)
+##   - ignored (0)
+## 
+## Lambda estimates for Box-Cox transformation:
+## 0.2
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;predict&lt;/code&gt;를 통해 실제 데이터를 변환한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bc_uspop_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_uspop&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_uspop&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;원래의 데이터와 비교하면 한 쪽에 데이터가 쏠리는 현상이 완화되었다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;plot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;density&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bc_uspop_t&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;pop&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/preprocess/unnamed-chunk-13-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;다양한-전처리-방식-한번에-적용하기&quot;&gt;다양한 전처리 방식 한번에 적용하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;preProcess&lt;/code&gt; 함수에서는 &lt;code&gt;method&lt;/code&gt; 항목에 여러 요소를 한꺼번에 입력하면 여러 가지 전처리 방식을 한번에 적용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;multi_iris &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;center&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;scale&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;pca&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 사실 &amp;quot;pca&amp;quot;만 적용해도 center와 scale까지 한꺼번에 적용된다&lt;/span&gt;
+
+multi_iris
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 150 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - principal component signal extraction (4)
+##   - scaled (4)
+## 
+## PCA needed 2 components to capture 95 percent of the variance
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;PCA를 적용하고 나면 차원을 축소시켜 두 개의 변수를 남길 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;multi_iris_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;multi_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;multi_iris_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Species       PC1        PC2
+## 1  setosa -2.257141 -0.4784238
+## 2  setosa -2.074013  0.6718827
+## 3  setosa -2.356335  0.3407664
+## 4  setosa -2.291707  0.5953999
+## 5  setosa -2.381863 -0.6446757
+## 6  setosa -2.068701 -1.4842053
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;PCA를 적용시킨 iris데이터를 가지고 scatter plot을 그리면 다음과 같다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;multi_iris_t&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; PC1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; PC2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Species&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_point&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;size &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/preprocess/unnamed-chunk-16-1.png&quot; alt=&quot;&quot;&gt; &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;near-zero-variance&quot;&gt;Near Zero Variance&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;nearZeroVar&lt;/code&gt;는 값이 하나밖에 존재하지 않는 변수나 몇 개 안되는 요소만 반복되는 변수를 파악한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_nzv &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  v1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;21&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  v2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)),&lt;/span&gt;
+  v3 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;nearZeroVar&lt;/code&gt;함수를 사용하면 제거해야 할 열의 index를 반환해준다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 1 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;어떤 기준을 통해서 제거할 열을 선택했는지 살펴보려면 &lt;code&gt;saveMetrics = TRUE&lt;/code&gt;옵션을 추가한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; saveMetrics &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE  TRUE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;nearZeroVar&lt;/code&gt;의 옵션 중에서 &lt;code&gt;freqRatio&lt;/code&gt;는 제일 많이 등장하는 값의 개수와 두 번째로 많이 등장하는 값 개수의 비율을 의미한다&lt;/p&gt;
+
+&lt;p&gt;v1의 경우 21/1 = 21&lt;/p&gt;
+
+&lt;p&gt;v2의 경우 11/8 = 1.375&lt;/p&gt;
+
+&lt;p&gt;v3의 경우 값이 한 가지밖에 없기 때문에 0&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;percentUnique&lt;/code&gt; (&lt;code&gt;uniqueCut&lt;/code&gt;에서 비교하는 값)은 전체 데이터 중에서 겹치지 않는(unique한) 값의 비율을 나타낸다&lt;/p&gt;
+
+&lt;p&gt;v1의 경우 1, 2이므로 2/22 * 100 = 9.0909&lt;/p&gt;
+
+&lt;p&gt;v2의 경우 1, 2, 3 이므로 3/22 = 13.6364&lt;/p&gt;
+
+&lt;p&gt;v3의 경우 1 밖에 없기 때문에 1/22 = 4.5454&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;기본적으로 freqCut은 19, uniqueCut은 10을 기준으로 near zero variance를 판단한다. 옵션을 통해 기준이 되는 값을 변경할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; uniqueCut &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; saveMetrics &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE FALSE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; uniqueCut &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; freqCut &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] 1 3
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;nearZeroVar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; freqCut &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; saveMetrics &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    freqRatio percentUnique zeroVar   nzv
+## v1    21.000      9.090909   FALSE  TRUE
+## v2     1.375     13.636364   FALSE FALSE
+## v3     0.000      4.545455    TRUE  TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;method = &amp;quot;nzv&amp;quot;&lt;/code&gt;를 통해 &lt;code&gt;preProcess&lt;/code&gt; 함수에서도 &lt;code&gt;nearZeroVar&lt;/code&gt;를 적용할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pp_nzv &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;nzv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pp_nzv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 22 samples and 2 variables
+## 
+## Pre-processing:
+##   - ignored (0)
+##   - removed (2)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pp_nzv_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pp_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_nzv&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pp_nzv_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   v2
+## 1  1
+## 2  1
+## 3  1
+## 4  1
+## 5  1
+## 6  1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;v1, v3이 제거되었다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;method = &amp;quot;zv&amp;quot;&lt;/code&gt;를 사용하면 zero variance(변수의 모든 값이 같은 경우)만 제거한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pp_zv &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_nzv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;zv&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+pp_zv
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 22 samples and 1 variables
+## 
+## Pre-processing:
+##   - ignored (0)
+##   - removed (1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;pp_zv_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pp_zv&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_nzv&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;pp_zv_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   v1 v2
+## 1  1  1
+## 2  1  1
+## 3  1  1
+## 4  1  1
+## 5  1  1
+## 6  1  1
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;v3가 제거되었다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;missing-values&quot;&gt;Missing Values&lt;/h2&gt;
+
+&lt;p&gt;결측치를 다루는 방법에는 여러 가지가 있다. 결측치가 존재하는 열이나 행을 제거하거나 결측치를 특정 값으로 바꾸는 등의 방법이 있다. caret의 &lt;code&gt;preProcess&lt;/code&gt; 함수는 knn, bagging, median 등의 방법을 이용해서 결측치를 다른 값으로 채울 수 있다. 기능을 사용하기 위해서는 다른 패키지를 추가로 설치해야 할 수도 있다&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;실습을 위해서 iris데이터를 복사하고 [2, 2]의 값을 &lt;code&gt;NA&lt;/code&gt;로 변경했다. NA로 변경한 값의 실제 값은 3.0이다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_na_iris &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris
+df_na_iris&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;NA&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;우선 &lt;strong&gt;K-nearest Neighbor&lt;/strong&gt;를 이용해서 결측치를 채울 수 있다. 추가로 패키지를 요구할 수 있는데 경고가 뜰 경우 필요한 패키지를 설치하고 다시 실행하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#install.packages(&amp;quot;RANN&amp;quot;)&lt;/span&gt;
+knnimp_na &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_na_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;knnImpute&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+knnimp_na
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - centered (4)
+##   - ignored (1)
+##   - 5 nearest neighbor imputation (4)
+##   - scaled (4)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;knnimp_na_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;knnimp_na&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_na_iris&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;knnimp_na_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width
+## 1   -0.8976739  1.01136747    -1.335752   -1.311052
+## 2   -1.1392005  0.78269713    -1.335752   -1.311052
+## 3   -1.3807271  0.32535645    -1.392399   -1.311052
+## 4   -1.5014904  0.09668612    -1.279104   -1.311052
+## 5   -1.0184372  1.24003781    -1.335752   -1.311052
+## 6   -0.5353840  1.92604882    -1.165809   -1.048667
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;knnImpute&lt;/code&gt;를 적용하면 centering과 scaling이 같이 적용된다&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;bagImpute&lt;/code&gt;를 사용하면 &lt;code&gt;Bagged Tree Model&lt;/code&gt;을 통해 결측치를 예측하여 채워넣는다. 마찬가지로 다른 패키지를 추가로 설치해야할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#install.packages(&amp;quot;ipred&amp;quot;)&lt;/span&gt;
+bagimp_na &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_na_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;bagImpute&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+bagimp_na
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - bagged tree imputation (4)
+##   - ignored (1)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bagimp_na_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bagimp_na&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_na_iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bagimp_na_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1    3.500000          1.4         0.2  setosa
+## 2          4.9    3.253777          1.4         0.2  setosa
+## 3          4.7    3.200000          1.3         0.2  setosa
+## 4          4.6    3.100000          1.5         0.2  setosa
+## 5          5.0    3.600000          1.4         0.2  setosa
+## 6          5.4    3.900000          1.7         0.4  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;median 값을 이용해서 결측치를 채워넣을 수도 있다. 이 경우 가장 간단하고 빠르지만 비교적 부정확할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;medimp_na &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; preProcess&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_na_iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; method &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;medianImpute&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+medimp_na
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## Created from 149 samples and 5 variables
+## 
+## Pre-processing:
+##   - ignored (1)
+##   - median imputation (4)
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;medimp_na_t &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; predict&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;medimp_na&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; df_na_iris&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;medimp_na_t&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
+## 1          5.1         3.5          1.4         0.2  setosa
+## 2          4.9         3.0          1.4         0.2  setosa
+## 3          4.7         3.2          1.3         0.2  setosa
+## 4          4.6         3.1          1.5         0.2  setosa
+## 5          5.0         3.6          1.4         0.2  setosa
+## 6          5.4         3.9          1.7         0.4  setosa
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;caret의 preProcess 함수에 대한 문서와 데이터 전처리에 대해 잘 정리된 블로그 링크를 첨부했다. 추가적으로 필요한 내용이 있다면 큰 도움이 될 것 같다.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://topepo.github.io/caret/preprocess.html&quot;&gt;caret document - preProcessing&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://wlsrnr1218.tistory.com/19&quot;&gt;데이터 전처리 관련 참고&lt;/a&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/preProcess&quot;&gt;caret - preProcess&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on January 09, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -5710,155 +6174,6 @@ bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span
 &lt;p&gt;&lt;img src=&quot;/images/post_image/jupyter_with_r/jupyterwithr01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/python/jupyter-r-kernel&quot;&gt;Jupyter with R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 29, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[ggplot2 - 03]]></title>
-  <link>http://lumiamitie.github.io/r/visualization/ggplot2-03</link>
-  <id>http://lumiamitie.github.io/r/visualization/ggplot2-03</id>
-  <published>2015-08-26T00:00:00+09:00</published>
-  <updated>2015-08-26T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;ggplot2&quot;&gt;ggplot2&lt;/h2&gt;
-
-&lt;p&gt;지난번 포스팅까지 해서 ggplot2의 그래프를 그리는 방법에 대해서는 전반적으로 살펴보았습니다.&lt;/p&gt;
-
-&lt;p&gt;이번 글에서는 필수적이지는 않지만 도움이 될 만한 내용들을 몇 가지 설명하려고 합니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;stat이-생성하는-값들&quot;&gt;stat이 생성하는 값들&lt;/h2&gt;
-
-&lt;p&gt;stat은 주어진 데이터프레임 이외에, 그래프를 그리는데 필요한 값을 추가로 생성해서 데이터프레임에 추가합니다.&lt;/p&gt;
-
-&lt;p&gt;주어진 값을 그대로 사용한다는 &lt;code&gt;stat_identity()&lt;/code&gt;를 제외하면 나머지 stat 함수들은 제각기 다른 값을 생성하는데 필요하다면 여기서 생성된 값을 가져다가 에스테틱에 적용할 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;이 때, 기존 데이터의 변수들과 구별하기 위해 변수 이름 앞뒤로 ..을 붙입니다. &lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;..count..&lt;/code&gt;, &lt;code&gt;..density..&lt;/code&gt;와 같은 형태로 에스테틱에 적용할 수 있습니다. &lt;/p&gt;
-
-&lt;p&gt;각 stat 함수가 어떤 값을 생성하는지는 &lt;a href=&quot;http://docs.ggplot2.org/current/&quot;&gt;http://docs.ggplot2.org/current/&lt;/a&gt;의 문서에서 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;예를 들면, stat_bin의 경우 다음과 같은 값을 추가로 생성합니다&lt;/p&gt;
-
-&lt;p&gt;문서는 &lt;a href=&quot;http://docs.ggplot2.org/current/stat_bin.html&quot;&gt;이 곳&lt;/a&gt;에서 확인할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;count&lt;/strong&gt; : 각 구간(bin)에 속한 항목의 개수&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;density&lt;/strong&gt; : 각 구간(bin)의 밀도(전체의 합이 1)&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ncount&lt;/strong&gt; : count와 비슷합니다, 가장 큰 count 값을 1로 두고 다른 값들을 조정합니다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;ndensity&lt;/strong&gt; : density, 가장 높은 density 값이 1이 됩니다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-iris_sl &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; iris&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Sepal.Length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Sepal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;count..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;density..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ncount..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-4.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;iris_sl &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;ndensity..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## stat_bin: binwidth defaulted to range/30. Use &amp;#39;binwidth = x&amp;#39; to adjust this.
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-2-5.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;R에서 기본적으로 제공하는 volcano 데이터를 그래프로 그려보려고 합니다.&lt;/p&gt;
-
-&lt;p&gt;reshape2 패키지의 &lt;code&gt;melt&lt;/code&gt;함수를 이용해서 데이터프레임으로 변형시키고 ggplot2로 그래프를 그립니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; reshape2&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;melt&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;volcano&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-volcano_gg &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;volcano_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Var1&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;Var2&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; z &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;stat_contour&lt;/code&gt;가 생성하는 level 변수를 사용해서 그래프의 에스테틱에 반영시킬 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;volcano_gg &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; stat_contour&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;geom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;polygon&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;..&lt;/span&gt;level..&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-4-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;테마&quot;&gt;테마&lt;/h2&gt;
-
-&lt;p&gt;축의 모양이나 배경색 등 그래프의 세부적인 요소들을 조절해서 테마로 저장할 수 있습니다.&lt;/p&gt;
-
-&lt;p&gt;기본적으로 ggplot2에서 제공하는 테마들도 있고 패키지로 배포되는 테마들도 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;diamonds&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;cut&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_bar&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_gray&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_bw&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_classic&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-5-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;ggthemes&lt;/code&gt;패키지를 설치하면 추가적인 ggplot2 테마를 적용할 수 있습니다.&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;#install.packages(&amp;#39;ggthemes&amp;#39;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggthemes&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; scale_colour_economist&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_excel&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-2.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;dia_bar &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; theme_solarized&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_03/unnamed-chunk-6-3.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;세 번에 걸쳐 ggplot2를 사용하는 방법을 설명하면서 ggplot2의 다양한 기능과 적용 방법에 대해 알아보았습니다.
-기본적인 사용 방법을 익힌 후에 실제 데이터를 가지고 직접 데이터를 그려보면 생각했던 것 보다 원하는 그래프를 얻는 것이 힘들다는 것을 알게 됩니다.
-하지만 ggplot2에 어느 정도의 데이터 정제 능력이 뒷받침된다면 많은 문제들을 해결해 가면서 원하는 시각화를 구현할 수 있을 거라고 생각합니다.
-이후의 ggplot2 관련 글들은 ggplot2와 기타 다른 패키지들을 이용해서 시각화를 시도하고, 발생하는 문제의 원인을 파악해서 해결하는 과정을 보여드리게 될 것 같습니다.&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-03&quot;&gt;ggplot2 - 03&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on August 26, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>
