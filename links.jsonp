@@ -143,6 +143,11 @@ callback([
   {
     "text": "caret - preProcess",
     "href": "http://lumiamitie.github.io/r/preProcess"
+  } ,
+
+  {
+    "text": "ggplot2 extensions - ggrepel",
+    "href": "http://lumiamitie.github.io/r/visualization/ggrepel"
   } 
 
 ])
