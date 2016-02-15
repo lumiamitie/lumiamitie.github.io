@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "VennDiagram in R - 벤 다이어그램",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/venndiagram_in_r",
+		  "date"       : "2016-02-15 00:00:00 +0900",
+		  "shortdate"  : "February 15, 2016"
+		} ,
+	
+		{
 		  "title"      : "ggplot2 extensions - ggrepel",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/ggrepel",

@@ -4,13 +4,240 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-02-12T12:25:27+09:00</updated>
+<updated>2016-02-15T16:53:44+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[VennDiagram in R - 벤 다이어그램]]></title>
+  <link>http://lumiamitie.github.io/r/visualization/venndiagram_in_r</link>
+  <id>http://lumiamitie.github.io/r/visualization/venndiagram_in_r</id>
+  <published>2016-02-15T00:00:00+09:00</published>
+  <updated>2016-02-15T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;venndiagram&quot;&gt;VennDiagram&lt;/h1&gt;
+
+&lt;h1 id=&quot;벤-다이어그램-그리기&quot;&gt;벤 다이어그램 그리기&lt;/h1&gt;
+
+&lt;p&gt;집합간의 대략적인 관계를 보여줄 때 벤 다이어그램을 사용하는 경우가 많다. 수학의 정석 맨 앞부분에 있는 &lt;strong&gt;집합과 명제&lt;/strong&gt; 단원에서 소개가 되기 때문에 많은 사람들이 한 번쯤은 접하게되는 시각화 방법이다. 집합의 개수가 많지 않다면 적은 요소를 가지고도 효과적으로 내용을 전달할 수 있다. &lt;/p&gt;
+
+&lt;p&gt;사실 원 두개로 이루어진 간단한 벤 다이어그램이라면 그냥 엑셀이나 파워포인트를 가지고 그리는 것이 더 간단할 수 있다. 그리고 원이 네 개만 넘어가도 벤 다이어그램의 전달력은 급격하게 감소한다. 그래서 그냥 손으로 그리는게 더 편하다고 해도 할 말 없지만, 사람 일은 모르는 것이기 때문에.. R로 벤 다이어그램 그리는 방법에 대해서 정리해보려고 한다. R로는 간단하게 그린 다음에 SVG 형태로 출력해서 일러스트레이터 등 전문 도구를 활용해 글꼴 정도만 가볍게 손보는 형태로 활용할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;이 글은 R Studio Pubs의 관련 자료를 바탕으로 작성되었습니다. 
+&lt;a href=&quot;http://rstudio-pubs-static.s3.amazonaws.com/13301_6641d73cfac741a59c0a851feb99e98b.html&quot;&gt;http://rstudio-pubs-static.s3.amazonaws.com/13301_6641d73cfac741a59c0a851feb99e98b.html&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h1 id=&quot;벤-다이어그램-그리기&quot;&gt;벤 다이어그램 그리기&lt;/h1&gt;
+
+&lt;h2 id=&quot;1-기본적인-벤-다이어그램&quot;&gt;1. 기본적인 벤 다이어그램&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;VennDiagram&lt;/code&gt; 패키지를 설치한 후에 진행한다. &lt;code&gt;draw.single.venn&lt;/code&gt;은 가장 기본적인 형태의 벤 다이어그램이다. 그냥 원 하나를 그리고 카테고리와 데이터 값을 보여준다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# install.packages(&amp;#39;VennDiagram&amp;#39;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;VennDiagram&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;draw.single.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;single&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-1-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;1-2-면-색상-선-종류-변경하기&quot;&gt;1.2 면 색상, 선 종류 변경하기&lt;/h3&gt;
+
+&lt;p&gt;새로운 다이어그램을 그리기 위해서는 &lt;code&gt;grid.newpage()&lt;/code&gt;를 한 번 적용시킨다(안하면 겹쳐서 그려짐)&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;lty&lt;/strong&gt;는 선의 종류(line type)를 변경&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;fill&lt;/strong&gt;은 면의 색상을 변경&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.single.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;single - colorful&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;steelblue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                 alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;2-두-개의-원으로-구성된-벤-다이어그램-그리기&quot;&gt;2. 두 개의 원으로 구성된 벤 다이어그램 그리기&lt;/h2&gt;
+
+&lt;p&gt;두 개의 원으로 구성된 벤 다이어그램을 그리기 위해서는 &lt;code&gt;draw.pairwise.venn()&lt;/code&gt;함수를 사용한다. 교집합 부분의 데이터는 &lt;code&gt;cross.area&lt;/code&gt;에 값을 지정하면 된다. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;area1&lt;/code&gt;, &lt;code&gt;area2&lt;/code&gt;는 각 원 전체의 면적을 의미한다. 따라서 벤 다이어그램에 실제로 표시되는 값은 &lt;code&gt;area1 - cross.area&lt;/code&gt;, &lt;code&gt;cross.area&lt;/code&gt;, &lt;code&gt;area2 - cross.area&lt;/code&gt;가 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;25&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;diagram A&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;diagram B&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;2-1-카테고리-레이블-위치-지정하기&quot;&gt;2.1 카테고리 레이블 위치 지정하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;cat.pos&lt;/code&gt;는 카테고리 레이블의 위치를 표시한다. 원의 중심을 기준으로 시계방향 각도(0~360도)를 통해 레이블의 위치를 나타내게 된다. 0이면 12시 방향(원의 중심 바로 위), 90이면 3시 방향(원 우측), 180이면 6시 방향(원 아래)에 위치한다&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;cat.dist&lt;/code&gt;는 카테고리 레이블이 원의 가장자리로부터 얼마나 떨어져있는지 거리를 의미한다. 값이 커질수록 원에서 멀어진다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# cat.dist = 0 일 때, cat.pos 45와 180 비교&lt;/span&gt;
+grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;45 degree, 0 dist&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;180 degree 0 dist&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;light blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;pink&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;45&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.dist &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# cat.pos = 0 일 때, cat.dist 0.1과 -0.1 비교&lt;/span&gt;
+grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;22&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;0 degree, 0.1 dist&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;0 degree -0.1 dist&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;light blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;pink&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.dist &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;-0.1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;2-2-원의-크기-변경-여부-결정하기&quot;&gt;2.2 원의 크기 변경 여부 결정하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;draw.pairwise.venn()&lt;/code&gt; 함수는 기본적으로 원의 넓이(area1, area2)에 맞게 원의 크기가 조정된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bigger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;smaller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;light blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;pink&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;원의 크기를 값과 상관없이 고정시키려면 &lt;code&gt;scaled = FALSE&lt;/code&gt; 옵션을 추가하면 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;bigger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;smaller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;light blue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;pink&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+                   scaled &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h3 id=&quot;2-3-겹쳐져-있지-않은-벤-다이어그램&quot;&gt;2.3 겹쳐져 있지 않은 벤 다이어그램&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;euler.d = TRUE&lt;/code&gt; 옵션을 지정하면 서로 겹치지 않는 원을 그릴 수 있다. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;euler.d = TRUE&lt;/code&gt;일 때, sep.dist 옵션을 통해 원 사이의 간격을 지정할 수 있다.
+&lt;code&gt;rotation.degree&lt;/code&gt;를 통해 원 사이의 각도를 조정할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;euler.d = FALSE&lt;/code&gt; 옵션을 사용하기 위해서는 항상 &lt;code&gt;scaled = FALSE&lt;/code&gt; 옵션과 같이 사용되어야 한다. 이 경우 원의 크기가 변하지 않는 벤 다이어그램이 강제로 그려진다(intersection값이 0)&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# sep.dist = 0.01, rotation.degree = 45&lt;/span&gt;
+grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Bigger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Smaller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;steelblue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;firebrick&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   euler.d &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sep.dist &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.01&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   rotation.degree &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;45&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# sep.dist = 0.2, rotation.degree = 45&lt;/span&gt;
+grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Bigger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Smaller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;steelblue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;firebrick&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   euler.d &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sep.dist &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   rotation.degree &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;45&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-9-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# sep.dist = 0.2, rotation.degree = 135&lt;/span&gt;
+grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.pairwise.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; cross.area &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;Bigger&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;Smaller&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;blank&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;steelblue&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;quot;firebrick&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   alpha &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   cat.pos &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;180&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
+                   euler.d &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; sep.dist &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                   rotation.degree &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;135&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-10-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;3-세-개의-원으로-구성된-벤-다이어그램-그리기&quot;&gt;3. 세 개의 원으로 구성된 벤 다이어그램 그리기&lt;/h2&gt;
+
+&lt;p&gt;벤 다이어그램의 원이 3개로 증가하면 7개의 부분집합을 고려하게 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;area1, 2, 3&lt;/strong&gt;는 원 두개짜리 벤 다이어그램과 마찬가지로 각 원 전체의 면적을 의미한다. 교집합 부분인 &lt;strong&gt;n12, n23, n13&lt;/strong&gt;도 전체 교집합인 &lt;strong&gt;n123&lt;/strong&gt;의 값을 포함한 상태이기 때문에 이 점에 유의해서 데이터를 입력하자.&lt;/p&gt;
+
+&lt;p&gt;주의해야 할 점은 &lt;code&gt;VennDiagram&lt;/code&gt; 패키지의 함수의 경우 원이 세 개가 되면 원의 크기가 고정된다. &lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;cex&lt;/strong&gt;는 데이터 레이블의 글꼴 크기, cat.cex는 카테고리 레이블의 글꼴 크기를 의미한다. 부분집합이 7개이기 때문에 &lt;code&gt;rep(1.2, 7)&lt;/code&gt;을 통해 길이 7의 벡터를 생성했다. 마찬가지로 카테고리는 3개이기 때문에 길이 3의 벡터를 생성했다.&lt;/p&gt;
+
+&lt;p&gt;색상은 색 이름을 직접 입력하지 않고 &lt;code&gt;RColorBrewer&lt;/code&gt; 패키지의 함수를 이용해 색상을 받아왔다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;grid.newpage&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+draw.triple.venn&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
+  area1 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  area2 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;500&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  area3 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  n12 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;30&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  n23 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  n13 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  n123 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;category&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Biggest&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Bigger&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Big&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  fill &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; RColorBrewer&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;brewer.pal&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Accent&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  lty &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;blank&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+  cex &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  cat.cex &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rep&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/venndiagram/unnamed-chunk-11-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/venndiagram_in_r&quot;&gt;VennDiagram in R - 벤 다이어그램&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on February 15, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -5822,397 +6049,6 @@ aapl_data
 &amp;lt;/html&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/d3/d3-enter-update-exit&quot;&gt;D3 - enter/update/exit&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 03, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[Web Scraping with rvest]]></title>
-  <link>http://lumiamitie.github.io/r/web/web-scraping-with-rvest</link>
-  <id>http://lumiamitie.github.io/r/web/web-scraping-with-rvest</id>
-  <published>2015-09-02T00:00:00+09:00</published>
-  <updated>2015-09-02T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../../images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;web-scraping-with-rvest&quot;&gt;Web Scraping with rvest&lt;/h1&gt;
-
-&lt;p&gt;꿈꾸는 데이터 디자이너 2기의 수업 보조자료입니다
-강의자료는 &lt;a href=&quot;http://www.slideshare.net/neuroassociates/week5rscraping&quot;&gt;이 곳&lt;/a&gt;에서 확인하실 수 있습니다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;rvest&quot;&gt;rvest&lt;/h1&gt;
-
-&lt;p&gt;rvest는 html과 xml 자료를 쉽게 가져와서 처리할 수 있도록 해주는 Hadley Wickham의 패키지이다. 파이썬의 BeautifulSoup 등을 참고해서 기존에 있던 패키지들 보다 더 간단한 문법으로 데이터를 처리하고, Hadley Wickham의 다른 패키지들 처럼 &lt;code&gt;%&amp;gt;%&lt;/code&gt;연산자를 활용하기 쉽게 구성되었다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h1 id=&quot;html&quot;&gt;HTML&lt;/h1&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;rvest&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# url을 chr에 저장한다&lt;/span&gt;
-daum_bball &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;http://score.sports.media.daum.net/record/baseball/kbo/prnk.daum&amp;#39;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# html()함수를 통해 해당 주소를 긁어오고 html 형태로 파싱한다&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# encoding은 &amp;#39;UTF-8&amp;#39;로 지정한다&lt;/span&gt;
-daum_bball_html &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; html&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daum_bball&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;html 문서 내에서 &lt;code&gt;html_node()&lt;/code&gt;함수를 통해 &lt;strong&gt;id값이 table1인 항목&lt;/strong&gt;을 찾고&lt;/p&gt;
-
-&lt;p&gt;table 태그 내부의 자료를 &lt;code&gt;html_table()&lt;/code&gt;을 통해 data.frame 형태로 자료를 가져온다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daum_bball_html&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;#table1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-html_table&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_table&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    순위       선수 (팀) 경기 승 패 세이브 홀드    이닝 투구수 피안타
-## 1     1    양현종 (KIA)   26 12  5      0    1 152 2/3   2488    123
-## 2     2       해커 (NC)   25 16  4      0    0 166 1/3   2511    135
-## 3     3   유희관 (두산)   24 16  4      0    0 163 1/3   2503    155
-## 4     4 린드블럼 (롯데)   26 11  7      0    0     174   2731    158
-## 5     5   장원준 (두산)   24 11  9      0    0 142 1/3   2402    146
-## 6     6   윤성환 (삼성)   24 13  7      0    0     160   2483    156
-## 7     7   피가로 (삼성)   23 12  6      0    0     152   2453    145
-## 8     8   밴헤켄 (넥센)   26 12  6      0    0 162 1/3   2666    154
-## 9     9     김광현 (SK)   23 11  3      0    0     136   2268    138
-## 10   10   레일리 (롯데)   26  7  8      0    0     146   2400    155
-## 11   11 피어밴드 (넥센)   25 11  8      0    0 149 1/3   2432    162
-## 12   12   옥스프링 (kt)   26  9  9      0    0     159   2677    164
-## 13   13       켈리 (SK)   23  7  9      0    0 142 2/3   2239    152
-## 14   14       소사 (LG)   25  8 10      0    1 153 1/3   2459    159
-## 15   15    스틴슨 (KIA)   27 10  8      0    0 151 1/3   2539    167
-## 16   16   차우찬 (삼성)   24  9  5      0    0     143   2510    131
-## 17   17 클로이드 (삼성)   23 10  8      0    0 133 1/3   2259    155
-## 18   18     루카스 (LG)   28  8  9      0    1 142 1/3   2733    140
-## 19   19   탈보트 (한화)   25  8  9      0    0     126   2299    131
-##    피홈런 탈삼진 사사구 실점 자책 평균자책 WHIP QS
-## 1      15    125     62   41   39     2.30 1.21 16
-## 2       9    143     30   58   48     2.60 0.99 21
-## 3      17    113     37   58   57     3.14 1.18 15
-## 4      21    141     41   66   65     3.36 1.14 19
-## 5       7    110     53   61   56     3.54 1.40 15
-## 6      22    140     25   66   63     3.54 1.13 14
-## 7      15    108     50   64   60     3.55 1.28 16
-## 8      11    165     53   74   66     3.66 1.28 14
-## 9      12    127     53   69   57     3.77 1.40 12
-## 10     16    112     43   79   65     4.01 1.36 15
-## 11     16    122     49   73   68     4.10 1.41 16
-## 12     20    122     56   85   73     4.13 1.38 13
-## 13     14    104     42   70   66     4.16 1.36 13
-## 14     15    129     29   84   72     4.23 1.23 14
-## 15     13     80     56   83   77     4.58 1.47 11
-## 16     24    150     59   80   75     4.72 1.33 15
-## 17     17     97     32   76   71     4.79 1.40 13
-## 18     11    134     90   85   78     4.93 1.62  9
-## 19     11     91     69   83   74     5.29 1.59 10
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;pipe 연산자를 통해 표현하면 다음과 같다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daum_bball_html &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;#table1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
-  html_table&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;html_table()&lt;/code&gt;함수의 경우 윈도우 환경에서는 아직 인코딩을 제대로 처리하지 못하는 것으로 보인다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;rvest&lt;/code&gt; 이전에 사용하던 &lt;code&gt;XML&lt;/code&gt;과 &lt;code&gt;RCurl&lt;/code&gt; 패키지를 이용해서 비슷한 방식으로 가지고 올 수 있다&lt;/p&gt;
-
-&lt;p&gt;글의 맨 마지막 부분에서 코드를 살펴볼 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;code&gt;html_node()&lt;/code&gt; 함수는 node이름이나 css주소, xpath등을 받으면 해당하는 요소를 &lt;strong&gt;1개만&lt;/strong&gt; 반환한다&lt;/p&gt;
-
-&lt;p&gt;테이블의 header 부분 정보를 담고있는 thead 태그 내부에서 html_node(&amp;lsquo;th&amp;rsquo;)로 th 태그의 항목들을 검색해보면&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;가장 첫 번째 th 요소&lt;/strong&gt;를 태그와 내용을 함께 반환한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;bball_thead &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daum_bball_html&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;thead&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_thead&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;순위&amp;lt;/th&amp;gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# pipe&lt;/span&gt;
-daum_bball_html &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;thead&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;html_nodes()&lt;/code&gt; 함수는 해당하는 요소를 전부 반환한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;html_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_thead&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;순위&amp;lt;/th&amp;gt; 
-## 
-## [[2]]
-## &amp;lt;th class=&amp;quot;txt_league&amp;quot; scope=&amp;quot;col&amp;quot;&amp;gt;선수 &amp;lt;em&amp;gt;(팀)&amp;lt;/em&amp;gt;&amp;lt;/th&amp;gt; 
-## 
-## [[3]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=GP&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;경기&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[4]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=W&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;승&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[5]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=L&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;패&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[6]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=SV&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;세이브&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[7]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=HLD&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;홀드&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[8]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=IP&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;이닝&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[9]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=NP&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;투구수&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[10]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=HIT&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;피안타&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[11]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=HR&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;피홈런&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[12]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=SO&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;탈삼진&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[13]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=BB&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;사사구&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[14]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=R&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;실점&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[15]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=ER&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;자책&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[16]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot; class=&amp;quot;on&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=ERA&amp;amp;amp;ord=ASC&amp;quot; data-type=&amp;quot;reverse&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;평균자책&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[17]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=WHIP&amp;amp;amp;ord=ASC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;WHIP&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## [[18]]
-## &amp;lt;th scope=&amp;quot;col&amp;quot;&amp;gt;
-##   &amp;lt;a href=&amp;quot;?season_id=2015&amp;amp;amp;col=QS&amp;amp;amp;ord=DESC&amp;quot; class=&amp;quot;ico_comm3 btn_align&amp;quot;&amp;gt;QS&amp;lt;/a&amp;gt;
-## &amp;lt;/th&amp;gt; 
-## 
-## attr(,&amp;quot;class&amp;quot;)
-## [1] &amp;quot;XMLNodeSet&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# pipe&lt;/span&gt;
-daum_bball_html &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;thead&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;요소를 반환 받았을 때 html_text() 함수를 이용해 내용만 추출할 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;html_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_thead&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;순위&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# pipe&lt;/span&gt;
-daum_bball_html &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;thead&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;html_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;html_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_thead&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1] &amp;quot;순위&amp;quot;      &amp;quot;선수 (팀)&amp;quot; &amp;quot;경기&amp;quot;      &amp;quot;승&amp;quot;        &amp;quot;패&amp;quot;       
-##  [6] &amp;quot;세이브&amp;quot;    &amp;quot;홀드&amp;quot;      &amp;quot;이닝&amp;quot;      &amp;quot;투구수&amp;quot;    &amp;quot;피안타&amp;quot;   
-## [11] &amp;quot;피홈런&amp;quot;    &amp;quot;탈삼진&amp;quot;    &amp;quot;사사구&amp;quot;    &amp;quot;실점&amp;quot;      &amp;quot;자책&amp;quot;     
-## [16] &amp;quot;평균자책&amp;quot;  &amp;quot;WHIP&amp;quot;      &amp;quot;QS&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# pipe&lt;/span&gt;
-daum_bball_html &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;thead&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;th&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  html_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;xml&quot;&gt;XML&lt;/h1&gt;
-
-&lt;p&gt;xml자료를 가져올때는 &lt;code&gt;xml()&lt;/code&gt;을 사용하고&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;xml_node()&lt;/code&gt;, &lt;code&gt;xml_nodes()&lt;/code&gt;, &lt;code&gt;xml_text()&lt;/code&gt;등의 함수를 사용할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;html 함수들과 사용방법은 동일하다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;boxoffice_xml &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;boxoffice0831.xml&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; encoding &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;UTF-8&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;xml_structure&lt;/code&gt; 함수를 사용하면 xml 문서의 구조를 볼 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;xml_structure&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;boxoffice_xml&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## {DTD}
-## &amp;lt;html&amp;gt;
-##   &amp;lt;body&amp;gt;
-##     &amp;lt;boxofficeresult&amp;gt;
-##       &amp;lt;boxofficetype&amp;gt; {text}
-##       &amp;lt;showrange&amp;gt; {text}
-##       &amp;lt;dailyboxofficelist&amp;gt;
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-##         &amp;lt;dailyboxoffice&amp;gt;
-##           &amp;lt;rank&amp;gt; {text}
-##           &amp;lt;movienm&amp;gt; {text}
-##           &amp;lt;audicnt&amp;gt; {text}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;html과 마찬가지로 xml_node, xml_nodes, xml_text를 통해 데이터를 추출할 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;xml_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;boxoffice_xml&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;showrange&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;20150831~20150831&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# pipe&lt;/span&gt;
-boxoffice_xml &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;showrange&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  xml_text&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;dailyboxoffice 태그들 안에 동일한 태그로 데이터가 담겨있기 때문에&lt;/p&gt;
-
-&lt;p&gt;일단 dailyboxoffice을 선택하고(&lt;code&gt;xml_node&lt;/code&gt;)&lt;/p&gt;
-
-&lt;p&gt;바로 원하는 자료들이 담긴 태그들에 직접 접근해서(&lt;code&gt;xml_nodes&lt;/code&gt;) 자료를 받아오려고 한다(&lt;code&gt;xml_text&lt;/code&gt;)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daily &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml_node&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;boxoffice_xml&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;dailyboxofficelist&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 순위와, 영화이름, 관객 수를 각각 벡터에 저장한다&lt;/span&gt;
-rank    &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;xml_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daily&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;rank&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-movieNm &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;xml_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daily&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;movienm&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-audiCnt &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; xml_text&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;xml_nodes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daily&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;audicnt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# 세 개의 벡터를 묶어서 data.frame으로 구성한다&lt;/span&gt;
-daily_boxoffice &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;rank&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; movieNm&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; audiCnt&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-daily_boxoffice
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##    rank                   movieNm audiCnt
-## 1     1                    베테랑  144263
-## 2     2             뷰티 인사이드   59994
-## 3     3                      암살   47798
-## 4     4                  치외법권   26420
-## 5     5               미쓰 와이프   18834
-## 6     6           아메리칸 울트라   13839
-## 7     7 미션 임파서블: 로그네이션   10337
-## 8     8             미라클 벨리에    7203
-## 9     9                  미니언즈    2756
-## 10   10                판타스틱 4    2500
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;xml과-rcurl을-이용해서-table-가져오기&quot;&gt;XML과 RCurl을 이용해서 table 가져오기&lt;/h2&gt;
-
-&lt;p&gt;윈도우에서 rvest의 &lt;code&gt;html_table&lt;/code&gt;함수가 인코딩 문제가 생긴다면 &lt;code&gt;XML&lt;/code&gt;과 &lt;code&gt;RCurl&lt;/code&gt; 패키지를 사용해서 테이블을 처리할 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;XML&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;RCurl&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;daum_bball &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;http://score.sports.media.daum.net/record/baseball/kbo/prnk.daum&amp;#39;&lt;/span&gt;
-xml_daum &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; getURL&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;daum_bball&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-bball_table &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; readHTMLTable&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;xml_daum&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;table1
-&lt;span class=&quot;c1&quot;&gt;# 헤더 부분 인코딩이 깨지는 문제는 rvest 패키지의 repair_encoding()함수로 처리한다&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_table&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; repair_encoding&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kp&quot;&gt;names&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_table&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;bball_table&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   순위       선수 (팀) 경기 승 패 세이브 홀드    이닝 투구수 피안타 피홈런
-## 1    1    양현종 (KIA)   26 12  5      0    1 152 2/3   2488    123     15
-## 2    2       해커 (NC)   25 16  4      0    0 166 1/3   2511    135      9
-## 3    3   유희관 (두산)   24 16  4      0    0 163 1/3   2503    155     17
-## 4    4 린드블럼 (롯데)   26 11  7      0    0     174   2731    158     21
-## 5    5   장원준 (두산)   24 11  9      0    0 142 1/3   2402    146      7
-## 6    6   윤성환 (삼성)   24 13  7      0    0     160   2483    156     22
-##   탈삼진 사사구 실점 자책 평균자책 WHIP QS
-## 1    125     62   41   39     2.30 1.21 16
-## 2    143     30   58   48     2.60 0.99 21
-## 3    113     37   58   57     3.14 1.18 15
-## 4    141     41   66   65     3.36 1.14 19
-## 5    110     53   61   56     3.54 1.40 15
-## 6    140     25   66   63     3.54 1.13 14
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/web/web-scraping-with-rvest&quot;&gt;Web Scraping with rvest&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 02, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>
