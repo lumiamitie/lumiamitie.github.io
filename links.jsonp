@@ -153,6 +153,11 @@ callback([
   {
     "text": "VennDiagram in R - 벤 다이어그램",
     "href": "http://lumiamitie.github.io/r/visualization/venndiagram_in_r"
+  } ,
+
+  {
+    "text": "MCMC for dummies in r",
+    "href": "http://lumiamitie.github.io/r/mcmc-for-dummies"
   } 
 
 ])

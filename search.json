@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "MCMC for dummies in r",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/mcmc-for-dummies",
+		  "date"       : "2016-05-10 00:00:00 +0900",
+		  "shortdate"  : "May 10, 2016"
+		} ,
+	
+		{
 		  "title"      : "VennDiagram in R - 벤 다이어그램",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/venndiagram_in_r",
