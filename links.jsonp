@@ -158,6 +158,11 @@ callback([
   {
     "text": "MCMC for dummies in r",
     "href": "http://lumiamitie.github.io/r/mcmc-for-dummies"
+  } ,
+
+  {
+    "text": "ggplot2 label 설정하기",
+    "href": "http://lumiamitie.github.io/r/visualization/ggplot2-labs"
   } 
 
 ])

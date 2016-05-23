@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "ggplot2 label 설정하기",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-labs",
+		  "date"       : "2016-05-23 00:00:00 +0900",
+		  "shortdate"  : "May 23, 2016"
+		} ,
+	
+		{
 		  "title"      : "MCMC for dummies in r",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/mcmc-for-dummies",
