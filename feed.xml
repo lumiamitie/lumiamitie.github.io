@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-08-10T22:18:41+09:00</updated>
+<updated>2016-08-10T22:23:00+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
@@ -52,7 +52,7 @@
 ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; label&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; num&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;stat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-2-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -63,7 +63,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&q
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;stat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;identity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; scales&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;comma&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -87,7 +87,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&q
 &lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;economics&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;date&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; pop&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -109,7 +109,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&q
   geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; label_ko_num&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -127,7 +127,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&q
   geom_bar&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;fill&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Paired&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-7-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 
@@ -137,7 +137,7 @@ ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_largenum&lt;span class=&q
   scale_y_continuous&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; scales&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;percent&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
   scale_fill_brewer&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;palette &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Paired&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt;&amp;lt;!&amp;ndash; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_scale_label/unnamed-chunk-8-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;
 &lt;br /&gt;&lt;/p&gt;
