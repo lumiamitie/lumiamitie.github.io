@@ -163,6 +163,11 @@ callback([
   {
     "text": "ggplot2 label 설정하기",
     "href": "http://lumiamitie.github.io/r/visualization/ggplot2-labs"
+  } ,
+
+  {
+    "text": "ggplot2 축 레이블 포맷 바꾸기",
+    "href": "http://lumiamitie.github.io/r/visualization/ggplot2-scale-label"
   } 
 
 ])

@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "ggplot2 축 레이블 포맷 바꾸기",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-scale-label",
+		  "date"       : "2016-08-10 00:00:00 +0900",
+		  "shortdate"  : "August 10, 2016"
+		} ,
+	
+		{
 		  "title"      : "ggplot2 label 설정하기",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/visualization/ggplot2-labs",
