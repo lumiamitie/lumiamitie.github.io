@@ -168,6 +168,11 @@ callback([
   {
     "text": "ggplot2 축 레이블 포맷 바꾸기",
     "href": "http://lumiamitie.github.io/r/visualization/ggplot2-scale-label"
+  } ,
+
+  {
+    "text": "KOSPI200 데이터를 가지고 선그래프 그려보기",
+    "href": "http://lumiamitie.github.io/r/ggplot2_adv_linechart"
   } 
 
 ])

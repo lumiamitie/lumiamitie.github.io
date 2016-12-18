@@ -4,13 +4,231 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-08-10T22:23:00+09:00</updated>
+<updated>2016-12-18T20:21:53+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[KOSPI200 데이터를 가지고 선그래프 그려보기]]></title>
+  <link>http://lumiamitie.github.io/r/ggplot2_adv_linechart</link>
+  <id>http://lumiamitie.github.io/r/ggplot2_adv_linechart</id>
+  <published>2016-12-18T00:00:00+09:00</published>
+  <updated>2016-12-18T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/macphoto.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;kospi200-데이터를-가지고-선그래프-그려보기&quot;&gt;KOSPI200 데이터를 가지고 선그래프 그려보기&lt;/h1&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt; 사용해서 기본적인 그래프를 그리는 방법에 대해서는 몇 번의 포스팅을 통해 살펴본적이 있었다. 이번에는  간단한 선 그래프를 더 완성도 있게 구성하는 방법에 대해서 알아보려고 한다. &lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;의 기본적인 기능들이 알고 싶다면 예전에 올려둔 포스팅을 참고하면 된다. 라이브러리 버전에는 좀 차이가 있지만 큰 틀을 잡는데 도움이 될 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-01/&quot;&gt;ggplot2 01&lt;/a&gt; &lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-02/&quot;&gt;ggplot2 02&lt;/a&gt; &lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/ggplot2-03/&quot;&gt;ggplot2 03&lt;/a&gt; &lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;라이브러리&quot;&gt;라이브러리&lt;/h2&gt;
+
+&lt;hr&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;tidyverse&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# install.packages(&amp;#39;ggthemes&amp;#39;) 패키지가 없으면 설치!&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggthemes&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;데이터-불러오기&quot;&gt;데이터 불러오기&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;a href=&quot;https://www.google.com/finance&quot;&gt;Google Finance&lt;/a&gt; 에서 KOSPI 200 지수의 데이터를 가져와서 추세를 살펴보자. &lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;quantmod&lt;/code&gt; 패키지의 &lt;code&gt;getSymbols&lt;/code&gt; 함수를 사용하면 데이터를 쉽게 불러올 수 있다. 
+추가적인 내용은 &lt;a href=&quot;http://blog.naver.com/lisist/220382983076&quot;&gt;여기&lt;/a&gt; 페이지를 참고하면 된다. &lt;/p&gt;
+
+&lt;p&gt;데이터는 다음과 같다. 일별 시가, 종가, 최고가, 최저가, Volume 으로 구성되어 있다. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 맥 기본 로케일로 데이터를 받아오니 날짜가 제대로 불러지지 않았음&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# withr 패키지의 with_locale 함수를 통해 임시로 로케일을 변경하여 세팅&lt;/span&gt;
+withr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;with_locale&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;LC_TIME&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;C&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
+  kospi &lt;span class=&quot;o&quot;&gt;&amp;lt;-&lt;/span&gt; quantmod&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;getSymbols&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;KRX:KOSPI200&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;src&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;quot;google&amp;quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;auto.assign&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;F&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;from&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;2016-01-01&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;2016-12-15&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;# 받아온 데이터 tibble 형태로 정제&lt;/span&gt;
+tidy_kospi &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; kospi &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  broom&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;tidy&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  tbl_df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
+  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;series &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; stringr&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;str_replace_all&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;series&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;\\.&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;_&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+
+tidy_kospi
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## # A tibble: 1,185 × 3
+##         index            series  value
+##        &amp;lt;date&amp;gt;             &amp;lt;chr&amp;gt;  &amp;lt;dbl&amp;gt;
+## 1  2016-01-04 KRX_KOSPI200_Open 239.30
+## 2  2016-01-05 KRX_KOSPI200_Open 233.96
+## 3  2016-01-06 KRX_KOSPI200_Open 236.48
+## 4  2016-01-07 KRX_KOSPI200_Open 233.23
+## 5  2016-01-08 KRX_KOSPI200_Open 230.40
+## 6  2016-01-11 KRX_KOSPI200_Open 230.77
+## 7  2016-01-12 KRX_KOSPI200_Open 232.45
+## 8  2016-01-13 KRX_KOSPI200_Open 232.24
+## 9  2016-01-14 KRX_KOSPI200_Open 230.68
+## 10 2016-01-15 KRX_KOSPI200_Open 233.38
+## # ... with 1,175 more rows
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;기본적인-추세-보기&quot;&gt;기본적인 추세 보기&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;1) 필요한 데이터만 골라낸다&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;kospi 200 데이터에서 시가만 살펴본다. &lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;filter()&lt;/code&gt;를 사용해서 &lt;code&gt;KRX_KOSPI200_Open&lt;/code&gt; 항목만 찾는다 &lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;2) ggplot2를 이용해 데이터를 그린다&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;데이터는 &lt;code&gt;kospi_open&lt;/code&gt;을 사용한다. &lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;x축은 날짜, y축은 값이면 된다 &lt;code&gt;aes()&lt;/code&gt; 함수를 통해 적용한다 &lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;geom_line()&lt;/code&gt;을 사용해서 선그래프를 그린다&lt;br /&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 시가만 살펴보자&lt;/span&gt;
+kospi_open &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; tidy_kospi &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;series &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;KRX_KOSPI200_Open&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  
+
+&lt;span class=&quot;c1&quot;&gt;# 선만 그리기&lt;/span&gt;
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;kospi_open&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; index&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_adv_linechart/unnamed-chunk-3-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;추세선-그리기&quot;&gt;추세선 그리기&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;추세를 확인하기 위해 loess 곡선을 추가해보자. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;geom_smooth()&lt;/code&gt;를 추가한다. &lt;/li&gt;
+&lt;li&gt;만약 직선으로 fitting하고 싶다면 &lt;code&gt;geom_smooth(method = &amp;#39;lm&amp;#39;)&lt;/code&gt; 으로 실행시킨다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;kospi_open&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; index&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_adv_linechart/unnamed-chunk-4-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;그래프를-꾸며보자&quot;&gt;그래프를 꾸며보자&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;그래프를 조금 더 꾸며보도록 하자. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;추세선의 색상을 &lt;code&gt;#990000&lt;/code&gt;으로 바꾸자 &lt;/li&gt;
+&lt;li&gt;일단 x축이 분명 날짜로 구성이 되어있는데, 축에 날짜 표시가 안되어 있으니 날짜를 표시한다.
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;scale_x_date&lt;/code&gt; 로 x축에 대한 설정을 변경할 수 있다&lt;/li&gt;
+&lt;li&gt;01/08 의 형태로 표시해보자. &lt;code&gt;date_labels = &amp;#39;%m/%d&lt;/code&gt; 로 날짜 포맷을 지정한다.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;차트에 제목을 넣어보자
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;ggtitle()&lt;/code&gt; 함수를 사용한다&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;축 제목을 변경하자
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;xlab()&lt;/code&gt;, &lt;code&gt;ylab()&lt;/code&gt; 으로 각각 x축과 y축의 제목을 변경할 수 있다&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;맥 사용자의 경우 한글이 포함되면 폰트 문제로 출력이 제대로 되지 않을 수 있다
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;theme_gray(base_family = &amp;#39;AppleGothic&amp;#39;)&lt;/code&gt; 을 추가해서 한글 폰트를 지정한다&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;kospi_open&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; index&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;#990000&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_x_date&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;date_labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;%m/%d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  xlab&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;날짜&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; ylab&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;지수&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;KOSPI200 시가\n2016-01-01 ~ 2016-12-15 &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  theme_gray&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;base_family &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;AppleGothic&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# 이 부분은 맥 사용자만!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_adv_linechart/unnamed-chunk-5-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;테마를-추가해보자&quot;&gt;테마를 추가해보자&lt;/h3&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;&lt;code&gt;ggthemes&lt;/code&gt; 패키지를 설치하면 추가적인 테마를 적용할 수 있다. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;월스트리트 저널 테마를 적용하자. 이 테마는 x, y축 제목을 포함하지 않기 때문에 해당 부분은 세팅할 필요가 없다.&lt;/li&gt;
+&lt;li&gt;이 테마의 경우 본문과 제목의 폰트를 따로 세팅할 수 있는데, 둘 다 오버워치 폰트를 사용해서 꾸며보자.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;폰트는 &lt;a href=&quot;http://kr.battle.net/forums/static/fonts/koverwatch/koverwatch.ttf&quot;&gt;여기&lt;/a&gt;서 다운로드 받을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;윈도우는 &lt;code&gt;extrafont&lt;/code&gt; 패키지를 통해 폰트를 등록하고 (페이지 맨 밑에서 추가 설명) 맥은 &lt;code&gt;서체관리자&lt;/code&gt;에서 폰트를 설치하면 바로 적용할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;kospi_open&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; index&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; value&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_line&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  geom_smooth&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;colour &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;#990000&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  scale_x_date&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;date_labels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;%m/%d&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  ggtitle&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;KOSPI200 시가\n2016-01-01 ~ 2016-12-15 &amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;
+  theme_wsj&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;base_family &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Koverwatch&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; title_family &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Koverwatch&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/ggplot2_adv_linechart/unnamed-chunk-6-1.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;윈도우에서-폰트-세팅하기&quot;&gt;윈도우에서 폰트 세팅하기&lt;/h2&gt;
+
+&lt;hr&gt;
+
+&lt;p&gt;윈도우에서 그래프 작업을 할 때 폰트를 적용하기 위해서는 &lt;code&gt;extrafont&lt;/code&gt; 패키지에 미리 폰트를 등록시켜 놓아야 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;extrafont&lt;/code&gt; 패키지를 설치하고 &lt;code&gt;font_import()&lt;/code&gt; 함수를 실행시키면 된다&lt;/li&gt;
+&lt;li&gt;시간이 오래걸린다&amp;hellip;. 윈도우용으로 쓰는 예전 i5 그램에서는 50분 정도 걸린듯. 폰트가 많을수록 느려진다&lt;/li&gt;
+&lt;li&gt;처음 폰트를 불러올때는 &lt;code&gt;loadfonts&lt;/code&gt; 함수가 필요하지만 이후에는 라이브러리 불러올때 자동으로 로드된다.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;install.packages&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;extrafont&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;extrafont&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+font_import&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;# y를 누르면 font 등록을 시작한다&lt;/span&gt;
+loadfonts&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;device &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;win&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;# 이제 그래프에서 폰트를 사용할 수 있다!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/ggplot2_adv_linechart&quot;&gt;KOSPI200 데이터를 가지고 선그래프 그려보기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on December 18, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -6002,189 +6220,6 @@ link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&q
 &lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/networkD3&quot;&gt;networkD3&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 03, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[leaflet in R]]></title>
-  <link>http://lumiamitie.github.io/r/visualization/leaflet-in-R</link>
-  <id>http://lumiamitie.github.io/r/visualization/leaflet-in-R</id>
-  <published>2015-09-25T00:00:00+09:00</published>
-  <updated>2015-09-25T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h1 id=&quot;leaflet-in-r&quot;&gt;leaflet in R&lt;/h1&gt;
-
-&lt;p&gt;&lt;strong&gt;leaflet&lt;/strong&gt;은 인터랙티브한 지도를 구현할 수 있게 해주는 오픈소스 자바스크립트 라이브러리이다&lt;/p&gt;
-
-&lt;p&gt;R의 leaflet 패키지는 R에서 데이터를 가지고 쉽게 Leaflet 지도를 생성할 수 있게 해준다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;install.packages(&amp;#39;leaflet&amp;#39;)&lt;/code&gt;를 통해 해당 패키지를 설치하면 바로 사용할 수 있다&lt;/p&gt;
-
-&lt;p&gt;실습을 위한 데이터는 서울 열린 데이터 광장의 &lt;a href=&quot;http://data.seoul.go.kr/openinf/sheetview.jsp?infId=OA-1218&amp;amp;tMenu=11&quot;&gt;공공 Wifi 위치정보&lt;/a&gt; 데이터 중에서 설치기관이 skt, kt, lgu+인 경우로만 필터링해서 사용했다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# install.packages(&amp;#39;leaflet&amp;#39;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;leaflet&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 서울의 위도, 경도 값&lt;/span&gt;
-seoul_lonlat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;unlist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggmap&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;geocode&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;seoul&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;google&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# 서울 열린데이터광장&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# http://data.seoul.go.kr/openinf/sheetview.jsp?infId=OA-1218&amp;amp;tMenu=11&lt;/span&gt;
-wifi_data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; read.csv&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;../dataset/wifi_data.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; stringsAsFactors &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;이-페이지에서는-leaflet이-구동-되지-않습니다-ㅠㅠ&quot;&gt;이 페이지에서는 leaflet이 구동 되지 않습니다 ㅠㅠ&lt;/h3&gt;
-
-&lt;p&gt;현재 페이지에서 leaflet을 제대로 보이기 힘든 것 같아서 여기에는 지도의 캡쳐로 대신하고 실제 구동되는 페이지는 &lt;a href=&quot;http://lumiamitie.github.io/r_tutorial/blog_link/leaflet_in_r.html&quot;&gt;다음 링크&lt;/a&gt; 로 들어가시면 확인하실 수 있습니다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br / &gt;
-&lt;br / &gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;creating-default-map&quot;&gt;Creating default map&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;leaflet(data)&lt;/code&gt;를 통해 leaflet map widget을 생성하고 데이터를 연결한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;setView()&lt;/code&gt;함수를 사용하면 지도의 중심과 확대 정도를 설정한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;addTiles()&lt;/code&gt; 함수는 기본 타일(OpenStreetMap)을 불러와서 지도를 보여준다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;addCircles()&lt;/code&gt; 함수를 통해 데이터를 원의 형태로 지도에 나타낼 수 있다&lt;/p&gt;
-
-&lt;p&gt;각각의 함수는 &lt;code&gt;%&amp;gt;%&lt;/code&gt;를 통해 연결할 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addTiles&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br / &gt;
-&lt;br / &gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;third-party-tiles&quot;&gt;Third Party Tiles&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;addTiles()&lt;/code&gt;대신에 &lt;code&gt;addProviderTiles()&lt;/code&gt;를 이용하면 OSM이 아닌 다른 형태의 지도를 사용할 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;Stamen.Toner&lt;/code&gt;,&lt;code&gt;Stamen.Watercolor&lt;/code&gt;, &lt;code&gt;Acetate.terrain&lt;/code&gt;, &lt;code&gt;CartoDB.Positron&lt;/code&gt; 등의 옵션을 사용할 수 있고&lt;/p&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://github.com/leaflet-extras/leaflet-providers&quot;&gt;https://github.com/leaflet-extras/leaflet-providers&lt;/a&gt;에서 다른 provider들의 지도를 불러올 수 있는 방법에 대해서 알아볼 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;CartoDB.Positron&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br / &gt;
-&lt;br / &gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;popup&quot;&gt;Popup&lt;/h2&gt;
-
-&lt;p&gt;popup 옵션을 이용하면 tooltip을 생성할 수 있다&lt;/p&gt;
-
-&lt;p&gt;클릭하면 해당 데이터를 확인할 수 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br / &gt;
-&lt;br / &gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;color&quot;&gt;Color&lt;/h2&gt;
-
-&lt;p&gt;leaftlet에서는 &lt;code&gt;colorNumeric&lt;/code&gt;, &lt;code&gt;colorBin&lt;/code&gt;, &lt;code&gt;colorQuantile&lt;/code&gt;, &lt;code&gt;colorFactor&lt;/code&gt; 등의 함수를 이용해서 색상을 지정하는 함수를 생성할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;위에서 사용한 와이파이 정보를 통신사별로 구별하기 위해서 서로 다른 색상을 지정해보려고 한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;colorFactor&lt;/code&gt;함수를 이용하면 &lt;code&gt;RColorBrewer&lt;/code&gt; 패키지의 색상이나 다른 함수의 색상을 가져와서 구성할 수 있다&lt;/p&gt;
-
-&lt;p&gt;첫 번째 인수로는 RColorBrewer의 팔레트 이름, 두 번째 인수는 적용할 데이터(열까지)를 지정한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;telecom_color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; colorFactor&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Set1&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; wifi_data&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;색상 함수를 생성하면 &lt;code&gt;color&lt;/code&gt;옵션에서 해당 변수에 함수를 사용한 형태로 값을 지정한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet05.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br / &gt;
-&lt;br / &gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;legends&quot;&gt;Legends&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;addLegend&lt;/code&gt;함수를 이용해서 범례를 추가할 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;position&lt;/code&gt; 항목에는 topright&amp;quot;, bottomright, bottomleft, topleft 중 하나를 선택하여 범례의 위치를 지정할 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;pal&lt;/code&gt; 옵션에는 우리가 사용했던 색상 팔레트 함수를 입력한다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;values&lt;/code&gt; 옵션에는 색상 팔레트 함수가 색상을 생성하는데 사용한 변수값을 지정한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;wifi_data&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addLegend&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;position &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;bottomright&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-            title &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;Wifi Provider&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-            pal &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; telecom_color&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; values &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; opacity &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet06.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;interactive-layer&quot;&gt;Interactive Layer&lt;/h2&gt;
-
-&lt;p&gt;각각의 레이어를 서로 다른 group으로 지정하면 사용자 선택에 의해서 원하는 레이어만 선택하여 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;addCircles&lt;/code&gt;함수를 사용할 때 &lt;code&gt;group&lt;/code&gt;이라는 항목을 추가하고&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;addLayersControl&lt;/code&gt;함수에서 설정을 통해 선택창을 생성할 수 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;baseGroups&lt;/strong&gt; 항목에 목록을 넣으면 라디오 버튼(항목 중에서 한 개만 선택가능)이 구성되고&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;overlayGroups&lt;/strong&gt; 항목에 들어가는 목록은 체크박스를 구성한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;leaflet&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  setView&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; lat &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; seoul_lonlat&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;],&lt;/span&gt; zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;11&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addProviderTiles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Stamen.Toner&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; wifi_data &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;SKT&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-             lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;skt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; wifi_data &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;KT&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-             lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;kt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addCircles&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; wifi_data &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; filter&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;LGU+&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-             lng &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;lon&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; lat&lt;span class=&quot;o&quot;&gt;=~&lt;/span&gt;lat&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; popup &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lg&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             color &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;~&lt;/span&gt;telecom_color&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;div&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  addLayersControl&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;overlayGroups &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;skt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;kt&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;lg&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-                   options &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; layersControlOptions&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;collapsed &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;FALSE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/leaflet_in_R/leaflet07.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/leaflet-in-R&quot;&gt;leaflet in R&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on September 25, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>

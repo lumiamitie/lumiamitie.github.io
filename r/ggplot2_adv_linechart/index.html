@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>KOSPI200 데이터를 가지고 선그래프 그려보기</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="ggplot2, R">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KOSPI200 데이터를 가지고 선그래프 그려보기">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/r/ggplot2_adv_linechart">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/r/ggplot2_adv_linechart">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>KOSPI200 데이터를 가지고 선그래프 그려보기</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#ggplot2" data-toggle="tooltip" title="Posts tagged with ggplot2" rel="tag">ggplot2</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#R" data-toggle="tooltip" title="Posts tagged with R" rel="tag">R</a> <strong><time datetime="2016-12-18T00:00:00+09:00">18 Dec 2016</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="/images/macphoto.jpg" alt="cover-image"></p>
+
+<h1 id="kospi200-데이터를-가지고-선그래프-그려보기">KOSPI200 데이터를 가지고 선그래프 그려보기</h1>
+
+<hr>
+
+<p><code>ggplot2</code> 사용해서 기본적인 그래프를 그리는 방법에 대해서는 몇 번의 포스팅을 통해 살펴본적이 있었다. 이번에는  간단한 선 그래프를 더 완성도 있게 구성하는 방법에 대해서 알아보려고 한다. </p>
+
+<p><br /></p>
+
+<p><code>ggplot2</code>의 기본적인 기능들이 알고 싶다면 예전에 올려둔 포스팅을 참고하면 된다. 라이브러리 버전에는 좀 차이가 있지만 큰 틀을 잡는데 도움이 될 것이다.</p>
+
+<ul>
+<li><a href="http://lumiamitie.github.io/r/visualization/ggplot2-01/">ggplot2 01</a> <br /></li>
+<li><a href="http://lumiamitie.github.io/r/visualization/ggplot2-02/">ggplot2 02</a> <br /></li>
+<li><a href="http://lumiamitie.github.io/r/visualization/ggplot2-03/">ggplot2 03</a> <br /></li>
+</ul>
+
+<h2 id="라이브러리">라이브러리</h2>
+
+<hr>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>tidyverse<span class="p">)</span>
+<span class="c1"># install.packages(&#39;ggthemes&#39;) 패키지가 없으면 설치!</span>
+<span class="kn">library</span><span class="p">(</span>ggthemes<span class="p">)</span>
+</code></pre></div>
+<p><br /></p>
+
+<h2 id="데이터-불러오기">데이터 불러오기</h2>
+
+<hr>
+
+<p><a href="https://www.google.com/finance">Google Finance</a> 에서 KOSPI 200 지수의 데이터를 가져와서 추세를 살펴보자. </p>
+
+<p><code>quantmod</code> 패키지의 <code>getSymbols</code> 함수를 사용하면 데이터를 쉽게 불러올 수 있다. 
+추가적인 내용은 <a href="http://blog.naver.com/lisist/220382983076">여기</a> 페이지를 참고하면 된다. </p>
+
+<p>데이터는 다음과 같다. 일별 시가, 종가, 최고가, 최저가, Volume 으로 구성되어 있다. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># 맥 기본 로케일로 데이터를 받아오니 날짜가 제대로 불러지지 않았음</span>
+<span class="c1"># withr 패키지의 with_locale 함수를 통해 임시로 로케일을 변경하여 세팅</span>
+withr<span class="o">::</span>with_locale<span class="p">(</span><span class="kt">c</span><span class="p">(</span><span class="s">&#39;LC_TIME&#39;</span> <span class="o">=</span> <span class="s">&#39;C&#39;</span><span class="p">),</span>
+  kospi <span class="o">&lt;-</span> quantmod<span class="o">::</span>getSymbols<span class="p">(</span><span class="s">&quot;KRX:KOSPI200&quot;</span><span class="p">,</span>src<span class="o">=</span><span class="s">&quot;google&quot;</span><span class="p">,</span>auto.assign<span class="o">=</span><span class="bp">F</span><span class="p">,</span>from<span class="o">=</span><span class="s">&#39;2016-01-01&#39;</span><span class="p">,</span><span class="s">&#39;2016-12-15&#39;</span><span class="p">)</span>
+  <span class="p">)</span>
+
+<span class="c1"># 받아온 데이터 tibble 형태로 정제</span>
+tidy_kospi <span class="o">=</span> kospi <span class="o">%&gt;%</span> 
+  broom<span class="o">::</span>tidy<span class="p">()</span> <span class="o">%&gt;%</span> 
+  tbl_df <span class="o">%&gt;%</span> 
+  mutate<span class="p">(</span>series <span class="o">=</span> stringr<span class="o">::</span>str_replace_all<span class="p">(</span>series<span class="p">,</span> <span class="s">&#39;\\.&#39;</span><span class="p">,</span> <span class="s">&#39;_&#39;</span><span class="p">))</span>
+
+tidy_kospi
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">## # A tibble: 1,185 × 3
+##         index            series  value
+##        &lt;date&gt;             &lt;chr&gt;  &lt;dbl&gt;
+## 1  2016-01-04 KRX_KOSPI200_Open 239.30
+## 2  2016-01-05 KRX_KOSPI200_Open 233.96
+## 3  2016-01-06 KRX_KOSPI200_Open 236.48
+## 4  2016-01-07 KRX_KOSPI200_Open 233.23
+## 5  2016-01-08 KRX_KOSPI200_Open 230.40
+## 6  2016-01-11 KRX_KOSPI200_Open 230.77
+## 7  2016-01-12 KRX_KOSPI200_Open 232.45
+## 8  2016-01-13 KRX_KOSPI200_Open 232.24
+## 9  2016-01-14 KRX_KOSPI200_Open 230.68
+## 10 2016-01-15 KRX_KOSPI200_Open 233.38
+## # ... with 1,175 more rows
+</code></pre></div>
+<p><br /></p>
+
+<h3 id="기본적인-추세-보기">기본적인 추세 보기</h3>
+
+<hr>
+
+<p>1) 필요한 데이터만 골라낸다</p>
+
+<ul>
+<li>kospi 200 데이터에서 시가만 살펴본다. <br /></li>
+<li><code>filter()</code>를 사용해서 <code>KRX_KOSPI200_Open</code> 항목만 찾는다 <br /></li>
+</ul>
+
+<p><br /></p>
+
+<p>2) ggplot2를 이용해 데이터를 그린다</p>
+
+<ul>
+<li>데이터는 <code>kospi_open</code>을 사용한다. <br /></li>
+<li>x축은 날짜, y축은 값이면 된다 <code>aes()</code> 함수를 통해 적용한다 <br /></li>
+<li><code>geom_line()</code>을 사용해서 선그래프를 그린다<br /></li>
+</ul>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="c1"># 시가만 살펴보자</span>
+kospi_open <span class="o">=</span> tidy_kospi <span class="o">%&gt;%</span> filter<span class="p">(</span>series <span class="o">==</span> <span class="s">&#39;KRX_KOSPI200_Open&#39;</span><span class="p">)</span>  
+
+<span class="c1"># 선만 그리기</span>
+ggplot<span class="p">(</span>kospi_open<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> index<span class="p">,</span> y <span class="o">=</span> value<span class="p">))</span> <span class="o">+</span>
+  geom_line<span class="p">()</span>
+</code></pre></div>
+<p><img src="/images/post_image/ggplot2_adv_linechart/unnamed-chunk-3-1.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="추세선-그리기">추세선 그리기</h3>
+
+<hr>
+
+<p>추세를 확인하기 위해 loess 곡선을 추가해보자. </p>
+
+<ul>
+<li><code>geom_smooth()</code>를 추가한다. </li>
+<li>만약 직선으로 fitting하고 싶다면 <code>geom_smooth(method = &#39;lm&#39;)</code> 으로 실행시킨다.</li>
+</ul>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>kospi_open<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> index<span class="p">,</span> y <span class="o">=</span> value<span class="p">))</span> <span class="o">+</span>
+  geom_line<span class="p">()</span> <span class="o">+</span>
+  geom_smooth<span class="p">()</span>
+</code></pre></div>
+<p><img src="/images/post_image/ggplot2_adv_linechart/unnamed-chunk-4-1.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="그래프를-꾸며보자">그래프를 꾸며보자</h3>
+
+<hr>
+
+<p>그래프를 조금 더 꾸며보도록 하자. </p>
+
+<ul>
+<li>추세선의 색상을 <code>#990000</code>으로 바꾸자 </li>
+<li>일단 x축이 분명 날짜로 구성이 되어있는데, 축에 날짜 표시가 안되어 있으니 날짜를 표시한다.
+
+<ul>
+<li><code>scale_x_date</code> 로 x축에 대한 설정을 변경할 수 있다</li>
+<li>01/08 의 형태로 표시해보자. <code>date_labels = &#39;%m/%d</code> 로 날짜 포맷을 지정한다.</li>
+</ul></li>
+<li>차트에 제목을 넣어보자
+
+<ul>
+<li><code>ggtitle()</code> 함수를 사용한다</li>
+</ul></li>
+<li>축 제목을 변경하자
+
+<ul>
+<li><code>xlab()</code>, <code>ylab()</code> 으로 각각 x축과 y축의 제목을 변경할 수 있다</li>
+</ul></li>
+<li>맥 사용자의 경우 한글이 포함되면 폰트 문제로 출력이 제대로 되지 않을 수 있다
+
+<ul>
+<li><code>theme_gray(base_family = &#39;AppleGothic&#39;)</code> 을 추가해서 한글 폰트를 지정한다</li>
+</ul></li>
+</ul>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>kospi_open<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> index<span class="p">,</span> y <span class="o">=</span> value<span class="p">))</span> <span class="o">+</span>
+  geom_line<span class="p">()</span> <span class="o">+</span>
+  geom_smooth<span class="p">(</span>colour <span class="o">=</span> <span class="s">&#39;#990000&#39;</span><span class="p">)</span> <span class="o">+</span>
+  scale_x_date<span class="p">(</span>date_labels <span class="o">=</span> <span class="s">&#39;%m/%d&#39;</span><span class="p">)</span> <span class="o">+</span>
+  xlab<span class="p">(</span><span class="s">&#39;날짜&#39;</span><span class="p">)</span> <span class="o">+</span> ylab<span class="p">(</span><span class="s">&#39;지수&#39;</span><span class="p">)</span> <span class="o">+</span>
+  ggtitle<span class="p">(</span><span class="s">&#39;KOSPI200 시가\n2016-01-01 ~ 2016-12-15 &#39;</span><span class="p">)</span> <span class="o">+</span>
+  theme_gray<span class="p">(</span>base_family <span class="o">=</span> <span class="s">&#39;AppleGothic&#39;</span><span class="p">)</span> <span class="c1"># 이 부분은 맥 사용자만!</span>
+</code></pre></div>
+<p><img src="/images/post_image/ggplot2_adv_linechart/unnamed-chunk-5-1.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="테마를-추가해보자">테마를 추가해보자</h3>
+
+<hr>
+
+<p><code>ggthemes</code> 패키지를 설치하면 추가적인 테마를 적용할 수 있다. </p>
+
+<ul>
+<li>월스트리트 저널 테마를 적용하자. 이 테마는 x, y축 제목을 포함하지 않기 때문에 해당 부분은 세팅할 필요가 없다.</li>
+<li>이 테마의 경우 본문과 제목의 폰트를 따로 세팅할 수 있는데, 둘 다 오버워치 폰트를 사용해서 꾸며보자.</li>
+</ul>
+
+<p>폰트는 <a href="http://kr.battle.net/forums/static/fonts/koverwatch/koverwatch.ttf">여기</a>서 다운로드 받을 수 있다.</p>
+
+<p>윈도우는 <code>extrafont</code> 패키지를 통해 폰트를 등록하고 (페이지 맨 밑에서 추가 설명) 맥은 <code>서체관리자</code>에서 폰트를 설치하면 바로 적용할 수 있다</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">ggplot<span class="p">(</span>kospi_open<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> index<span class="p">,</span> y <span class="o">=</span> value<span class="p">))</span> <span class="o">+</span>
+  geom_line<span class="p">()</span> <span class="o">+</span>
+  geom_smooth<span class="p">(</span>colour <span class="o">=</span> <span class="s">&#39;#990000&#39;</span><span class="p">)</span> <span class="o">+</span>
+  scale_x_date<span class="p">(</span>date_labels <span class="o">=</span> <span class="s">&#39;%m/%d&#39;</span><span class="p">)</span> <span class="o">+</span>
+  ggtitle<span class="p">(</span><span class="s">&#39;KOSPI200 시가\n2016-01-01 ~ 2016-12-15 &#39;</span><span class="p">)</span> <span class="o">+</span>
+  theme_wsj<span class="p">(</span>base_family <span class="o">=</span> <span class="s">&#39;Koverwatch&#39;</span><span class="p">,</span> title_family <span class="o">=</span> <span class="s">&#39;Koverwatch&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/ggplot2_adv_linechart/unnamed-chunk-6-1.png" alt=""></p>
+
+<p><br />
+<br />
+<br />
+<br /></p>
+
+<h2 id="윈도우에서-폰트-세팅하기">윈도우에서 폰트 세팅하기</h2>
+
+<hr>
+
+<p>윈도우에서 그래프 작업을 할 때 폰트를 적용하기 위해서는 <code>extrafont</code> 패키지에 미리 폰트를 등록시켜 놓아야 한다.</p>
+
+<ul>
+<li><code>extrafont</code> 패키지를 설치하고 <code>font_import()</code> 함수를 실행시키면 된다</li>
+<li>시간이 오래걸린다&hellip;. 윈도우용으로 쓰는 예전 i5 그램에서는 50분 정도 걸린듯. 폰트가 많을수록 느려진다</li>
+<li>처음 폰트를 불러올때는 <code>loadfonts</code> 함수가 필요하지만 이후에는 라이브러리 불러올때 자동으로 로드된다.</li>
+</ul>
+<div class="highlight"><pre><code class="language-r" data-lang="r">install.packages<span class="p">(</span><span class="s">&#39;extrafont&#39;</span><span class="p">)</span>
+<span class="kn">library</span><span class="p">(</span>extrafont<span class="p">)</span>
+font_import<span class="p">()</span> <span class="c1"># y를 누르면 font 등록을 시작한다</span>
+loadfonts<span class="p">(</span>device <span class="o">=</span> <span class="s">&#39;win&#39;</span><span class="p">)</span>
+<span class="c1"># 이제 그래프에서 폰트를 사용할 수 있다!</span>
+</code></pre></div>
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;KOSPI200 데이터를 가지고 선그래프 그려보기&quot;%20http://lumiamitie.github.io/r/ggplot2_adv_linechart%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/ggplot2_adv_linechart"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/ggplot2_adv_linechart"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2016 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+/*
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-69341391-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69341391-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+ 
+</body>
+</html>
