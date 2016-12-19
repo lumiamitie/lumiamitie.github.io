@@ -4,13 +4,619 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-12-19T20:03:13+09:00</updated>
+<updated>2016-12-19T21:56:12+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[Cufflinks Basic]]></title>
+  <link>http://lumiamitie.github.io/python/cufflinks_basic</link>
+  <id>http://lumiamitie.github.io/python/cufflinks_basic</id>
+  <published>2016-12-19T00:00:00+09:00</published>
+  <updated>2016-12-19T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/desk-pen-ruler.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;style&gt;
+table {
+    margin: 10px auto !important;
+}
+&lt;/style&gt;
+
+&lt;h1 id=&quot;cufflinks-basic&quot;&gt;Cufflinks basic&lt;/h1&gt;
+
+&lt;p&gt;&lt;code&gt;cufflinks&lt;/code&gt;는 &lt;code&gt;pandas.DataFrame&lt;/code&gt;형태의 데이터를 &lt;code&gt;plotly&lt;/code&gt;를 이용해 쉽게 시각화할 수 있도록 도와주는 라이브러리이다. &lt;/p&gt;
+
+&lt;p&gt;데이터프레임을 가지고 간단하게 인터렉티브한 그래프를 만들 수 있다는 장점이 있지만, svg만 사용하다보니 만개를 넘어가는 산점도 등 복잡한 형태의 그래프를 그릴 때에는 좋은 결과물을 얻기 힘들다. (&lt;code&gt;plotly&lt;/code&gt;에서는 그냥 webgl을 쓰면 되는데&amp;hellip;. cufflinks에 없는건지 내가 못찾는건지 ㅠㅠ)&lt;/p&gt;
+
+&lt;p&gt;최종적인 시각화 결과물을 내는 데에는 부족하지만 (그 퀄리티를 내려면 &lt;code&gt;plotly&lt;/code&gt;를 쓰셔야 합니다&amp;hellip;) 분석을 위한 간단한 그래프를 빠르게 찍어내는데는 상당히 유용하게 사용할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pandas&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;pd&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cufflinks&lt;/span&gt; &lt;span class=&quot;kn&quot;&gt;as&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;cf&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;go_offline&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;사용한 라이브러리 버전은 다음과 같다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# cufflinks&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__version__&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;#39;0.8.2&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;c&quot;&gt;# pandas&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;__version__&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;&amp;#39;0.18.1&amp;#39;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;h2 id=&quot;데이터-불러오기&quot;&gt;데이터 불러오기&lt;/h2&gt;
+
+&lt;p&gt;연습/테스트용으로 많이 사용되는 데이터를 불러와서 그래프를 그려보자. 라이브러리에서 데이터를 제공하는 경우도 있지만 적당한 데이터를 찾지 못했다면 아래 url 링크를 통해 데이터를 불러와서 진행하면 된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;pandas.read_csv()&lt;/code&gt; 를 통해 csv 데이터를 데이터 프레임으로 변환시킨다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;https://raw.githubusercontent.com/hadley/ggplot2/master/data-raw/diamonds.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;economics&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;https://raw.githubusercontent.com/hadley/ggplot2/master/data-raw/economics.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pd&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;read_csv&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;hr&gt;
+
+&lt;h2 id=&quot;산점도-scatter-plot&quot;&gt;산점도 (Scatter Plot)&lt;/h2&gt;
+
+&lt;p&gt;불러온 데이터 중에서 &lt;code&gt;iris&lt;/code&gt; 데이터를 가지고 간단한 산점도를 그려보자. 데이터는 다음과 같이 구성되어 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;sepal_length&lt;/th&gt;
+      &lt;th&gt;sepal_width&lt;/th&gt;
+      &lt;th&gt;petal_length&lt;/th&gt;
+      &lt;th&gt;petal_width&lt;/th&gt;
+      &lt;th&gt;species&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;5.1&lt;/td&gt;
+      &lt;td&gt;3.5&lt;/td&gt;
+      &lt;td&gt;1.4&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+      &lt;td&gt;setosa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;4.9&lt;/td&gt;
+      &lt;td&gt;3.0&lt;/td&gt;
+      &lt;td&gt;1.4&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+      &lt;td&gt;setosa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;4.7&lt;/td&gt;
+      &lt;td&gt;3.2&lt;/td&gt;
+      &lt;td&gt;1.3&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+      &lt;td&gt;setosa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;4.6&lt;/td&gt;
+      &lt;td&gt;3.1&lt;/td&gt;
+      &lt;td&gt;1.5&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+      &lt;td&gt;setosa&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;5.0&lt;/td&gt;
+      &lt;td&gt;3.6&lt;/td&gt;
+      &lt;td&gt;1.4&lt;/td&gt;
+      &lt;td&gt;0.2&lt;/td&gt;
+      &lt;td&gt;setosa&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;데이터프레임.iplot()&lt;/code&gt; 을 통해 jupyter notebook에 그래프를 바로 그릴 수 있다. 독립적인 html 파일로 그래프를 출력한다면 &lt;code&gt;데이터프레임.plot()&lt;/code&gt;을 사용하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# markers 옵션이 빠지면 &amp;#39;선&amp;#39;의 형태로 표시됨&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# x, y를 명시하지 않으면 index가 x축으로 지정됨&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic01.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;그룹별로-그리기&quot;&gt;그룹별로 그리기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;categories&lt;/code&gt; 항목에 그룹으로 지정할 열 이름을 넣으면 그룹별 산점도를 그릴 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;species&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# categories 항목에 해당 열 이름을 추가&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic02.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;제목-추가하기&quot;&gt;제목 추가하기&lt;/h3&gt;
+
+&lt;p&gt;기본 plotly에서는 레이아웃을 직접 지정해야했지만, cufflinks에서는 &lt;strong&gt;title&lt;/strong&gt; 옵션을 통해 제목을 추가할 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;species&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Scatter Plot for Iris Data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# title에 제목을 추가한다&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic03.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;subplot-구성하기&quot;&gt;Subplot 구성하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;subplots=True&lt;/code&gt; 항목을 추가하면 각 항목의 그래프를 나누어서 그릴 수 있다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;species&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# subplots=True 를 추가&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Scatter Plot for Iris Data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic04.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;어차피 각 항목별로 그래프가 나누어져있으니 범례를 지우고 각 subplot에 소제목을 추가해보자&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;subplot_titles=True&lt;/code&gt;로 설정하면 각 subplot에 소제목이 추가된다 &lt;/li&gt;
+&lt;li&gt;&lt;code&gt;legend=False&lt;/code&gt;를 설정하면 범례가 보이지 않는다&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;species&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subplot_titles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Scatter Plot for Iris Data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic05.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;subplot의 배치방식을 바꾸려면 &lt;code&gt;shape&lt;/code&gt; 옵션을 변경해주면 된다. &lt;code&gt;shape=(행, 열)&lt;/code&gt;의 형태로 정수값을 입력한다.&lt;/p&gt;
+
+&lt;p&gt;옆으로 나란히 세 개의 그래프를 배치해보자&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iris&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;mode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;markers&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;sepal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;petal_length&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;categories&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;species&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subplot_titles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+        &lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# shape=(원하는 행 수, 원하는 열 수)&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Scatter Plot for Iris Data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic06.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;막대그래프&quot;&gt;막대그래프&lt;/h2&gt;
+
+&lt;p&gt;이번에는 &lt;code&gt;diamonds&lt;/code&gt; 데이터를 가지고 막대그래프를 그려보려고 한다. 데이터는 다음과 같이 구성되어 있다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;carat&lt;/th&gt;
+      &lt;th&gt;cut&lt;/th&gt;
+      &lt;th&gt;color&lt;/th&gt;
+      &lt;th&gt;clarity&lt;/th&gt;
+      &lt;th&gt;depth&lt;/th&gt;
+      &lt;th&gt;table&lt;/th&gt;
+      &lt;th&gt;price&lt;/th&gt;
+      &lt;th&gt;x&lt;/th&gt;
+      &lt;th&gt;y&lt;/th&gt;
+      &lt;th&gt;z&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;0&lt;/th&gt;
+      &lt;td&gt;0.23&lt;/td&gt;
+      &lt;td&gt;Ideal&lt;/td&gt;
+      &lt;td&gt;E&lt;/td&gt;
+      &lt;td&gt;SI2&lt;/td&gt;
+      &lt;td&gt;61.5&lt;/td&gt;
+      &lt;td&gt;55.0&lt;/td&gt;
+      &lt;td&gt;326&lt;/td&gt;
+      &lt;td&gt;3.95&lt;/td&gt;
+      &lt;td&gt;3.98&lt;/td&gt;
+      &lt;td&gt;2.43&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;1&lt;/th&gt;
+      &lt;td&gt;0.21&lt;/td&gt;
+      &lt;td&gt;Premium&lt;/td&gt;
+      &lt;td&gt;E&lt;/td&gt;
+      &lt;td&gt;SI1&lt;/td&gt;
+      &lt;td&gt;59.8&lt;/td&gt;
+      &lt;td&gt;61.0&lt;/td&gt;
+      &lt;td&gt;326&lt;/td&gt;
+      &lt;td&gt;3.89&lt;/td&gt;
+      &lt;td&gt;3.84&lt;/td&gt;
+      &lt;td&gt;2.31&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;2&lt;/th&gt;
+      &lt;td&gt;0.23&lt;/td&gt;
+      &lt;td&gt;Good&lt;/td&gt;
+      &lt;td&gt;E&lt;/td&gt;
+      &lt;td&gt;VS1&lt;/td&gt;
+      &lt;td&gt;56.9&lt;/td&gt;
+      &lt;td&gt;65.0&lt;/td&gt;
+      &lt;td&gt;327&lt;/td&gt;
+      &lt;td&gt;4.05&lt;/td&gt;
+      &lt;td&gt;4.07&lt;/td&gt;
+      &lt;td&gt;2.31&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;3&lt;/th&gt;
+      &lt;td&gt;0.29&lt;/td&gt;
+      &lt;td&gt;Premium&lt;/td&gt;
+      &lt;td&gt;I&lt;/td&gt;
+      &lt;td&gt;VS2&lt;/td&gt;
+      &lt;td&gt;62.4&lt;/td&gt;
+      &lt;td&gt;58.0&lt;/td&gt;
+      &lt;td&gt;334&lt;/td&gt;
+      &lt;td&gt;4.20&lt;/td&gt;
+      &lt;td&gt;4.23&lt;/td&gt;
+      &lt;td&gt;2.63&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;4&lt;/th&gt;
+      &lt;td&gt;0.31&lt;/td&gt;
+      &lt;td&gt;Good&lt;/td&gt;
+      &lt;td&gt;J&lt;/td&gt;
+      &lt;td&gt;SI2&lt;/td&gt;
+      &lt;td&gt;63.3&lt;/td&gt;
+      &lt;td&gt;58.0&lt;/td&gt;
+      &lt;td&gt;335&lt;/td&gt;
+      &lt;td&gt;4.34&lt;/td&gt;
+      &lt;td&gt;4.35&lt;/td&gt;
+      &lt;td&gt;2.75&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;막대그래프를 사용하려면 &lt;code&gt;kind=&amp;#39;bar&amp;#39;&lt;/code&gt;로 지정하면 된다&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&amp;lsquo;bar&amp;rsquo; 는 세로 방향의 막대그래프&lt;/li&gt;
+&lt;li&gt;&amp;#39;barh&amp;#39;는 가로 방향의 막대그래프를 그릴 수 있다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;code&gt;cut&lt;/code&gt; 변수를 기준으로 하여 그룹별로 항목의 갯수를 세어보고 막대그래프에 나타내어 보자.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;cut&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cut
+Fair          1610
+Good          4906
+Very Good    12082
+Premium      13791
+Ideal        21551
+dtype: int64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic07.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;barh&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic08.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;적당한-제목을-추가해보자&quot;&gt;적당한 제목을 추가해보자!!&lt;/h3&gt;
+
+&lt;p&gt;위에서 했던 것과 마찬가지로 &lt;code&gt;title&lt;/code&gt; 값을 채워주면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;다이아몬드 데이터&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic09.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;clarity별로-항목의-개수를-집계해서-막대그래프를-만들어보자&quot;&gt;clarity별로 항목의 개수를 집계해서 막대그래프를 만들어보자&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;cut&lt;/code&gt;이 아니라 &lt;code&gt;clarity&lt;/code&gt;를 기준으로 집계한다면 다음과 같은 결과물이 나온다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;clarity&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;sort_values&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;title&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;clarity별 항목 개수&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic10.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;막대-색상변경하기&quot;&gt;막대 색상변경하기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;colors&lt;/code&gt;옵션을 변경하면 막대의 색상을 지정할 수 있다&lt;/p&gt;
+
+&lt;p&gt;색상은 다양한 방식으로 지정할 수 있다&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;지정된 색상이름&lt;/li&gt;
+&lt;li&gt;#로 시작하는 색상 코드&lt;/li&gt;
+&lt;li&gt;문자열로 지정된 rgb 값 &amp;#39;rgb(10,10,10)&amp;rsquo;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;teal&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic11.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;#bbbbbb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic12.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cut&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;rgb(100,30,30)&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic13.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;그룹별-막대그래프&quot;&gt;그룹별 막대그래프&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;x축에 들어가려는 값은 &lt;code&gt;index&lt;/code&gt;에 놓고&lt;/li&gt;
+&lt;li&gt;그룹으로 나누려는 값은 &lt;code&gt;column&lt;/code&gt;으로 구분한다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;데이터를 정리한 후에, &lt;code&gt;unstack&lt;/code&gt; 메서드를 이용해서 그래프를 그릴 수 있는 형태로 변경한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;groupby&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;([&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;cut&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;cut        color
+Fair       D         163
+           E         224
+           F         312
+           G         314
+           H         303
+           I         175
+           J         119
+Good       D         662
+           E         933
+           F         909
+           G         871
+           H         702
+           I         522
+           J         307
+Ideal      D        2834
+           E        3903
+           F        3826
+           G        4884
+           H        3115
+           I        2093
+           J         896
+Premium    D        1603
+           E        2337
+           F        2331
+           G        2924
+           H        2360
+           I        1428
+           J         808
+Very Good  D        1513
+           E        2400
+           F        2164
+           G        2299
+           H        1824
+           I        1204
+           J         678
+dtype: int64
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;div&gt;
+&lt;table border=&quot;1&quot; class=&quot;dataframe&quot;&gt;
+  &lt;thead&gt;
+    &lt;tr style=&quot;text-align: right;&quot;&gt;
+      &lt;th&gt;color&lt;/th&gt;
+      &lt;th&gt;D&lt;/th&gt;
+      &lt;th&gt;E&lt;/th&gt;
+      &lt;th&gt;F&lt;/th&gt;
+      &lt;th&gt;G&lt;/th&gt;
+      &lt;th&gt;H&lt;/th&gt;
+      &lt;th&gt;I&lt;/th&gt;
+      &lt;th&gt;J&lt;/th&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;cut&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+      &lt;th&gt;&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Fair&lt;/th&gt;
+      &lt;td&gt;163&lt;/td&gt;
+      &lt;td&gt;224&lt;/td&gt;
+      &lt;td&gt;312&lt;/td&gt;
+      &lt;td&gt;314&lt;/td&gt;
+      &lt;td&gt;303&lt;/td&gt;
+      &lt;td&gt;175&lt;/td&gt;
+      &lt;td&gt;119&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Good&lt;/th&gt;
+      &lt;td&gt;662&lt;/td&gt;
+      &lt;td&gt;933&lt;/td&gt;
+      &lt;td&gt;909&lt;/td&gt;
+      &lt;td&gt;871&lt;/td&gt;
+      &lt;td&gt;702&lt;/td&gt;
+      &lt;td&gt;522&lt;/td&gt;
+      &lt;td&gt;307&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Ideal&lt;/th&gt;
+      &lt;td&gt;2834&lt;/td&gt;
+      &lt;td&gt;3903&lt;/td&gt;
+      &lt;td&gt;3826&lt;/td&gt;
+      &lt;td&gt;4884&lt;/td&gt;
+      &lt;td&gt;3115&lt;/td&gt;
+      &lt;td&gt;2093&lt;/td&gt;
+      &lt;td&gt;896&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Premium&lt;/th&gt;
+      &lt;td&gt;1603&lt;/td&gt;
+      &lt;td&gt;2337&lt;/td&gt;
+      &lt;td&gt;2331&lt;/td&gt;
+      &lt;td&gt;2924&lt;/td&gt;
+      &lt;td&gt;2360&lt;/td&gt;
+      &lt;td&gt;1428&lt;/td&gt;
+      &lt;td&gt;808&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Very Good&lt;/th&gt;
+      &lt;td&gt;1513&lt;/td&gt;
+      &lt;td&gt;2400&lt;/td&gt;
+      &lt;td&gt;2164&lt;/td&gt;
+      &lt;td&gt;2299&lt;/td&gt;
+      &lt;td&gt;1824&lt;/td&gt;
+      &lt;td&gt;1204&lt;/td&gt;
+      &lt;td&gt;678&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;&lt;code&gt;color&lt;/code&gt;를 기준으로 &lt;code&gt;unstack&lt;/code&gt;한 상태에서 &lt;code&gt;iplot&lt;/code&gt;을 통해 그래프를 그린다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic14.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;누적막대그래프&quot;&gt;누적막대그래프&lt;/h3&gt;
+
+&lt;p&gt;plotly와 마찬가지로, &lt;code&gt;barmode=&amp;#39;stack&amp;#39;&lt;/code&gt;을 추가하면 된다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;barmode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;stack&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic15.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;색상-팔레트-적용하기&quot;&gt;색상 팔레트 적용하기&lt;/h3&gt;
+
+&lt;p&gt;기본 색상팔레트 이외에 정의되어있는 팔레트를 적용할 수 있다&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;cf.colors.scales()&lt;/code&gt; 함수를 통해 적용할 수 있는 팔레트의 목록과 이름을 확인할 수 있으며&lt;/li&gt;
+&lt;li&gt;팔레트 이름 앞에 &lt;code&gt;-&lt;/code&gt;를 붙이면 색상의 순서를 반대로 적용할 수 있다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;cufflinks의 색상관련 내용은 다음 링크에 자세히 설명되어 있다.&lt;br/&gt; &lt;a href=&quot;http://nbviewer.jupyter.org/gist/santosjorge/00ca17b121fa2463e18b&quot;&gt;http://nbviewer.jupyter.org/gist/santosjorge/00ca17b121fa2463e18b&lt;/a&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;barmode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;stack&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colorscale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;blues&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic16.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dia_cutcolor&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;color&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;bar&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;barmode&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;stack&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;colorscale&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;-blues&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 색상의 순서를 반대로 지정하려면 색상명 앞에 `-`를 붙인다&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic17.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;사용할 수 있는 색상조합은 아래와 같이 확인할 수 있다. 데이터의 특성에 맞는 조합을 사용해야 한다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;cf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;colors&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;scales&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic18.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;선그래프&quot;&gt;선그래프&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;kind=&amp;#39;scatter&amp;#39;&lt;/code&gt; 일 경우 기본값으로 선 그래프를 그린다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;economics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;y&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;unemploy&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic19.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;x에 date만 적용하고 나머지 변수들로 subplot을 그려보자&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;economics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic20.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;그래프-전체-크기-조절하기&quot;&gt;그래프 전체 크기 조절하기&lt;/h3&gt;
+
+&lt;p&gt;그래프의 전체 크기를 조절하려면 &lt;code&gt;dimensions&lt;/code&gt; 옵션에 원하는 사이즈를 튜플 형태로 넘긴다&lt;/p&gt;
+
+&lt;p&gt;다섯 개의 그래프를 세로로 나란히 배치하고 그래프 전체의 사이즈를 조절해보자&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;economics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subplot_titles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 5행, 1열&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;dimensions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;800&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# 가로 800, 세로 1000&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic21.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;shared-axes&quot;&gt;Shared Axes&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;shared_yaxes&lt;/code&gt;(또는 &lt;code&gt;shared_xaxes&lt;/code&gt;)를 적용하면 subplot별로 같은 축을 사용하도록 강제할 수 있다&lt;/p&gt;
+
+&lt;p&gt;다만 subplot의 위치에도 영향을 받기 때문에 모든 그래프에 동일한 y축 범위를 적용하려면 아래와 같이 row수가 1로 고정되어야 한다&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;n&quot;&gt;economics&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;scatter&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;x&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;date&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
+                &lt;span class=&quot;n&quot;&gt;subplots&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;subplot_titles&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;legend&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;False&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;shared_yaxes&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
+                &lt;span class=&quot;n&quot;&gt;shape&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dimensions&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;400&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic22.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;hr&gt;
+
+&lt;h2 id=&quot;box-plot&quot;&gt;Box Plot&lt;/h2&gt;
+
+&lt;p&gt;그룹별 Box Plot은 약간의 편법(?)을 통해서 만들 수 있다.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;그룹으로 지정하려고 하는 열과 y축 값을 나타내려는 열만 남긴다&lt;/li&gt;
+&lt;li&gt;그룹으로 지정하려고 하는 열을 인덱스로 지정한다(&lt;code&gt;append=True&lt;/code&gt; 옵션을 통해 row number를 남기자)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;unstack&lt;/code&gt; 메서드를 사용해서 각 그룹을 열로 구성한다&lt;/li&gt;
+&lt;li&gt;이로 인해 엄청난 양의 NaN값이 생기지만 무시하고 그래프를 그린다!&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-python&quot; data-lang=&quot;python&quot;&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;diamonds&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;loc&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[:,&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;cut&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;price&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;set_index&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;cut&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;bp&quot;&gt;True&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;unstack&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;cut&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;price&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
+ &lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;iplot&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kind&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;box&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;img src=&quot;/images/post_image/cufflinks_basic/cufflinks_basic23.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
+
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/python/cufflinks_basic&quot;&gt;Cufflinks Basic&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on December 19, 2016.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -5930,296 +6536,6 @@ df_data_sapply
 &lt;p&gt;위에서 데이터를 data.frame으로 저장했던 방식을 응용하면 (for, sapply 또는 for + sapply) 필요한 항목만 정리할 수 있다&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/list-and-sapply&quot;&gt;List and sapply&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 11, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[networkD3]]></title>
-  <link>http://lumiamitie.github.io/r/visualization/networkD3</link>
-  <id>http://lumiamitie.github.io/r/visualization/networkD3</id>
-  <published>2015-10-03T00:00:00+09:00</published>
-  <updated>2015-10-03T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;networkd3&quot;&gt;networkD3&lt;/h2&gt;
-
-&lt;p&gt;&lt;code&gt;networkD3&lt;/code&gt; 패키지는 &lt;code&gt;htmlwidget&lt;/code&gt; 패키지를 바탕으로 D3 기반의 네트워크 시각화를 가능하게 해준다.&lt;/p&gt;
-
-&lt;p&gt;기존의 igraph 패키지로는 만족스러운 모양새의 그래프를 만들기 힘들다고 생각해서 gephi와 d3를 사용하고 있었는데 d3 기반의 시각화를 R로 빠르게 구현할 수 있어서 관심을 가지게 되었다. &lt;/p&gt;
-
-&lt;p&gt;물론 세세한 부분까지 변경하는 것은 조금 무리가 있을 것 같지만 처음 d3로 force layout을 만들 때 고생했던 것을 생각하면 간단한 코드로 이렇게 force layout을 구현할 수 있다는 것 만으로도 상당히 유용하게 사용할 수 있을 것 같다. &lt;/p&gt;
-
-&lt;p&gt;이렇게 생성한 그래프는 html 형태로 export 할 수 있고, RMarkdown 문서에 바로 첨부할 수도 있다&lt;/p&gt;
-
-&lt;p&gt;이 글에서는 d3 그래프가 제대로 표시되지 않기 때문에 실제로 실행되는 결과물을 보려면 &lt;a href=&quot;http://lumiamitie.github.io/r_tutorial/blog_link/networkd3.html&quot;&gt;링크&lt;/a&gt; 에서 확인할 수 있다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;data&quot;&gt;Data&lt;/h2&gt;
-
-&lt;p&gt;&lt;a href=&quot;http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/&quot;&gt;http://blog.thomsonreuters.com/index.php/mobile-patent-suits-graphic-of-the-day/&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;위 링크는 모바일 관련 소송에 대한 그래픽 자료이다. 해당 데이터를 d3를 이용해 네트워크 형태로 시각화한 자료는 &lt;a href=&quot;http://bl.ocks.org/mbostock/1153292&quot;&gt;여기&lt;/a&gt;에서 확인할 수 있다. 이 글에서는 link데이터를 가져와서 networkD3 패키지로 시각화 하는 작업을 진행할 것이다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;networkD3&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;dplyr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;시작하기 전에 네트워크 시각화를 하는데 필요한 데이터의 형태에 대해서 알아볼 필요가 있다. &lt;/p&gt;
-
-&lt;p&gt;네트워크 형태로 데이터를 시각화할 때 필요한 데이터는 두 가지가 있다&lt;/p&gt;
-
-&lt;p&gt;우선 노드(&lt;strong&gt;Node&lt;/strong&gt; 또는 &lt;strong&gt;Vertex&lt;/strong&gt;)에 대한 정보가 필요하고&lt;/p&gt;
-
-&lt;p&gt;이 각각의 노드를 어떻게 연결할 것인지(&lt;strong&gt;Link&lt;/strong&gt; 또는 &lt;strong&gt;Edge&lt;/strong&gt;)에 대한 정보가 필요하다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;networkD3&lt;/code&gt;패키지에서 기본적으로 제공하는 데이터 중에서 소설 레미제라블의 인물 관계도를 나타내는 &lt;code&gt;MisLinks&lt;/code&gt;와 &lt;code&gt;MisNodes&lt;/code&gt; 데이터를 가지고 살펴보자 &lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;data&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;MisLinks&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; MisNodes&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;MisNodes&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##              name group size
-## 1          Myriel     1   15
-## 2        Napoleon     1   20
-## 3 Mlle.Baptistine     1   23
-## 4    Mme.Magloire     1   30
-## 5    CountessdeLo     1   11
-## 6        Geborand     1    9
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이름에서부터 느껴지듯이 &lt;code&gt;MisNodes&lt;/code&gt;는 Node에 대한 데이터다&lt;/p&gt;
-
-&lt;p&gt;각각의 노드를 구별하는 열이 존재하고(여기서는 &lt;code&gt;name&lt;/code&gt;열)&lt;/p&gt;
-
-&lt;p&gt;해당 노드가 그룹화 되어있는 경우 그룹을 표시해준다(&lt;code&gt;group&lt;/code&gt;)&lt;/p&gt;
-
-&lt;p&gt;또 필수적이지는 않지만 각각의 노드가 가지는 값(중요도, 크기 등)이 있을 경우에 해당 값을 추가한다(&lt;code&gt;size&lt;/code&gt;)&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;head&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;MisLinks&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   source target value
-## 1      1      0     1
-## 2      2      0     8
-## 3      3      0    10
-## 4      3      2     6
-## 5      4      0     1
-## 6      5      0     1
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;code&gt;MisLinks&lt;/code&gt;는 노드를 연결하는 정보에 대한 데이터이다&lt;/p&gt;
-
-&lt;p&gt;한 행은 &lt;code&gt;source&lt;/code&gt;로 부터 &lt;code&gt;target&lt;/code&gt;으로 연결되는 선 하나를 나타낸다&lt;/p&gt;
-
-&lt;p&gt;각 &lt;code&gt;source&lt;/code&gt;와 &lt;code&gt;target&lt;/code&gt;열의 값은 Node 데이터의 인덱스(0부터 시작)를 나타낸다&lt;/p&gt;
-
-&lt;p&gt;따라서 source = 1, target = 0은 source = Napoleon, target = Myriel을 의미한다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;그러면 다시 돌아와서 우리가 처리할 데이터를 확인해보자&lt;/p&gt;
-
-&lt;p&gt;데이터는 JSON 형태로 되어있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;links &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;[&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Amazon&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;licensing&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;HTC&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;licensing&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Samsung&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Motorola&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Nokia&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;HTC&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Barnes &amp;amp; Noble&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Foxconn&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Oracle&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Google&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;HTC&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Inventec&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Samsung&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;LG&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;RIM&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Sony&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;LG&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;LG&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Nokia&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Qualcomm&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Nokia&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Motorola&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Motorola&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Motorola&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Microsoft&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Huawei&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;ZTE&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Ericsson&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;ZTE&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Samsung&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;resolved&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Apple&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Samsung&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Kodak&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;RIM&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;},&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;  {&amp;quot;source&amp;quot;: &amp;quot;Nokia&amp;quot;, &amp;quot;target&amp;quot;: &amp;quot;Qualcomm&amp;quot;, &amp;quot;type&amp;quot;: &amp;quot;suit&amp;quot;}&lt;/span&gt;
-&lt;span class=&quot;s&quot;&gt;]&amp;#39;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;jsonlite&lt;/code&gt; 패키지의 &lt;code&gt;fromJSON&lt;/code&gt;함수를 이용해서 json데이터를 data.frame으로 변환시킨다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; jsonlite&lt;span class=&quot;o&quot;&gt;::&lt;/span&gt;fromJSON&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;links&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이렇게 가져온 데이터는 link만을 담고 있기 때문에 node는 link의 source와 target 전체에서 unique한 항목만 추출한다&lt;/p&gt;
-
-&lt;p&gt;그리고 link에서 source와 target은 node의 인덱스를 가지고 표현해야 하기 때문에&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;node_df&lt;/code&gt;라는 data.frame에 0부터 시작하는 인덱스 번호를 부여하고&lt;/p&gt;
-
-&lt;p&gt;다시 &lt;code&gt;link_df&lt;/code&gt;에 &lt;code&gt;left_join&lt;/code&gt;해서 source와 target 각각의 인덱스를 가져온다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;c1&quot;&gt;# node의 index 숫자는 0부터 시작해야 한다&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;# dplyr::row_number()가 1부터 숫자를 매기기 때문에 거기서 1씩을 빼도록 한다&lt;/span&gt;
-node_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;node &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;unique&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;link_df&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;&lt;span class=&quot;kn&quot;&gt;source&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; link_df&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;target&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  mutate&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; row_number&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;-1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;# node_df에서 index값을 가져와서 source와 target에 해당하는 index 값을 저장한다&lt;/span&gt;
-link_df &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;node_df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; rename&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;source_idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; by&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;source&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; 
-  left_join&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;node_df &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt; rename&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;target_idx &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; idx&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; by&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;target&amp;#39;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;완성된 데이터는 다음과 같은 형태를 가진다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;node_df
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##              node idx
-## 1       Microsoft   0
-## 2         Samsung   1
-## 3        Motorola   2
-## 4           Nokia   3
-## 5             HTC   4
-## 6           Kodak   5
-## 7          Oracle   6
-## 8           Apple   7
-## 9              LG   8
-## 10            RIM   9
-## 11           Sony  10
-## 12       Qualcomm  11
-## 13         Huawei  12
-## 14       Ericsson  13
-## 15         Amazon  14
-## 16 Barnes &amp;amp; Noble  15
-## 17        Foxconn  16
-## 18         Google  17
-## 19       Inventec  18
-## 20            ZTE  19
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;link_df
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##       source         target      type source_idx target_idx
-## 1  Microsoft         Amazon licensing          0         14
-## 2  Microsoft            HTC licensing          0          4
-## 3    Samsung          Apple      suit          1          7
-## 4   Motorola          Apple      suit          2          7
-## 5      Nokia          Apple  resolved          3          7
-## 6        HTC          Apple      suit          4          7
-## 7      Kodak          Apple      suit          5          7
-## 8  Microsoft Barnes &amp;amp; Noble      suit          0         15
-## 9  Microsoft        Foxconn      suit          0         16
-## 10    Oracle         Google      suit          6         17
-## 11     Apple            HTC      suit          7          4
-## 12 Microsoft       Inventec      suit          0         18
-## 13   Samsung          Kodak  resolved          1          5
-## 14        LG          Kodak  resolved          8          5
-## 15       RIM          Kodak      suit          9          5
-## 16      Sony             LG      suit         10          8
-## 17     Kodak             LG  resolved          5          8
-## 18     Apple          Nokia  resolved          7          3
-## 19  Qualcomm          Nokia  resolved         11          3
-## 20     Apple       Motorola      suit          7          2
-## 21 Microsoft       Motorola      suit          0          2
-## 22  Motorola      Microsoft      suit          2          0
-## 23    Huawei            ZTE      suit         12         19
-## 24  Ericsson            ZTE      suit         13         19
-## 25     Kodak        Samsung  resolved          5          1
-## 26     Apple        Samsung      suit          7          1
-## 27     Kodak            RIM      suit          5          9
-## 28     Nokia       Qualcomm      suit          3         11
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;
-&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;데이터를 모두 준비하고 나면 forceNetwork 함수로 그래프를 생성할 수 있다&lt;/p&gt;
-
-&lt;p&gt;함수의 동작을 위해 최소한 필요한 옵션은 다음과 같다&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Links&lt;/strong&gt;에는 link가 담긴 data.frame&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Nodes&lt;/strong&gt;에는 node가 담긴 data.frame&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Source&lt;/strong&gt;에는 Links에서 source의 index가 담긴 열 이름&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Target&lt;/strong&gt;에는 Links에서 target의 index가 담긴 열 이름&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;NodeID&lt;/strong&gt;에는 Nodes에서 node이름이 담긴 열 이름&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;Group&lt;/strong&gt;은 Nodes에서 group이름이 담긴 열 이름(없으면 NodeID와 동일하게)&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;forceNetwork&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Links &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Nodes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             Source &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;source_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Target &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;target_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             NodeID &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_01.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;bounded&lt;/code&gt; 옵션을 TRUE로 하면 Node들이 특정 범위 밖으로 나가지 못하는 범위가 생긴다&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;opacityNoHover&lt;/code&gt; 옵션을 TRUE로 하면 마우스를 node에 올리지 않아도 label이 보인다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;forceNetwork&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Links &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Nodes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             Source &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;source_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Target &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;target_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             NodeID &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             bounded &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             opacityNoHover &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_02.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;zoom = TRUE&lt;/code&gt;로는 zoom을 가능하게 한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;forceNetwork&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Links &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Nodes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             Source &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;source_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Target &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;target_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             NodeID &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             bounded &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             opacityNoHover &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_03.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;fontSize&lt;/strong&gt;는 폰트 크기&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;linkDistance&lt;/strong&gt;는 link의 길이&lt;/p&gt;
-
-&lt;p&gt;&lt;strong&gt;opacity&lt;/strong&gt;는 전체적인 투명도를 조절한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;forceNetwork&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;Links &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; link_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Nodes &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; node_df&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             Source &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;source_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Target &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;target_idx&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-             NodeID &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; Group &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;node&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             opacityNoHover &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             zoom &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             fontSize &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             linkDistance &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;75&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-             opacity &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;0.9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;img src=&quot;/images/post_image/networkd3/networkd3_04.PNG&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/visualization/networkD3&quot;&gt;networkD3&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 03, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>

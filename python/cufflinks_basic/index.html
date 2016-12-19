@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html>
+<!--
+====================================================
+    __  ____  ______________  _______ ___    __ 
+   / / / /  |/  / ____/   \ \/ / ___//   |  / / 
+  / /_/ / /|_/ / /_  / /| |\  /\__ \/ /| | / /  
+ / __  / /  / / __/ / ___ |/ /___/ / ___ |/ /___
+/_/ /_/_/  /_/_/   /_/  |_/_//____/_/  |_/_____/
+                                                     
+====================================================
+Author: Hossain Mohammad Faysal
+Profile: https://www.facebook.com/hmfaysal
+Version: 1.0
+Description: Awesome dude, awesome life
+====================================================
+-->
+<head>
+<meta charset="utf-8">
+<title>CUFFLINKS BASIC</title>
+<meta name="description" content="Data and Visualization">
+<meta name="keywords" content="python, cufflinks, plotly">
+
+
+
+<!-- Open Graph -->
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Cufflinks Basic">
+<meta property="og:description" content="Data and Visualization">
+<meta property="og:url" content="http://lumiamitie.github.io/python/cufflinks_basic">
+<meta property="og:site_name" content="lmnsh">
+<meta property="og:image" content="http://lumiamitie.github.io/images/">
+
+
+
+
+
+<link rel="canonical" href="http://lumiamitie.github.io/python/cufflinks_basic">
+<link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
+
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <link href='http://fonts.googleapis.com/css?family=Montserrat:400,700&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800,600&amp;subset=latin,latin-ext' rel='stylesheet'>
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/normalizeb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/vendor/foundation.minb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/styleb146.css?v=77a7756db2">
+    <link rel="stylesheet" href="http://lumiamitie.github.io/assets/css/postb146.css?v=77a7756db2">
+    <script src="http://lumiamitie.github.io/assets/js/vendor/modernizrb146.js?v=77a7756db2"></script>
+
+
+
+
+
+<!-- Icons -->
+<!-- 16x16 -->
+    <!--
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.ico">
+    -->
+<!-- 32x32 -->
+<link rel="shortcut icon" href="http://lumiamitie.github.io/favicon.png">
+    
+<!-- 57x57 (precomposed) for iPhone 3GS, pre-2011 iPod Touch and older Android devices -->
+<link rel="apple-touch-icon-precomposed" href="http://lumiamitie.github.io/images/bloglogo57.png">
+<!-- 72x72 (precomposed) for 1st generation iPad, iPad 2 and iPad mini -->
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="http://lumiamitie.github.io/images/bloglogo72.png">
+<!-- 114x114 (precomposed) for iPhone 4, 4S, 5 and post-2011 iPod Touch -->
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="http://lumiamitie.github.io/images/bloglogo114.png">
+<!-- 144x144 (precomposed) for iPad 3rd and 4th generation -->
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="http://lumiamitie.github.io/images/bloglogo144.png">
+
+</head>
+<body class="post-template" itemscope itemtype="http://schema.org/WebPage">  
+
+<main id="summer-post-container" class="summer-post-container intro-effect-sliced" role="main">
+    
+    
+        <header class="summer-post-header">
+            <div class="bg-img"></div>
+            
+            <div class="summer-post-menu-header">
+                
+                    <a class="summer-blog-logo" href="http://lumiamitie.github.io">
+                        <img src="http://lumiamitie.github.io/images/bloglogo150.png" alt="Blog Logo" />
+                    </a>
+                
+                
+                
+                <div class="summer-blog-menu">      
+    <div class="summer-mobile-menu show-for-small">
+        <a href="#"><i class="fa fa-bars"></i></a>
+    </div>
+    <ul class="summer-menu">
+        <li class="summer-mobile-close-btn show-for-small text-right">
+            <a href="#"><i class="fa fa-times"></i></a>
+        </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/">Home</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/featured">Featured Posts</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/categories">Categories</a>
+                 </li>
+
+            <li>
+                    <a href="http://lumiamitie.github.io/mino">About</a>
+                 </li>
+            
+           <li><a href="http://lumiamitie.github.io/feed.xml" title="Atom/RSS feed"><i class="icon-rss"></i> Feed</a></li>
+    </ul>
+
+</div>
+            </div>
+            <div class="summer-post-title bg-check">
+                <h1>Cufflinks Basic</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#python" data-toggle="tooltip" title="Posts tagged with python" rel="tag">python</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#cufflinks" data-toggle="tooltip" title="Posts tagged with cufflinks" rel="tag">cufflinks</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#plotly" data-toggle="tooltip" title="Posts tagged with plotly" rel="tag">plotly</a> <strong><time datetime="2016-12-19T00:00:00+09:00">19 Dec 2016</time></strong></p>
+            </div>
+            <div class="bg-img"></div>
+        </header>
+        <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
+        
+        <article class="summer-post-content post">
+            <div><p><img src="/images/desk-pen-ruler.jpg" alt="cover-image"></p>
+
+<style>
+table {
+    margin: 10px auto !important;
+}
+</style>
+
+<h1 id="cufflinks-basic">Cufflinks basic</h1>
+
+<p><code>cufflinks</code>는 <code>pandas.DataFrame</code>형태의 데이터를 <code>plotly</code>를 이용해 쉽게 시각화할 수 있도록 도와주는 라이브러리이다. </p>
+
+<p>데이터프레임을 가지고 간단하게 인터렉티브한 그래프를 만들 수 있다는 장점이 있지만, svg만 사용하다보니 만개를 넘어가는 산점도 등 복잡한 형태의 그래프를 그릴 때에는 좋은 결과물을 얻기 힘들다. (<code>plotly</code>에서는 그냥 webgl을 쓰면 되는데&hellip;. cufflinks에 없는건지 내가 못찾는건지 ㅠㅠ)</p>
+
+<p>최종적인 시각화 결과물을 내는 데에는 부족하지만 (그 퀄리티를 내려면 <code>plotly</code>를 쓰셔야 합니다&hellip;) 분석을 위한 간단한 그래프를 빠르게 찍어내는데는 상당히 유용하게 사용할 수 있다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">cufflinks</span> <span class="kn">as</span> <span class="nn">cf</span>
+<span class="n">cf</span><span class="o">.</span><span class="n">go_offline</span><span class="p">()</span>
+</code></pre></div>
+<p>사용한 라이브러리 버전은 다음과 같다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># cufflinks</span>
+<span class="n">cf</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">&#39;0.8.2&#39;
+</code></pre></div><div class="highlight"><pre><code class="language-python" data-lang="python"><span class="c"># pandas</span>
+<span class="n">pd</span><span class="o">.</span><span class="n">__version__</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">&#39;0.18.1&#39;
+</code></pre></div>
+<hr>
+
+<h2 id="데이터-불러오기">데이터 불러오기</h2>
+
+<p>연습/테스트용으로 많이 사용되는 데이터를 불러와서 그래프를 그려보자. 라이브러리에서 데이터를 제공하는 경우도 있지만 적당한 데이터를 찾지 못했다면 아래 url 링크를 통해 데이터를 불러와서 진행하면 된다.</p>
+
+<p><code>pandas.read_csv()</code> 를 통해 csv 데이터를 데이터 프레임으로 변환시킨다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">diamonds</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;https://raw.githubusercontent.com/hadley/ggplot2/master/data-raw/diamonds.csv&#39;</span><span class="p">)</span>
+<span class="n">economics</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;https://raw.githubusercontent.com/hadley/ggplot2/master/data-raw/economics.csv&#39;</span><span class="p">)</span>
+<span class="n">iris</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s">&#39;https://raw.githubusercontent.com/mwaskom/seaborn-data/master/iris.csv&#39;</span><span class="p">)</span>
+</code></pre></div>
+<hr>
+
+<h2 id="산점도-scatter-plot">산점도 (Scatter Plot)</h2>
+
+<p>불러온 데이터 중에서 <code>iris</code> 데이터를 가지고 간단한 산점도를 그려보자. 데이터는 다음과 같이 구성되어 있다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">iris</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><code>데이터프레임.iplot()</code> 을 통해 jupyter notebook에 그래프를 바로 그릴 수 있다. 독립적인 html 파일로 그래프를 출력한다면 <code>데이터프레임.plot()</code>을 사용하면 된다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span> <span class="c"># markers 옵션이 빠지면 &#39;선&#39;의 형태로 표시됨</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">)</span> <span class="c"># x, y를 명시하지 않으면 index가 x축으로 지정됨</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic01.png" alt=""></p>
+
+<h3 id="그룹별로-그리기">그룹별로 그리기</h3>
+
+<p><code>categories</code> 항목에 그룹으로 지정할 열 이름을 넣으면 그룹별 산점도를 그릴 수 있다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s">&#39;species&#39;</span><span class="p">)</span> <span class="c"># categories 항목에 해당 열 이름을 추가</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic02.png" alt=""></p>
+
+<h3 id="제목-추가하기">제목 추가하기</h3>
+
+<p>기본 plotly에서는 레이아웃을 직접 지정해야했지만, cufflinks에서는 <strong>title</strong> 옵션을 통해 제목을 추가할 수 있다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s">&#39;species&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s">&#39;Scatter Plot for Iris Data&#39;</span><span class="p">)</span> <span class="c"># title에 제목을 추가한다</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic03.png" alt=""></p>
+
+<h3 id="subplot-구성하기">Subplot 구성하기</h3>
+
+<p><code>subplots=True</code> 항목을 추가하면 각 항목의 그래프를 나누어서 그릴 수 있다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s">&#39;species&#39;</span><span class="p">,</span> 
+        <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c"># subplots=True 를 추가</span>
+        <span class="n">title</span><span class="o">=</span><span class="s">&#39;Scatter Plot for Iris Data&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic04.png" alt=""></p>
+
+<p>어차피 각 항목별로 그래프가 나누어져있으니 범례를 지우고 각 subplot에 소제목을 추가해보자</p>
+
+<ul>
+<li><code>subplot_titles=True</code>로 설정하면 각 subplot에 소제목이 추가된다 </li>
+<li><code>legend=False</code>를 설정하면 범례가 보이지 않는다</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s">&#39;species&#39;</span><span class="p">,</span> 
+        <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">subplot_titles</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="s">&#39;Scatter Plot for Iris Data&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic05.png" alt=""></p>
+
+<p>subplot의 배치방식을 바꾸려면 <code>shape</code> 옵션을 변경해주면 된다. <code>shape=(행, 열)</code>의 형태로 정수값을 입력한다.</p>
+
+<p>옆으로 나란히 세 개의 그래프를 배치해보자</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">iris</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;markers&#39;</span><span class="p">,</span>
+        <span class="n">x</span><span class="o">=</span><span class="s">&#39;sepal_length&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;petal_length&#39;</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="s">&#39;species&#39;</span><span class="p">,</span> 
+        <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">subplot_titles</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> 
+        <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">),</span> <span class="c"># shape=(원하는 행 수, 원하는 열 수)</span>
+        <span class="n">title</span><span class="o">=</span><span class="s">&#39;Scatter Plot for Iris Data&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic06.png" alt=""></p>
+
+<hr>
+
+<h2 id="막대그래프">막대그래프</h2>
+
+<p>이번에는 <code>diamonds</code> 데이터를 가지고 막대그래프를 그려보려고 한다. 데이터는 다음과 같이 구성되어 있다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">diamonds</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>carat</th>
+      <th>cut</th>
+      <th>color</th>
+      <th>clarity</th>
+      <th>depth</th>
+      <th>table</th>
+      <th>price</th>
+      <th>x</th>
+      <th>y</th>
+      <th>z</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>0.23</td>
+      <td>Ideal</td>
+      <td>E</td>
+      <td>SI2</td>
+      <td>61.5</td>
+      <td>55.0</td>
+      <td>326</td>
+      <td>3.95</td>
+      <td>3.98</td>
+      <td>2.43</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>0.21</td>
+      <td>Premium</td>
+      <td>E</td>
+      <td>SI1</td>
+      <td>59.8</td>
+      <td>61.0</td>
+      <td>326</td>
+      <td>3.89</td>
+      <td>3.84</td>
+      <td>2.31</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>0.23</td>
+      <td>Good</td>
+      <td>E</td>
+      <td>VS1</td>
+      <td>56.9</td>
+      <td>65.0</td>
+      <td>327</td>
+      <td>4.05</td>
+      <td>4.07</td>
+      <td>2.31</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>0.29</td>
+      <td>Premium</td>
+      <td>I</td>
+      <td>VS2</td>
+      <td>62.4</td>
+      <td>58.0</td>
+      <td>334</td>
+      <td>4.20</td>
+      <td>4.23</td>
+      <td>2.63</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>0.31</td>
+      <td>Good</td>
+      <td>J</td>
+      <td>SI2</td>
+      <td>63.3</td>
+      <td>58.0</td>
+      <td>335</td>
+      <td>4.34</td>
+      <td>4.35</td>
+      <td>2.75</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>막대그래프를 사용하려면 <code>kind=&#39;bar&#39;</code>로 지정하면 된다</p>
+
+<ul>
+<li>&lsquo;bar&rsquo; 는 세로 방향의 막대그래프</li>
+<li>&#39;barh&#39;는 가로 방향의 막대그래프를 그릴 수 있다</li>
+</ul>
+
+<p><code>cut</code> 변수를 기준으로 하여 그룹별로 항목의 갯수를 세어보고 막대그래프에 나타내어 보자.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span> <span class="o">=</span> <span class="p">(</span><span class="n">diamonds</span>
+ <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">&#39;cut&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+ <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">dia_cut</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">cut
+Fair          1610
+Good          4906
+Very Good    12082
+Premium      13791
+Ideal        21551
+dtype: int64
+</code></pre></div><div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic07.png" alt=""></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;barh&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic08.png" alt=""></p>
+
+<h3 id="적당한-제목을-추가해보자">적당한 제목을 추가해보자!!</h3>
+
+<p>위에서 했던 것과 마찬가지로 <code>title</code> 값을 채워주면 된다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;다이아몬드 데이터&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic09.png" alt=""></p>
+
+<h3 id="clarity별로-항목의-개수를-집계해서-막대그래프를-만들어보자">clarity별로 항목의 개수를 집계해서 막대그래프를 만들어보자</h3>
+
+<p><code>cut</code>이 아니라 <code>clarity</code>를 기준으로 집계한다면 다음과 같은 결과물이 나온다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">diamonds</span>
+ <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s">&#39;clarity&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+ <span class="o">.</span><span class="n">sort_values</span><span class="p">()</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s">&#39;clarity별 항목 개수&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic10.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<h3 id="막대-색상변경하기">막대 색상변경하기</h3>
+
+<p><code>colors</code>옵션을 변경하면 막대의 색상을 지정할 수 있다</p>
+
+<p>색상은 다양한 방식으로 지정할 수 있다</p>
+
+<ul>
+<li>지정된 색상이름</li>
+<li>#로 시작하는 색상 코드</li>
+<li>문자열로 지정된 rgb 값 &#39;rgb(10,10,10)&rsquo;</li>
+</ul>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">&#39;teal&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic11.png" alt=""></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">&#39;#bbbbbb&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic12.png" alt=""></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cut</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="s">&#39;rgb(100,30,30)&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic13.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<h3 id="그룹별-막대그래프">그룹별 막대그래프</h3>
+
+<ul>
+<li>x축에 들어가려는 값은 <code>index</code>에 놓고</li>
+<li>그룹으로 나누려는 값은 <code>column</code>으로 구분한다</li>
+</ul>
+
+<p>데이터를 정리한 후에, <code>unstack</code> 메서드를 이용해서 그래프를 그릴 수 있는 형태로 변경한다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cutcolor</span> <span class="o">=</span> <span class="p">(</span><span class="n">diamonds</span>
+  <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s">&#39;cut&#39;</span><span class="p">,</span> <span class="s">&#39;color&#39;</span><span class="p">])</span>
+  <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="p">)</span>
+
+<span class="n">dia_cutcolor</span>
+</code></pre></div><div class="highlight"><pre><code class="language-text" data-lang="text">cut        color
+Fair       D         163
+           E         224
+           F         312
+           G         314
+           H         303
+           I         175
+           J         119
+Good       D         662
+           E         933
+           F         909
+           G         871
+           H         702
+           I         522
+           J         307
+Ideal      D        2834
+           E        3903
+           F        3826
+           G        4884
+           H        3115
+           I        2093
+           J         896
+Premium    D        1603
+           E        2337
+           F        2331
+           G        2924
+           H        2360
+           I        1428
+           J         808
+Very Good  D        1513
+           E        2400
+           F        2164
+           G        2299
+           H        1824
+           I        1204
+           J         678
+dtype: int64
+</code></pre></div><div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">dia_cutcolor</span><span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;color&#39;</span><span class="p">)</span>
+</code></pre></div>
+<div>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th>color</th>
+      <th>D</th>
+      <th>E</th>
+      <th>F</th>
+      <th>G</th>
+      <th>H</th>
+      <th>I</th>
+      <th>J</th>
+    </tr>
+    <tr>
+      <th>cut</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Fair</th>
+      <td>163</td>
+      <td>224</td>
+      <td>312</td>
+      <td>314</td>
+      <td>303</td>
+      <td>175</td>
+      <td>119</td>
+    </tr>
+    <tr>
+      <th>Good</th>
+      <td>662</td>
+      <td>933</td>
+      <td>909</td>
+      <td>871</td>
+      <td>702</td>
+      <td>522</td>
+      <td>307</td>
+    </tr>
+    <tr>
+      <th>Ideal</th>
+      <td>2834</td>
+      <td>3903</td>
+      <td>3826</td>
+      <td>4884</td>
+      <td>3115</td>
+      <td>2093</td>
+      <td>896</td>
+    </tr>
+    <tr>
+      <th>Premium</th>
+      <td>1603</td>
+      <td>2337</td>
+      <td>2331</td>
+      <td>2924</td>
+      <td>2360</td>
+      <td>1428</td>
+      <td>808</td>
+    </tr>
+    <tr>
+      <th>Very Good</th>
+      <td>1513</td>
+      <td>2400</td>
+      <td>2164</td>
+      <td>2299</td>
+      <td>1824</td>
+      <td>1204</td>
+      <td>678</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p><code>color</code>를 기준으로 <code>unstack</code>한 상태에서 <code>iplot</code>을 통해 그래프를 그린다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">dia_cutcolor</span>
+ <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;color&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic14.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="누적막대그래프">누적막대그래프</h3>
+
+<p>plotly와 마찬가지로, <code>barmode=&#39;stack&#39;</code>을 추가하면 된다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">dia_cutcolor</span>
+ <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;color&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">barmode</span><span class="o">=</span><span class="s">&#39;stack&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic15.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<h3 id="색상-팔레트-적용하기">색상 팔레트 적용하기</h3>
+
+<p>기본 색상팔레트 이외에 정의되어있는 팔레트를 적용할 수 있다</p>
+
+<ul>
+<li><code>cf.colors.scales()</code> 함수를 통해 적용할 수 있는 팔레트의 목록과 이름을 확인할 수 있으며</li>
+<li>팔레트 이름 앞에 <code>-</code>를 붙이면 색상의 순서를 반대로 적용할 수 있다</li>
+</ul>
+
+<p>cufflinks의 색상관련 내용은 다음 링크에 자세히 설명되어 있다.<br/> <a href="http://nbviewer.jupyter.org/gist/santosjorge/00ca17b121fa2463e18b">http://nbviewer.jupyter.org/gist/santosjorge/00ca17b121fa2463e18b</a></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">dia_cutcolor</span>
+ <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;color&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">barmode</span><span class="o">=</span><span class="s">&#39;stack&#39;</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&#39;blues&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic16.png" alt=""></p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">dia_cutcolor</span>
+ <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;color&#39;</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;bar&#39;</span><span class="p">,</span> <span class="n">barmode</span><span class="o">=</span><span class="s">&#39;stack&#39;</span><span class="p">,</span> <span class="n">colorscale</span><span class="o">=</span><span class="s">&#39;-blues&#39;</span><span class="p">)</span> <span class="c"># 색상의 순서를 반대로 지정하려면 색상명 앞에 `-`를 붙인다</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic17.png" alt=""></p>
+
+<p>사용할 수 있는 색상조합은 아래와 같이 확인할 수 있다. 데이터의 특성에 맞는 조합을 사용해야 한다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">cf</span><span class="o">.</span><span class="n">colors</span><span class="o">.</span><span class="n">scales</span><span class="p">()</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic18.png" alt=""></p>
+
+<p><br />
+<br /></p>
+
+<hr>
+
+<h2 id="선그래프">선그래프</h2>
+
+<p><code>kind=&#39;scatter&#39;</code> 일 경우 기본값으로 선 그래프를 그린다.</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">economics</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">&#39;date&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s">&#39;unemploy&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic19.png" alt=""></p>
+
+<p>x에 date만 적용하고 나머지 변수들로 subplot을 그려보자</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">economics</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">&#39;date&#39;</span><span class="p">,</span> <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic20.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="그래프-전체-크기-조절하기">그래프 전체 크기 조절하기</h3>
+
+<p>그래프의 전체 크기를 조절하려면 <code>dimensions</code> 옵션에 원하는 사이즈를 튜플 형태로 넘긴다</p>
+
+<p>다섯 개의 그래프를 세로로 나란히 배치하고 그래프 전체의 사이즈를 조절해보자</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">economics</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">&#39;date&#39;</span><span class="p">,</span> 
+                <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">subplot_titles</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="c"># 5행, 1열</span>
+                <span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="mi">800</span><span class="p">,</span><span class="mi">1000</span><span class="p">))</span> <span class="c"># 가로 800, 세로 1000</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic21.png" alt=""></p>
+
+<p><br /></p>
+
+<h3 id="shared-axes">Shared Axes</h3>
+
+<p><code>shared_yaxes</code>(또는 <code>shared_xaxes</code>)를 적용하면 subplot별로 같은 축을 사용하도록 강제할 수 있다</p>
+
+<p>다만 subplot의 위치에도 영향을 받기 때문에 모든 그래프에 동일한 y축 범위를 적용하려면 아래와 같이 row수가 1로 고정되어야 한다</p>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">economics</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;scatter&#39;</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s">&#39;date&#39;</span><span class="p">,</span> 
+                <span class="n">subplots</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">subplot_titles</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
+                <span class="n">shared_yaxes</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+                <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">5</span><span class="p">),</span> <span class="n">dimensions</span><span class="o">=</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span><span class="mi">400</span><span class="p">))</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic22.png" alt=""></p>
+
+<p><br /></p>
+
+<hr>
+
+<h2 id="box-plot">Box Plot</h2>
+
+<p>그룹별 Box Plot은 약간의 편법(?)을 통해서 만들 수 있다.</p>
+
+<ol>
+<li>그룹으로 지정하려고 하는 열과 y축 값을 나타내려는 열만 남긴다</li>
+<li>그룹으로 지정하려고 하는 열을 인덱스로 지정한다(<code>append=True</code> 옵션을 통해 row number를 남기자)</li>
+<li><code>unstack</code> 메서드를 사용해서 각 그룹을 열로 구성한다</li>
+<li>이로 인해 엄청난 양의 NaN값이 생기지만 무시하고 그래프를 그린다!</li>
+</ol>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="p">(</span><span class="n">diamonds</span>
+ <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="p">[</span><span class="s">&#39;cut&#39;</span><span class="p">,</span> <span class="s">&#39;price&#39;</span><span class="p">]]</span>
+ <span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s">&#39;cut&#39;</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+ <span class="o">.</span><span class="n">unstack</span><span class="p">(</span><span class="s">&#39;cut&#39;</span><span class="p">)[</span><span class="s">&#39;price&#39;</span><span class="p">]</span>
+ <span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="s">&#39;box&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img src="/images/post_image/cufflinks_basic/cufflinks_basic23.png" alt=""></p>
+
+            </div>
+        </article>
+        <div class="cf"></div>
+        <div class="row text-center">
+            <section class="summer-post-share">
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;Cufflinks Basic&quot;%20http://lumiamitie.github.io/python/cufflinks_basic%20via%20&#64;"
+                    onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
+                    <i class="fa fa-twitter"></i>
+                </a>
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/python/cufflinks_basic"
+                    onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
+                    <i class="fa fa-facebook"></i>
+                </a>
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/python/cufflinks_basic"
+                   onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
+                    <i class="fa fa-google-plus"></i>
+                </a>
+            </section>
+        </div>
+        <div class="cf"></div>
+        
+            <div class="summer-author-info">
+                <div class="row">
+                    <section class="summer-post-author small-12 columns">
+                        
+                            <img src="http://lumiamitie.github.io/images/mino.jpg" class="summer-post-author-avatar" alt="Minho Lee's photo">
+                        
+                        
+                            <span class="author-label">Author</span>
+                            <h1>Minho Lee</h1>
+                        
+                        
+                            <p><a href="mailto:lumiamitie@email.com" class="author-website">lumiamitie@email.com</a></p>
+                        
+                        
+                            <p>Mind the Gap!</p>
+                        
+                    </section>
+                </div>
+            </div> 
+        
+        <div class="cf"></div>
+        
+        <section class="summer-disqus row">
+    <div class="small-12 columns">
+        <h1 class="summer-comments-header">Comments</h1>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'lumiamitie'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    </div>
+</section>
+
+        <div class="cf"></div>
+
+    <footer class="summer-site-footer">
+    <div class="copyright">
+         <section>All content copyright <a href="http://lumiamitie.github.io">Minho Lee</a> &copy; 2016 &bull; All rights reserved.</section>
+         <section>Proudly published with <a class="icon-ghost" href="https://jekyllrb.com/">Jekyll</a></section>
+    </div>
+    <div class="social-icons">
+        
+        
+        
+        
+        <a href="http://instagram.com/lmnsh_">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-instagram fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+        <a href="http://github.com/lumiamitie">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-github fa-stack-1x"></i>
+            </span>
+        </a>
+        
+        
+    </div>
+    
+    <div class="cf"></div>
+</footer> 
+</main>    
+    <script src="http://lumiamitie.github.io/assets/js/public/jqueryb146.js?v=77a7756db2"></script>
+
+    
+    <script src="http://lumiamitie.github.io/assets/js/vendor/fastclickb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/foundation.minb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/background-checkb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/vendor/post-header-animationsb146.js?v=77a7756db2"></script>
+    <script src="http://lumiamitie.github.io/assets/js/summerb146.js?v=77a7756db2"></script>
+
+	<link rel="stylesheet" href="http://lumiamitie.github.io/assets/highlight/default.css">
+	<script src="http://lumiamitie.github.io/assets/highlight/highlight.pack.js"></script>
+	<script>hljs.initHighlightingOnLoad();</script>
+	
+
+<!-- Asynchronous Google Analytics snippet -->
+<script>
+/*
+  var _gaq = _gaq || [];
+  var pluginUrl = 
+ '//www.google-analytics.com/plugins/ga/inpage_linkid.js';
+  _gaq.push(['_require', 'inpage_linkid', pluginUrl]);
+  _gaq.push(['_setAccount', 'UA-69341391-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'stats.g.doubleclick.net/dc.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+*/
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-69341391-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+ 
+</body>
+</html>

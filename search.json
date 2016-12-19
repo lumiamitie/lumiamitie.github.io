@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "Cufflinks Basic",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/python/cufflinks_basic",
+		  "date"       : "2016-12-19 00:00:00 +0900",
+		  "shortdate"  : "December 19, 2016"
+		} ,
+	
+		{
 		  "title"      : "KOSPI200 데이터를 가지고 선그래프 그려보기",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/r/ggplot2_adv_linechart",

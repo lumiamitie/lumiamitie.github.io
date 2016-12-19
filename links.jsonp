@@ -173,6 +173,11 @@ callback([
   {
     "text": "KOSPI200 데이터를 가지고 선그래프 그려보기",
     "href": "http://lumiamitie.github.io/r/ggplot2_adv_linechart"
+  } ,
+
+  {
+    "text": "Cufflinks Basic",
+    "href": "http://lumiamitie.github.io/python/cufflinks_basic"
   } 
 
 ])
