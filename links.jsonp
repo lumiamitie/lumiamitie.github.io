@@ -178,6 +178,11 @@ callback([
   {
     "text": "Cufflinks Basic",
     "href": "http://lumiamitie.github.io/python/cufflinks_basic"
+  } ,
+
+  {
+    "text": "R에서 슬랙으로 메세지 보내기",
+    "href": "http://lumiamitie.github.io/r/slackr-tutorial"
   } 
 
 ])

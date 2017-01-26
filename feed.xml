@@ -4,13 +4,89 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2016-12-19T21:56:12+09:00</updated>
+<updated>2017-01-26T22:37:08+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
   <uri>http://lumiamitie.github.io/</uri>
   <email>lumiamitie@email.com</email>
 </author>
+
+
+<entry>
+  <title type="html"><![CDATA[R에서 슬랙으로 메세지 보내기]]></title>
+  <link>http://lumiamitie.github.io/r/slackr-tutorial</link>
+  <id>http://lumiamitie.github.io/r/slackr-tutorial</id>
+  <published>2017-01-26T00:00:00+09:00</published>
+  <updated>2017-01-26T00:00:00+09:00</updated>
+  <author>
+    <name>Minho Lee</name>
+    <uri>http://lumiamitie.github.io</uri>
+    <email>lumiamitie@email.com</email>
+  </author>
+  <content type="html">&lt;p&gt;&lt;img src=&quot;/images/taking-notes.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
+
+&lt;h1 id=&quot;r에서-슬랙으로-메세지-보내기&quot;&gt;R에서 슬랙으로 메세지 보내기&lt;/h1&gt;
+
+&lt;p&gt;업무용 메신저로 주로 슬랙을 사용하다 보니, 어떻게든 슬랙을 활용해 볼 방법을 찾으려고 고민해보았다. 시간이 오래걸리는 작업이 끝날 때 알람을 받으면 좋겠다 싶어서 R을 이용해 슬랙 메세지 보내는 방법을 찾아보게 되었다. 스크린샷까지 자세하게 첨부하지는 못했지만, 어렵지 않으니 걱정말고 진행하면 된다!!&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;준비물&quot;&gt;준비물&lt;/h2&gt;
+
+&lt;p&gt;R에서 슬랙으로 메세지를 보내기 전에 준비해야 할 것들이 있다. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Slack에서 &lt;strong&gt;API token&lt;/strong&gt;을 받아야 한다
+
+&lt;ul&gt;
+&lt;li&gt;각 team의 App Directory (Apps &amp;amp; Integrations) &amp;gt; Manage &amp;gt; Custom Integrations &amp;gt; Bots &amp;gt; Add Configuration 로 들어간다&lt;/li&gt;
+&lt;li&gt;Bot을 등록하고 API token을 받는다&lt;/li&gt;
+&lt;li&gt;API token은 &lt;code&gt;xxxx-000000000000-aaaaaaaaaaaaaaaaaaaaaaaa&lt;/code&gt; 과 같은 형태로 된 문자열이다&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;install.packages(&amp;#39;slackr&amp;#39;)&lt;/code&gt; 로 &lt;strong&gt;slackr 패키지&lt;/strong&gt;를 설치한다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;slackr-사용법&quot;&gt;slackr 사용법&lt;/h2&gt;
+
+&lt;h3 id=&quot;기본-세팅&quot;&gt;기본 세팅&lt;/h3&gt;
+
+&lt;p&gt;먼저 &lt;code&gt;slackr_setup()&lt;/code&gt; 함수를 이용해서 기본값을 세팅해두자. 가장 중요한 &lt;code&gt;api_token&lt;/code&gt;은 필수적으로 세팅한다. &lt;code&gt;username&lt;/code&gt;의 경우 봇의 이름을 지정할 수 있다. 필수는 아니지만 필요한 경우 원하는 이름으로 변경하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;slackr&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+slackr_setup&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;api_token &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;xxxx-000000000000-aaaaaaaaaaaaaaaaaaaaaaaa&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; username &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;rstudio&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;단순-문자열-보내기&quot;&gt;단순 문자열 보내기&lt;/h3&gt;
+
+&lt;p&gt;간단한 문자열은 &lt;code&gt;text_slackr&lt;/code&gt; 함수를 통해 보낼 수 있다. channel 설정을 따로 하지 않으면 &lt;code&gt;#gerenal&lt;/code&gt; 채널로 발송된다. 특정 사용자에게 보내려면 &lt;code&gt;@user_name&lt;/code&gt;의 형태로 id 앞에 &lt;code&gt;@&lt;/code&gt;을 붙여서 발송하면 된다.&lt;/p&gt;
+
+&lt;p&gt;자세한 내용을 알고 싶다면 &lt;a href=&quot;https://api.slack.com/methods/chat.postMessage&quot;&gt;slack API&lt;/a&gt; 를 참고하면 된다.&lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;text_slackr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Hello&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; channel &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;#to_channel&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+text_slackr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;Hello&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; channel &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;@slack_id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;&lt;code&gt;text_slackr&lt;/code&gt; 함수에서 사용할 수 있는 옵션을 몇 가지 살펴보자. &lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;as_user = TRUE&lt;/code&gt; 일 때 설정한 봇이 나에게 DM을 보낸다 (DM 리스트에 봇이름이 생긴다. 사용자처럼)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;as_user = FALSE&lt;/code&gt; 일 경우에는 slackbot이 메세지를 보낸다 (보내는 주체는 slackbot이지만 메세지를 받아보면 내가 설정한 이름으로 메세지가 와 있다)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preformatted = TRUE&lt;/code&gt; 일 때 문자열 앞뒤에 backtick이 세 개씩 붙는다 (markdown format 형태로)&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preformatted = FALSE&lt;/code&gt; 일 때 일반 문자열 형태로 메세지를 받는다&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;ggplot2-이미지-보내기&quot;&gt;ggplot2 이미지 보내기&lt;/h3&gt;
+
+&lt;p&gt;&lt;code&gt;ggplot2&lt;/code&gt;로 그린 그래프를 그릴 때는 &lt;code&gt;ggslackr()&lt;/code&gt; 함수를 쓰면 된다. 기본값으로 &lt;code&gt;last_plot()&lt;/code&gt;을 사용하기 때문에 따로 그래프 오브젝트를 지정할 필요 없이 마지막으로 그린 그래프를 전송한다. 필요한 경우 원하는 그래프를 지정해서 사용하자. &lt;/p&gt;
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kn&quot;&gt;library&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;ggplot2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+ggplot&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;iris&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; aes&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Sepal.Length&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; y &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; Petal.Length&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; geom_point&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+ggslackr&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;channels &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;@slack_id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/slackr-tutorial&quot;&gt;R에서 슬랙으로 메세지 보내기&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on January 26, 2017.&lt;/p&gt;</content>
+</entry>
 
 
 <entry>
@@ -6073,469 +6149,6 @@ iris &lt;span class=&quot;o&quot;&gt;%&amp;gt;%&lt;/span&gt;
 &lt;p&gt;엄청나게 반복적인 작업을 해야할 때에는 이러한 방식으로 연산하면 시간을 크게 절약할 수도 있다&lt;/p&gt;
 
   &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/dplyr-advanced-se&quot;&gt;dplyr advanced - Standard Evaluation&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 16, 2015.&lt;/p&gt;</content>
-</entry>
-
-
-<entry>
-  <title type="html"><![CDATA[List and sapply]]></title>
-  <link>http://lumiamitie.github.io/r/list-and-sapply</link>
-  <id>http://lumiamitie.github.io/r/list-and-sapply</id>
-  <published>2015-10-11T00:00:00+09:00</published>
-  <updated>2015-10-11T00:00:00+09:00</updated>
-  <author>
-    <name>Minho Lee</name>
-    <uri>http://lumiamitie.github.io</uri>
-    <email>lumiamitie@email.com</email>
-  </author>
-  <content type="html">&lt;p&gt;&lt;img src=&quot;../../images/note-and-pen.jpg&quot; alt=&quot;cover-image&quot;&gt;&lt;/p&gt;
-
-&lt;p&gt;json이나 파이썬의 딕셔너리처럼 자유로운 형태의 데이터를 사용하게 되면 list를 많이 사용하게 된다. 평소에는 주로 data.frame을 사용하다보니 상대적으로 list에는 익숙하지가 않았다. 이번에 인스타그램에서 데이터를 가져오면서 리스트에 대해 한 번쯤 정리를 해야겠다는 필요성을 느꼈다. 그래서 api를 통해 데이터를 가져올 때 많이 사용할 만한 내용을 살펴보려고 한다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h1 id=&quot;list&quot;&gt;List&lt;/h1&gt;
-
-&lt;p&gt;R의 리스트는 key-value 형태로 데이터를 저장한다&lt;/p&gt;
-
-&lt;p&gt;value에는 숫자, 문자열, 리스트, 데이터프레임 등 다양한 형태의 데이터 프레임이 존재할 수 있다&lt;/p&gt;
-
-&lt;p&gt;다만 여기서는 json 형태의 데이터를 R로 가져왔을 때 가장 많이 발생하는 형태인 &amp;lsquo;리스트가 중첩된 형태&amp;rsquo; 를 중점적으로 생각하려고 한다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;list-생성하기&quot;&gt;list 생성하기&lt;/h2&gt;
-
-&lt;p&gt;리스트를 생성하려면 &lt;code&gt;list()&lt;/code&gt;함수를 사용하면 된다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;aaa&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;a01&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;18&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterA&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-              &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;a02&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterB&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-              &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;a03&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;23&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterC&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-              &lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-list01
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $id
-## [1] &amp;quot;aaa&amp;quot;
-## 
-## $data
-## $data[[1]]
-## $data[[1]]$media_id
-## [1] &amp;quot;a01&amp;quot;
-## 
-## $data[[1]]$like
-## [1] 18
-## 
-## $data[[1]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## $data[[2]]
-## $data[[2]]$media_id
-## [1] &amp;quot;a02&amp;quot;
-## 
-## $data[[2]]$like
-## [1] 5
-## 
-## $data[[2]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-## 
-## 
-## $data[[3]]
-## $data[[3]]$media_id
-## [1] &amp;quot;a03&amp;quot;
-## 
-## $data[[3]]$like
-## [1] 23
-## 
-## $data[[3]]$filter
-## [1] &amp;quot;filterC&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;h2 id=&quot;list-불러오기&quot;&gt;list 불러오기&lt;/h2&gt;
-
-&lt;p&gt;리스트에 값을 저장했을 때, 데이터를 불러오는 방식은 크게 두 가지가 있다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;key-value의-형태&quot;&gt;key-value의 형태&lt;/h3&gt;
-
-&lt;p&gt;인덱싱을 통해 특정 데이터를 호출할 때 [] 를 사용하면 key값과 value값이 모두 반환되어 list 형식으로 값이 나오게 된다&lt;/p&gt;
-
-&lt;p&gt;숫자를 입력하면 1부터 시작하는 인덱스 번호로 호출되고&lt;/p&gt;
-
-&lt;p&gt;변수에 이름이 존재할 경우에는 이름으로 호출할 수도 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $id
-## [1] &amp;quot;aaa&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $id
-## [1] &amp;quot;aaa&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;value-값만-출력&quot;&gt;value 값만 출력&lt;/h3&gt;
-
-&lt;p&gt;반면에 [[]]를 이용해서 출력할 경우에는 key없이 value만 호출하게 된다&lt;/p&gt;
-
-&lt;p&gt;value 항목이 벡터 형태라면 벡터만 출력되고, 리스트 형태라면 리스트가 출력된다&lt;/p&gt;
-
-&lt;p&gt;마찬가지로 숫자를 넣으면 인덱스 번호로 호출한다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;$&lt;/code&gt;를 통해 호출하는 경우에도 value만 출력된다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;aaa&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;data&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
-## [[1]]$media_id
-## [1] &amp;quot;a01&amp;quot;
-## 
-## [[1]]$like
-## [1] 18
-## 
-## [[1]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## [[2]]
-## [[2]]$media_id
-## [1] &amp;quot;a02&amp;quot;
-## 
-## [[2]]$like
-## [1] 5
-## 
-## [[2]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-## 
-## 
-## [[3]]
-## [[3]]$media_id
-## [1] &amp;quot;a03&amp;quot;
-## 
-## [[3]]$like
-## [1] 23
-## 
-## [[3]]$filter
-## [1] &amp;quot;filterC&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]]&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;aaa&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;id
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;aaa&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h2 id=&quot;list에서-데이터-추출하기&quot;&gt;list에서 데이터 추출하기&lt;/h2&gt;
-
-&lt;p&gt;인스타그램에서 데이터를 성공적으로 받아왔다고 하면, 이제 거기에서 필요한 데이터만 꺼내서 정리해야 한다.&lt;/p&gt;
-
-&lt;p&gt;일정한 형태가 반복될 것이기 때문에 for문이나 sapply함수 등을 사용해서 정리할 수 있다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-for문&quot;&gt;list01의 data에서 media_id만 추출하기 - for문&lt;/h3&gt;
-
-&lt;p&gt;빈 벡터를 하나 만들고, for문이 돌 때마다 값을 하나씩 추가한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;post &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-  media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; post&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-media_id
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;a01&amp;quot; &amp;quot;a02&amp;quot; &amp;quot;a03&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;h3 id=&quot;list01의-data에서-media_id만-추출하기-sapply&quot;&gt;list01의 data에서 media_id만 추출하기 - sapply&lt;/h3&gt;
-
-&lt;p&gt;&lt;code&gt;sapply&lt;/code&gt;함수를 이용하면 &lt;code&gt;list01$data&lt;/code&gt;의 각 항목을 &lt;code&gt;x&lt;/code&gt;로 둘 때 &lt;code&gt;x$media_id&lt;/code&gt;의 값을 벡터로 정리해서 반환해준다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;a01&amp;quot; &amp;quot;a02&amp;quot; &amp;quot;a03&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;p&quot;&gt;[[&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&amp;#39;media_id&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]])&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [1] &amp;quot;a01&amp;quot; &amp;quot;a02&amp;quot; &amp;quot;a03&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;sapply&quot;&gt;sapply?&lt;/h2&gt;
-
-&lt;p&gt;첫 번째 인자로 들어오는 벡터 또는 리스트의 항목을 하나씩 그 뒤에 들어오는 함수에 대입시킨다&lt;/p&gt;
-
-&lt;p&gt;각 결과물을 벡터로 모아서 반환한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;m&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##  [1]  2  4  6  8 10 12 14 16 18 20
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;위 코드에서는 &lt;/p&gt;
-
-&lt;p&gt;1이 x에 반영되어 2*1&lt;/p&gt;
-
-&lt;p&gt;2가 x에 반영되어 2*2&lt;/p&gt;
-
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-
-&lt;p&gt;10이 x에 반영되어 2*10&lt;/p&gt;
-
-&lt;p&gt;이 반복되어서 최종적으로는 2부터 20까지의 짝수 벡터가 출력된다&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;데이터를-data-frame에-정리하기&quot;&gt;데이터를 data.frame에 정리하기&lt;/h2&gt;
-
-&lt;p&gt;위에서는 간단하게 필요한 변수만 벡터로 저장해 보았다면 여기서는 여러 가지 변수들을 모아서 데이터 프레임으로 저장해 보려고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;h3 id=&quot;list01-data-를-데이터-프레임으로-정리하기-for문&quot;&gt;list01$data 를 데이터 프레임으로 정리하기 - for문&lt;/h3&gt;
-
-&lt;p&gt;row단위로 데이터를 합치게 된다&lt;/p&gt;
-
-&lt;p&gt;for문 안에서 1행의 데이터 프레임을 생성한 다음에 기존에 있던 데이터프레임의 마지막 행에 추가하는 형태로 반복한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_data_for &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-&lt;span class=&quot;kr&quot;&gt;for&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;post &lt;span class=&quot;kr&quot;&gt;in&lt;/span&gt; list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;){&lt;/span&gt;
-  df_data_for &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;rbind&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;df_data_for&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                      &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; post&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                                 like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; post&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;like&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; 
-                                 filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; post&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;filter&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-df_data_for
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   media_id like  filter
-## 1      a01   18 filterA
-## 2      a02    5 filterB
-## 3      a03   23 filterC
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;h3 id=&quot;list01-data를-데이터-프레임으로-정리하기-sapply&quot;&gt;list01$data를 데이터 프레임으로 정리하기 - sapply&lt;/h3&gt;
-
-&lt;p&gt;col단위로 데이터를 합치게 된다&lt;/p&gt;
-
-&lt;p&gt;sapply함수를 이용해 각각의 열에 들어갈 자료를 벡터로 만들고 그 벡터들을 data.frame함수로 묶게된다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;df_data_sapply &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;data.frame&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;media_id&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;like&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt;
-  filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kp&quot;&gt;sapply&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;data&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;x&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; x&lt;span class=&quot;o&quot;&gt;$&lt;/span&gt;filter&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-
-df_data_sapply
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##   media_id like  filter
-## 1      a01   18 filterA
-## 2      a02    5 filterB
-## 3      a03   23 filterC
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;h2 id=&quot;list-들을-합치는-방법들&quot;&gt;list 들을 합치는 방법들&lt;/h2&gt;
-
-&lt;p&gt;api에서 한 번에 제공하는 데이터의 양은 한정되어있다&lt;/p&gt;
-
-&lt;p&gt;따라서 분석을 하기 위해서는 데이터를 계속 수집하면서 하나의 데이터셋으로 모아줄 필요가 있다&lt;/p&gt;
-
-&lt;p&gt;맨 처음에 생성했던 리스트와 동일한 형태로 list02라는 리스트를 생성한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;list02 &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;
-  id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;bbb&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;
-  data &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;b01&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;  filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterD&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-              &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;b02&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterA&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; 
-              &lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;media_id &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;b03&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; like &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; filter &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s&quot;&gt;&amp;#39;filterB&amp;#39;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)))&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;첫 번째로 리스트를 합치는 방법은 벡터에서 처럼 &lt;code&gt;c()&lt;/code&gt; 함수를 사용하는 것이다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; list02&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## $id
-## [1] &amp;quot;aaa&amp;quot;
-## 
-## $data
-## $data[[1]]
-## $data[[1]]$media_id
-## [1] &amp;quot;a01&amp;quot;
-## 
-## $data[[1]]$like
-## [1] 18
-## 
-## $data[[1]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## $data[[2]]
-## $data[[2]]$media_id
-## [1] &amp;quot;a02&amp;quot;
-## 
-## $data[[2]]$like
-## [1] 5
-## 
-## $data[[2]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-## 
-## 
-## $data[[3]]
-## $data[[3]]$media_id
-## [1] &amp;quot;a03&amp;quot;
-## 
-## $data[[3]]$like
-## [1] 23
-## 
-## $data[[3]]$filter
-## [1] &amp;quot;filterC&amp;quot;
-## 
-## 
-## 
-## $id
-## [1] &amp;quot;bbb&amp;quot;
-## 
-## $data
-## $data[[1]]
-## $data[[1]]$media_id
-## [1] &amp;quot;b01&amp;quot;
-## 
-## $data[[1]]$like
-## [1] 8
-## 
-## $data[[1]]$filter
-## [1] &amp;quot;filterD&amp;quot;
-## 
-## 
-## $data[[2]]
-## $data[[2]]$media_id
-## [1] &amp;quot;b02&amp;quot;
-## 
-## $data[[2]]$like
-## [1] 15
-## 
-## $data[[2]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## $data[[3]]
-## $data[[3]]$media_id
-## [1] &amp;quot;b03&amp;quot;
-## 
-## $data[[3]]$like
-## [1] 13
-## 
-## $data[[3]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;이렇게 하면 &lt;code&gt;list01$id&lt;/code&gt;, &lt;code&gt;list01$data&lt;/code&gt;, &lt;code&gt;list02$id&lt;/code&gt;, &lt;code&gt;list02$data&lt;/code&gt; 순으로 들어간다&lt;/p&gt;
-
-&lt;p&gt;따라서 각각의 항목을 [[1]], [[2]], [[3]], [[4]]로 호출할 수 있다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;&lt;code&gt;c()&lt;/code&gt; 함수에서 &lt;code&gt;recursive = TRUE&lt;/code&gt; 옵션을 사용하면 list 안에 있는 내용을 모두 벡터로 반환한다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kt&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; list02&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; recursive &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kc&quot;&gt;TRUE&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;##            id data.media_id     data.like   data.filter data.media_id 
-##         &amp;quot;aaa&amp;quot;         &amp;quot;a01&amp;quot;          &amp;quot;18&amp;quot;     &amp;quot;filterA&amp;quot;         &amp;quot;a02&amp;quot; 
-##     data.like   data.filter data.media_id     data.like   data.filter 
-##           &amp;quot;5&amp;quot;     &amp;quot;filterB&amp;quot;         &amp;quot;a03&amp;quot;          &amp;quot;23&amp;quot;     &amp;quot;filterC&amp;quot; 
-##            id data.media_id     data.like   data.filter data.media_id 
-##         &amp;quot;bbb&amp;quot;         &amp;quot;b01&amp;quot;           &amp;quot;8&amp;quot;     &amp;quot;filterD&amp;quot;         &amp;quot;b02&amp;quot; 
-##     data.like   data.filter data.media_id     data.like   data.filter 
-##          &amp;quot;15&amp;quot;     &amp;quot;filterA&amp;quot;         &amp;quot;b03&amp;quot;          &amp;quot;13&amp;quot;     &amp;quot;filterB&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;전체 항목이 벡터로 반환되는 것을 볼 수 있다&lt;/p&gt;
-
-&lt;hr&gt;
-
-&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-
-&lt;p&gt;리스트의 형태로 두 리스트를 묶을 수도 있다&lt;/p&gt;
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-r&quot; data-lang=&quot;r&quot;&gt;&lt;span class=&quot;kt&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;list01&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; list02&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-text&quot; data-lang=&quot;text&quot;&gt;## [[1]]
-## [[1]]$id
-## [1] &amp;quot;aaa&amp;quot;
-## 
-## [[1]]$data
-## [[1]]$data[[1]]
-## [[1]]$data[[1]]$media_id
-## [1] &amp;quot;a01&amp;quot;
-## 
-## [[1]]$data[[1]]$like
-## [1] 18
-## 
-## [[1]]$data[[1]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## [[1]]$data[[2]]
-## [[1]]$data[[2]]$media_id
-## [1] &amp;quot;a02&amp;quot;
-## 
-## [[1]]$data[[2]]$like
-## [1] 5
-## 
-## [[1]]$data[[2]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-## 
-## 
-## [[1]]$data[[3]]
-## [[1]]$data[[3]]$media_id
-## [1] &amp;quot;a03&amp;quot;
-## 
-## [[1]]$data[[3]]$like
-## [1] 23
-## 
-## [[1]]$data[[3]]$filter
-## [1] &amp;quot;filterC&amp;quot;
-## 
-## 
-## 
-## 
-## [[2]]
-## [[2]]$id
-## [1] &amp;quot;bbb&amp;quot;
-## 
-## [[2]]$data
-## [[2]]$data[[1]]
-## [[2]]$data[[1]]$media_id
-## [1] &amp;quot;b01&amp;quot;
-## 
-## [[2]]$data[[1]]$like
-## [1] 8
-## 
-## [[2]]$data[[1]]$filter
-## [1] &amp;quot;filterD&amp;quot;
-## 
-## 
-## [[2]]$data[[2]]
-## [[2]]$data[[2]]$media_id
-## [1] &amp;quot;b02&amp;quot;
-## 
-## [[2]]$data[[2]]$like
-## [1] 15
-## 
-## [[2]]$data[[2]]$filter
-## [1] &amp;quot;filterA&amp;quot;
-## 
-## 
-## [[2]]$data[[3]]
-## [[2]]$data[[3]]$media_id
-## [1] &amp;quot;b03&amp;quot;
-## 
-## [[2]]$data[[3]]$like
-## [1] 13
-## 
-## [[2]]$data[[3]]$filter
-## [1] &amp;quot;filterB&amp;quot;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-&lt;p&gt;인스타그램에서 데이터를 받아오면 이런 형식일 것이다&lt;/p&gt;
-
-&lt;p&gt;첫 번째 항목([[1]])에 list01이 들어가고 두 번째 항목([[2]])에 list02가 들어간다&lt;/p&gt;
-
-&lt;p&gt;위에서 데이터를 data.frame으로 저장했던 방식을 응용하면 (for, sapply 또는 for + sapply) 필요한 항목만 정리할 수 있다&lt;/p&gt;
-
-  &lt;p&gt;&lt;a href=&quot;http://lumiamitie.github.io/r/list-and-sapply&quot;&gt;List and sapply&lt;/a&gt; was originally published by Minho Lee at &lt;a href=&quot;http://lumiamitie.github.io&quot;&gt;lmnsh&lt;/a&gt; on October 11, 2015.&lt;/p&gt;</content>
 </entry>
 
 </feed>

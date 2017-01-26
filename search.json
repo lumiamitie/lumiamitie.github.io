@@ -1,6 +1,14 @@
 [
 	
 		{
+		  "title"      : "R에서 슬랙으로 메세지 보내기",
+		  "category"   : "",
+		  "url"        : "http://lumiamitie.github.io/r/slackr-tutorial",
+		  "date"       : "2017-01-26 00:00:00 +0900",
+		  "shortdate"  : "January 26, 2017"
+		} ,
+	
+		{
 		  "title"      : "Cufflinks Basic",
 		  "category"   : "",
 		  "url"        : "http://lumiamitie.github.io/python/cufflinks_basic",

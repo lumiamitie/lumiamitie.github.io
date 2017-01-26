@@ -17,18 +17,18 @@ Description: Awesome dude, awesome life
 -->
 <head>
 <meta charset="utf-8">
-<title>마크다운에 DROPBOX 공유 이미지 링크하기</title>
+<title>R에서 슬랙으로 메세지 보내기</title>
 <meta name="description" content="Data and Visualization">
-<meta name="keywords" content="jekyll">
+<meta name="keywords" content="R, slack">
 
 
 
 <!-- Open Graph -->
 <meta property="og:locale" content="en_US">
 <meta property="og:type" content="article">
-<meta property="og:title" content="마크다운에 Dropbox 공유 이미지 링크하기">
+<meta property="og:title" content="R에서 슬랙으로 메세지 보내기">
 <meta property="og:description" content="Data and Visualization">
-<meta property="og:url" content="http://lumiamitie.github.io/web/image-link-test">
+<meta property="og:url" content="http://lumiamitie.github.io/r/slackr-tutorial">
 <meta property="og:site_name" content="lmnsh">
 <meta property="og:image" content="http://lumiamitie.github.io/images/">
 
@@ -36,7 +36,7 @@ Description: Awesome dude, awesome life
 
 
 
-<link rel="canonical" href="http://lumiamitie.github.io/web/image-link-test">
+<link rel="canonical" href="http://lumiamitie.github.io/r/slackr-tutorial">
 <link href="http://lumiamitie.github.io/feed.xml" type="application/atom+xml" rel="alternate" title="lmnsh Feed">
 
 
@@ -124,48 +124,89 @@ Description: Awesome dude, awesome life
 </div>
             </div>
             <div class="summer-post-title bg-check">
-                <h1>마크다운에 Dropbox 공유 이미지 링크하기</h1>
-                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#jekyll" data-toggle="tooltip" title="Posts tagged with jekyll" rel="tag">jekyll</a> <strong><time datetime="2015-08-04T00:00:00+09:00">04 Aug 2015</time></strong></p>
+                <h1>R에서 슬랙으로 메세지 보내기</h1>
+                <p>by <strong>Minho Lee</strong> &#8212; on <a href="http://lumiamitie.github.io/tags/index.html#R" data-toggle="tooltip" title="Posts tagged with R" rel="tag">R</a>&nbsp;&comma;&nbsp;<a href="http://lumiamitie.github.io/tags/index.html#slack" data-toggle="tooltip" title="Posts tagged with slack" rel="tag">slack</a> <strong><time datetime="2017-01-26T00:00:00+09:00">26 Jan 2017</time></strong></p>
             </div>
             <div class="bg-img"></div>
         </header>
         <button class="trigger bg-check" data-info="Read more"><span>Trigger</span></button>
         
         <article class="summer-post-content post">
-            <div><p><img src="../../images/taking-notes.jpg" alt="cover-image"></p>
+            <div><p><img src="/images/taking-notes.jpg" alt="cover-image"></p>
 
-<p>커버이미지를 등록하는 것 때문에 매번 필요한 사진이 생기면 다운로드 받아서 jekyll 폴더에 넣어줘야 하는지 고민하다가 Dropbox에 사진을 넣고 공유해서 그 링크를 첨부하는 방식을 생각했다. 그런데 막상 해보니 제대로 링크가 연결되지 않아서 파일을 직접 넣어주는 방향으로 생각하고 있었는데, 마크다운 문법 때문에 블로그를 돌아다니다가 <a href="http://scriptogr.am/myevan/post/markdown-syntax-guide-for-scriptogram">Song Young-jin님의 블로그</a>에서 적절한 해결 방안을 발견했다.</p>
+<h1 id="r에서-슬랙으로-메세지-보내기">R에서 슬랙으로 메세지 보내기</h1>
 
-<p>원래 공유를 하면 다음과 같은 링크가 주어진다</p>
+<p>업무용 메신저로 주로 슬랙을 사용하다 보니, 어떻게든 슬랙을 활용해 볼 방법을 찾으려고 고민해보았다. 시간이 오래걸리는 작업이 끝날 때 알람을 받으면 좋겠다 싶어서 R을 이용해 슬랙 메세지 보내는 방법을 찾아보게 되었다. 스크린샷까지 자세하게 첨부하지는 못했지만, 어렵지 않으니 걱정말고 진행하면 된다!!</p>
 
-<blockquote>
-<p><a href="https://www.dropbox.com/s/randomrandom/image.png?dl=0">https://www.dropbox.com/s/randomrandom/image.png?dl=0</a></p>
-</blockquote>
+<p><br /></p>
 
-<p>여기서 https 를 http로, www를 dl로 변경하고 ?dl=0 을 제거한다</p>
+<h2 id="준비물">준비물</h2>
 
-<blockquote>
-<p><a href="http://dl.dropbox.com/s/randomrandom/image.png">http://dl.dropbox.com/s/randomrandom/image.png</a></p>
-</blockquote>
+<p>R에서 슬랙으로 메세지를 보내기 전에 준비해야 할 것들이 있다. </p>
 
-<p>위 링크를 사용하면 마크다운에서 Dropbox 공유 이미지를 불러올 수 있다</p>
+<ul>
+<li>Slack에서 <strong>API token</strong>을 받아야 한다
 
-<p><img src="http://dl.dropbox.com/s/hw5qjxa91jy560g/apple_mean_price.png" alt="서울시 구별 사과 평균가격"></p>
+<ul>
+<li>각 team의 App Directory (Apps &amp; Integrations) &gt; Manage &gt; Custom Integrations &gt; Bots &gt; Add Configuration 로 들어간다</li>
+<li>Bot을 등록하고 API token을 받는다</li>
+<li>API token은 <code>xxxx-000000000000-aaaaaaaaaaaaaaaaaaaaaaaa</code> 과 같은 형태로 된 문자열이다</li>
+</ul></li>
+<li><code>install.packages(&#39;slackr&#39;)</code> 로 <strong>slackr 패키지</strong>를 설치한다</li>
+</ul>
 
+<p><br /></p>
+
+<h2 id="slackr-사용법">slackr 사용법</h2>
+
+<h3 id="기본-세팅">기본 세팅</h3>
+
+<p>먼저 <code>slackr_setup()</code> 함수를 이용해서 기본값을 세팅해두자. 가장 중요한 <code>api_token</code>은 필수적으로 세팅한다. <code>username</code>의 경우 봇의 이름을 지정할 수 있다. 필수는 아니지만 필요한 경우 원하는 이름으로 변경하면 된다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>slackr<span class="p">)</span>
+slackr_setup<span class="p">(</span>api_token <span class="o">=</span> <span class="s">&#39;xxxx-000000000000-aaaaaaaaaaaaaaaaaaaaaaaa&#39;</span><span class="p">,</span> username <span class="o">=</span> <span class="s">&#39;rstudio&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><br /></p>
+
+<h3 id="단순-문자열-보내기">단순 문자열 보내기</h3>
+
+<p>간단한 문자열은 <code>text_slackr</code> 함수를 통해 보낼 수 있다. channel 설정을 따로 하지 않으면 <code>#gerenal</code> 채널로 발송된다. 특정 사용자에게 보내려면 <code>@user_name</code>의 형태로 id 앞에 <code>@</code>을 붙여서 발송하면 된다.</p>
+
+<p>자세한 내용을 알고 싶다면 <a href="https://api.slack.com/methods/chat.postMessage">slack API</a> 를 참고하면 된다.</p>
+<div class="highlight"><pre><code class="language-r" data-lang="r">text_slackr<span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span> channel <span class="o">=</span> <span class="s">&#39;#to_channel&#39;</span><span class="p">)</span>
+text_slackr<span class="p">(</span><span class="s">&#39;Hello&#39;</span><span class="p">,</span> channel <span class="o">=</span> <span class="s">&#39;@slack_id&#39;</span><span class="p">)</span>
+</code></pre></div>
+<p><code>text_slackr</code> 함수에서 사용할 수 있는 옵션을 몇 가지 살펴보자. </p>
+
+<ul>
+<li><code>as_user = TRUE</code> 일 때 설정한 봇이 나에게 DM을 보낸다 (DM 리스트에 봇이름이 생긴다. 사용자처럼)</li>
+<li><code>as_user = FALSE</code> 일 경우에는 slackbot이 메세지를 보낸다 (보내는 주체는 slackbot이지만 메세지를 받아보면 내가 설정한 이름으로 메세지가 와 있다)</li>
+<li><code>preformatted = TRUE</code> 일 때 문자열 앞뒤에 backtick이 세 개씩 붙는다 (markdown format 형태로)</li>
+<li><code>preformatted = FALSE</code> 일 때 일반 문자열 형태로 메세지를 받는다</li>
+</ul>
+
+<p><br /></p>
+
+<h3 id="ggplot2-이미지-보내기">ggplot2 이미지 보내기</h3>
+
+<p><code>ggplot2</code>로 그린 그래프를 그릴 때는 <code>ggslackr()</code> 함수를 쓰면 된다. 기본값으로 <code>last_plot()</code>을 사용하기 때문에 따로 그래프 오브젝트를 지정할 필요 없이 마지막으로 그린 그래프를 전송한다. 필요한 경우 원하는 그래프를 지정해서 사용하자. </p>
+<div class="highlight"><pre><code class="language-r" data-lang="r"><span class="kn">library</span><span class="p">(</span>ggplot2<span class="p">)</span>
+ggplot<span class="p">(</span>iris<span class="p">,</span> aes<span class="p">(</span>x <span class="o">=</span> Sepal.Length<span class="p">,</span> y <span class="o">=</span> Petal.Length<span class="p">))</span> <span class="o">+</span> geom_point<span class="p">()</span>
+ggslackr<span class="p">(</span>channels <span class="o">=</span> <span class="s">&#39;@slack_id&#39;</span><span class="p">)</span>
+</code></pre></div>
             </div>
         </article>
         <div class="cf"></div>
         <div class="row text-center">
             <section class="summer-post-share">
-                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;마크다운에 Dropbox 공유 이미지 링크하기&quot;%20http://lumiamitie.github.io/web/image-link-test%20via%20&#64;"
+                <a class="twitter-icon" href="https://twitter.com/intent/tweet?text=&quot;R에서 슬랙으로 메세지 보내기&quot;%20http://lumiamitie.github.io/r/slackr-tutorial%20via%20&#64;"
                     onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;" title="Share on Twitter">
                     <i class="fa fa-twitter"></i>
                 </a>
-                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/web/image-link-test"
+                <a class="facebook-icon" href="https://www.facebook.com/sharer/sharer.php?u=http://lumiamitie.github.io/r/slackr-tutorial"
                     onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;" title="Share on Facebook">
                     <i class="fa fa-facebook"></i>
                 </a>
-                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/web/image-link-test"
+                <a class="google-icon" href="https://plus.google.com/share?url=http://lumiamitie.github.io/r/slackr-tutorial"
                    onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;" title="Share on Google+">
                     <i class="fa fa-google-plus"></i>
                 </a>
