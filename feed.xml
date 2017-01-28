@@ -4,7 +4,7 @@
 <generator uri="https://github.com/mojombo/jekyll">Jekyll</generator>
 <link rel="self" type="application/atom+xml" href="http://lumiamitie.github.io/feed.xml" />
 <link rel="alternate" type="text/html" href="http://lumiamitie.github.io" />
-<updated>2017-01-26T22:37:08+09:00</updated>
+<updated>2017-01-28T20:26:17+09:00</updated>
 <id>http://lumiamitie.github.io/</id>
 <author>
   <name>Minho Lee</name>
@@ -40,7 +40,8 @@
 &lt;li&gt;Slack에서 &lt;strong&gt;API token&lt;/strong&gt;을 받아야 한다
 
 &lt;ul&gt;
-&lt;li&gt;각 team의 App Directory (Apps &amp;amp; Integrations) &amp;gt; Manage &amp;gt; Custom Integrations &amp;gt; Bots &amp;gt; Add Configuration 로 들어간다&lt;/li&gt;
+&lt;li&gt;각 team의 App Directory (Apps &amp;amp; Integrations) &amp;gt; Build &amp;gt; Make a Custom Integration &amp;gt; Bots &amp;gt; Add Bot integration 으로 봇을 생성한다&lt;/li&gt;
+&lt;li&gt;App Directory &amp;gt; Manage &amp;gt; Custom Integrations &amp;gt; Bots &amp;gt; Add Configuration 로 들어간다&lt;/li&gt;
 &lt;li&gt;Bot을 등록하고 API token을 받는다&lt;/li&gt;
 &lt;li&gt;API token은 &lt;code&gt;xxxx-000000000000-aaaaaaaaaaaaaaaaaaaaaaaa&lt;/code&gt; 과 같은 형태로 된 문자열이다&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
