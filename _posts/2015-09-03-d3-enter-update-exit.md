@@ -7,7 +7,7 @@ featured: true
 comments: true
 headline: Making blogging easier for masses
 categories: D3
-tags: jekyll
+tags: tutorial
 ---
 
 ![cover-image](/images/old-book.jpg)

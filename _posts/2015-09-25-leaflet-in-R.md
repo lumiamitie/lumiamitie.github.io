@@ -7,7 +7,7 @@ featured: true
 comments: true
 headline: Making blogging easier for masses
 categories: R Visualization
-tags: jekyll
+tags: tutorial mapping
 ---
 
 ![cover-image](/images/desk-pen-ruler.jpg)

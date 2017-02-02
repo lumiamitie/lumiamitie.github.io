@@ -5,9 +5,9 @@ title: Web Scraping with rvest
 mathjax: false
 featured: false
 comments: true
-headline: Making blogging easier for masses
+headline: Web Scraping with rvest
 categories: R Web
-tags: jekyll
+tags: Crawling
 ---
 
 ![cover-image](../../../images/taking-notes.jpg)

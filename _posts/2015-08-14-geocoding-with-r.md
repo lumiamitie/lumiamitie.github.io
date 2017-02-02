@@ -5,9 +5,9 @@ title: Geocoding with R
 mathjax: false
 featured: false
 comments: true
-headline: Making blogging easier for masses
+headline: Geocoding with ggmap
 categories: R
-tags: jekyll
+tags: map geocoding
 ---
 
 ![cover-image](../../images/rocks-waves.jpg)

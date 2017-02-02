@@ -7,7 +7,7 @@ featured: true
 comments: true
 headline: Making blogging easier for masses
 categories: R Visualization
-tags: jekyll
+tags: map ggplot2
 ---
 ![cover-image](/images/macphoto.jpg)
 여기서는 shp파일을 불러와서 직접 ggplot2를 이용해 지도를 그리는 방법을 설명하려고 한다
