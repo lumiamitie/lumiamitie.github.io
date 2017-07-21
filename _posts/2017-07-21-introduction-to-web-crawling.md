@@ -72,6 +72,8 @@ GET과 POST의 구체적인 차이점이 궁금하다면 다음 블로그의 포
 
 미디어 다음( <http://media.daum.net/> )에서 실시간 이슈 키워드를 가져와보자
 
+![](/images/post_image/intro_to_crawling/issue_capture.png)
+
 ## Python
 
 ```python
