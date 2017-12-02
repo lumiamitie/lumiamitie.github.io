@@ -170,19 +170,8 @@ x %<-% {
   a = 2
   a * 2
 }
-x # 4
-```
-
-```
-## [1] 4
-```
-
-```r
-a # 1
-```
-
-```
-## [1] 1
+x ## 4
+a ## 1
 ```
 
 #### 1-2) Transparent
@@ -250,7 +239,7 @@ plan(multiprocess)
 a = Sys.getpid()
 f1 %<-% {
   Sys.getpid()
-} # %plan% sequential
+}
 
 a ## [1] 19966
 f1 ## [1] 19977
