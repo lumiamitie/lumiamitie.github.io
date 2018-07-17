@@ -56,7 +56,7 @@ data %>%
               color = 'white') +
     geom_text(aes(x = (xmin + xmax) / 2, y = ratio,
                   label = scales::percent(ratio)), 
-              family = 'Apple SD Gothic Neo', 
+              # family = 'Apple SD Gothic Neo', # 맥 사용자는 한글이 깨질 경우 여기를 추가해주세요!
               size = 3, nudge_y = 0.015) +
     facet_wrap(~ type, ncol = 6) +
     scale_fill_manual(values = c('#1DCDBC', '#38C6F4')) +
@@ -65,7 +65,8 @@ data %>%
     xlab('') + ylab('') +
     coord_polar(theta = 'y') + #시계방향으로 돈다
     # coord_polar(theta = 'y', direction = -1) + #시계반대방향으로 돈다
-    theme_void(base_family = 'Apple SD Gothic Neo') +
+    theme_void() + #### 윈도우/리눅스 사용자 ####
+    # theme_void(base_family = 'Apple SD Gothic Neo') + #### 맥 사용자 ####
     theme(legend.position = 'bottom', axis.text = element_blank())
 ```
 
