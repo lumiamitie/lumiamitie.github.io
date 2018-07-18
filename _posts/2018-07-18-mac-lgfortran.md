@@ -1,11 +1,11 @@
 ---
 layout: post
 published: true
-title: Mac에서 library not found for -lgfortran 에러 해결하기
+title: Mac에서 library not found for lgfortran 에러 해결하기
 mathjax: false
 featured: false
 comments: true
-headline: library not found for -lgfortran error
+headline: library not found for lgfortran error
 categories: R
 tags: R
 ---
