@@ -20,6 +20,10 @@ tags: R Mac
 
 <br /><br />
 
+2019-03-04 일자로 해결 방법 수정해두었습니다. 글의 맨 마지막 부분을 확인해주세요.
+
+<br /><br />
+
 # R error
 
 ---
@@ -28,11 +32,11 @@ R과 R-Studio를 설치하고 실행을 해보니 다음과 같은 에러가 발
 
 ```
 During startup - Warning messages:
-1: Setting LC_CTYPE failed, using "C" 
-2: Setting LC_COLLATE failed, using "C" 
-3: Setting LC_TIME failed, using "C" 
-4: Setting LC_MESSAGES failed, using "C" 
-5: Setting LC_MONETARY failed, using "C" 
+1: Setting LC_CTYPE failed, using "C"
+2: Setting LC_COLLATE failed, using "C"
+3: Setting LC_TIME failed, using "C"
+4: Setting LC_MESSAGES failed, using "C"
+5: Setting LC_MONETARY failed, using "C"
 ```
 
 이게 뭔가 싶어서 로케일 설정을 확인해보니 전부 C로 설정되어 있는 것을 확인할 수 있었다.
@@ -52,7 +56,7 @@ print('안녕')
  로케일이 제대로 설정되어있지 않기 때문에 한글을 제대로 표현하지 못한다. 맥에서 R을 사용하는 사람들이 흔히들 겪은 인코딩 문제와는 다른 로케일의 문제다. 개발자가 아닌지라 로케일과 인코딩에 차이에 대해서 정확하게 설명할 수는 없을 것 같아서  [Quora에 올라온 질문](https://www.quora.com/What-is-the-difference-between-locale-and-charset-or-encoding) 에 대한 답변을 대신 달아놓았다. 말하자면 로케일은 문자, 날짜, 정렬 방식 등 해당 지역/언어를 바탕으로 한 맥락을 설정한다. 그리고 인코딩은 특정 문자들이 어떤 bit로 구성되어 있는지를 정의한다. (이 부분에 대해서는 잘못된 부분이 있다면 설명 좀 부탁드립니다 ㅜㅜ)
 
  로케일 설정이 문제라면 강제로 R에서 로케일을 변경해보면 어떨까? 원래 문제가 생기지 않았다면 `ko_KR.UTF-8` 로 설정이 되어있어야 한다. `Sys.setlocale` 함수를 이용해서 강제로 로케일을 바꿔보자.
- 
+
 ```
 Sys.setlocale('LC_ALL', 'ko_KR.UTF-8')
 [1] "ko_KR.UTF-8/ko_KR.UTF-8/ko_KR.UTF-8/C/ko_KR.UTF-8/C"
@@ -61,7 +65,7 @@ print('안녕')
 [1] "안녕"
 ```
 
-로케일을 바꿔보니 일단 한글이 출력은 되는 것을 확인할 수 있었다. 나중에는 또 무슨 문제가 생길지 알 수 없지만 일단 이 정도 수준에서 마음을 놓기로 했다. 
+로케일을 바꿔보니 일단 한글이 출력은 되는 것을 확인할 수 있었다. 나중에는 또 무슨 문제가 생길지 알 수 없지만 일단 이 정도 수준에서 마음을 놓기로 했다.
 
 <br /><br />
 
@@ -80,3 +84,26 @@ print('안녕')
 ---
 
 `Rprofile.site` 세팅을 통해 사전에 동작할 함수들을 등록하는 방식으로 문제를 피해보았다. 하지만 이런 임시방편말고 근본적인 해결책을 찾으신 분이 계시다면 꼭 공유해주셨으면 한다. ㅜㅜ 참고로 위 세팅을 이용하면 매번 쓰는 라이브러리나 함수들을 자동으로 등록시켜버릴 수 있으니 활용하면 좋다.
+
+<br /><br />
+
+# 내용추가
+
+2019-03-04 추가.
+
+아래 댓글에 추가해주신 것과 같이 R의 기본 로케일 설정을 변경해주면 문제의 원인을 해결할 수 있다.
+하지만 개인적으로 `ko_KR` 대신 `en_US` 로 설정할 것을 권한다.
+기본 로케일을 `en_US.UTF-8` 로 설정할 경우, 한글을 출력할 수는 있으면서 에러 메세지는 여전히 영문으로 출력된다.
+에러 메세지를 stackoverflow를 통해 검색해보기 위해서는 영문 에러 메세지를 받는 편이 여러모로 편리하다.
+따라서 터미널에서 다음과 같이 명령어를 입력한다.
+
+```
+# (권장) 옵션1. 모든 R 메세지가 영어로 표시됨 + 한글 출력 가능
+defaults write org.R-project.R force.LANG en_US.UTF-8
+
+# 옵션2. 모든 R 메세지가 한글로 표시됨 (에러 메세지도)
+defaults write org.R-project.R force.LANG ko_KR.UTF-8
+```
+
+참고로 RStudio가 켜져 있는 상태에서는 로케일 변경이 적용되지 않을 수 있다.
+R과 RStudio 종료시킨 후, 터미널에서 명령어를 입력하고 다시 R을 실행시켜서 확인해보자.
