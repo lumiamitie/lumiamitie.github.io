@@ -258,3 +258,4 @@ if (expected_loss_a <= TOC & expected_loss_b <= TOC) {
 - [Chris Stucchio : Bayesian A/B Testing at VWO](https://cdn2.hubspot.net/hubfs/310840/VWO_SmartStats_technical_whitepaper.pdf){:target="_blank"}
 - [The Power of Bayesian A/B Testing](https://medium.com/convoy-tech/the-power-of-bayesian-a-b-testing-f859d2219d5){:target="_blank"}
 - [Is Bayesian A/B Testing Immune to Peeking? Not Exactly](http://varianceexplained.org/r/bayesian-ab-testing/){:target="_blank"}
+- [같은 내용으로 발표할 때 사용한 자료 (Slideshare)](https://www.slideshare.net/lumiamitie/ab-249770435){:target="_blank"}
