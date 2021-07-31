@@ -109,8 +109,8 @@ B안을 선택할 때 손실 = max(0.1 - 0.15, 0) = 0
 시뮬레이션을 통해 생성한 A안과 B안의 클릭 데이터으로 모형을 학습해 의사결정 하는 코드를 작성해보았습니다. 
 복잡한 모형을 작성하고 데이터를 반영하여 학습하려면 베이지안 모델링 프레임워크가 필요한데요. Python에서는 PyMC3를, R에서는 Stan을 사용해 모형을 학습했습니다.
 
-- [PyMC3 Documentation - PyMC3 3.11.2 documentation](https://docs.pymc.io/)
-- [Stan](https://mc-stan.org/)
+- [PyMC3 Documentation](https://docs.pymc.io/){:target="_blank"}
+- [Stan 공식 페이지](https://mc-stan.org/){:target="_blank"}
 
 ## (1) Python + PyMC3
 
@@ -251,10 +251,10 @@ if (expected_loss_a <= TOC & expected_loss_b <= TOC) {
 
 저는 현재 데이터라이즈라는 스타트업에서 현재 Product Owner 역할을 맡고 있습니다. 데이터 분석가 커리어를 따라가다가 갑자기 포지션을 옮기게 되어 처음에는 걱정도 많았지만, 지금은 오히려 더 데이터에 가까운 삶을 살고 있다는 생각이 드네요. 데이터라이즈에서는 이런 공부, 이런 고민들 함께 하실 분들을 계속 모시고 있습니다. 관심있는 분들은 채용 페이지에서 JD를 확인해주세요.
 
-[https://team.datarize.ai/](https://team.datarize.ai/)
+[https://team.datarize.ai/](https://team.datarize.ai/){:target="_blank"}
 
 # 참고자료
 
-- [Bayesian A/B Testing at VWO | Chris Stucchio](https://cdn2.hubspot.net/hubfs/310840/VWO_SmartStats_technical_whitepaper.pdf)
-- [The Power of Bayesian A/B Testing](https://medium.com/convoy-tech/the-power-of-bayesian-a-b-testing-f859d2219d5)
-- [Is Bayesian A/B Testing Immune to Peeking? Not Exactly](http://varianceexplained.org/r/bayesian-ab-testing/)
+- [Chris Stucchio : Bayesian A/B Testing at VWO](https://cdn2.hubspot.net/hubfs/310840/VWO_SmartStats_technical_whitepaper.pdf){:target="_blank"}
+- [The Power of Bayesian A/B Testing](https://medium.com/convoy-tech/the-power-of-bayesian-a-b-testing-f859d2219d5){:target="_blank"}
+- [Is Bayesian A/B Testing Immune to Peeking? Not Exactly](http://varianceexplained.org/r/bayesian-ab-testing/){:target="_blank"}
