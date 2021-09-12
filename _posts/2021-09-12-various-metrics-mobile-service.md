@@ -135,7 +135,7 @@ Net Promoter Score (NPS) = ((추천고객의 수 - 비추천고객의 수) / 전
     - Customer satisfaction score (CSAT) : 1~5 점까지의 점수를 사용해서 만족도를 측정하고, 사용자가 4또는 5를 선택할 경우 고객이 만족했다고 가정합니다. 전체 응답한 사람 중에서 만족했다고 답변한 사용자의 비율을 계산합니다.
     - Net Promoter Score (NPS) : 사용자는 0~10 사이의 숫자를 선택합니다. 8~10 사이로 선택한 사람들은 추천 고객, 0~6 사이로 선택한 사람을 비추천 고객이라고 합니다. 추천고객과 비추천고객의 차이가 전체 응답한 사람 중에서 얼마나 되는지 계산합니다.
 
-[JANDI | 회사 성과 지표로 고민중이라면 NPS 개념은 알고 가자](https://medium.com/jandi-messenger-stories/nps-1-회사-성과-지표로-고민중이라면-nps-개념은-알고-가자-40fdc09f3381){:target="_blank"}
+[회사 성과 지표로 고민중이라면 NPS 개념은 알고 가자](https://medium.com/jandi-messenger-stories/nps-1-회사-성과-지표로-고민중이라면-nps-개념은-알고-가자-40fdc09f3381){:target="_blank"}
 
 ## (11) Goal Achievement
 
